@@ -19,7 +19,7 @@ Semester 1 2020
 | **-**    |            |                                               |
 | **7**    | 27/4       | [Genome graphs] (Yassine)                     |
 | **8**    | 4/5        | [BLAST analysis and databases] (Dave)         |
-| **9**    | 11/5       | [CLinical genomics] (Jimmy)                   |
+| **9**    | 11/5       | [Clinical genomics] (Jimmy)                   |
 | **10**   | 18/5       | [Agricultural genomics] (?)                   |
 | **11**   | 25/5       | [Population genetics] (Bastien)               |
 | **12**   | 1/6        | [Metagenomics 16S profiling] (Raphael)        |
