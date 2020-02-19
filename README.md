@@ -32,7 +32,7 @@ Semester 1 2020
 [HiC analysis]: Practicals/
 [Genome graphs]: Practicals/
 [BLAST analysis and databases]: Practicals/
-[CLinical genomics]: Practicals/
+[Clinical genomics]: Practicals/
 [Agricultural genomics]: Practicals/
 [Population genetics]: Practicals/
 [Metagenomics 16S profiling]: Practicals/
