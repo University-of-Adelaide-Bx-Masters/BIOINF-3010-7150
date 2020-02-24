@@ -36,7 +36,7 @@ We can utilise `bash` in two primary ways:
 1. Interactively through the terminal
 2. Through a script which manages various stages of an analysis
 
-For today we will work interactively, however a complete analysis should be scripted so we have a record of everything we do.
+For most of today we will work interactively, however a complete analysis should be scripted so we have a record of everything we do.
 This is often referred to as *Reproducible Research*, and in reality, our scripts are like an electronic lab book and will help you remember exactly what analyses you have performed.
 When you're writing your thesis, referring back to your scripts will be very useful for writing your methods section.
 
@@ -68,14 +68,14 @@ This are not essential, but is very useful and is in general good practice.
 If you don't follow this step, you will be making your life immeasurably harder and will not be following 'best practice' data analysis.
 For practicals in Transcriptomics Applications where R will be used, everything will be harder if you do not follow the equivalent strategy there.
 
-To make and enter the directory that you will be working in, run the following commands (try to figure out what they mean — we will be going over them more later in the prac).
+To make and enter the directory that you will be working in, run the following commands in the terminal pane (try to figure out what they mean — we will be going over them more later in the prac).
 
 ```
 mkdir ~/Project_0
 cd ~/Project_0
 ```
 
-You will now find yourself in this folder we have created.
+You will now find yourself in this directory you have created.
 If you look at the bottom right pane of your RStudio session you will see `Practical_0` appeared when you executed `mkdir ~/Project_0`.
 If you need to, you can navigate through the directories and select files with the file navigation pane just as you would with a normal file browser.
 
@@ -141,21 +141,26 @@ This can be confusing for many people, so hopefully we'll clear this up in the n
 
 In the above, the `/home` directory itself began with a slash, i.e. `/`.
 On a unix-based system (i.e. MacOS and Linux), the `/` directory is defined to be the root directory of the file system.
-Windows users would be more familiar with seeing `C:\` as the root of the computer, and this is an important difference in the two directory structures.
-Note also that whilst Windows uses the **backslash** (`\`) to indicate a new directory, a Linux-based system uses the **forward slash** (`/`), or more commonly just referred to simply as "slash", marking another but very important difference between the two.
+Windows users would be more familiar with seeing something similar, the `C:\` directory as the root of the main hard drive, although there are fundamental but largely uninteresting differences between these systems.
+Note also that whilst Windows uses the **backslash** (`\`) to separate parts of a directory path, a Linux-based system uses the **forward slash** (`/`), or more commonly just referred to simply as "slash", marking another but very important difference between the two.
 
 #### cd
 {:.no_toc}
 
 Now we know all about where we are, the next thing we need to do is go somewhere else.
 The `bash` command for this is `cd` which we use to **c**hange **d**irectory.
-No matter where we are in a file system, we can move up a directory in the hierarchy by using the command
+No matter (almost) where we are in a file system, we can move up a directory in the hierarchy by using the command
 
 ```
 cd ..
 ```
 
-The string `..` is the convention for *one directory above*, whilst a single dot represents the current directory.
+The string `..` means *one directory above* (the parent directory), whilst a single dot represents the current directory.
+
+#### Question
+{:.no_toc}
+
+From which directory will `cd ..` not move to the parent directory?
 
 
 Enter the above command and notice that the location immediately to the left of the \$ has now changed.
@@ -190,6 +195,7 @@ An **absolute path** on Linux/Mac will always begin with the root directory symb
 For example, `/foo` would refer to a directory called `foo` in the root directory of the file system (NB: This directory doesn't really exist, it's an example).
 In contrast, a **relative path** can begin with either the current directory (indicated by `./`) or a higher-level directory (indicated by `../` as mentioned above).
 A subdirectory `foo` of the current directory could thus be specified as `./foo`, whilst a subdirectory of the next higher directory would be specified by `../foo`.
+If the path does not have a `./` or `../` prefix, the current directory is used, so `foo` is the same as `./foo`.
 
 Another common absolute path is the one mentioned right at the start of the session, specified with `~`, which stands for your home directory `/home/student`, which also starts with a `/`.
 
@@ -201,15 +207,17 @@ cd ../../
 
 **Return to your home directory using** `cd`.
 
-In the above steps, this has been exactly the same as clicking through directories in our familiar folder interface that we're all familiar with.
+In the above steps, this has been exactly the same as clicking through directories in our graphical folder interface that we're all familiar with.
 Now we know how to navigate folders using `bash` instead of the GUI.
-This is an essential skill when logged into a High Performance Computer (HPC) or a Virtual Machine (VM) as the vast majority of these run using Linux.
+This is an essential skill when logged into a High Performance Computer (HPC) or a Virtual Machine (VM) as the vast majority of these run using Linux without a graphical user interface.
 
 ### Important
 {:.no_toc}
 
 *Although we haven't directly discovered it yet, most file systems used on Unix-based systems such as Ubuntu are* **case-sensitive**, whilst **Windows file systems are usually not**.
 For example, the command `PWD` is completely different to `pwd` and doesn't actually exist on your (or any) default installation of `bash`.
+Note that while MacOS is a unix behind the scenes, it has a semi case-insensitive file system by default.
+This will cause you pain if you are not aware of it.
 
 If `PWD` happened to be the name of a command which has been defined in your shell, you would get completely different results than from the intended `pwd` command.
 Most `bash` tools are named using all lower-case, but there are a handful of exceptions.
@@ -226,7 +234,7 @@ This is where we started the session.
 
 #### Tab auto-completion
 
-In a similar way that `RStudio` offered suggestions when we start typing the name of a function, `bash` has the capacity for auto-completion as well.
+Bash has the capacity to provide typing suggestions for command names, file paths and other parts of commands via a feature called auto-completion.
 This will help you avoid a ridiculous number of typos.
 
 If you start typing something bash will complete as far as it can, then will wait for you to complete the path, command or file name.
@@ -278,6 +286,12 @@ rmdir ~/Practical_1
 rmdir ~/Practical_2
 ```
 
+#### Question
+{:.no_toc}
+
+Are the paths `~/Practical_1` and `~/Practical_2` relative or absolute paths?
+
+
 ### Looking at the Contents of a Directory
 
 There is another built-in command (`ls`) that we can use to **list** the contents of a directory.
@@ -288,7 +302,7 @@ Making sure you are in your home directory (`cd ~`), enter the `ls` command as i
 ls
 ```
 
-This is the list of files that we normally see in our traditional folder view that Windows and MacOS show us by default.
+This is the list of files that we normally see in our graphical folder view that Windows and MacOS show us by default.
 We can actually check this output using `RStudio` too, so head to the **Files** tab in the `Files` window.
 Click on the Home icon (![home](images/home.png)) and look at the folders and files you can see there.
 **Do they match the output from `ls`?**
@@ -306,9 +320,7 @@ ls /
 Here you can see a whole raft of directories which contain the vital information for the computer's operating system.
 Among them should be the `/home` directory which is one level above your own home directory, and where the home directories for all users are located on a Linux system.
 
-Have a look inside your Practical_0 directory. 
-This is where you needed to have followed our instructions exactly in Week 1.
-If you didn't create your directory exactly as we asked, you'll have to figure this command out for yourself.
+Have a look inside your Practical_0 directory from somewhere else.
 Tab auto-completion may help you a little.
 
 ```
@@ -321,7 +333,7 @@ Navigate into this folder using you GUI view in `RStudio` and check that everyth
 #### Question
 {:.no_toc}
 
-Try to think of two ways we could inspect the contents of the `/` directory from your own home directory.
+Give two ways we could inspect the contents of the `/` directory from your own home directory.
 
 
 ### Creating a New Directory
@@ -353,7 +365,7 @@ Options are commonly a single letter prefaced with a single dash (`-`), or a wor
 The `ls` command can be given with the option `-l` specified between the command and the directory and gives the output in what is known as *long listing* format.
 
 *Inspect the contents of your current directory using the long listing format.
-Please make sure you can tell the difference between the characters `l` and `1`.*
+Please make sure you can tell the difference between the characters `l` (lower-case letter 'l') and `1` (number one).*
 
 ```
 ls -l
@@ -421,6 +433,12 @@ ls -lhR ~
 This can often save some time, but it is worth noting that not all programmers write their commands in such a way that this convention can be followed.
 The built-in shell commands are usually fine with this, but many NGS data processing functions do not accept this convention.
 
+#### Question
+{:.no_toc}
+
+The letter `l` and the number `1` are often confused in text, but have different meanings. What is the difference in behaviour of `ls` when run with the `-1` (digit) and `-l` (letter) options? How does `ls -1` differ from `ls` without options?
+
+
 #### How To Not Panic
 {:.no_toc}
 
@@ -440,13 +458,13 @@ Some options to try are:
 | <kbd>Ctrl</kbd>+<kbd>Z</kbd> | Suspend current job  |
 
 <kbd>Ctrl</kbd>+<kbd>C</kbd> is usually the first port of call when things go wrong.
-However, sometimes <kbd>Ctrl</kbd>+<kbd>C</kbd> doesn't work but <kbd>Ctrl</kbd>+<kbd>D</kbd> or <kbd>Ctrl</kbd>+<kbd>Z</kbd> will. If us use <kbd>Ctrl</kbd>+<kbd>Z</kbd> you will need to terminate the process with `kill %1`.
+However, sometimes <kbd>Ctrl</kbd>+<kbd>C</kbd> doesn't work but <kbd>Ctrl</kbd>+<kbd>D</kbd> or <kbd>Ctrl</kbd>+<kbd>Z</kbd> will. If you use <kbd>Ctrl</kbd>+<kbd>Z</kbd> you will need to terminate the process with `kill %1`.
 
 ## Manuals and Help Pages
 
 ### Accessing Manuals
 
-In order to help us find what options are able to be specified, every command built-in to the shell has a manual, or a help page which can take some time to get familiar with.
+In order to help us find what options are able to be specified, every command available from the shell has a manual, or a help page which can take some time to get familiar with.
 *These help pages are displayed using the pager known as* `less` which essentially turns the terminal window into a text viewer so we can display text in the terminal window, but with no capacity for us to edit the text, almost like primitive version of Acrobat Reader.
 
 To display the help page for `ls` enter the command
@@ -455,7 +473,7 @@ To display the help page for `ls` enter the command
 man ls
 ```
 
-As beforehand, the space between the arguments is important and in the first argument we are invoking the command `man` which then looks for the *manual* associated with the command `ls`.
+As before, the space between the arguments is important and in the first argument we are invoking the command `man` which then looks for the *manual* associated with the command `ls`.
 To navigate through the manual page, we need to know a few shortcuts which are part of the `less` pager.
 
 Although we can navigate through the `less` pager using up and down arrows on our keyboards, some helpful shortcuts are:
@@ -475,7 +493,7 @@ Look through the manual page for the `ls` command.
 #### Question
 {:.no_toc}
 
-*If we wanted to hide the group names in the long listing format, which extra options would we need set when searching our home directory?*
+If we wanted to hide the group names in the long listing format, which extra options would we need set when searching our home directory?
 
 We can also find out more about the `less` pager by calling it's own `man` page.
 Type the command:
@@ -498,16 +516,13 @@ Unfortunately the methods can vary a little from command to command, so if one m
 
 Sometimes it can take a little bit of looking to find something and it's important to be realise we won't break the computer or accidentally launch a nuclear bomb when we look around.
 It's very much like picking up a piece of paper to see what's under it.
-If you don't find something  at first, just keep looking and you'll find it eventually.
+If you don't find something at first, just keep looking and you'll find it eventually.
 
 
 #### Questions
 {:.no_toc}
 
-Try accessing the manual for the command `man` all the ways you can think of.
-*Was there a difference in the output depending on how we asked to view the manual?*
-
-*Could we access the help page for the command `ls` all three ways?*
+Try accessing the documentation for the command `man` all the ways you can think of. Was there a difference in the output depending on how we asked to view the documentation? Could you access the documentation for the `ls` command all three ways?
 
 
 ## Some More Useful Tricks and Commands
@@ -582,12 +597,6 @@ The most simple function that people learn to write in most languages is called 
 echo 'Hello World'
 ```
 
-That's pretty amazing isn't it and you can make the terminal window say anything you want without meaning it.
-
-```
-echo 'This computer will self destruct in 10 seconds!'
-```
-
 There are a few subtleties about text which are worth noting.
 If you have `man` pages accessible, inspect the `man echo` page and note the effects of the `-e` option. (Unfortunately you can't access this using `echo --help`.)
 The `-e` option allows you to specify tabs (`\t`), new lines (`\n`) and other special characters by using the backslash to signify these characters.
@@ -606,7 +615,11 @@ Now enter
 echo ~
 ```
 
-**Why did this happen?**
+#### Questions
+{:.no_toc}
+
+Why did this happen? What happens when you execute `echo ~/*`? Why?
+
 
 ## Sending Output To A File
 
@@ -619,7 +632,7 @@ wget ftp://ftp.ensembl.org/pub/release-89/fasta/drosophila_melanogaster/ncrna/Dr
 ### Using the `>` symbol
 
 So far, the only output we have seen has been in the terminal (`stdout`).
-We can *redirect the output of a command to a file* instead of to standard output using the greater than symbol (`>`), which we can almost envisage as an arrow.
+We can *redirect the output of a command to a named file* instead of to standard output using the greater than symbol (`>`), which we can almost envisage as an arrow.
 
 As a simple example we can write text to a file.
 Using the command `echo` prints text to `stdout`
@@ -642,8 +655,8 @@ Once you've looked at it, delete it using the command `rm` to make sure you keep
 
 ### Using the `>>` symbol
 
-Another alternative is to use the `>>` symbol, which *only creates a blank file if one doesn't exist.*
-If one with that name already exists, this symbol doesn't create an empty file first, but instead **adds the data from `stdout` to the end** of the existing data within that file.
+Another alternative is to use the `>>` symbol, which differs from the `>` redirection in that it does not first delete the contents of the target file.
+If one with that name already exists it **appends the data from `stdout` to the end** of the existing data within that file.
 
 ```
 echo -e '# Sequence identifiers for all ncrna in dm6' > SeqIDs.txt
@@ -663,13 +676,18 @@ Have a look at the file using `less`
 less SeqIDs.txt
 ```
 
-Now we can add the sequence identifiers
+Now we can add the sequence identifiers by finding lines that start with the character '>'.
 
 ```
 grep -e '^>' Drosophila_melanogaster.BDGP6.ncrna.fa >> SeqIDs.txt
 ```
 
 (You can look up `grep` with the `man` command and find what the `-e` option does.)
+
+#### Questions
+{:.no_toc}
+
+What does the `'^>'` mean in the grep command above?
 
 Inspect this once again using `less`, `head` or `cat`
 
@@ -743,6 +761,12 @@ grep -c 'region' GCF_000182855.2_ASM18285v1_genomic.gff
 ```
 
 If we wanted to count how many genes are annotated, the first idea we might have would be to do something similar using a search for the pattern `'gene'`.
+
+You can see from the uses here that grep can be used for a wide variety of purposes.
+In general the grep command looks for patterns with a stream of data where the patter is described using a language called a regular expression (this is where the 're' in grep comes from).
+Understanding regular expressions is very helpful, but we will leave this to be a thing that you learn as you go.
+You may want to read through the tutorial [here](https://www.regular-expressions.info/tutorial.html) and have [this site](https://regex101.com/) in your toolbox to try out regular expressions.
+
 
 #### Question
 {:.no_toc}
@@ -851,6 +875,18 @@ In the above loop, the same operation was performed on the variable `i`, but the
 Variables in shell scripts can hold numbers or text strings and don't have to be formally defined as in some other languages.
 We will commonly use this technique to list files in a directory, then to loop through a series of operations on each file.
 
+There is a related construct called a `while` loop that continues cycling while a condition is true.
+So a practical could be described in pseudo code as
+
+```
+while [[ ! prac_completed ]]; do work; done
+```
+
+This will test whether the prac is completed and only do the work if is hasn't been (`!` means 'not').
+After work is done, it loops back and checks again.
+It is possible to break out of a loop earlier than the initial condition by using a `break` command.
+This is usually done conditionally using an `if` statement.
+
 ### `if` Statements
 
 If statements are those which only have a binary `yes` or `no` response.
@@ -866,15 +902,15 @@ This differs from a single equals sign which is commonly used to *assign* the fi
 This use of *double operators* is very common, notably you will see `&&` to represent the command *and*, and `||` to represent *or*.
 
 A final useful trick to be aware of is the use of an exclamation mark to reverse a command.
-A good example of this is the use of the command `!=` as the representation of *not equal to* in a logical test.
+A good example of this is the use of the command `!=` as the representation of *not equal to* in a logical test (again the `!` means 'not').
 
 
 ## Shell Scripts
 
 Now that we've been through just some of the concepts and tools we can use when writing scripts, it's time to tackle one of our own where we can bring it all together.
 
-Every bash shell script begins with what is known as a *shebang*, which we would commonly recognise as a hash sign followed by an exclamation mark, i.e `\#!`.
-This is immediately followed by `/bin/bash`, which tells the interpreter to run the command `bash ` in the directory `/bin`.
+Every bash shell script begins with what is known as a *shebang*, which we would commonly recognise as a hash sign followed by an exclamation mark, i.e `#!`.
+This is immediately followed by `/bin/bash`, which tells the interpreter to run the command `bash` in the directory `/bin`.
 This opening sequence is vital and tells the computer how to respond to all of the following commands.
 As a string this looks like:
 
@@ -884,7 +920,7 @@ As a string this looks like:
 
 The hash symbol generally functions as a comment character in scripts.
 Sometimes we can include lines in a script to remind ourselves what we're trying to do, and we can preface these with the hash to ensure the interpreter doesn't try to run them.
-It's presence as a comment here, followed by the exclamation mark, is specifically looked for by the interpreter but beyond this specific occurrence, comment lines are generally ignored by scripts and programs.
+It's presence as a comment here, followed by the exclamation mark, is specifically looked for by the program loader but beyond this specific occurrence, comment lines are ignored in scripts and programs.
 
 ## An Example Script
 Let's now look at some simple scripts.
@@ -892,7 +928,7 @@ These are really just examples of some useful things you can do and may not real
 Hopefully they give you some pointers so you can get going
 
 **Don't try to enter these commands directly in the terminal!!!**
-They are designed to be placed in a script which we will do after we've inspected the contents of the script (see next page).
+They are intended to be placed in a script which we will do after we've inspected the contents of the script (see next page).
 First, let's just have a look through the script and make sure we understand what the script is doing.
 
 
@@ -907,7 +943,7 @@ MESSAGE='This is your first script'
 echo -e "Hello ${ME}\n${MESSAGE}\nWell Done!"
 ```
 
-- You may notice some lines that begin with the # character.
+- You may notice some lines that begin with the `#` character.
 These are *comments* which have no impact on the execution of the script, but are written so you can understand what you were thinking when you wrote it.
 If you look at your code 6 months from now, there is a very strong chance that you won't recall exactly what you were thinking, so these comments can be a good place just to explain something to the future version of yourself.
 There is a school of thought which says that you write code primarily for humans to read, not for the computer to understand.
@@ -959,7 +995,7 @@ ls -lh *.sh
 
 You should see output similar to this:
 ```
--rw-rw-r-- 1 biotech7005 biotech7005  247 Aug  14 14:48 wellDone.sh
+-rw-rw-r-- 1 student student  247 Aug  14 14:48 wellDone.sh
 ```
 
 - Note how the first entry is a dash (`-`) indicating this is a file.
@@ -1038,13 +1074,6 @@ cp wellDone.sh wellDone2.sh
 nano wellDone2.sh
 ```
 
-We may need to set the execute permissions again.
-
-```
-chmod +x wellDone2.sh
-ls -lh *sh
-```
-
 This time we have set the script to *receive input from stdin* (i.e. the keyboard), and we will need to supply a value, which will then be placed in the variable `${ME}`.
 Choose whichever random name you want (or just use "Boris" as in the example) and enter the following
 ```
@@ -1070,12 +1099,11 @@ Here's an example of a script which uses a `for` loop.
 FILES=$(ls)
 
 COUNT=0
-for f in ${FILES};
-  do
-    ((COUNT++))
-    ln=$(wc -l ${f} | cut -f 1 -d ' ')
-    echo "File number ${COUNT} (${f}) has ${ln} lines"
-  done
+for f in ${FILES}; do
+	((COUNT++))
+	ln=$(wc -l ${f} | cut -f 1 -d ' ')
+	echo "File number ${COUNT} (${f}) has ${ln} lines"
+done
 ```
 
 #### Task
