@@ -41,15 +41,15 @@ Semester 1 2020
 
 ### Assessment Tasks
 
-| **Assessment**                                    | **Subject**         |
-|---------------------------------------------------|---------------------|
-| [Assessment 0](Assignments/Assignment1.md)        | Bash                |
-| [Assessment 1]()                                  | PacBio assembly     |
-| [Assessment 2]()                                  | Experimental design |
-| [Assessment 3]()                                  | Publishing a genome |
-| [Assessment 4]()                                  | Ancient DNA         |
-| [Assessment 5]()                                  | Metagenomics        |
-| [Project]() (PG only)                             | Complete Dataset    |
+| **Assessment**                                            | **Subject**         |
+|-----------------------------------------------------------|---------------------|
+| [Assessment 0](Assignments/Assignment_0/bash_questions.md)| Bash                |
+| [Assessment 1]()                                          | PacBio assembly     |
+| [Assessment 2]()                                          | Experimental design |
+| [Assessment 3]()                                          | Publishing a genome |
+| [Assessment 4]()                                          | Ancient DNA         |
+| [Assessment 5]()                                          | Metagenomics        |
+| [Project]() (PG only)                                     | Complete Dataset    |
 
 ### Assessment Checklist
 
