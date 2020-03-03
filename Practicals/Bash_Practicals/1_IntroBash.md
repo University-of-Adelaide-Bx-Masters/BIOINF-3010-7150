@@ -629,6 +629,8 @@ Get the file by running the following command.
 wget ftp://ftp.ensembl.org/pub/release-89/fasta/drosophila_melanogaster/ncrna/Drosophila_melanogaster.BDGP6.ncrna.fa.gz
 ```
 
+You will need to `gunzip` this file too.
+
 ### Using the `>` symbol
 
 So far, the only output we have seen has been in the terminal (`stdout`).
