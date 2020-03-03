@@ -76,7 +76,7 @@ cd ~/Project_0
 ```
 
 You will now find yourself in this directory you have created.
-If you look at the bottom right pane of your RStudio session you will see `Practical_0` appeared when you executed `mkdir ~/Project_0`.
+If you look at the bottom right pane of your RStudio session you will see `Project_0` appeared when you executed `mkdir ~/Project_0`.
 If you need to, you can navigate through the directories and select files with the file navigation pane just as you would with a normal file browser.
 
 Making this directory to work in will help you keep everything organised so you can find your work later.
@@ -99,13 +99,13 @@ Now we have setup our VM, the basic aims of the following sessions are:
 Once you're in the `Terminal` section of `RStudio`, you will notice some text describing your computer of the form
 
 ```
-student@bioinf-xx:~/Practical_0$
+student@bioinf-xx:~/Project_0$
 ```
 
 The first section of this describes your username (`student`) and the machine `@bioinf-xx`.
 The end of the machine identifier is marked with a colon (`:`).
 
-After the colon, the string (`~/Practical_0`) represents your current directory, whilst the dollar sign (`$`) indicates the end of this path and the beginning of where you will type commands.
+After the colon, the string (`~/Project_0`) represents your current directory, whilst the dollar sign (`$`) indicates the end of this path and the beginning of where you will type commands.
 This is the standard interface for the Bourne-again Shell, or `bash`.
 
 ### Where are we?
@@ -123,13 +123,13 @@ The command `pwd` is what we use to **p**rint the current (i.e. **w**orking) **d
 Even though we are not using `R`, if you have setup the R project like we instructed above this command will probably return the directory.
 
 ```
-/home/student/Practical_0
+/home/student/Project_0
 ```
 
 Check with your neighbour to see if you get the same thing.
 If not, see if you can figure out why.
 
-At the beginning of this section we mentioned that `~/Practical_0` represented your current directory, but now our machine is telling us that our directory is `/home/student/Practical_0`.
+At the beginning of this section we mentioned that `~/Project_0` represented your current directory, but now our machine is telling us that our directory is `/home/student/Project_0`.
 This raises an important and very useful point.
 In `bash` the `~` symbol is a shortcut for the home directory of the current user.
 If Dan was logged in, this would be `/home/Dan` whilst if Steve was logged in this would be `/home/Steve`.
@@ -223,10 +223,10 @@ If `PWD` happened to be the name of a command which has been defined in your she
 Most `bash` tools are named using all lower-case, but there are a handful of exceptions.
 
 We can also change into a specific directory by giving the path to the `cd` command using text instead of dots and symbols.
-Making sure you're in your home directory we can change back into the Practical_0 directory
+Making sure you're in your home directory we can change back into the Project_0 directory
 ```
 cd
-cd Practical_0
+cd Project_0
 pwd
 ```
 
@@ -249,7 +249,7 @@ mkdir Practical_1
 mkdir Practical_2
 ```
 
-Now to change back into your Practical_0 folder, type `cd Pr` without hitting enter.
+Now to change back into your Project_0 folder, type `cd Pr` without hitting enter.
 Instead hit your <kbd>Tab</kbd> key and `bash` will complete as far as it can.
 If you have setup your directories correctly, you should see this complete to `cd Practical_` which is unfinished.
 You also have `Practical_1` and `Practical_2` in your home folder, so `bash` has gone as far as it can.
@@ -320,12 +320,12 @@ ls /
 Here you can see a whole raft of directories which contain the vital information for the computer's operating system.
 Among them should be the `/home` directory which is one level above your own home directory, and where the home directories for all users are located on a Linux system.
 
-Have a look inside your Practical_0 directory from somewhere else.
+Have a look inside your Project_0 directory from somewhere else.
 Tab auto-completion may help you a little.
 
 ```
 cd 
-ls Practical_0
+ls Project_0
 ```
 
 Navigate into this folder using you GUI view in `RStudio` and check that everything matches.
@@ -339,10 +339,10 @@ Give two ways we could inspect the contents of the `/` directory from your own h
 ### Creating a New Directory
 
 Now we know how to move around and view the contents of a directory, we should learn how to create a new directory using bash instead of the GUI folder view you are used to.
-Navigate to your `Practical_0` folder using `bash`.
+Navigate to your `Project_0` folder using `bash`.
 
 ```
-cd ~/Practical_0
+cd ~/Project_0
 ```
 
 Now we are in a suitable location, let's create a directory called `test`.
@@ -563,7 +563,7 @@ Now we've learned about a large number of commands, let's try performing somethi
 We'll download a file from the internet, then look through the file.
 **In each step remember to add the filename if it's not given!**
 
-1. Use the `cd` command to **make sure you are in the directory** `Practical_0`
+1. Use the `cd` command to **make sure you are in the directory** `Project_0`
 2. Use the command `wget` to download the `gff` file `ftp://ftp.ensembl.org/pub/release-89/gff3/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.89.gff3.gz`
 3. Now unzip this file using the command `gunzip`.
 (Hint: After typing `gunzip`, use tab auto-complete to add the file name.)
@@ -964,7 +964,7 @@ Although we have initially set them to be one value, they are still variables.
 
 Let's create an empty file which will become our script.
 We'll give it the suffix `.sh` as that is the common convention for bash scripts.
-Make sure you're in the `Practical_0` folder, then enter:
+Make sure you're in the `Project_0` folder, then enter:
 
 ```
 touch wellDone.sh
@@ -1108,5 +1108,5 @@ done
 
 #### Task
 {:.no_toc}
-Save this as a script in the `Practical_0` folder called `lineCount.sh`.
+Save this as a script in the `Project_0` folder called `lineCount.sh`.
 **Add comments** where you think you need them to make sure you understand what's happening.
