@@ -11,7 +11,7 @@ Semester 1 2020
 | **Week** | **Monday** | **Practical**                                 |
 |----------|------------|-----------------------------------------------|
 | **1**    | 2/3        | [Introduction to Bash] (Dan) |
-| **2**    | 9/3        | [SAMTools and alignments] (Jimmy)             |
+| **2**    | 9/3        | [SAMTools and alignments] (Nathan/Jimmy)      |
 | **3**    | 16/3       | [Short read bacterial assembly] (Nathan)      |
 | **4**    | 23/3       | [Short and long read alignment] (Nathan)      |
 | **5**    | 30/3       | [Bacterial genome assembly] (Lloyd)           |
