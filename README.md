@@ -8,21 +8,21 @@ Semester 1 2020
 
 ### Practical Timetable
 
-| **Week** | **Monday** | **Practical**                                 |
-|----------|------------|-----------------------------------------------|
-| **1**    | 2/3        | [Introduction to Bash] (Dan) |
-| **2**    | 9/3        | [SAMTools and alignments] (Nathan/Jimmy)      |
-| **3**    | 16/3       | [Short read bacterial assembly] (Nathan)      |
-| **4**    | 23/3       | [Short and long read alignment] (Nathan)      |
-| **5**    | 30/3       | [Bacterial genome assembly] (Lloyd)           |
-| **6**    | 6/4        | [HiC analysis] (Lloyd/Ning)                   |
-| **-**    |            |                                               |
-| **7**    | 27/4       | [Genome graphs] (Yassine)                     |
-| **8**    | 4/5        | [BLAST analysis and databases] (Dave)         |
-| **9**    | 11/5       | [Clinical genomics] (Jimmy)                   |
-| **10**   | 18/5       | [Agricultural genomics] (?)                   |
-| **11**   | 25/5       | [Population genetics] (Bastien)               |
-| **12**   | 1/6        | [Metagenomics 16S profiling] (Raphael)        |
+| **Week** | **Monday** | **Practical**                                     |
+|----------|------------|---------------------------------------------------|
+| **1**    | 2/3        | [Introduction to Bash] (Dan)                      |
+| **2**    | 9/3        | [Read Quality Control and Mapping] (Nathan/Jimmy) |
+| **3**    | 16/3       | [Short read bacterial assembly] (Nathan)          |
+| **4**    | 23/3       | [Short and long read alignment] (Nathan)          |
+| **5**    | 30/3       | [Bacterial genome assembly] (Lloyd)               |
+| **6**    | 6/4        | [HiC analysis] (Lloyd/Ning)                       |
+| **-**    |            |                                                   |
+| **7**    | 27/4       | [Genome graphs] (Yassine)                         |
+| **8**    | 4/5        | [BLAST analysis and databases] (Dave)             |
+| **9**    | 11/5       | [Clinical genomics] (Jimmy)                       |
+| **10**   | 18/5       | [Agricultural genomics] (?)                       |
+| **11**   | 25/5       | [Population genetics] (Bastien)                   |
+| **12**   | 1/6        | [Metagenomics 16S profiling] (Raphael)            |
 
 [Introduction to Bash]: Practicals/Bash_Practicals/1_IntroBash.md
 [SAMTools and alignments]: Practicals/
