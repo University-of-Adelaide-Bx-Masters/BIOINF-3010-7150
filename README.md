@@ -11,7 +11,7 @@ Semester 1 2020
 | **Week** | **Monday** | **Practical**                                     |
 |----------|------------|---------------------------------------------------|
 | **1**    | 2/3        | [Introduction to Bash] (Dan)                      |
-| **2**    | 9/3        | [Read Quality Control and Mapping] (Nathan) [SAMTools and alignments] (Jimmy) |
+| **2**    | 9/3        | [Read Quality Control] (Nathan) [SAMTools and alignments] (Jimmy) |
 | **3**    | 16/3       | [Short read bacterial assembly] (Nathan)          |
 | **4**    | 23/3       | [Short and long read alignment] (Nathan)          |
 | **5**    | 30/3       | [Bacterial genome assembly] (Lloyd)               |
@@ -25,6 +25,7 @@ Semester 1 2020
 | **12**   | 1/6        | [Metagenomics 16S profiling] (Raphael)            |
 
 [Introduction to Bash]: Practicals/Bash_Practicals/1_IntroBash.md
+[Read Quality Control]: Practicals/Alignments_Practicals/
 [SAMTools and alignments]: Practicals/Alignments_Practicals/alignment-cram.md
 [Short read bacterial assembly]: Practicals/
 [Short and long read alignment]: Practicals/
