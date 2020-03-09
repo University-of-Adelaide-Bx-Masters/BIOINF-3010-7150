@@ -289,7 +289,7 @@ time trimmomatic PE \
 ```
 
 A common confusion that novice bioinformaticians have is about how command line arguments are specified.
-Are they specified using a single hyphen (e.g. `-t`), two hyphens (e.g. `--threads) or other?
+Are they specified using a single hyphen (e.g. `-t`), two hyphens (e.g. `--threads`) or other?
 Are the values separated with a space (e.g. `-t 2`), and equal sign (e.g. `-t=2`) or no space at all (e.g. `-t2`)?
 
 There are some general guidlines, but ultimately it is up to the developer of the tool as to how they design/write their software.
