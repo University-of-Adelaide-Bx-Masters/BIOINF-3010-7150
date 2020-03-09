@@ -399,13 +399,23 @@ Each genomics application, whether it be Whole Genome Shotgun (WGS) sequencing, 
 
 For example, lets look at these four sequencing coverage plots:
 
-1. RNA-seq [(taken from Lahrens _et al_ 2014 _Genome Biology_)](https://www.researchgate.net/profile/Michael_Black7/publication/263548295/figure/fig3/AS:268210452824079@1440957763982/Sources-of-bias-in-RNA-seq-coverage-A-RNA-seq-coverage-plots-for-IVT-transcript.png)
+1. RNA-seq 
 
-2. WGS [(taken from http://omics.fiu.edu)](http://omics.fiu.edu/assets/images/jbrowse-each-1170x670.png)
+![Lahrens _et al_ 2014 _Genome Biology_](https://www.researchgate.net/profile/Michael_Black7/publication/263548295/figure/fig3/AS:268210452824079@1440957763982/Sources-of-bias-in-RNA-seq-coverage-A-RNA-seq-coverage-plots-for-IVT-transcript.png)
 
-3. Exome sequencing [(teken from Andrea Telatin figshare presentation "Target Enrichment with NGS: Cardiomyopathy as a case study - BMR Genomics")](https://image.slidesharecdn.com/bmrtetargetenrichmentcmpdcardiomyopathy-141017132029-conversion-gate01/95/target-enrichment-with-ngs-cardiomyopathy-as-a-case-study-bmr-genomics-27-638.jpg)
+2. WGS
 
-4. ChIP-seq [(taken from Park 2009 _Nature Reviews Genetics_)](https://bloggenohub.files.wordpress.com/2014/11/chip-seq-peaks.jpg)
+![http://omics.fiu.edu](http://omics.fiu.edu/assets/images/jbrowse-each-1170x670.png)
+
+3. Exome sequencing
+
+![Andrea Telatin figshare presentation "Target Enrichment with NGS: Cardiomyopathy as a case study - BMR Genomics"](https://image.slidesharecdn.com/bmrtetargetenrichmentcmpdcardiomyopathy-141017132029-conversion-gate01/95/target-enrichment-with-ngs-cardiomyopathy-as-a-case-study-bmr-genomics-27-638.jpg)
+
+4. ChIP-seq
+
+![Park 2009 _Nature Reviews Genetics_](https://bloggenohub.files.wordpress.com/2014/11/chip-seq-peaks.jpg)
+
+ 
 
 ## How do we look at our alignment?
 
