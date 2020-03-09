@@ -73,7 +73,7 @@ The above video picks up after the process of fragmentation, as most strategies 
 This step may vary depending on your experiment, but the important concept to note during sample preparation is that the DNA insert has multiple oligonucleotide sequences ligated to either end, which together constitute the "sequencing template".
 These include 1) the sequencing adapters, 2) index(es) and 3) the flow-cell binding oligos:
 
-![Sequencing Template](../images/seq-template.jpg)
+![Sequencing Template](images/seq-template.jpg)
 
 ### Insert
 
@@ -150,7 +150,7 @@ Therefore, the length of the sequence string and the quality string should match
 Quality values are numbers from `0` to `93` and are often referred to as "Phred" quality scores.
 To encode the quality scores as a single character, the scores are mapped to the ASCII table:
 
-![ASCII table](../images/Standard-ASCII-Table_large.jpg)
+![ASCII table](images/Standard-ASCII-Table_large.jpg)
 
 https://www.commfront.com/pages/ascii-chart
 
