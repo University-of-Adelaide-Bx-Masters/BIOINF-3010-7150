@@ -24,8 +24,11 @@ mkdir --parents ~/Project_1/data
 cp ~/data/genomics/ERR1949188_?.fastq.gz ~/Project_1/data/
 ```
 
- * What did the command line argument `--parents` do?
- * What was the effect of using `?` in the filename during the `cp` command?
+### Questions
+{:.no_toc}
+
+ - *What did the command line argument `--parents` do?*
+ - *What was the effect of using `?` in the filename during the `cp` command?*
 
 You will now find yourself in this directory you have created.
 If you look at the bottom right pane of your RStudio session you will see `Project_1` appeared when you executed `mkdir ~/Project_1`.
@@ -124,7 +127,10 @@ gunzip \
   | head --lines 8
 ```
 
- * What do you think `gunzip` is doing here?
+### Question
+{:.no_toc}
+
+ - *What do you think `gunzip` is doing here?*
 
 You should see something like the following.
 Here we have 2 reads in FASTQ format, each occupying 4 lines, where the lines represent:
@@ -213,45 +219,61 @@ Firstly we’ll just look at a selection of the plots.
 By default, FastQC outputs a `zip` file and an `html` file alongside each FASTQ file it processed.
 In the "Files" pane, navigate to the `~/Project_1/data` directory and click each of the `html` filenames in turn, selecting "View in Web Browser" as you go.
 
+### Questions
+{:.no_toc}
+
 Using the FastQC Reports answer the following questions:
 
- * How many reads are in each of the two FASTQ files? 741k
- * How many read pairs are there? 741k
- * How many reads in total across both files? 1.48M
- * How many Mbp of sequence information is there across both files? 139.4 Mbp
- * Coverage (x or fold) is a measure of how many times you would expect each base in the genome to be coverage by an aligned base after aligning all the reads. It is simply calculated as the total bases in your reads divided by the genome size. Given the genome of E. coli K-12 is ~4.6 Mbp in size, how many fold coverage do we have? 30.3x
+ - *How many reads are in each of the two FASTQ files?*
+ - *How many read pairs are there?*
+ - *How many reads in total across both files?*
+ - *How many Mbp of sequence information is there across both files?*
+ - *Coverage (x or fold) is a measure of how many times you would expect each base in the genome to be coverage by an aligned base after aligning all the reads. It is simply calculated as the total bases in your reads divided by the genome size. Given the genome of E. coli K-12 is ~4.6 Mbp in size, how many fold coverage do we have?*
 
-**Per Base Sequence Quality**
+### Per Base Sequence Quality
+{:.no_toc}
 
 Click on the `Per base sequence quality` hyper-link on the left of the page & you will see a boxplot of the QC score distributions for every position in the read.
 These are the Phred scores we discussed earlier, and this plot is usually the first one that bioinformaticians will look at for making informed decisions about the overall quality of the data and settings for later stages of the analysis.
 
-*What do you notice about the quality scores as you move from the 5` to the 3` end of the reads?*
+#### Questions
+{:.no_toc}
 
-*Do you think we might need to trim reads with poor quality 3' ends?*
+ - *What do you notice about the quality scores as you move from the 5` to the 3` end of the reads?*
+ - *Do you think we might need to trim reads with poor quality 3' ends?*
 
-**Per Base Sequence Content**
+### Per Base Sequence Content
+{:.no_toc}
+
 During the preparation of the sequencing library, the genome is randomly fragmented.
 As such we would expect to observe relatively flat horizontal lines across this plot.
 Demonstrating that we have indeed sampled fragments at random across the genome.
 Depending on the GC content of the species, we might see the A and T lines tracking together but separately from the G and C lines.
-
-*What do you think the GC content of E. coli K-19 is?*
-
 It is also relatively common to see a drift towards G towards the end of a read.
 This is because most modern Illumina sequencing is performed on a "2-colour" system and G is the absence of both colours.
 
-**Overrepresented Sequences**
+#### Questions
+{:.no_toc}
+
+ - *What do you think the GC content of E. coli K-19 is?*
+
+### Overrepresented Sequences
+{:.no_toc}
+
 Here we can see any sequence which are more abundant than would be expected.
 Sometimes you will see sequences here that match the adapters used in the library prep.
 
-**Adapter Content**
+### Adapter Content
+{:.no_toc}
+
 For whole genome shotgut sequencing library preps we expect to see little adapter content in the reads.
 If there is a significant up-turn in adapter content towards the 3' end, this may indicate the genomic DNA was over-fragmented during libarary prep.
 If this is significant enough, it is worth asking the sequencing service provider to redo the library prep and sequencing.
 
-*Do you think it will be necessary to look for and remove adpater sequences from the reads?*
+#### Questions
+{:.no_toc}
 
+ - *Do you think it will be necessary to look for and remove adpater sequences from the reads?*
 
 ## Adapter and Quality Trimming Reads
 
@@ -289,17 +311,18 @@ time trimmomatic PE \
 ```
 
 A common confusion that novice bioinformaticians have is about how command line arguments are specified.
-Are they specified using a single hyphen (e.g. `-t`), two hyphens (e.g. `--threads`) or other?
-Are the values separated with a space (e.g. `-t 2`), and equal sign (e.g. `-t=2`) or no space at all (e.g. `-t2`)?
+Are they specified using a single hyphen (e.g. `-t`), two hyphens (e.g. `--threads`), no hyphen (e.g. `threads`) or something else?
+Are the values separated with a space (e.g. `-t 2`), and equal sign (e.g. `-t=2`), no space at all (e.g. `-t2`), a colon (e.g. `t:2`) or something else?
 
 There are some general guidlines, but ultimately it is up to the developer of the tool as to how they design/write their software.
 The best thing to do is to read the manual and the help page to understand how it wants these thing specified.
 
-*By specifying trimmomatic to use 2 CPUs/cores, how much quicker does trimmomatic finish?*
+#### Questions
+{:.no_toc}
 
-*Does it matter what order the trimming steps are specified? Try specifying `MINLEN` before `ILLUMINACLIP` and then at the end. What happend and why?*
-
-*How many read pairs survived all the trimming and length filters?*
+ - *By specifying trimmomatic to use 2 CPUs/cores, how much quicker does trimmomatic finish?*
+ - *Does it matter what order the trimming steps are specified? Try specifying `MINLEN` before `ILLUMINACLIP` and then at the end. What happend and why?*
+ - *How many read pairs survived all the trimming and length filters?*
 
 ### fastp
 
@@ -317,9 +340,11 @@ time fastp \
   --length_required 75
 ```
 
-*How much faster is `fastp` than `trimmomatic`?*
+#### Questions
+{:.no_toc}
 
-*Do they perform comparably as each other in terms of the numbers of sequences passing the trimming/filtering?*
+ - *How much faster is `fastp` than `trimmomatic`?*
+ - *Do they perform comparably as each other in terms of the numbers of sequences passing the trimming/filtering?*
 
 ## Post-Trimming FastQC
 
