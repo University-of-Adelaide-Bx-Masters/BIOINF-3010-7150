@@ -397,7 +397,7 @@ The stacks of reads that align to certain positions on the genome, or what Bioin
 By viewing the alignments and visalising the "coverage" of specific areas of the reference, you are able to diagnose events that happened during data processing.
 Each genomics application, whether it be Whole Genome Shotgun (WGS) sequencing, RNA sequencing, or targeted approaches such as ChIP-seq or Exome sequencing, has a characteristic alignment pattern.
 
-For example, lets look at these four sequencing coverage plots:
+For example, lets look at some coverage figures taken from recent publications or websites that display the coverage for that particular genomics application:
 
 1. RNA-seq 
 
@@ -415,7 +415,11 @@ For example, lets look at these four sequencing coverage plots:
 
 ![Park 2009 _Nature Reviews Genetics_](https://bloggenohub.files.wordpress.com/2014/11/chip-seq-peaks.jpg)
 
- 
+### Task
+
+- Describe the coverage that is displayed in each of the above figures and discuss the technical and/or biological functions that govern them
+    - i.e. why does the coverage look the way it does?
+
 
 ## How do we look at our alignment?
 
