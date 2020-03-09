@@ -8,9 +8,9 @@ As with last week's practicals, you will be using RStudio to interact with your 
 
 See [last week's practical](../Bash_Practicals/1_IntroBash.md#rstudio) to remind yourself how to connect to your VM.
 
-# Read Quality Control
+# Setup for today
 
-## Setup the directory for today
+## Working Directory
 
 First we will set up a directory for today's practical.
 In general it is very worthwhile to keep all your project-specific code and data organised into a consistent location and structure.
@@ -38,6 +38,16 @@ If you need to, you can navigate through the directories and select files with t
 Making, and working within, this directory will help you keep everything organised so you can find your work later.
 Managing your data and code intelligently is a considerable challenge in bioinformatics.
 
+## Software Environment
+
+For the practicals, we have configured conda software environments to provide you with convienient access to the software you need.
+In order to have access to, and use, the software for today's practical, you need to activate the conda environment called "assembly":
+
+```bash
+conda activate assembly
+```
+
+# Read Quality Control
 
 ## Initial Goals
 
