@@ -8,7 +8,7 @@ Fundamental to the analysis of genomic data is the availablility, or lack there 
 The reference sequence gives a substrate to compare to and is critical for many routine Bioinformatics tasks.
 In an alignment tasks, sequenced DNA fragments (or "reads") are matched to the reference sequence in a process called "Alignment".
 
-Today we are not go into the details of the alignment process, but get stuck into some common commands and activities that will enable you to assess the quality of your alignments. 
+Today we are not go into the details of the alignment process, but get stuck into some common commands and processes that will enable you to assess the quality of your alignments. 
 
 ## Tutorial Outcomes
 
@@ -19,11 +19,11 @@ Today we are not go into the details of the alignment process, but get stuck int
 
 ## Before high-throughput sequencing: Why do we need a format to store alignments?
 
-While many modern genome sequences were produced at the start of the 21st century, sequencing machines were limited in their throughput i.e. the number of DNA fragments that one could sequence at one time.
+While many modern genome sequences were produced at the start of the 21st century, sequencing machines were limited in their throughput i.e. the number of DNA fragments that could be sequenced at one time.
 Bioinformatics and genomics analyses during this time centred mainly on sequence searching with local alignment tools such as the very popular Basic Local Alignment Search Tool (BLAST).
 BLAST is one of the most widely used computational tools in biological research, [and two version of the program are the 12th and 14th most cited research publications of ALL TIME](https://www.nature.com/news/the-top-100-papers-1.16224).
 
-Local alignment works by matching substrings of a sequence to a reference database, and this is [computationally intensive when scaling to large numbers of sequence searches](https://biology.stackexchange.com/questions/11263/what-is-the-difference-between-local-and-global-sequence-alignments).
+Local alignment works by matching substrings of a sequence to a reference database, which is [computationally intensive when scaling to large numbers of sequence searches](https://biology.stackexchange.com/questions/11263/what-is-the-difference-between-local-and-global-sequence-alignments).
 As high-throughput sequencing machines were further developed in the late 2010s, global or "end-to-end" alignments offered a faster and more appropriate way of identifying the position of a DNA fragment if the sample was close to the appropriate reference sequence.
 
 So how do you store alignment information for each DNA fragment?
@@ -39,9 +39,8 @@ The basic structure of the SAM format is depicted in the figure below:
 ![](https://us.v-cdn.net/5019796/uploads/editor/f4/uuzmf2cbau1y.png)
 
 SAM files contain a lot of information, with information for every mapped fragments (and sometimes unmapped sequences) all being detailed on a single line of text.
-Text data is generally takes up a large amount of storage space, and so a SAM file can take up a significant proportion of storage allocations when running alignment tasks.
-Because of the large file size, SAM files are rarely stored in the text representation, and instead we reduce the file size down by using a form of compression
-BAM and CRAM are both compressed forms of SAM.
+Text data generally takes up a large amount of storage space, meaning SAM files are an inefficiant storage format for alignment data.
+Instead, storage formats such as BAM and CRAM are often favoured over SAM as they represent the alignment information in a compressed form. 
 BAM (for Binary Alignment Map) is a lossless compression while CRAM can range from lossless to lossy depending on how much compression you want to achieve (up to very much indeed). 
 Lossless means that we can completely recover all the data when converting between compression levels, while lossy removes a part of the data that cannot be recovered when converting back to its uncompressed state.
 BAMs and CRAMs hold the same information as their SAM equivalent, structured in the same way, however what is different between them is how the files themselves are encoded.
@@ -80,8 +79,8 @@ unzip tutorial_data.zip
 As mentioned above, the size differences between SAM, BAM and CRAM files can be surprising.
 From today's CRAM file, the converted SAM and BAM files are much larger in size. 
 
-33G SRR3096662_CJM20_Term_Female_Aligned.sam
-2.8G    SRR3096662_CJM20_Term_Female_Aligned.bam
+33G SRR3096662_CJM20_Term_Female_Aligned.sam \
+2.8G    SRR3096662_CJM20_Term_Female_Aligned.bam \
 1.5G    SRR3096662_CJM20_Term_Female_Aligned.cram
 
 A 33GB SAM file can be compressed into a 2.8GB BAM file and 1.5GB CRAM file!
@@ -99,7 +98,7 @@ samtools view SRR3096662_CJM20_Term_Female_Aligned.cram
 ```
 
 As you can probably see, there is a tonne of data flashing on your screen.
-You can interupt this stream by using pressing `Ctrl + C` a few times, which should cancel the command.
+You can interupt this stream by using/pressing `Ctrl + C` a few times, which should cancel the command.
 
 What you just saw was the alignment information for each read in the `SRR3096662` sample. 
 Lets use the pipe (`|`) and `head` command to just give us the first five lines of the file so we can start to make sense of the file format.
@@ -226,11 +225,9 @@ Table: Phred quality scores are logarithmically linked to error probabilities
 
 Unlike a base quality score, which is the probability that the base is an error, `MAPQ` score is the probability that the sequence read is incorrectly mapped by the aligner.
 So by using the `MAPQ` score, we can filter our BAM file to only include the most uniquely, and therefore _most confident_, alignments.
-One of the authors of a number of alignment algorithms saw as `bwa` and `minimap2` Heng Li (Harvard/MIT), who was also one of the authors of the SAM specifications itself, has an [interesting blog post from 2009](http://lh3lh3.users.sourceforge.net/mapuniq.shtml) in which he talks about uniqueness and its relationship to mapping quality:
+Heng Li (Harvard/MIT), who is the author of a number of alignment algorithms (`bwa` and `minimap2`) and one of the contributing authors for the SAM specification itself, has an [interesting blog post from 2009](http://lh3lh3.users.sourceforge.net/mapuniq.shtml) in which he talks about uniqueness and its relationship to mapping quality:
 
-```
-Uniqueness was initially introduced to measure the reliability of ungapped short read alignment with a read aligned in full length. It is not a proper concept for generic alignments. For generic alignments, what is much more useful is mapping quality, first introduced in my maq paper. Mapping quality is phred-scaled probability of the alignment being wrong. It unambiguously measures the alignment reliability in a universal way.
-```
+> Uniqueness was initially introduced to measure the reliability of ungapped short read alignment with a read aligned in full length. It is not a proper concept for generic alignments. For generic alignments, what is much more useful is mapping quality, first introduced in my maq paper. Mapping quality is phred-scaled probability of the alignment being wrong. It unambiguously measures the alignment reliability in a universal way.
 
 There are some issues in how `MAPQ` is implemented in [some alignment algorithms](https://sequencing.qcfail.com/articles/mapq-values-are-really-useful-but-their-implementation-is-a-mess/), but generally it can be used to filter out ambiguously aligned reads that are often found in repetitive regions.
 
@@ -308,14 +305,12 @@ Generally, this is by looking at two metrics:
 The primary goal of genome sequence alignment is where you identify the exact position of each read on the reference genome, however it is often the case that a read can map to multiple locations, termed "multi-mapped reads".
 In the SAM specifications you can find the full definition of multi-mapping:
 
-```
-Multiple mapping: The correct placement of a read may be ambiguous, e.g., due to repeats. In this case,
+> Multiple mapping: The correct placement of a read may be ambiguous, e.g., due to repeats. In this case,
 there may be multiple read alignments for the same read. One of these alignments is considered
 primary. All the other alignments have the secondary alignment flag set in the SAM records that
 represent them. All the SAM records have the same QNAME and the same values for 0x40 and 0x80
 flags. Typically the alignment designated primary is the best alignment, but the decision may be
 arbitrary.
-```
 
 So each read has a _primary_ alignment (i.e. region which the read aligned to which is **usually** the best), and then any subsequent alignment is designated the _secondary_ alignment.
 Lets take one of the reads from our CRAM file and see whether it is found multiple times
@@ -334,20 +329,18 @@ SRR3096662.14934677	403	1	652777	0	125M	=	652743	-159	TTCAAAAATGAAGGAGAAATTAAGAC
 ```
 
 Multi-mapped reads are problematic because we are not confident in their position in the genome, and therefore have a high probability of being erroneous.
-And this is reflective in the MAPQ score as well.
-As you learnt previously, your MAPQ score is the probability of the read is incorrectly mapped, or more importantly, the probability that the read maps _uniquely_.
-So if you look at the 5th column of the specific "SRR3096662.14934677" reads, you see that they are all have a MAPQ value of zero.
+This is reflective in the MAPQ score as well.
+As you learnt previously, your MAPQ score is the probability that the read is incorrectly mapped, or more importantly, the probability that the read maps _uniquely_.
+So if you look at the 5th column of the specific "SRR3096662.14934677" reads, you see that they all have a MAPQ value of zero.
 However if you look at the SAM flag field, the reads contain different flags depending on their location.
 
 Additionally, you can check to see how many mappings a read has using the `NH:` tag in the last (12th) field of the line.
 That field is optional but many aligners, including the one that we have used i.e. STAR, add the NH tag.
 From the STAR manual ():
 
-```
-The number of loci Nmap a read maps to is given by NH:i: field. Value of 1 corresponds to
+> The number of loci Nmap a read maps to is given by NH:i: field. Value of 1 corresponds to
 unique mappers, while values >1 corresponds to multi-mappers. HI attrbiutes enumerates multiple
 alignments of a read starting with 1.
-```
 
 ### Questions
 
@@ -363,7 +356,7 @@ During the sequencing library process, DNA or cDNA fragments are amplified in a 
 If the initial unique targets are saturated during this process you can lead to a scenario where replicated fragments are amplified, leading to what we refer to as "Library Duplicates" or "PCR Duplicates". 
 Additionally, the Illumina machine itself can introduce another duplication effect called an "Optical Duplicate" which is a result of the position of a sequencing cluster on the sequencing flowcell. 
 A few programs exist that can identify these duplicates and remove them from the final BAM file.
-To do this, these programs identify sets of reads pairs that have	the	same unclipped alignment start	and unclipped alignment end (i.e. the reads start and end at the same alignment position).
+To do this, these programs identify sets of reads pairs that have the same unclipped alignment start and unclipped alignment end (i.e. the reads start and end at the same alignment position).
 
 Duplicates can be particularly problematic in variant calling where it violates the assumptions of variant identification and has the potential to over-inflate sequencing error.
 However, the catch is that unless you have paired-read sequences (which we do not), its very difficult for you to know that your read is a duplicate in single-end reads because you don't sequence the other end of the fragment.
