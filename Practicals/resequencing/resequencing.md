@@ -1,4 +1,4 @@
-# Week 3 Practical Part 1
+# Week 3 Practical Part 1: SARS-CoV-2 Resequencing
 {:.no_toc}
 
 * TOC
@@ -30,19 +30,19 @@ conda activate assembly
 
 ## Data
 
-For the next couple of weeks we're going to be using some very topical data, COVID-19 data.
+For the next couple of weeks we're going to be using some very topical data, SARS-CoV-2 data, the virus causing COVID-19.
 We will be looking at this data in different ways, providing insights into how bioinformaticians analyses these types of data.
 
 ### RefSeq Genome Assembly
 
-The most recent COVID-19 genome assembly is [NC_045512.2](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2).
+The most recent SARS-CoV-2 genome assembly is [NC_045512.2](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2).
 
 This assembly was generated from a sample collected in Dec 2019 and submitted to NCBI on 13th Jan 2020 as [NC_045512.1](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.1).
 Subsequently, [NC_045512.1](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.1) was replaced by [NC_045512.2](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2) on the 17th Jan 2020.
 
 #### Question
 
- - *What is the size, in bp, of the COVID-19 genome?*
+ - *What is the size, in bp, of the SARS-CoV-2 genome?*
 
 ### Public Sequencing Data
 
@@ -122,7 +122,7 @@ pigz --decompress --to-stdout --processes 2 ~/Project_2/data/illumina_pe/SRR1114
  - The `awk` command outputs a tab-delimited file consisting of 3 columns of numbers. What do the numbers represent?
  - Within the `awk` script are the variables `z` and `y`. These are not very descriptive of what values they actually hold. Rewrite the script, making these variable names more self-explainitory.
  - What is the mean length of the Illumina reads?
- - Given the size of the COVID-19 genome, what amount of coverage do we have for the `SRR11140748` sample?
+ - Given the size of the SARS-CoV-2 genome, what amount of coverage do we have for the `SRR11140748` sample?
 
 ## Read Alignment
 
@@ -155,7 +155,7 @@ Index the reference genome:
 # Make the directory for the reference genome
 mkdir --parents ~/Project_2/data/reference/
 
-# Get the COVID-19 reference genome
+# Get the SARS-CoV-2 reference genome
 cp ~/data/genomics/COVID-19.fasta.gz ~/Project_2/data/reference/
 
 # Index the reference genome for use with BWA
@@ -198,7 +198,7 @@ time samtools sort \
 
 ### BAM File Visualisation
 
-We are going to load the COVID-19 genome into a genome browser called IGV and then load the BAM file.
+We are going to load the SARS-CoV-2 genome into a genome browser called IGV and then load the BAM file.
 First, we need to create an index for the reference genome and an index file of the BAM file.
 This ensures IGV can quickly load the reference sequence and corresponding read alignments for any coordinates we choose to navigate to.
 
@@ -229,7 +229,7 @@ Once the reference genome is loaded, load a "Track" from a `Local File ...` by s
 
 #### Questions
 
- - *The stacked grey arrows represent the reads aligned to the COVID-19 reference genome. What do the coloured vertical bars within the reads indicate?*
+ - *The stacked grey arrows represent the reads aligned to the SARS-CoV-2 reference genome. What do the coloured vertical bars within the reads indicate?*
  - *Do you see position in the genome where a coloured vertical bar seems to occur quite frequently?*
  - *Why does the read coverage drop towards zero at the ends of the reference genome?*
 
@@ -272,6 +272,6 @@ Load the nanopore read alignment file into your IGV-web.
 
 # External Resources
 
- * https://openresearch.labkey.com/wiki/ZEST/Ncov/page.view?name=SARS-CoV-2%20Deep%20Sequencing](https://openresearch.labkey.com/wiki/ZEST/Ncov/page.view?name=SARS-CoV-2%20Deep%20Sequencing)
- * https://github.com/katarinabraun/SARS-CoV-2_sequencing
+ * [https://openresearch.labkey.com/wiki/ZEST/Ncov/page.view?name=SARS-CoV-2%20Deep%20Sequencing](https://openresearch.labkey.com/wiki/ZEST/Ncov/page.view?name=SARS-CoV-2%20Deep%20Sequencing)
+ * [https://github.com/katarinabraun/SARS-CoV-2_sequencing](https://github.com/katarinabraun/SARS-CoV-2_sequencing)
 
