@@ -262,7 +262,7 @@ samtools index resequencing/SRR11140749_nanopore.bam
 
 Load the nanopore read alignment file into your IGV-web.
 
-![IGV-web SRR11140748 Nanopore](images/SRR11140749-nanopore.png.png)
+![IGV-web SRR11140749 Nanopore](images/SRR11140749-nanopore.png)
 
 #### Questions
 
