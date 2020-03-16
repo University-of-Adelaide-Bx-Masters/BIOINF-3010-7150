@@ -58,12 +58,12 @@ Here is a table of information linking to the orginal source of the data:
 | Description  | Accession/URL                                                                                | Coverage |
 |:-------------|:--------------------------------------------------------------------------------------------:|---------:|
 | RefSeq       | [NC_045512.2](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2?report=fasta)                 |          |
-|              |                                                                                              |          |
+| **Illumina** |                                                                                              |          |
 | veroSTAT-1KO | [SRR11140744](https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR11140744)                    |    7,586 |
 | veroE6       | [SRR11140746](https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR11140746)                    |    5,328 |
 | vero76       | [SRR11140748](https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR11140748)                    |    6,353 |
 | swab         | [SRR11140750](https://trace.ncbi.nlm.nih.gov/Traces/sra/?run=SRR11140750)                    |      252 |
-|              |                                                                                              |          |
+| **Nanopore** |                                                                                              |          |
 | veroSTAT-1KO | [SRR11140745](https://sra-download.ncbi.nlm.nih.gov/traces/sra50/SRR/010879/SRR11140745)     |    8,727 |
 | veroE6       | [SRR11140747](https://sra-download.ncbi.nlm.nih.gov/traces/sra50/SRR/010879/SRR11140747)     |   12,006 |
 | vero76       | [SRR11140749](https://sra-download.ncbi.nlm.nih.gov/traces/sra53/SRR/010879/SRR11140749)     |   10,170 |
