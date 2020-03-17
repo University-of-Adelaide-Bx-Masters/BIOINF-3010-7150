@@ -205,7 +205,9 @@ This ensures IGV can quickly load the reference sequence and corresponding read 
 
 ```bash
 # IGV-web requires an uncompressed reference sequence and corresponding index file
-gunzip < ~/Project_2/data/reference/COVID-19.fasta.gz > ~/Project_2/data/reference/COVID-19.fasta
+gunzip \
+  < ~/Project_2/data/reference/COVID-19.fasta.gz \
+  > ~/Project_2/data/reference/COVID-19.fasta
 
 # Generate index of the FASTA-formatted genome file
 samtools faidx ~/Project_2/data/reference/COVID-19.fasta
