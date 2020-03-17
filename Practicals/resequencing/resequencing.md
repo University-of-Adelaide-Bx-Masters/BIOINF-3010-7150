@@ -118,12 +118,12 @@ pigz --decompress --to-stdout --processes 2 \
 
 ### Questions
 
- - *What is the `pigz` command doing?
+ - *What is the `pigz` command doing?*
  - *What do you think the `sed` command is doing? Hint: try replacing the `awk` command with a simple `less` command.*
- - The `awk` command outputs a tab-delimited file consisting of 3 columns of numbers. What do the numbers represent?
- - Within the `awk` script are the variables `z` and `y`. These are not very descriptive of what values they actually hold. Rewrite the script, making these variable names more self-explainitory.
- - What is the mean length of the Illumina reads?
- - Given the size of the SARS-CoV-2 genome, what amount of coverage do we have for the `SRR11140748` sample?
+ - *The `awk` command outputs a tab-delimited file consisting of 3 columns of numbers. What do the numbers represent?*
+ - *Within the `awk` script are the variables `z` and `y`. These are not very descriptive of what values they actually hold. Rewrite the script, making these variable names more self-explainitory.*
+ - *What is the mean length of the Illumina reads?*
+ - *Given the size of the SARS-CoV-2 genome, what amount of coverage do we have for the `SRR11140748` sample?*
 
 ## Read Alignment
 
