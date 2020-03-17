@@ -204,7 +204,8 @@ First, we need to create an index for the reference genome and an index file of 
 This ensures IGV can quickly load the reference sequence and corresponding read alignments for any coordinates we choose to navigate to.
 
 ```bash
-# IGV-web requires an uncompressed reference sequence and corresponding index file
+# IGV-web requires an uncompressed reference sequence 
+# and corresponding index file
 gunzip \
   < ~/Project_2/data/reference/COVID-19.fasta.gz \
   > ~/Project_2/data/reference/COVID-19.fasta
