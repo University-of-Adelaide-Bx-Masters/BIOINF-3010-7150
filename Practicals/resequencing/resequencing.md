@@ -110,9 +110,10 @@ Using what you learned last week and what you found in the FastQC reports genera
 Once you are happy the reads are of good quality, lets see how much data we have:
 
 ```bash
-pigz --decompress --to-stdout --processes 2 ~/Project_2/data/illumina_pe/SRR11140748_?_100x.fastq.gz \
-  | sed -n '2~4p' \
-  | awk 'BEGIN{OFS="\t"}{z+=length($0); y+=1}END{print z,y,z/y}'
+pigz --decompress --to-stdout --processes 2 \
+  ~/Project_2/data/illumina_pe/SRR11140748_?_100x.fastq.gz \
+| sed -n '2~4p' \
+| awk 'BEGIN{OFS="\t"}{z+=length($0); y+=1}END{print z,y,z/y}'
 ```
 
 ### Questions
