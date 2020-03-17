@@ -183,7 +183,7 @@ time bwa mem \
   ~/Project_2/data/illumina_pe/SRR11140748_2_100x.fastq.gz \
 > resequencing/SRR11140748_illumina.sam
 
-# Coordinate sort SAM file, ready for conversion to BAM
+# Coordinate sort SAM file, and output to BAM
 time samtools sort \
   -o resequencing/SRR11140748_illumina.bam \
   resequencing/SRR11140748_illumina.sam
