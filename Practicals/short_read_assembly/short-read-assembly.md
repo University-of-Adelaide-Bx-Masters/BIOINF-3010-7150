@@ -124,13 +124,19 @@ time spades.py \
 Compare the assembly to the SARS-CoV-2 RefSeq assembly using [MUMmer](http://mummer.sourceforge.net/manual/#nucmer)'s `nucmer` tool:
 
 ```bash
+# Decompress the reference genome for MUMmer
+pigz -dcp2 \
+  < ~/Project_3/data/reference/COVID-19.fasta.gz \
+  > ~/Project_3/data/reference/COVID-19.fasta
+
+# Run nucmer from MUMmer package
 nucmer \
   -maxmatch \
   -minmatch 100 \
   -mincluster 500 \
   -prefix ~/Project_3/de_novo_illumina/SRR11140748_10x_PE \
   ~/Project_3/data/reference/COVID-19.fasta \
-  ~/Project_3/de_novo_illumina/SRR11140748_10x_PE/assembly.fasta
+  ~/Project_3/de_novo_illumina/SRR11140748_10x_PE/contigs.fasta
 ```
 
 This will generate a `.delta` file which describes the alignments between your assembled contig(s) and the reference sequence(s).
