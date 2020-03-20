@@ -177,10 +177,10 @@ k=11
 time spades.py \
   --threads 2 \
   -k ${k} \
-  -o ~/Project_3/de_novo_illumina/SRR11140748_100x_PE-k${k} \
-  -1 ~/Project_3/data/illumina_pe/SRR11140748_1_100x.fastq.gz \
-  -2 ~/Project_3/data/illumina_pe/SRR11140748_2_100x.fastq.gz \
-| tee ~/Project_3/de_novo_illumina/SRR11140748_100x_PE-k${k}.log
+  -o ~/Project_3/de_novo_illumina/SRR11140748_10x_PE-k${k} \
+  -1 ~/Project_3/data/illumina_pe/SRR11140748_1_10x.fastq.gz \
+  -2 ~/Project_3/data/illumina_pe/SRR11140748_2_10x.fastq.gz \
+| tee ~/Project_3/de_novo_illumina/SRR11140748_10x_PE-k${k}.log
 ```
 
 Next, lets look at an assembly produced with a long k-mer of length of 127:
@@ -191,10 +191,10 @@ k=127
 time spades.py \
   --threads 2 \
   -k ${k} \
-  -o ~/Project_3/de_novo_illumina/SRR11140748_100x_PE-k${k} \
-  -1 ~/Project_3/data/illumina_pe/SRR11140748_1_100x.fastq.gz \
-  -2 ~/Project_3/data/illumina_pe/SRR11140748_2_100x.fastq.gz \
-| tee ~/Project_3/de_novo_illumina/SRR11140748_100x_PE-k${k}.log
+  -o ~/Project_3/de_novo_illumina/SRR11140748_10x_PE-k${k} \
+  -1 ~/Project_3/data/illumina_pe/SRR11140748_1_10x.fastq.gz \
+  -2 ~/Project_3/data/illumina_pe/SRR11140748_2_10x.fastq.gz \
+| tee ~/Project_3/de_novo_illumina/SRR11140748_10x_PE-k${k}.log
 ```
 
 Now modify the above commands to produce another 2 assemblies but using the `100x` coverage data.
