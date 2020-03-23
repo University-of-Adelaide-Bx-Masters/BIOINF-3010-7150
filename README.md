@@ -29,7 +29,7 @@ Semester 1 2020
 [SAMTools and alignments]: Practicals/Alignments_Practicals/alignment-cram.md
 [SARS-CoV-2 Resequencing]: Practicals/resequencing/resequencing.md
 [SARS-CoV-2 Short Read Assembly]: Practicals/short_read_assembly/short-read-assembly.md
-[Short and long read alignment]: Practicals/
+[Short and long read alignment]: Practicals/short_long_alignment/short_long_alignment.md
 [Bacterial genome assembly]: Practicals/
 [HiC analysis]: Practicals/
 [Genome graphs]: Practicals/

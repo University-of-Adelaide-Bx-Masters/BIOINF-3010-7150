@@ -1,0 +1,196 @@
+# Week 4 Practical Part 1: XXXXX
+{:.no_toc}
+
+* TOC
+{:toc}
+
+As with previous week's practicals, you will be using RStudio to interact with your VM.
+
+See [week 1's practical](../Bash_Practicals/1_IntroBash.md#rstudio) to remind yourself how to connect to your VM.
+
+# Setup for today
+
+## Working Directory
+
+First we will set up a directory for today's practical.
+In general it is very worthwhile to keep all your project-specific code and data organised into a consistent location and structure.
+This are not essential, but is very useful and is in general good practice.
+If you don't follow this step, you will be making your life immeasurably harder for the duration of this practical.
+
+To make and enter the directory that you will be working in, run the following commands in the terminal pane.
+
+```bash
+# Setup project working directory
+mkdir --parents ~/Project_4/data/
+cd ~/Project_4/
+
+# load the required software environment
+conda activate assembly
+```
+
+## Get the Data
+
+```bash
+# Make the directory for the reference genome
+mkdir --parents ~/Project_4/data/reference/
+
+# Make subdirectories for the various data sets
+mkdir --parents ~/Project_4/data/{illumina_pe,pacbio}/
+
+# Get the data
+#####
+# RefSeq E. coli K-12 substr. MG1655
+cp --link ~/data/genomics/NC_000913.3.fasta.gz ~/Project_4/data/reference/
+# Illumina PE
+cp --link ~/data/genomics/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz ~/Project_4/data/illumina_pe/
+# PacBio
+cp --link ~/data/genomics/lima.bc1106--bc1106_40x.subreadset.fastq.gz ~/Project_4/data/pacbio/
+# Nanopore
+# TODO
+```
+
+### Questions
+
+ - *What does the `--link` argument to `cp` do? Hint: Use the `man` page and google to work it out.*
+ - *Why might using `--link` be useful with genomics data files?*
+
+# QC
+
+Using FastQC, check the Illumina data and determine if you need to perform read trimming.
+
+```bash
+fastqc \
+  --threads 2 \
+  data/illumina_pe/*.fastq.gz
+```
+
+## Questions
+
+ - *What is the minimum read length present in the Illumina data? Hint: Look at the FastQC reports.*
+ - *What do you think of the "Per base sequence content" plot in the FastQC reports?*
+
+## Read Trimming and Filtering
+
+If you deem this necessary, use either Trimmomatic or fastp to perform the trimming/filtering.
+
+<details><summary>Trimmomatic Code</summary>
+<p>
+
+If you think you need to trim your reads and you'd like to use Trimmomatic, the following code might help
+
+```bash
+mkdir --parents qc_reads/trimmomatic
+
+trimmomatic PE \
+  data/illumina_pe/36_ACGCACCT-GGTGAAGG_L002_R1_001_40x.fastq.gz data/illumina_pe/36_ACGCACCT-GGTGAAGG_L002_R2_001_40x.fastq.gz \
+  qc_reads/trimmomatic/36_ACGCACCT-GGTGAAGG_L002_R1_001_40x.fastq.gz qc_reads/trimmomatic/36_ACGCACCT-GGTGAAGG_L002_R1_001_40x.orphans.fastq.gz \
+  qc_reads/trimmomatic/36_ACGCACCT-GGTGAAGG_L002_R2_001_40x.fastq.gz qc_reads/trimmomatic/36_ACGCACCT-GGTGAAGG_L002_R2_001_40x.orphans.fastq.gz \
+  ILLUMINACLIP:${CONDA_PREFIX}/share/trimmomatic-0.39-1/adapters/TruSeq3-PE.fa:2:30:10:3:true \
+  SLIDINGWINDOW:4:10 \
+  MINLEN:120
+
+fastqc --threads 2 \
+  qc_reads/trimmomatic/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz
+```
+</p>
+</details>
+
+<details><summary>fastp Code</summary>
+<p>
+
+If you think you need to trim your reads and you'd like to use fastp, the following code might help
+
+```bash
+mkdir --parents qc_reads/fastp
+
+fastp \
+  --thread 2 \
+  -i data/illumina_pe/36_ACGCACCT-GGTGAAGG_L002_R1_001_40x.fastq.gz -I data/illumina_pe/36_ACGCACCT-GGTGAAGG_L002_R2_001_40x.fastq.gz \
+  -o qc_reads/fastp/36_ACGCACCT-GGTGAAGG_L002_R1_001_40x.fastq.gz --unpaired1 qc_reads/fastp/36_ACGCACCT-GGTGAAGG_L002_R1_001_40x.orphans.fastq.gz \
+  -O qc_reads/fastp/36_ACGCACCT-GGTGAAGG_L002_R2_001_40x.fastq.gz --unpaired2 qc_reads/fastp/36_ACGCACCT-GGTGAAGG_L002_R2_001_40x.orphans.fastq.gz \
+  --cut_right --cut_window_size 4 --cut_mean_quality 20 \
+  --length_required 120
+
+fastqc --threads 2 \
+  qc_reads/fastp/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz
+```
+</p>
+</details>
+
+# Illumina Read Mapping
+
+Once you're happy your reads are good to align to the reference genome
+
+```bash
+# Index the reference genome for use with BWA
+bwa index data/reference/NC_000913.3.fasta.gz
+
+# Create an output directory for read mappings
+mkdir --parents mappings/
+
+# Align reads
+bwa mem \
+  -t 2 \
+  -T 30 \
+  data/reference/NC_000913.3.fasta.gz \
+  data/illumina_pe/36_ACGCACCT-GGTGAAGG_L002_R1_001_40x.fastq.gz \
+  data/illumina_pe/36_ACGCACCT-GGTGAAGG_L002_R2_001_40x.fastq.gz \
+| samtools view -F 4 -u \
+| samtools sort \
+  --threads 2 -l 7 \
+  -o mappings/36_ACGCACCT-GGTGAAGG_L002_40x_T30.bam \
+  /dev/stdin
+```
+
+## Questions
+
+ - *What does the `-T` argument to `bwa mem` do and what default value does `bwa mem` use?*
+ - *What does the `-F 4` argument to `samtools view` do?*
+ - *What does the `-u` argument to `samtools view` do and why is this beneficial in the middle of a pipeline?*
+ - *What does the `-l 7` argument to `samtools sort` do?*
+
+# PacBio Read Mapping
+
+```bash
+# Index the reference genome for minimap2
+minimap2 \
+  -d data/reference/NC_000913.3.fasta.gz.mmi \
+  data/reference/NC_000913.3.fasta.gz
+
+# Align the reads
+time minimap2 \
+  -ax map-pb \
+  -t 2 \
+  data/reference/NC_000913.3.fasta.gz \
+  data/pacbio/lima.bc1106--bc1106_40x.subreadset.fastq.gz \
+| samtools view -F 4 -u \
+| samtools sort \
+  --threads 2 -l 7 \
+  -o mappings/lima.bc1106--bc1106_40x.bam
+```
+
+## Questions
+
+ - *Have a look at the contents of the read file. What do you make of the quality strings?*
+
+# IGV
+
+Today, we will try to download and run IGV on your local computer.
+Head to the [IGV download page](https://software.broadinstitute.org/software/igv/download) and grab the version for your operating system.
+If you don't have Java or you have troubles running it, try using [IGV-web](https://igv.org/app/) instead.
+
+**NOTE: If you're using IGV-web, you will need to decompress the genome sequence FASTA file.**
+
+Also, don't forget to index the following files:
+
+ * The genome sequence FASTA file, whether compressed or not.
+ * The BAM files
+
+Once you have done this, load the E. coli K-12 genome and then load the BAM files for both the Illumina and PacBio data.
+
+What do you make of these regions:
+
+ * `NC_000913.3:276291-294244`
+ * `NC_000913.3:4295777-4296810`
+
+
