@@ -92,6 +92,7 @@ trimmomatic PE \
 fastqc --threads 2 \
   qc_reads/trimmomatic/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz
 ```
+
 </p>
 </details>
 
@@ -114,6 +115,7 @@ fastp \
 fastqc --threads 2 \
   qc_reads/fastp/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz
 ```
+
 </p>
 </details>
 
