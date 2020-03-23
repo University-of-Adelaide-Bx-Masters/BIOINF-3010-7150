@@ -1,4 +1,4 @@
-# Week 4 Practical Part 1: XXXXX
+# Week 4 Practical Part 1: Short and Long Read Alignment
 {:.no_toc}
 
 * TOC
