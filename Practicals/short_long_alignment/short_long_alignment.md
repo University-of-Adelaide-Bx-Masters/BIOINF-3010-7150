@@ -71,53 +71,7 @@ fastqc \
 
 ## Read Trimming and Filtering
 
-If you deem this necessary, use either Trimmomatic or fastp to perform the trimming/filtering.
-
-<details><summary>Trimmomatic Code</summary>
-<p>
-
-If you think you need to trim your reads and you'd like to use Trimmomatic, the following code might help
-
-```bash
-mkdir --parents qc_reads/trimmomatic
-
-trimmomatic PE \
-  data/illumina_pe/36_ACGCACCT-GGTGAAGG_L002_R1_001_40x.fastq.gz data/illumina_pe/36_ACGCACCT-GGTGAAGG_L002_R2_001_40x.fastq.gz \
-  qc_reads/trimmomatic/36_ACGCACCT-GGTGAAGG_L002_R1_001_40x.fastq.gz qc_reads/trimmomatic/36_ACGCACCT-GGTGAAGG_L002_R1_001_40x.orphans.fastq.gz \
-  qc_reads/trimmomatic/36_ACGCACCT-GGTGAAGG_L002_R2_001_40x.fastq.gz qc_reads/trimmomatic/36_ACGCACCT-GGTGAAGG_L002_R2_001_40x.orphans.fastq.gz \
-  ILLUMINACLIP:${CONDA_PREFIX}/share/trimmomatic-0.39-1/adapters/TruSeq3-PE.fa:2:30:10:3:true \
-  SLIDINGWINDOW:4:10 \
-  MINLEN:120
-
-fastqc --threads 2 \
-  qc_reads/trimmomatic/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz
-```
-
-</p>
-</details>
-
-<details><summary>fastp Code</summary>
-<p>
-
-If you think you need to trim your reads and you'd like to use fastp, the following code might help
-
-```bash
-mkdir --parents qc_reads/fastp
-
-fastp \
-  --thread 2 \
-  -i data/illumina_pe/36_ACGCACCT-GGTGAAGG_L002_R1_001_40x.fastq.gz -I data/illumina_pe/36_ACGCACCT-GGTGAAGG_L002_R2_001_40x.fastq.gz \
-  -o qc_reads/fastp/36_ACGCACCT-GGTGAAGG_L002_R1_001_40x.fastq.gz --unpaired1 qc_reads/fastp/36_ACGCACCT-GGTGAAGG_L002_R1_001_40x.orphans.fastq.gz \
-  -O qc_reads/fastp/36_ACGCACCT-GGTGAAGG_L002_R2_001_40x.fastq.gz --unpaired2 qc_reads/fastp/36_ACGCACCT-GGTGAAGG_L002_R2_001_40x.orphans.fastq.gz \
-  --cut_right --cut_window_size 4 --cut_mean_quality 20 \
-  --length_required 120
-
-fastqc --threads 2 \
-  qc_reads/fastp/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz
-```
-
-</p>
-</details>
+If you deem it necessary to quality trim, adapter trim or length filter your raw reads then look back at last week's code and use either Trimmomatic or fastp to perform the trimming/filtering.
 
 # Illumina Read Mapping
 
