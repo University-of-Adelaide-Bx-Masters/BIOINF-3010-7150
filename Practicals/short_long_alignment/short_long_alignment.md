@@ -193,4 +193,8 @@ What do you make of these regions:
  * `NC_000913.3:276291-294244`
  * `NC_000913.3:4295777-4296810`
 
+# BWA Alignments
 
+In the above `bwa mem` alignment step, we used the default value (`30`) for `-T`.
+I asked you what the option does.
+Now I want you to explore the effect of increasing this value on the number of mismatches observed in the read alignments when you load the resulting BAM files into IGV.
