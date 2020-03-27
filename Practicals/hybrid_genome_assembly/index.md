@@ -37,7 +37,7 @@ mkdir --parents data/{reference,scripts,illumina_pe,pacbio}/
 # Get the data
 #####
 # RefSeq E. coli K-12 substr. MG1655
-cp --link ~/data/genomics/NC_000913.3.fasta.gz ~/Project_5/data/reference/
+cp --link ~/data/genomics/NC_000913.3.fasta.gz data/reference/
 # Illumina PE
 cp --link ~/data/genomics/36_ACGCACCT-GGTGAAGG_L002_R?_001_*x.fastq.gz data/illumina_pe/
 # PacBio
@@ -84,12 +84,14 @@ Visualise your assembly(ies) in IGV or IGV-web and look to see if you can see an
 ILLUMINA_COV=2
 PACBIO_COV=2
 
+mkdir --parents de_novo_hybrid
+
 time spades.py \
   --threads 2 \
   -o de_novo_illumina/36_ACGCACCT-GGTGAAGG_L002_${ILLUMINA_COV}x_${PACBIO_COV}x \
   -1 data/illumina_pe/36_ACGCACCT-GGTGAAGG_L002_R1_001_${ILLUMINA_COV}x.fastq.gz \
   -2 data/illumina_pe/36_ACGCACCT-GGTGAAGG_L002_R2_001_${ILLUMINA_COV}x.fastq.gz \
   --pacbio data/pacbio/lima.bc1106--bc1106_${PACBIO_COV}x.subreadset.fastq.gz \
-| tee de_novo_illumina/36_ACGCACCT-GGTGAAGG_L002_${ILLUMINA_COV}x_${PACBIO_COV}x.log
+| tee de_novo_hybrid/36_ACGCACCT-GGTGAAGG_L002_${ILLUMINA_COV}x_${PACBIO_COV}x.log
 ```
 -->
