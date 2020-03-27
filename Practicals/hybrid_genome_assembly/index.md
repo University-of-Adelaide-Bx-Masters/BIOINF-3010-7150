@@ -32,16 +32,18 @@ conda activate assembly
 
 ```bash
 # Make subdirectories for the various data sets
-mkdir --parents data/{reference,illumina_pe,pacbio}/
+mkdir --parents data/{reference,scripts,illumina_pe,pacbio}/
 
 # Get the data
 #####
 # RefSeq E. coli K-12 substr. MG1655
 cp --link ~/data/genomics/NC_000913.3.fasta.gz ~/Project_5/data/reference/
 # Illumina PE
-cp --link ~/tmp/36_ACGCACCT-GGTGAAGG_L002_R?_001_*x.fastq.gz data/illumina_pe/
+cp --link ~/data/genomics/36_ACGCACCT-GGTGAAGG_L002_R?_001_*x.fastq.gz data/illumina_pe/
 # PacBio
-cp --link ~/tmp/lima.bc1106--bc1106_*x.subreadset.fastq.gz data/pacbio/
+cp --link ~/data/genomics/lima.bc1106--bc1106_*x.subreadset.fastq.gz data/pacbio/
+# R script
+cp --link ~/data/genomics/plot_delta.R data/scripts/
 ```
 
 # Hybrid Genome Assembly
@@ -77,7 +79,7 @@ Given the limited amount of time in this practical:
 
 Visualise your assembly(ies) in IGV or IGV-web and look to see if you can see any inconsistencies between the aligned Illumina and PacBio data.
 
-
+<!--
 ```bash
 ILLUMINA_COV=2
 PACBIO_COV=2
@@ -90,3 +92,4 @@ time spades.py \
   --pacbio data/pacbio/lima.bc1106--bc1106_${PACBIO_COV}x.subreadset.fastq.gz \
 | tee de_novo_illumina/36_ACGCACCT-GGTGAAGG_L002_${ILLUMINA_COV}x_${PACBIO_COV}x.log
 ```
+-->
