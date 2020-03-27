@@ -13,7 +13,7 @@ Semester 1 2020
 | **1**    | 2/3        | [Introduction to Bash] (Dan)                      |
 | **2**    | 9/3        | [Read Quality Control] (Nathan) [SAMTools and alignments] (Jimmy) |
 | **3**    | 16/3       | [SARS-CoV-2 Resequencing] (Nathan) [SARS-CoV-2 Short Read Assembly] (Nathan)         |
-| **4**    | 23/3       | [Short and long read alignment] (Nathan)          |
+| **4**    | 23/3       | [Short and long read alignment] (Nathan) [E. coli K-12 Hybrid Genome Assembly] (Nathan)         |
 | **5**    | 30/3       | [Bacterial genome assembly] (Lloyd)               |
 | **6**    | 6/4        | [HiC analysis] (Lloyd/Ning)                       |
 | **-**    |            |                                                   |
@@ -30,6 +30,7 @@ Semester 1 2020
 [SARS-CoV-2 Resequencing]: Practicals/resequencing/resequencing.md
 [SARS-CoV-2 Short Read Assembly]: Practicals/short_read_assembly/short-read-assembly.md
 [Short and long read alignment]: Practicals/short_long_alignment/short_long_alignment.md
+[E. coli K-12 Hybrid Genome Assembly]: Practicals/hybrid_genome_assembly/index.md
 [Bacterial genome assembly]: Practicals/
 [HiC analysis]: Practicals/
 [Genome graphs]: Practicals/
