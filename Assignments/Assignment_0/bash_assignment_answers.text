@@ -1,0 +1,93 @@
+Mark deductions from 30 and comments.
+
+
+From which directory will cd .. not move to the parent directory? 1 mark
+
+Q1: The root directory, '/', since it does not have a parent directory. It is the only directory that has no parent.
+
+Are the paths ~/Practical_1 and ~/Practical_2 relative or absolute paths? 1 mark
+
+Q2: They are both absolute since ~ expands to a path that starts with / (in this case /home/student).
+
+Give two ways we could inspect the contents of the / directory from your own home directory. 2 marks
+
+Q3: 'cd /' and then 'ls', or 'ls /'.
+
+The letter l and the number 1 are often confused in text, but have different meanings. What is the difference in behaviour of ls when run with the -1 (digit) and -l (letter) options? How does ls -1 (digit) differ from ls without options? 2 marks
+
+Q4: 'ls -1' gives one directory entry per line 'ls -l' gives a long directory listing. 'ls' lets the directory be listed in columns, 'ls -1' does not.
+
+If we wanted to hide the group names in the long listing format, which extra options would we need set when searching our home directory? 1 mark
+
+Q5: '-G' omits the group from a long listing.
+
+Try accessing the documentation for the command man all the ways you can think of. Was there a difference in the output depending on how we asked to view the documentation? Could you access the documentation for the ls command all three ways? 2 marks
+
+Q6: There is a difference between 'man --help'/'man -h' and 'man man'. 'ls -h' does not work because it means human readable numbers.
+
+Complete the table. 5 marks
+Command 	Description of function
+mv 	 
+cp 	 
+rm 	 
+mkdir 	 
+cat 	 
+less 	 
+wc 	 
+head 	 
+tail 	 
+echo 	 
+cut 	 
+sort 	 
+uniq 	 
+wget 	 
+gunzip 	 
+
+What is “stdin” an abbreviation of? 1 mark
+
+Q8: Standard input, the default input stream for a process.
+
+Why does "echo ~" output /home/student when you execute it? What would it output if a user with a different home directory executed it? What happens when you execute "echo ~/*"? 2 marks
+
+Q9: "~" expands to "/home/student" since that is the user's home directory. If it were executed by another user it would output their home directory. "echo ~/*" will output the list of files in the user's home directory because "*" expands to the directory entries of a directory, in this case of the "~" directory.
+
+How many features are contained in the GCF_000182855.2_ASM18285v1_genomic.gff file? Why is wc -l GCF_000182855.2_ASM18285v1_genomic.gff not a correct way to determine the number of features? 2 marks
+
+Q10: 4432 (all lines that do not start with "#" - this number varies depending on the time the file was downloaded - troublingly). "wc -l" will give the wrong answer because it will also count the comment lines (so use something like 'grep -cv "^#"').
+
+What does the '^>' mean in the grep command where Drosophila_melanogaster.BDGP6.ncrna.fa is being searched? 1 mark
+
+Q11: '^>' means lines that start with '>' (Sequence identifier lines in this case).
+
+Why doesn’t grep -c 'gene' GCF_000182855.2_ASM18285v1_genomic.gff print the number of genes described in the GCF_000182855.2_ASM18285v1_genomic.gff file? 1 mark
+
+Q12: Some lines have the text "gene" in places other than the feature type column. The safest way to check is to match on that column only (e.g. use 'cut -f3 | grep gene').
+
+In the first script that you used in the practical, there are two variables. What are their names? 1 mark
+
+Q13: ME and MESSAGE.
+
+Before you executed the chmod command on the wellDone.sh file, what were the permissions? What did these permissions allow you to do as a user, as members of your user group, as another user not in your user group? 4 marks
+
+Q14: 664 or rw-rw-r--. User and Group can read/write but not execute, everyone else (Others) can only read.
+
+What did the 4 digit do to the permissions of wellDone.sh with the command chmod 774 wellDone.sh? 1 mark
+
+Q15: Set it so that others can only read the file.
+
+Add meaningful comments (Links to an external site.) to the following small script (I would suggest using more than Rob does for this exercise - use your judgement):
+
+#!/bin/bash
+
+FILES=$(ls)
+
+COUNT=0
+for f in ${FILES}; do
+    ((COUNT++))
+    ln=$(wc -l ${f} | cut -f 1 -d ' ')
+    echo "File number ${COUNT} (${f}) has ${ln} lines"
+done
+
+Note that you may not have comments above the shebang line; #! must be the first two characters in the file for it to function correctly. 3 marks
+
+Q16.

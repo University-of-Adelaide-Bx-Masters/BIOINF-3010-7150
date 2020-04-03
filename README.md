@@ -47,7 +47,7 @@ Semester 1 2020
 | **Assessment**                                            | **Subject**         |
 |-----------------------------------------------------------|---------------------|
 | [Assessment 0](Assignments/Assignment_0/bash_questions.md)| Bash                |
-| [Assessment 1]()                                          | PacBio assembly     |
+| [Assessment 1](Assignments/Assignment_1/genome_sequencing.md)                                          | Genome sequencing     |
 | [Assessment 2]()                                          | Experimental design |
 | [Assessment 3]()                                          | Publishing a genome |
 | [Assessment 4]()                                          | Ancient DNA         |
