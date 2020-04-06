@@ -37,7 +37,11 @@ wget http://zerkalo.curie.fr/partage/HiC-Pro/singularity_images/hicpro_2.11.3_ub
 
 cd miniconda3/envs/hic/lib/python3.6/site-packages/fithic
 
+rm fithic.py
+
 wget https://raw.githubusercontent.com/ningbioinfostruggling/fithic/master/fithic/fithic.py
+
+cd
 ```
 
 1. in `/home/student`, make sure `HiCPro_testdata.tar.gz` exists
@@ -155,11 +159,10 @@ for i in ${sample[@]}; do for j in ${res[@]}; do mkdir ${i}_${j}; python2 ../uti
 Now we can again source to hic environment.
 
 ```
-cd
 
-source activate ~/miniconda3/envs/hic/
+source activate hic
 
-for j in ${res[@]}; do for i in dixon*${j}/; do fithic -i ${i}/fithic.interactionCounts.gz -f ${i}/fithic.fragmentMappability.gz -o ./ -r ${j} -t ${i}/fithic.biases.gz -l ${i}; done; done
+for j in ${res[@]}; do for i in dixon*${j}/; do name=$(basename $i); fithic -i ${i}/fithic.interactionCounts.gz -f ${i}/fithic.fragmentMappability.gz -r ${j} -t ${i}/fithic.biases.gz -o ./ -l ${name}; done; done
 ```
 
 1. At resolution of 500kb, how many significant interactions are identified with p-value <= 0.05?
