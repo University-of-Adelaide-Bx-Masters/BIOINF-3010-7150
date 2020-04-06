@@ -14,7 +14,7 @@ Hi-C stands for high resolution chromosome conformation capture assay, it was in
 
 In this practical, we will learn a standard workflow to analyse Hi-C data from raw sequencing reads to significant interactions, see Figure 1\. We will use one of the most popular pipeline called HiC-Pro (<https://github.com/nservant/HiC-Pro>) to analyse a small dataset from Rao et al. 2014\. We'll also learn how to use a tool called Juicebox to visualise the interaction matrix and use Fit-Hi-C2 to identify significant interactions.
 
-![HiC-pipeline.pdf] Figure 1: Standard workflow for analysing Hi-C data.
+![HiC-pipeline](https://raw.githubusercontent.com/UofABioinformaticsHub/genomics_applications/master/images/hic-pipeline.png) Figure 1: Standard workflow for analysing Hi-C data.
 
 Before we do the analysis, we need to download some need files and check all the files that are in the places they needed to be.
 
