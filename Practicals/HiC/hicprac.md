@@ -10,7 +10,7 @@ This DNA folding mechanism can further lead to different biological events, for 
 
 Nowadays, the most popular way to investigate the 3D genome is by analysing Hi-C data.
 
-Hi-C stands for high resolution chromosome conformation capture assay, it was invented in 2009 (<https://www.ncbi.nlm.nih.gov/pubmed/19815776>). The procedure to prepare a Hi-C library will be covered in this week's lecture.
+Hi-C stands for high resolution chromosome conformation capture assay, it was invented in 2009 (<https://www.ncbi.nlm.nih.gov/pubmed/19815776>). The procedure to prepare a Hi-C library will be covered in this week's lecture. ![HiC-prep](https://science.sciencemag.org/content/326/5950/289/F1.large.jpg)
 
 In this practical, we will learn a standard workflow to analyse Hi-C data from raw sequencing reads to significant interactions, see Figure 1\. We will use one of the most popular pipeline called HiC-Pro (<https://github.com/nservant/HiC-Pro>) to analyse a small dataset from Rao et al. 2014\. We'll also learn how to use a tool called Juicebox to visualise the interaction matrix and use Fit-Hi-C2 to identify significant interactions.
 
