@@ -33,6 +33,8 @@ wget https://raw.githubusercontent.com/nservant/HiC-Pro/master/bin/utils/hicpro2
 
 cd
 
+wget https://zerkalo.curie.fr/partage/HiC-Pro/HiCPro_testdata.tar.gz
+
 wget http://zerkalo.curie.fr/partage/HiC-Pro/singularity_images/hicpro_2.11.3_ubuntu.img
 
 cd miniconda3/envs/hic/lib/python3.6/site-packages/fithic
@@ -44,7 +46,7 @@ wget https://raw.githubusercontent.com/ningbioinfostruggling/fithic/master/fithi
 cd
 ```
 
-1. in `/home/student`, make sure `HiCPro_testdata.tar.gz` exists
+1. in `~/`, make sure `HiCPro_testdata.tar.gz` exists
 2. make sure there is a `Ref/`, and do `ll Ref/`, check these files:
 
   - `HindIII_resfrag_hg19.bed`
