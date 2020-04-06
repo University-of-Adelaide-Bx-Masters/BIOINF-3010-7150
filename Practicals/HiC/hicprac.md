@@ -2,7 +2,7 @@
 
 In this practical, we will learn the standard procedure of handling Hi-C data by processing them from raw sequencing data to statistically significant interactions.
 
-First of all, watch this video to familiarize with the biological background of 3D genome: how does DNA loops are formed: <https://www.youtube.com/watch?v=Tn5qgEqWgW8>
+First of all, watch this video to familiarize with the biological background of 3D genome: how does DNA loops are formed: <https://www.youtube.com/watch?v=dES-ozV65u4>
 
 So now you know what the nature of DNA folding.
 
@@ -47,7 +47,7 @@ cd
 ```
 
 1. in `~/`, make sure `HiCPro_testdata.tar.gz` exists
-2. make sure there is a `Ref/`, and do `ll Ref/`, check these files:
+2. make sure there is a `hg19-ref/`, and do `ll hg19-ref/`, check these files:
 
   - `HindIII_resfrag_hg19.bed`
   - `chrom_hg19.sizes`
@@ -138,7 +138,6 @@ fithic -h
 To run Fithic, first we need to get the input for fithic, and it required python 2.7 while now we are in the environment of python 3
 
 ```
-source deactivate
 python2 utils/hicpro2fithic.py -h
 ```
 
@@ -161,9 +160,6 @@ for i in ${sample[@]}; do for j in ${res[@]}; do mkdir ${i}_${j}; python2 ../uti
 Now we can again source to hic environment.
 
 ```
-
-source activate hic
-
 for j in ${res[@]}; do for i in dixon*${j}/; do name=$(basename $i); fithic -i ${i}/fithic.interactionCounts.gz -f ${i}/fithic.fragmentMappability.gz -r ${j} -t ${i}/fithic.biases.gz -o ./ -l ${name}; done; done
 ```
 
@@ -185,7 +181,7 @@ mkdir juicebox_input
 
 bash utils/hicpro2juicebox.sh -h
 
-bash utils/hicpro2juicebox.sh -i test_out/hic_results/data/dixon_2M/dixon_2M.allValidPairs -g Ref/chrom_hg19.sizes -j utils/juicer_tools_1.19.02.jar -r Ref/HindIII_resfrag_hg19.bed -o juicebox_input/
+bash utils/hicpro2juicebox.sh -i test_out/hic_results/data/dixon_2M/dixon_2M.allValidPairs -g hg19-ref/chrom_hg19.sizes -j utils/juicer_tools_1.19.02.jar -r hg19-ref/HindIII_resfrag_hg19.bed -o juicebox_input/
 ```
 
 Show the Juicebox web-browser version at <https://aidenlab.org/juicebox/>
