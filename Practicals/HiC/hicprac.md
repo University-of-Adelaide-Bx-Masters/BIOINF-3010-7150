@@ -102,17 +102,15 @@ HiC-Pro -c /mnt/config_test_latest.txt -i /mnt/test_data/ -o /mnt/test_out
 
 ![hic-pro process](https://media.springernature.com/full/springer-static/image/art%3A10.1186%2Fs13059-015-0831-x/MediaObjects/13059_2015_831_Fig4_HTML.gif?as=webp)
 
-## Inspect the results, answer a couple easy questions
+## Inspect the results, answer these questions
 
 1. What's the uniquely mapping rates of of dixon_2M and dixon_2M_2?
-2. 65.51% and 65.862%
-3. Are all the uniquely mapping read pairs become valid interactions? If not, how many percentage of it becomes valid interactions?
-4. No; 48.11% for dixon_2M and 48.10% for dixon_2M_2
-5. What kinds of uninformative reads have been removed, please list at least three kinds? What's the biggest contamination?
-6. Duplications, dangling ends, Self_Cycle_pairs, Religation_pairs etc; both are dangling end read pairs;
-7. How many binned interactions have over 5 read pairs mapped to the bins at each resolution?
-8. at 500kb, dixon_2M has 537 and dixon_2M_2 has 553.
-9. at 1mb, dixon_2M has 2215 and dixon_2M_2 has 2243.
+
+2. Are all the uniquely mapping read pairs become valid interactions? If not, how many percentage of it becomes valid interactions?
+
+3. What kinds of uninformative reads have been removed, please list at least three kinds? What's the biggest contamination?
+
+4. How many binned interactions have over 5 read pairs mapped to the bins at each resolution?
 
 ## Identify significant interactions using FitHiC
 
@@ -135,14 +133,10 @@ To run Fithic, first we need to get the input for fithic, and it required python
 
 ```
 source deactivate
-python utils/hicpro2fithic.py -h
+python2 utils/hicpro2fithic.py -h
 ```
 
 This script can link the output of HiC-Pro to FitHiC
-
-```
-python utils/hicpro2fithic.py -h
-```
 
 so we have 4 target to identify significant interactions, to avoid writing the command over and over again, we use loops:
 
@@ -155,7 +149,7 @@ sample=("dixon_2M" "dixon_2M_2")
 
 res=("500000" 1000000)
 
-for i in ${sample[@]}; do for j in ${res[@]}; do sudo mkdir ${i}_${j}; sudo python ../utils/hicpro2fithic.py -i ../test_out/hic_results/matrix/${i}/raw/${j}/*.matrix -b ../test_out/hic_results/matrix/${i}/raw/${j}/*bed -s ../test_out/hic_results/matrix/${i}/iced/${j}/*biases -o ${i}_${j} -r ${j}; done; done
+for i in ${sample[@]}; do for j in ${res[@]}; do mkdir ${i}_${j}; python2 ../utils/hicpro2fithic.py -i ../test_out/hic_results/matrix/${i}/raw/${j}/*.matrix -b ../test_out/hic_results/matrix/${i}/raw/${j}/*bed -s ../test_out/hic_results/matrix/${i}/iced/${j}/*biases -o ${i}_${j} -r ${j}; done; done
 ```
 
 Now we can again source to hic environment.
