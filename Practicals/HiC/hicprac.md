@@ -1,22 +1,6 @@
 # BIOINF 7150 Hi-C data analysis practical
 
-In this practical, we will learn the standard procedure of handling Hi-C data by processing them from raw sequencing data to statistically significant interactions.
-
-First of all, watch this video to familiarize with the biological background of 3D genome: how does DNA loops are formed: <https://www.youtube.com/watch?v=dES-ozV65u4>
-
-So now you know what the nature of DNA folding.
-
-This DNA folding mechanism can further lead to different biological events, for example, DNA loops are formed and regions that located far away from each other can have close proximity three dimensionally. More importantly, such event can affect gene regulation if the DNA loops bring distal enhancer and promoter into close proximity.
-
-Nowadays, the most popular way to investigate the 3D genome is by analysing Hi-C data.
-
-Hi-C stands for high resolution chromosome conformation capture assay, it was invented in 2009 (<https://www.ncbi.nlm.nih.gov/pubmed/19815776>). The procedure to prepare a Hi-C library will be covered in this week's lecture. ![HiC-prep](https://science.sciencemag.org/content/326/5950/289/F1.large.jpg)
-
-In this practical, we will learn a standard workflow to analyse Hi-C data from raw sequencing reads to significant interactions, see Figure 1\. We will use one of the most popular pipeline called HiC-Pro (<https://github.com/nservant/HiC-Pro>) to analyse a small dataset from Rao et al. 2014\. We'll also learn how to use a tool called Juicebox to visualise the interaction matrix and use Fit-Hi-C2 to identify significant interactions.
-
-![HiC-pipeline](https://raw.githubusercontent.com/UofABioinformaticsHub/genomics_applications/master/images/hic-pipeline.png) Figure 1: Standard workflow for analysing Hi-C data.
-
-Before we do the analysis, we need to download some need files and check all the files that are in the places they needed to be.
+Before we start, we need to download some files.
 
 login to your vm.
 
@@ -45,6 +29,22 @@ wget https://raw.githubusercontent.com/ningbioinfostruggling/fithic/master/fithi
 
 cd
 ```
+
+In this practical, we will learn the standard procedure of handling Hi-C data by processing them from raw sequencing data to statistically significant interactions.
+
+First of all, watch this video to familiarize with the biological background of 3D genome: how does DNA loops are formed: <https://www.youtube.com/watch?v=dES-ozV65u4>
+
+So now you know what the nature of DNA folding.
+
+This DNA folding mechanism can further lead to different biological events, for example, DNA loops are formed and regions that located far away from each other can have close proximity three dimensionally. More importantly, such event can affect gene regulation if the DNA loops bring distal enhancer and promoter into close proximity.
+
+Nowadays, the most popular way to investigate the 3D genome is by analysing Hi-C data.
+
+Hi-C stands for high resolution chromosome conformation capture assay, it was invented in 2009 (<https://www.ncbi.nlm.nih.gov/pubmed/19815776>). The procedure to prepare a Hi-C library will be covered in this week's lecture. ![HiC-prep](https://science.sciencemag.org/content/326/5950/289/F1.large.jpg)
+
+In this practical, we will learn a standard workflow to analyse Hi-C data from raw sequencing reads to significant interactions, see Figure 1\. We will use one of the most popular pipeline called HiC-Pro (<https://github.com/nservant/HiC-Pro>) to analyse a small dataset from Rao et al. 2014\. We'll also learn how to use a tool called Juicebox to visualise the interaction matrix and use Fit-Hi-C2 to identify significant interactions.
+
+![HiC-pipeline](https://raw.githubusercontent.com/UofABioinformaticsHub/genomics_applications/master/images/hic-pipeline.png) Figure 1: Standard workflow for analysing Hi-C data.
 
 1. in `~/`, make sure `HiCPro_testdata.tar.gz` exists
 2. make sure there is a `hg19-ref/`, and do `ll hg19-ref/`, check these files:
