@@ -52,7 +52,7 @@ Semester 1 2020
 | [Assessment 3]()                                          | Publishing a genome |
 | [Assessment 4]()                                          | Ancient DNA         |
 | [Assessment 5]()                                          | Metagenomics        |
-| [Project]() (PG only)                                     | Complete Dataset    |
+| [Project](#project) (PG only)                                     | Complete Dataset    |
 
 ### Project
 
