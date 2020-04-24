@@ -54,6 +54,29 @@ Semester 1 2020
 | [Assessment 5]()                                          | Metagenomics        |
 | [Project]() (PG only)                                     | Complete Dataset    |
 
+### Project
+
+In this course, the following next-generation sequencing (NGS) datasets/protocols will be examined in detail:
+
+- Whole genome sequencing/Resequencing
+- SNV variant/structural variation analysis
+- Enrichment/Capture sequencing (Methyl-capture, ChIPseq, RIPseq)
+- Metagenomics/Microbial profiling
+
+Each of these NGS approaches uses similar programs and analysis approaches, such as quality control (quality and sequencing adapter trimming), genome alignment, and downstream visualisation and statistical methods. For the project, you will take a published (or otherwise obtained) dataset and complete all the analysis tasks (from raw data to final results) during the course.
+
+You have the freedom to choose any dataset you would like. You will prepare a final report that will be due at the end of the semester. The report should be prepared using RStudio as an Rmd document including all code needed to perform the analysis, and will include the standard components of a scientific report: introduction (background on the study and identification of the research hypothesis), methods (analysis steps and programs used), results (what you found) and discussion (how the results relate to the research hypothesis and the published literature). The Rmd document and a compiled knitted html will form the submission; marks will be awarded to the code and Rmd that you use.
+
+| Section | Mark |
+|---------|-----:|
+| Abstract | 5% |
+| Introduction and hypothesis |	10% |
+| Methods | 20% |
+| Results and Discussion | 30% |
+| References | 5% |
+| Analysis scripts | 30% |
+
+
 ### Assessment Checklist
 
 Have you:
