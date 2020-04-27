@@ -33,7 +33,7 @@ Semester 1 2020
 [E. coli K-12 Hybrid Genome Assembly]: Practicals/hybrid_genome_assembly/index.md
 [Bacterial genome assembly]: Practicals/
 [HiC analysis]: Practicals/HiC/hicprac.md
-[Genome graphs]: Practicals/
+[Genome graphs]: Practicals/Graph_Genomes
 [BLAST analysis and databases]: Practicals/
 [Clinical genomics]: Practicals/
 [Agricultural genomics]: Practicals/
