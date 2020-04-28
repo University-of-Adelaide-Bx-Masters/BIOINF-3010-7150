@@ -17,7 +17,7 @@ Semester 1 2020
 | **5**    | 30/3       | [Bacterial genome assembly] (Lloyd)               |
 | **6**    | 6/4        | [HiC analysis] (Lloyd/Ning)                       |
 | **-**    |            |                                                   |
-| **7**    | 27/4       | [Genome graphs1] [Genome graphs2] (Yassine)                         |
+| **7**    | 27/4       | [Genome graphs1] (Yassine) and [Genome graphs2] (Yassine)                         |
 | **8**    | 4/5        | [BLAST analysis and databases] (Dave)             |
 | **9**    | 11/5       | [Clinical genomics] (Jimmy)                       |
 | **10**   | 18/5       | [Agricultural genomics] (?)                       |
