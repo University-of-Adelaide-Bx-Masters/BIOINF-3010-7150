@@ -17,7 +17,7 @@ Semester 1 2020
 | **5**    | 30/3       | [Bacterial genome assembly] (Lloyd)               |
 | **6**    | 6/4        | [HiC analysis] (Lloyd/Ning)                       |
 | **-**    |            |                                                   |
-| **7**    | 27/4       | [Genome graphs] (Yassine)                         |
+| **7**    | 27/4       | [Genome graphs1] [Genome graphs2] (Yassine)                         |
 | **8**    | 4/5        | [BLAST analysis and databases] (Dave)             |
 | **9**    | 11/5       | [Clinical genomics] (Jimmy)                       |
 | **10**   | 18/5       | [Agricultural genomics] (?)                       |
@@ -33,7 +33,8 @@ Semester 1 2020
 [E. coli K-12 Hybrid Genome Assembly]: Practicals/hybrid_genome_assembly/index.md
 [Bacterial genome assembly]: Practicals/
 [HiC analysis]: Practicals/HiC/hicprac.md
-[Genome graphs]: Practicals/Graph_Genomes
+[Genome graphs1]: Practicals/Graph_Genomes/prac_part1.md
+[Genome graphs2]: Practicals/Graph_Genomes/prac_part2.md
 [BLAST analysis and databases]: Practicals/
 [Clinical genomics]: Practicals/
 [Agricultural genomics]: Practicals/
