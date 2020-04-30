@@ -97,23 +97,26 @@ These cell-lines are widely used in genomics as reference sets for large project
 
 ##### RNA-seq
 
-In the data directory you will find RNA-seq and ChIPseq data from the human cell-line GM12878.
-
-They were produced back in 2012 by a number of labs in the US.
-
+In the data directory you will find a range of RNA-seq and ChIPseq data from the human cell-line GM12878.
+ENCODE datasets were produced back in 2012 by a number of labs in the US.
 They include RNA-seq from four different RNA fractions:
 
 - Long PolyA+ enriched RNA from Whole-cells
 - Long RNA from Whole-cells without PolyA enrichment
 - Short total RNA
-- Long total RNAShort vs Long refers to the size selection of the RNA before making the library.
+- Long total RNA
 
+Short vs Long refers to the size selection of the RNA before making the library.
 Short is generally less than 100bp and large is >100bp.
+
 All of the library protocols are available already so you can have a look at the specifics (https://public-docs.crg.eu/rguigo/Data/jlagarde/encode_RNA_dashboard//hg19/).
+
+For differential expression, there is 6 samples from the paper "Cis-Regulatory Circuits Regulating NEK6 Kinase Overexpression in Transformed B Cells Are Super-Enhancer-Independent" by Huang et al. 2017 (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5393904/).
+These GM12878 cells are the same as above, with one group of 3 clones from normal cells, and the other group of 3 clones with a deleted region.
 
 ##### ChIP-seq
 
-If you would like to do something slightly different, I have also included two ChIP-seq datasets that enrich for CTCF transcription factor binding sites (https://en.wikipedia.org/wiki/CTCF).
+If you would like to do something slighly different, I have also included two ChIP-seq datasets that enrich for CTCF transcription factor binding sites (https://en.wikipedia.org/wiki/CTCF).
 CTCF is an important TF for structural organisation of the chromosome and is used a lot on 3D chromosome structure analyses (3C/4C/5C/HiC-seq).
 
 Each replicate is also sampled on GM12878.
@@ -123,9 +126,11 @@ Each replicate is also sampled on GM12878.
 All the data is available from the following link:
 https://universityofadelaide.box.com/v/mscProjectData
 
-**Note 1:** The data from this directory is approximately 87GB, meaning that you cannot download the data in one go. I would suggest choosing specific libraries you would like to work on and download those separately onto your VM so you don't fill up the VM's allocated space.
+**Note 1:** The data from this directory is approximately 100GB, meaning that you cannot download the data in one go. I would suggest choosing specific libraries you would like to work on and download those separately onto your VM so you don't fill up the VM's allocated space.
 
-**Note 2:** The data is from 2012-2014, so some of the sequencing technology is quite old!Good luck!
+**Note 2:** Some of the data is from 2012-2014, so some of the sequencing technology is quite old!
+
+Good luck!
 
 
 ### Assessment Checklist
