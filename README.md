@@ -64,9 +64,17 @@ In this course, the following next-generation sequencing (NGS) datasets/protocol
 - Enrichment/Capture sequencing (Methyl-capture, ChIPseq, RIPseq)
 - Metagenomics/Microbial profiling
 
-Each of these NGS approaches uses similar programs and analysis approaches, such as quality control (quality and sequencing adapter trimming), genome alignment, and downstream visualisation and statistical methods. For the project, you will take a published (or otherwise obtained) dataset and complete all the analysis tasks (from raw data to final results) during the course.
+Each of these NGS approaches uses similar programs and analysis approaches, such as quality control (quality and sequencing adapter trimming), genome alignment, and downstream visualisation and statistical methods.
+For the project, you will take a published (or otherwise obtained) dataset and complete all the analysis tasks (from raw data to final results) during the course.
+You have the freedom to choose any dataset you would like. You will prepare a final report that will be due at the end of the semester.
+The report should be prepared using RStudio as an Rmd document including all code needed to perform the analysis, and will include the standard components of a scientific report:
 
-You have the freedom to choose any dataset you would like. You will prepare a final report that will be due at the end of the semester. The report should be prepared using RStudio as an Rmd document including all code needed to perform the analysis, and will include the standard components of a scientific report: introduction (background on the study and identification of the research hypothesis), methods (analysis steps and programs used), results (what you found) and discussion (how the results relate to the research hypothesis and the published literature). The Rmd document and a compiled knitted html will form the submission; marks will be awarded to the code and Rmd that you use.
+- Introduction (background on the study and identification of the research hypothesis)
+- Methods (analysis steps and programs used)
+- Results (what you found) and; 
+- Discussion (how the results relate to the research hypothesis and the published literature).
+
+The Rmd document and a compiled knitted html will form the submission; marks will be awarded to the code and Rmd that you use.
 
 | Section | Mark |
 |---------|-----:|
@@ -76,6 +84,48 @@ You have the freedom to choose any dataset you would like. You will prepare a fi
 | Results and Discussion | 30% |
 | References | 5% |
 | Analysis scripts | 30% |
+
+#### Project Data
+
+For the project I was able to download a number of publicly available datasets from the Encylopedia of DNA elements (ENCODE) project, which is a large multi-national study that wrapped up a while ago.
+The purpose of the study was to identify any "functional" region of the genome that may not be gene-coding, so the project sequenced a lot of RNA sequencing, ChIP-seq (Transcription Factor-binding), DNA methylation sequencing and arrays etc.
+
+##### Sample Information
+
+GM12878 is a human lymphoblastoid cell-line, a component of the human Lymphoblastic Leukaemias, taken from a large family from Utah (Central European Ancestry) in 1985.
+These cell-lines are widely used in genomics as reference sets for large projects and are easy to obtain and use in a research setting.
+
+##### RNA-seq
+
+In the data directory you will find RNA-seq and ChIPseq data from the human cell-line GM12878.
+
+They were produced back in 2012 by a number of labs in the US.
+
+They include RNA-seq from four different RNA fractions:
+
+- Long PolyA+ enriched RNA from Whole-cells
+- Long RNA from Whole-cells without PolyA enrichment
+- Short total RNA
+- Long total RNAShort vs Long refers to the size selection of the RNA before making the library.
+
+Short is generally less than 100bp and large is >100bp.
+All of the library protocols are available already so you can have a look at the specifics (https://public-docs.crg.eu/rguigo/Data/jlagarde/encode_RNA_dashboard//hg19/).
+
+##### ChIP-seq
+
+If you would like to do something slightly different, I have also included two ChIP-seq datasets that enrich for CTCF transcription factor binding sites (https://en.wikipedia.org/wiki/CTCF).
+CTCF is an important TF for structural organisation of the chromosome and is used a lot on 3D chromosome structure analyses (3C/4C/5C/HiC-seq).
+
+Each replicate is also sampled on GM12878.
+
+---
+
+All the data is available from the following link:
+https://universityofadelaide.box.com/v/mscProjectData
+
+**Note 1:** The data from this directory is approximately 87GB, meaning that you cannot download the data in one go. I would suggest choosing specific libraries you would like to work on and download those separately onto your VM so you don't fill up the VM's allocated space.
+
+**Note 2:** The data is from 2012-2014, so some of the sequencing technology is quite old!Good luck!
 
 
 ### Assessment Checklist
