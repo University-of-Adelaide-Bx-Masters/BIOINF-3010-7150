@@ -1,3 +1,9 @@
+### Getting started
+
+First you will need to activate the conda environment that we will be using.
+
+    conda activate variation
+
 ### Mapping reads to a graph
 Remember to re-initiate the vg alias:
 

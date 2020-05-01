@@ -13,6 +13,10 @@ In this exercise you learn how to
 
 ### Getting started
 
+First you will need to activate the conda environment that we will be using.
+
+    conda activate variation
+
 vg is a large collection of tools that is under very active development, to ensure we have access easily to the lastest versions of the software, we use the [Docker](https://www.docker.com/). It is already available on the course workstations. If you want to bulid it on your laptop, follow the instructions at the [vg homepage](https://github.com/vgteam/vg) (note that building vg and all submodules from source can take ~1h). 
 
 To test if things are working smoothly, you can run:
