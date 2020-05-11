@@ -6,7 +6,6 @@ For the process of separating out two tutorials this week,
 1. Variant Annotation (Tuesday)
 2. Variant Filtering and Pedigree Analyses (Friday)
 
-
 ## Clinical Genetics
 
 Clinical genomics and mendelian genetics can be separated into two groups based on their stated analysis goals; Diagnostics and Research. 
