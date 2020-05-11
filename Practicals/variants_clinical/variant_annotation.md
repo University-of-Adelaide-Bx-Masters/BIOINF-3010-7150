@@ -234,7 +234,7 @@ These include:
 3. PolyPhen
 4. REVEL
 
-https://m.ensembl.org/info/genome/variation/prediction/protein_function.html
+[All the additional fields are here](https://m.ensembl.org/info/genome/variation/prediction/protein_function.html)
 
 ## CADD
 
