@@ -101,8 +101,7 @@ gemini query -q "SELECT name, sex FROM samples WHERE sex IS NOT 2" trio.trim.vep
 Note: Depending on the data type, you may need to surround character info in ''. 
 
 
-
-### TASK
+### TASKS: Build your query
 
 Now that we known the query structure and tables that we have in our database, construct some more sophisticated queries.
 1. Extract the chromosome and position of the variants in teh database that have a 1000 genome allele frequency in Europeans (aaf_1kg_eur) less than 0.5. How many are there?
@@ -204,7 +203,7 @@ Ok lets have a look:
 ```
 gemini autosomal_dominant \
     --columns "chrom, start, end, ref, alt, gene, impact, cadd_raw" \
-    trio.trim.vep.dominant.db | head  | column -t
+    trio.trim.vep.dominant.db | head | column -t
 ```
 
 Here we are running the `autosomal_dominant` tool, and extracting specific columns of information from the database, printing only the first few lines and separating them out into tab delimited columns so we can see whats going on.
@@ -212,9 +211,10 @@ We want to include the important information like whether the variant is in a ge
 
 From here we can start widdling down our variants based on variant filtering concepts that we learnt earlier in the week.
 
-### TASK
+### TASK: Find candidate genes for Hypobetalipoproteinemia
 
 - Generate a list of the variants that have 'HIGH' and 'MODERATE' impact. How many do you have?
-- Build up some additional
-  - The variant is likely to be rare in the European population, so generate a list of 'HIGH' and 'MODERATE' impact variants that are rare in Europeans (have an allele-frequency <0.01).
-  - This can be either from gnomAD, ExAC or 1000genomes allele-frequencies (gnomAD generally has the most accurate frequencies)
+- Build up some additional filters 
+  - For example, the variant is likely to be rare in the European population, so it might be good to look at allele-frequency's < 0.01 in Europeans.
+    - This can be either from gnomAD, ExAC or 1000genomes allele-frequencies (gnomAD generally has the most accurate frequencies)
+- Generate a list of candidate genes based on your data 
