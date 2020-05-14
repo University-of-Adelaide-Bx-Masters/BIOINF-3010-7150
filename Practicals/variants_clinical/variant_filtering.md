@@ -40,19 +40,16 @@ Unfortunately the database loading command also adds a lot of annotation informa
 
 
 ```
-# These usually work when gemini is installed with the full databases
-## Create the gemini db for recessive study
-#gemini load --cores	4 -v trio.trim.vep.vcf.gz -t VEP \
-#        --skip-gene-tables -p recessive.ped trio.trim.vep.recessive.db
+# Loading VCF files require all the annotation databases
+## Create the gemini db for dominant study
+#gemini load --cores 4 -v trio.trim.vep.vcf.gz -t VEP \
+#        --skip-gene-tables -p dominant.ped trio.trim.vep.dominant.db
 
-### Create the gemini db for dominant study
-gemini load --cores 4 -v trio.trim.vep.vcf.gz -t VEP \
-        --skip-gene-tables -p dominant.ped trio.trim.vep.dominant.db
-
-# Download the dbs separately for todays prac
-wget -c "LINK" -O "file.db"
-
+# Copy the dominant gemini db to your working directory for todays prac
+cp ~/data/genomics/trio.trim.vep.dominant.db .
 ```
+
+We'll use this database for our querying and `autosomal_dominant` analysis.
 
 ## Querying a SQL database in Gemini
 
