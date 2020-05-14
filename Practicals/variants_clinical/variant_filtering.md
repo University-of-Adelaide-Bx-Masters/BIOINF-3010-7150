@@ -79,7 +79,7 @@ All of these are available to be queried
 Let's look at some examples by using the `gemini query` sub-command.
 
 ```
-# Get the samples table
+# Get everything from the samples table with a wildcard
 gemini query -q "SELECT * FROM samples" trio.trim.vep.dominant.db
 
 # Get the names of the individuals from the samples table
@@ -100,12 +100,14 @@ gemini query -q "SELECT name, sex FROM samples WHERE sex IS NOT 2" trio.trim.vep
 
 Note: Depending on the data type, you may need to surround character info in ''. 
 
+
+
 ### TASK
 
 Now that we known the query structure and tables that we have in our database, construct some more sophisticated queries.
 1. Extract the chromosome and position of the variants in teh database that have a 1000 genome allele frequency in Europeans (aaf_1kg_eur) less than 0.5. How many are there?
 2. Extract all the variants within the genes MAPK12 that have a variant quality > 200. How many are there? How many are also QUAL > 500?
-
+3. How many variants that were marked as "PASS" quality were concordant 
 
 ## Autosomal Dominant disorder
 
@@ -137,6 +139,50 @@ family1     4805       1847         1805         1    2          CEU
 As you can see, all of the relationships between the individuals are recorded in the PED file, including the sex of the individuals and their prevalence of the phenotype.
 You can imagine that when sampling larger families, or even populations, all of the unique inheritance patterns can be recorded here and used to inform the clinical model when it comes to identifying candidate genes or variants for the disorder.
 
+## Sample genotype queries
+
+Given that we will be comparing the pattern of inheritance of these variants, its easy to filter variants so that you pick up specific relationships between individuals.
+For example, what if we wanted to identify variants where both 1805 and 4805 have a non-reference allele?
+(After all, 1805 and 4805 are both affected)
+
+```
+# Show all info
+gemini query -q "SELECT * from variants" \
+            --gt-filter "(gt_types.1805 <> HOM_REF AND gt_types.4805 <> HOM_REF)" \
+            --header \
+            trio.trim.vep.dominant.db
+
+# Print just the genotypes to compare
+gemini query -q "SELECT gts.1805, gts.4805 from variants" \
+            --gt-filter "(gt_types.1805 <> HOM_REF AND gt_types.4805 <> HOM_REF)" \
+            --header \
+            trio.trim.vep.dominant.db
+```
+
+Or how about using a wildcard with the `--gt-filter` to identify all heterozygous variants.
+The syntax for wildcards in `--gt-filter` follows a slightly different format:
+
+```--gt-filter (COLUMN).(SAMPLE_WILDCARD).(SAMPLE_WILDCARD_RULE).(RULE_ENFORCEMENT)```
+
+```
+# Print heterozygous variants in all
+gemini query -q "SELECT chrom, start, end, ref, alt, gene, impact, (gts).(*) \
+                 FROM variants" \
+            --gt-filter "(gt_types).(*).(==HET).(all)" \
+            --header \
+            trio.trim.vep.dominant.db
+
+# Print variants where all the females variants are reference homozygous
+gemini query -q "SELECT chrom, start, end, ref, alt, gene, impact, (gts).(*) \
+                 FROM variants" \
+            --gt-filter "(gt_types).(sex==2).(==HOM_REF).(all)" \
+            --header \
+            trio.trim.vep.dominant.db
+```
+
+Here you can add quality filters for each of the genotypes. 
+You can look at variant depth and quality in each genotype by using the `gt_depth` and `gt_quals`
+
 ## `autosomal_dominant` tool
 
 Gemini already comes with a number of tools that allow you to assess particular types of clinical genetic patterns, including one for autosomal dominant disorders.
@@ -164,11 +210,11 @@ gemini autosomal_dominant \
 Here we are running the `autosomal_dominant` tool, and extracting specific columns of information from the database, printing only the first few lines and separating them out into tab delimited columns so we can see whats going on.
 We want to include the important information like whether the variant is in a gene, what the impact of the variant is, and whats the pathogenicity of that variant (using the raw CADD score).
 
-From here we can start widdling down our variants based on variant filtering concepts that we learnt earlier in the week:
+From here we can start widdling down our variants based on variant filtering concepts that we learnt earlier in the week.
 
-- 
+### TASK
 
-### Questions
-
-1. Taking all of the variants (not just the `head` of the result), how many variants do you see?
-2. 
+- Generate a list of the variants that have 'HIGH' and 'MODERATE' impact. How many do you have?
+- Build up some additional
+  - The variant is likely to be rare in the European population, so generate a list of 'HIGH' and 'MODERATE' impact variants that are rare in Europeans (have an allele-frequency <0.01).
+  - This can be either from gnomAD, ExAC or 1000genomes allele-frequencies (gnomAD generally has the most accurate frequencies)
