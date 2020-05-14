@@ -36,14 +36,139 @@ Gemini can take the VCF file and sample information in the form of a ped file (s
 The ped file is actually a standard metadata information file that was developed in the [genetics application `PLINK`](http://zzz.bwh.harvard.edu/plink/data.shtml#ped).
 This program is used extensively for genome-wide association studies, and was developed in the era of genotyping arrays rather than WGS approaches. 
 
-```
-# Create the gemini db for recessive study
-gemini load --cores	4 -v trio.trim.vep.vcf.gz -t VEP \
-        --skip-gene-tables -p recessive.ped trio.trim.vep.recessive.db
+Unfortunately the database loading command also adds a lot of annotation information that requires >50GB of data to be used, so instead of running the loading commands below I will provide each database separately
 
-# Create the gemini db for dominant study
+
+```
+# These usually work when gemini is installed with the full databases
+## Create the gemini db for recessive study
+#gemini load --cores	4 -v trio.trim.vep.vcf.gz -t VEP \
+#        --skip-gene-tables -p recessive.ped trio.trim.vep.recessive.db
+
+### Create the gemini db for dominant study
 gemini load --cores 4 -v trio.trim.vep.vcf.gz -t VEP \
         --skip-gene-tables -p dominant.ped trio.trim.vep.dominant.db
+
+# Download the dbs separately for todays prac
+wget -c "LINK" -O "file.db"
+
 ```
 
+## Querying a SQL database in Gemini
 
+Firstly some quick points on SQL and examples on how to use SQL queries. 
+The instructions for extracting data from the database file is relatively straight forward.
+Information is stored in tables, much like a sheet within a Microsoft Excel Spreadsheet file.
+You can ask the database to give you specific information and also put restrictions on the type of information thats needed (such as a conditional like "the sex of the person must be female").
+
+Given that we are generally using the standard gemini tools to load and arrange data within the database, we will not be using a lot of the [standard SQL commands](https://www.codecademy.com/articles/sql-commands).
+Really we only need to know how to query the database using the `SELECT` and `FROM` command.
+We will also need some conditionals to  like `WHERE`, `IS`, `IS NOT` etc
+
+In order to query we need to know what we have.
+
+```
+gemini db_info trio.trim.vep.dominant.db
+```
+
+As you can see, we have a number of tables.
+Within those tables we have columns.
+And the data within those columns has a specific data type.
+All of these are available to be queried
+
+Let's look at some examples by using the `gemini query` sub-command.
+
+```
+# Get the samples table
+gemini query -q "SELECT * FROM samples" trio.trim.vep.dominant.db
+
+# Get the names of the individuals from the samples table
+gemini query -q "SELECT name FROM samples" trio.trim.vep.dominant.db
+
+# Get the names of the individuals from the samples table that are male
+gemini query -q "SELECT name FROM samples WHERE sex IS 1" trio.trim.vep.dominant.db
+
+# Get the names of the individuals from the samples table that are male
+gemini query -q "SELECT name FROM samples WHERE sex == 1" trio.trim.vep.dominant.db
+
+# Get the names of the individuals from the samples table that are male
+gemini query -q "SELECT name FROM samples WHERE sex IS NOT 2" trio.trim.vep.dominant.db
+
+# Get the names of the individuals from the samples table that are male
+gemini query -q "SELECT name, sex FROM samples WHERE sex IS NOT 2" trio.trim.vep.dominant.db
+```
+
+Note: Depending on the data type, you may need to surround character info in ''. 
+
+### TASK
+
+Now that we known the query structure and tables that we have in our database, construct some more sophisticated queries.
+1. Extract the chromosome and position of the variants in teh database that have a 1000 genome allele frequency in Europeans (aaf_1kg_eur) less than 0.5. How many are there?
+2. Extract all the variants within the genes MAPK12 that have a variant quality > 200. How many are there? How many are also QUAL > 500?
+
+
+## Autosomal Dominant disorder
+
+Autosomal dominant disorders are genetic disorders that do not involve the sex chromosomes (those are referred to as "sex-linked") and are passed down through families in a vertical transmission pattern. 
+Incomplete penetrance can occur within the family, meaning that disorder may skip a generation.
+`Penetrance` here means "the extent to which a particular gene or set of genes is expressed in the phenotypes of individuals carrying it, measured by the proportion of carriers showing the characteristic phenotype."
+
+![https://www.mayoclinic.org/autosomal-dominant-inheritance-pattern/img-20006210](https://www.mayoclinic.org/-/media/kcms/gbs/patient-consumer/images/2013/11/15/17/37/r7_autosomaldominantthu_jpg.jpg)
+
+Examples of these disorders include Huntington disease, neurofibromatosis, and polycystic kidney disease.
+
+The trio that we will be looking at today is affected by a rare disorder called [_hypobetalipoproteinemia_](https://ghr.nlm.nih.gov/condition/familial-hypobetalipoproteinemia), a disorder that impairs the body's ability to absorb and transport fats.
+It occurs in about in 1 in 1,000 to 3,000 individuals (1 in ~1,000 in Europeans).
+
+![Trio pattern](images/family.png)
+
+Both the mother (`1805`) and the son (`4805`) are affected with the disorder, with normal plasma HDL, fat malabsorption and are in the bottom 5% for plasma cholesterol and triglycerides.
+We want to be able to see these sort of relationships in the PED file so lets have a quick look at that
+
+```
+cat dominant.ped | column -t
+
+#family_id  sample_id  paternal_id  maternal_id  sex  phenotype  ancestry
+family1     1805       -9           -9           2    2          CEU
+family1     1847       -9           -9           1    1          CEU
+family1     4805       1847         1805         1    2          CEU
+```
+
+As you can see, all of the relationships between the individuals are recorded in the PED file, including the sex of the individuals and their prevalence of the phenotype.
+You can imagine that when sampling larger families, or even populations, all of the unique inheritance patterns can be recorded here and used to inform the clinical model when it comes to identifying candidate genes or variants for the disorder.
+
+## `autosomal_dominant` tool
+
+Gemini already comes with a number of tools that allow you to assess particular types of clinical genetic patterns, including one for autosomal dominant disorders.
+This tool has the known characteristics of this type of genetic disorder hard-coded into the function.
+The genotype requirements for an autosomal dominant disorder are:
+
+1. All affected individuals must be a heterozygous variant. 
+   - After all one copy comes from mum and the other from dad
+   - One of which is defective
+2. No unaffacted can be heterozygous or homozygous alternate
+   - However they can be unknown
+3. Can't be `de-novo` mutations
+4. Affected individual must have an affected parent
+5. All affected must have parents where the phenotype is known
+   - Otherwise throw a warning
+
+Ok lets have a look:
+
+```
+gemini autosomal_dominant \
+    --columns "chrom, start, end, ref, alt, gene, impact, cadd_raw" \
+    trio.trim.vep.dominant.db | head  | column -t
+```
+
+Here we are running the `autosomal_dominant` tool, and extracting specific columns of information from the database, printing only the first few lines and separating them out into tab delimited columns so we can see whats going on.
+We want to include the important information like whether the variant is in a gene, what the impact of the variant is, and whats the pathogenicity of that variant (using the raw CADD score).
+
+From here we can start widdling down our variants based on variant filtering concepts that we learnt earlier in the week:
+
+- 
+
+### Questions
+
+1. Taking all of the variants (not just the `head` of the result), how many variants do you see?
+2. 
