@@ -215,3 +215,9 @@ From here we can start widdling down our variants based on variant filtering con
   - For example, the variant is likely to be rare in the European population, so it might be good to look at allele-frequency's < 0.01 in Europeans.
     - This can be either from gnomAD, ExAC or 1000genomes allele-frequencies (gnomAD generally has the most accurate frequencies)
 - Generate a list of candidate genes based on your data 
+
+
+### EXTRA EXTRA TASK: Recessive example
+
+- Do the same exercise with the recessive database
+  - What `gemini` functions can be employed to identify recessive variants?
