@@ -101,7 +101,7 @@ Note: Depending on the data type, you may need to surround character info in ''.
 ### TASKS: Build your query
 
 Now that we known the query structure and tables that we have in our database, construct some more sophisticated queries.
-1. Extract the chromosome and position of the variants in teh database that have a 1000 genome allele frequency in Europeans (aaf_1kg_eur) less than 0.5. How many are there?
+1. Extract the chromosome and position of the variants in the database that have a 1000 genome allele frequency in Europeans (aaf_1kg_eur) less than 0.5. How many are there?
 2. Extract all the variants within the genes MAPK12 that have a variant quality > 200. How many are there? How many are also QUAL > 500?
 3. How many variants that were marked as "PASS" quality were concordant 
 
