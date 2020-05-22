@@ -2,7 +2,7 @@
 
 # Practicals: Ancient DNA and population genomics
 
-Bastien Llamas (bastien.llamas@adelaide.edu.au)
+Bastien Llamas \(bastien.llamas@adelaide.edu.au\)
 2020-05-26 and 2020-05-29
 
 The two tutorials will be separated into:
