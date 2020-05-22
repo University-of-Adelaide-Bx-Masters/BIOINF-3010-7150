@@ -1,5 +1,3 @@
-# [BIOINF3010/7150: Genomics Applications] (https://uofabioinformaticshub.github.io/genomics_applications/)
-
 # Practicals: Ancient DNA and population genomics
 
 Bastien Llamas \(bastien.llamas@adelaide.edu.au\)
@@ -22,7 +20,8 @@ You have previously learnt about several raw or processed high throughput sequen
 
 We will use the same VCF file as during the Clinical Genomics practicals. But first we need to install bcftools again.
 
-```conda config --add channels bioconda
+```
+conda config --add channels bioconda
 conda config --add channels conda-forge
 conda install -c bioconda bcftools
 ```
