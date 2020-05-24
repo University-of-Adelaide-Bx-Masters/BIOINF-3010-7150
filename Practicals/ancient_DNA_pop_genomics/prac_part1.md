@@ -29,7 +29,8 @@ curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase
 
 Have a look at the VCF file using bash commands. You will notice that lines in the header of a VCF file start with `#` and contain metadata. The last line of the header starts with `#CHROM` and is tab separated. It contains 9 columns of information about the variants:
 
-|Name|Brief description
+||Name|Brief description|
+|:-|:-|:-|
 1|	CHROM|	The name of the sequence (typically a chromosome) on which the variation is being called. This sequence is usually known as 'the reference sequence', i.e. the sequence against which the given sample varies.
 2|	POS|	The 1-based position of the variation on the given sequence.
 3|	ID|	The identifier of the variation, e.g. a dbSNP rs identifier, or if unknown a ".". Multiple identifiers should be separated by semi-colons without white-space.
