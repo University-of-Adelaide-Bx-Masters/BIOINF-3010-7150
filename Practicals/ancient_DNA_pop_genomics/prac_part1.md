@@ -29,8 +29,9 @@ We will use a VCF file of human chromosome 22 from the 1000 Genomes Project (1kG
 # Create working directory
 mkdir ~/BIOINF_Tuesday
 cd ~/BIOINF_Tuesday
-# Download data from the 1kGP public FTP site (file size: 214453750 bytes)
-curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz	> 1kGP_chr22.vcf.gz	
+# Download VCF file and its index from the 1kGP public FTP site (VCF file size: 214453750 bytes)
+curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz	> 1kGP_chr22.vcf.gz
+curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi	> 1kGP_chr22.vcf.gz.tbi
 ```
 Although you could use your own scripts to parse VCF files and analyse variant calls, several tools have already been developed for your convenience. In particular, [BCFtools](http://samtools.github.io/bcftools/bcftools.html) is a set of useful utilities to manipulate variant calls in VCF files. You can install it easily with the conda package management system:
 ```
@@ -57,7 +58,7 @@ Have a look at the VCF file using `zless`. Meta-information lines start with `##
 
 Have a closer look at how the information in the [INFO](https://en.wikipedia.org/wiki/Variant_Call_Format#Common_INFO_fields) and [FORMAT](https://en.wikipedia.org/wiki/Variant_Call_Format#Common_FORMAT_fields) fields is commonly coded. The 1kGP VCF datasets also contain some project-specific keys explained in a file that can be downloaded.
 ```
-curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/README_vcf_info_annotation.20141104
+wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/README_vcf_info_annotation.20141104
 ```
 
 #### VCF body
@@ -66,30 +67,37 @@ The body of the VCF file is tab separated. Each line represents a unique variant
 #### Other useful 1kGP metadata
 You can  download sample details from the 1kGP FTP site to learn about population of origin and sex of each individual.
 ```
-curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call_samples_v3.20130502.ALL.panel
+wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call_samples_v3.20130502.ALL.panel
 ```
 
 ---
-Before we move forward, let's see if you can retrieve basic information from a 1kGP VCF file that will be useful for population genomic analyses. You can use `bcftools view`, `bcftools query`, or bash commands to answer the below questions.
+Before we move forward, let's see if you can retrieve basic information from a 1kGP VCF file that will be useful for population genomic analyses.
 
-#### *Questions*
+#### :warning: *Questions*
 1. Using `bcftools view` or bash commands, determine how many variant sites are recorded in the VCF file.
 2. Using `bcftools query` or bash commands, determine how many samples are recorded in the VCF file.
-3. The INFO fields contain a lot of information. In particular for the first variant: determine how many samples have data, how many ALT alleles are reported, and what the frequency of the ALT allele is.
-4. Same as above for position 16051249 (see the BCFtools manual for region or target formatting).
-5. Looking at the information contained in the `FORMAT` field in the body of the VCF file,
+3. The INFO fields contain a lot of information. In particular for the first variant: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in East Asians.
+4. Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).
+5. How many alternative alleles are observed at position 16050654?
+6. Looking at the information contained in the FORMAT field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?
+---
+
+## Converting VCF files into population genomics formats
+A VCF file may contain a lot of information (e.g. variant annotation) that can be very useful for clinical genomics. This was the case when you looked at a trio data with Jimmy Breen. However, population genomics applications only need a subset of the information in VCF file, i.e., variant genomic coordinates, variant ID, reference (REF) and alternative (ALT) alleles, and sample genotypes.
+
+Genotypes can be coded differently depending on ploidy (in humans, diploid for autosomes or chrX in females, haploid for mitochondrial genomes and chrY), the number of alternate alleles, whether the genomes are phased (i.e., alleles on maternal and paternal chromosomes are identified) or not, and homo/heterozygosity.
+||Example|
+|:-|:-|
+|**Haploid**|REF or ALT|
+|**Diploid, not phased**|REF/REF or REF/ALT or ALT/ALT|
+|**Diploid, phased**|REF\|REF or REF\|ALT or ALT\|REF or ALT\|ALT|
 
 ---
-## Converting VCF files into population genomics formats
-The VCF file contains a lot of information that can be very useful for clinical genomics. However, population genomics applications only need a subset of the information in VCF file, i.e., variants genomic coordinates, variants ID, reference (REF) and alternative (ALT) alleles, and sample genotypes.
+Let's have a look at the first variant in our VCF file.
+#### :warning:*Questions*
+7. What are the REF and ALT alleles?
+8. Given REF and ALT alleles, and knowing that the genotypes are phased, what are the possible genotypes?
+---
 
-Let's have a look at the first variant in our VCF file:
-```
-bcftools view -H 1kGP_chr22.vcf.gz | head -1
-```
-#### *Questions*
-3. What are the REF and ALT alleles?
-4. Given REF and ALT alleles, and knowing that the genotypes are phased (use of `|` instead of `/` to separate alleles), what are the possible genotypes?
-4. How many samples are recorded in the VCF file?
 
 
