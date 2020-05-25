@@ -338,11 +338,6 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .4))
   * gender (M or F). U for Unknown
   * Case or Control status, or population group label. If this entry is set to "Ignore", then that individual and all genotype data from that individual will be removed from the data set in all convertf output.
 
-:computer: Install the Eigensoft software using conda.
-```bash
-conda install -c bioconda eigensoft
-```
-
 :computer: Build parameter files that will be the inputs for CONVERTF. The content of the parameter files is as follows:
 * `par.PACKEDPED.EIGENSTRAT.1kGP_chr22`:
 ```bash
