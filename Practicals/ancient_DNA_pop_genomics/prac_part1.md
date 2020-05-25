@@ -190,7 +190,7 @@ awk -v \
 wc -l updateFields
 ```
 
-:blue_book: Now we have everything to create the PLINK files. We also want to weed out variants that will not be useful for population genomics analyses, so we will keep bi-allelic SNPs only (`--snps-only just-acgt --biallelic-only strict`), keep high quality variant calls only (`--vcf-filter`), preserve the order of REF and ALT alleles as in the VCF file (`--keep-allele-order`), and discard rare alleles (`--maf 0.10`).
+:blue_book: Now we have everything to create the PLINK files. We also want to weed out variants that will not be useful for population genomics analyses, so we will keep bi-allelic SNPs only (`--snps-only just-acgt --biallelic-only strict`), keep high quality variant calls only (`--vcf-filter`), and discard rare alleles (`--maf 0.10`). Note that PLINK automatically re-orders alleles in minor/major. If you want to preserve the order of REF and ALT alleles as in the VCF file, then use `--keep-allele-order`.
 
 :computer: Convert the VCF file into PLINK files.
 ```bash
@@ -199,7 +199,6 @@ plink \
   --vcf 1kGP_chr22.vcf.gz \
   --snps-only just-acgt \
   --biallelic-only strict \
-  --keep-allele-order \
   --vcf-filter \
   --maf 0.10 \
   --update-sex updateFields 3 \
@@ -319,5 +318,30 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .4))
 
 
 ### The Eigensoft format
-:blue_book: PLINK was initially developed for GWAS studies and similar largescale medical genomics studies. Another suite of utilities ([Eigensoft](https://github.com/DReichLab/EIG)) was developed in parallel for population genomics, and as os often the case, the file formats remained different. However, Eigensoft can convert PLINK files 
+:blue_book: PLINK was initially developed for GWAS studies and similar largescale medical genomics studies. Another suite of utilities ([Eigensoft](https://github.com/DReichLab/EIG)) was developed for population genomics, and as is often the case, the file formats remained different between the two suites of utilities. However, Eigensoft can convert PLINK files into many file formats (including EIGENSTRAT files that we will use in this tutorial) using [CONVERTF](https://github.com/DReichLab/EIG/tree/master/CONVERTF).
 
+:blue_book: The EIGENSTRAT files contain more or less the same information as the PLINK files, just in a different format:
+* `.eigenstratgeno`: tab-delimited genotype file with one line per SNP and the following genotype coding:
+  * `0`: no copies of reference allele
+  * `1`: one copy of reference allele
+  * `2`: two copies of reference allele
+  * `9`: missing data
+* `.snp`: tab-delimited SNP file with one line per SNP and the following 6 columns (last 2 optional):
+  * SNP name
+  * Chromosome (X is encoded as 23, Y as 24, mtDNA as 90, and XY as 91)
+  * Genetic position (in Morgans). 0 if unknown
+  * Physical position (in bases)
+  * Optional 5th and 6th columns are reference and variant alleles. For monomorphic SNPs, the variant allele can be encoded as X (unknown)
+* `.ind`: tab-delimited sample file with one line per individual and the following 3 columns:
+  * sample ID
+  * gender (M or F). U for Unknown
+  * Case or Control status, or population group label. If this entry is set to "Ignore", then that individual and all genotype data from that individual will be removed from the data set in all convertf output.
+
+:computer: Install the Eigensoft software using conda.
+```bash
+conda install -c bioconda eigensoft
+```
+:computer: Create a parameter file as input for CONVERTF.
+```bash
+
+```
