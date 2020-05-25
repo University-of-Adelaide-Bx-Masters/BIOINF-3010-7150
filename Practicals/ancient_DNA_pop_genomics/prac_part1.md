@@ -370,7 +370,7 @@ convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22
 convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22.ldpruned
 ```
 
-:blue_book: Build parameter files called that will be the inputs for SMARTPCA. The content of the parameter files is as follows:
+:computer: Build parameter files that will be the inputs for SMARTPCA. The content of the parameter files is as follows:
 * `par.1kGP_chr22`:
 ```bash
 genotypename:    1kGP_chr22.eigenstratgeno
