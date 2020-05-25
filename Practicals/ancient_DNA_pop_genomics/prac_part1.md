@@ -235,6 +235,23 @@ plink \
 18. How does it compare to the number of variants in `1kGP_chr22.bim`?
 ---
 
+:computer: You can now create a file with just the LD-pruned data.
+```bash
+plink \
+ --bfile 1kGP_chr22 \
+ --extract ld_snps.prune.in \
+ --make-bed \
+ --out 1kGP_chr22.ldpruned
+```
+
+---
+:computer: Have a look at the newly created files.
+#### :question:*Questions*
+19. In terms of file size, what do you notice when you look at the `.bed`, `.bim` and `.fam` files before and after LD pruning?
+20. How do you explain the changes, or lack thereof?
+---
+
+
 
 ### The Eigenstrat format
 
