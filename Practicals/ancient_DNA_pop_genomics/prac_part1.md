@@ -341,7 +341,97 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .4))
 ```bash
 conda install -c bioconda eigensoft
 ```
-:computer: Create a parameter file as input for CONVERTF.
-```bash
 
+:computer: Create symlinks to `.bim` and `.fam` files for compatibility with CONVERTF suffix requirements.
+```bash
+for i in *.bim; do ln -s $i ${i/bim/pedsnp}; done
+for i in *.fam; do ln -s $i ${i/fam/pedind}; done
 ```
+:computer: Build parameter files called that will be the inputs for CONVERTF. The content of the parameter files is as follows:
+* For `par.PACKEDPED.EIGENSTRAT.1kGP_chr22`:
+```bash
+genotypename:    1kGP_chr22.bed
+snpname:         1kGP_chr22.bim
+indivname:       1kGP_chr22.fam
+outputformat:    EIGENSTRAT
+genotypeoutname: 1kGP_chr22.eigenstratgeno
+snpoutname:      1kGP_chr22.snp
+indivoutname:    1kGP_chr22.ind
+```
+* For `par.PACKEDPED.EIGENSTRAT.1kGP_chr22.ldpruned`:
+```bash
+genotypename:    1kGP_chr22.ldpruned.bed
+snpname:         1kGP_chr22.ldpruned.bim
+indivname:       1kGP_chr22.ldpruned.fam
+outputformat:    EIGENSTRAT
+genotypeoutname: 1kGP_chr22.ldpruned.eigenstratgeno
+snpoutname:      1kGP_chr22.ldpruned.snp
+indivoutname:    1kGP_chr22.ldpruned.ind
+```
+
+:computer: Run CONVERTF.
+```bash
+convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22
+convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22.ldpruned
+```
+
+:blue_book: Build parameter files called that will be the inputs for SMARTPCA. The content of the parameter files is as follows:
+* For `par.1kGP_chr22`:
+```bash
+genotypename:    1kGP_chr22.eigenstratgeno
+snpname:         1kGP_chr22.snp
+indivname:       1kGP_chr22.ind
+evecoutname:     1kGP_chr22.smartpca_results.evec
+evaloutname:     1kGP_chr22.smartpca_results.eval
+numoutevec:      5
+```
+* For `par.1kGP_chr22.ldpruned`:
+```bash
+genotypename:    1kGP_chr22.ldpruned.eigenstratgeno
+snpname:         1kGP_chr22.ldpruned.snp
+indivname:       1kGP_chr22.ldpruned.ind
+evecoutname:     1kGP_chr22.ldpruned.smartpca_results.evec
+evaloutname:     1kGP_chr22.ldpruned.smartpca_results.eval
+numoutevec:      5
+```
+:computer: Run SMARTPCA.
+```bash
+smartpca -p par.1kGP_chr22
+smartpca -p par.1kGP_chr22.ldpruned
+```
+:computer: Go to the R console and create PCA plots.
+```R
+library(tidyr)
+library(ggplot2)
+library(cowplot)
+# Create dataframe for the non-LD-pruned data
+adat <- read.table("1kGP_chr22.pca_results.eigenvec", header = FALSE)
+# Rename columns
+colnames(adat) <- c("POP", "SAMPLE", "PC1", "PC2", "PC3", "PC4", "PC5")
+# Split POP column into super-population SUPERPOP and population POP
+adat <- separate(data = adat, col = POP, into = c("SUPERPOP", "POP"), sep = "_")
+# Create plot with each population in a different colour
+adat.pc12 <- ggplot(adat, aes(x = PC1, y = PC2, colour = POP, shape = SUPERPOP)) + 
+             geom_point() +
+             ggtitle("Non-LD-pruned")
+# Do the same steps for the LD-pruned data
+bdat <- read.table("1kGP_chr22.ldpruned.pca_results.eigenvec", header = FALSE)
+colnames(bdat) <- c("POP", "SAMPLE", "PC1", "PC2", "PC3", "PC4", "PC5")
+bdat <- separate(data = bdat, col = POP, into = c("SUPERPOP", "POP"), sep = "_")
+bdat.pc12 <- ggplot(bdat, aes(x = PC1, y = PC2, colour = POP, shape = SUPERPOP)) + 
+             geom_point() +
+             ggtitle("LD-pruned")
+# Combine plots
+prow <- plot_grid(adat.pc12 + theme(legend.position="none"),
+                  bdat.pc12 + theme(legend.position="none"),
+                  align = 'vh',
+                  hjust = -1,
+                  nrow = 1)
+# Prepare legend
+legend <- get_legend(adat.pc12 + 
+                     guides(color = guide_legend(nrow = 4)) +
+                     theme(legend.position = "bottom"))
+# Combine plots and legend
+plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .4))
+```
+
