@@ -433,3 +433,7 @@ legend <- get_legend(adat.pc12 +
 plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .4))
 ```
 
+---
+#### :question:*Questions*
+23. Are the SMARTPCA results fundamentally different from PLINK PCA results?
+---
