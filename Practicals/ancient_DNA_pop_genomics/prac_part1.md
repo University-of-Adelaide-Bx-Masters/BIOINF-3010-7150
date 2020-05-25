@@ -260,7 +260,7 @@ plink \
 20. How do you explain the changes, or lack thereof?
 ---
 
-:compute: Let's see how the non-LD-pruned and LD-pruned data behave in a PCA plot.
+:computer: Let's see how the non-LD-pruned and LD-pruned data behave in a PCA plot.
 ```bash
 # PCA on non-LD-pruned data
 plink \
@@ -275,7 +275,7 @@ plink \
  --out 1kGP_chr22.ldpruned.pca_results
 ```
 
-:compute: Go to the R console and create PCA plots.
+:computer: Go to the R console and create PCA plots.
 ```R
 library(tidyr)
 library(ggplot2)
