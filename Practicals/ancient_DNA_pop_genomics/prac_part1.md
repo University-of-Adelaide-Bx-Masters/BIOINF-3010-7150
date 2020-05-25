@@ -39,7 +39,8 @@ Icons are used to highlight sections of the tutorials:
 # Create working directory
 mkdir ~/BIOINF_Tuesday
 cd ~/BIOINF_Tuesday
-# Download VCF file and its index from the 1kGP public FTP site (VCF file size: 214453750 bytes)
+
+# Download compressed VCF file and its index from the 1kGP public FTP site (VCF file size: 214453750 bytes)
 curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz	> 1kGP_chr22.vcf.gz
 curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi	> 1kGP_chr22.vcf.gz.tbi
 ```
@@ -177,12 +178,14 @@ plink \
 ```bash
 # Check that the panel file only contains "male" or "female" in the sex field, and does not have missing sex information (total should be 2504)
 tail -n+2 integrated_call_samples_v3.20130502.ALL.panel | cut -f4 | sort | uniq -c
+
 # Generate updateFields file containing the 5 fields described above
 awk -v \
  'OFS=\t' \
  'NR>1 {print $1, $1, $3"_"$2, $1, toupper(substr($4, 1, 1))}' \
  integrated_call_samples_v3.20130502.ALL.panel \
  > updateFields
+
 # Check that the updateFields file contains 2504 lines
 wc -l updateFields
 ```
@@ -202,8 +205,10 @@ plink \
   --update-sex updateFields 3 \
   --make-bed \
   --out 1kGP_chr22
+
 # Remove the .nosex file
 rm 1kGP_chr22.nosex
+
 # Then update sample IDs in the .fam file
 plink \
   --bfile 1kGP_chr22 \
@@ -255,9 +260,31 @@ plink \
 20. How do you explain the changes, or lack thereof?
 ---
 
+:compute: Let's see how the non-LD-pruned and LD-pruned data behave in a PCA plot.
+```bash
+# PCA on non-LD-pruned data
+plink \
+ --bfile 1kGP_chr22 \
+ --pca 5 \
+ --out 1kGP_chr22.pca_results
+
+# PCA on LD-pruned data
+plink \
+ --bfile 1kGP_chr22.ldpruned \
+ --pca 5 \
+ --out 1kGP_chr22.ldpruned.pca_results
+
+adat.pca <- read.table("1kGP_chr22.pca_results.eigenvec", header=FALSE)
+colnames(adat.pca) <- c("POP","SAMPLE","PC1","PC2","PC3","PC4","PC5")
+adat.pc12 <- ggplot(adat.pca) + 
+             geom_point(aes(x=PC1,y=PC2,colour=POP))
+bdat.pca <- read.table("1kGP_chr22.ldpruned.pca_results.eigenvec", header=FALSE)
+colnames(bdat.pca) <- c("POP","SAMPLE","PC1","PC2","PC3","PC4","PC5")
+bdat.pc12 <- ggplot(bdat.pca) + 
+             geom_point(aes(x=PC1,y=PC2,colour=POP))
+```
 
 
-### The Eigenstrat format
+### The Eigensoft format
 
-Prune LD
 
