@@ -48,8 +48,9 @@ curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase
 :computer: Although you could use your own scripts to parse VCF files and analyse variant calls, several tools have already been developed for your convenience. In particular, [BCFtools](http://samtools.github.io/bcftools/bcftools.html) is a set of useful utilities to manipulate variant calls in VCF files. Install it easily with the conda package management system.
 ```bash
 conda config --add channels bioconda
-conda config --add channels conda-forge
 conda install -c bioconda bcftools
+# Also activate a conda environment that contains other software we will use today
+conda activate variation
 ```
 
 #### VCF meta-information and header lines
