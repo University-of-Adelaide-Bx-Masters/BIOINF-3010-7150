@@ -342,13 +342,8 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .4))
 conda install -c bioconda eigensoft
 ```
 
-:computer: Create symlinks to `.bim` and `.fam` files for compatibility with CONVERTF suffix requirements.
-```bash
-for i in *.bim; do ln -s $i ${i/bim/pedsnp}; done
-for i in *.fam; do ln -s $i ${i/fam/pedind}; done
-```
-:computer: Build parameter files called that will be the inputs for CONVERTF. The content of the parameter files is as follows:
-* For `par.PACKEDPED.EIGENSTRAT.1kGP_chr22`:
+:computer: Build parameter files that will be the inputs for CONVERTF. The content of the parameter files is as follows:
+* `par.PACKEDPED.EIGENSTRAT.1kGP_chr22`:
 ```bash
 genotypename:    1kGP_chr22.bed
 snpname:         1kGP_chr22.bim
@@ -358,7 +353,7 @@ genotypeoutname: 1kGP_chr22.eigenstratgeno
 snpoutname:      1kGP_chr22.snp
 indivoutname:    1kGP_chr22.ind
 ```
-* For `par.PACKEDPED.EIGENSTRAT.1kGP_chr22.ldpruned`:
+* `par.PACKEDPED.EIGENSTRAT.1kGP_chr22.ldpruned`:
 ```bash
 genotypename:    1kGP_chr22.ldpruned.bed
 snpname:         1kGP_chr22.ldpruned.bim
@@ -376,7 +371,7 @@ convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22.ldpruned
 ```
 
 :blue_book: Build parameter files called that will be the inputs for SMARTPCA. The content of the parameter files is as follows:
-* For `par.1kGP_chr22`:
+* `par.1kGP_chr22`:
 ```bash
 genotypename:    1kGP_chr22.eigenstratgeno
 snpname:         1kGP_chr22.snp
@@ -385,7 +380,7 @@ evecoutname:     1kGP_chr22.smartpca_results.evec
 evaloutname:     1kGP_chr22.smartpca_results.eval
 numoutevec:      5
 ```
-* For `par.1kGP_chr22.ldpruned`:
+* `par.1kGP_chr22.ldpruned`:
 ```bash
 genotypename:    1kGP_chr22.ldpruned.eigenstratgeno
 snpname:         1kGP_chr22.ldpruned.snp
@@ -405,19 +400,22 @@ library(tidyr)
 library(ggplot2)
 library(cowplot)
 # Create dataframe for the non-LD-pruned data
-adat <- read.table("1kGP_chr22.pca_results.eigenvec", header = FALSE)
+adat <- read.table("1kGP_chr22.smartpca_results.evec", header = FALSE)
+# Reduce table to just the sample name and the first 3 PCs
+adat <- adat[,c(1:4)]
 # Rename columns
-colnames(adat) <- c("POP", "SAMPLE", "PC1", "PC2", "PC3", "PC4", "PC5")
+colnames(adat) <- c("POPSAMPLE", "PC1", "PC2", "PC3")
 # Split POP column into super-population SUPERPOP and population POP
-adat <- separate(data = adat, col = POP, into = c("SUPERPOP", "POP"), sep = "_")
+adat <- separate(data = adat, col = POPSAMPLE, into = c("SUPERPOP", "POP", "SAMPLE"), sep = "_|:")
 # Create plot with each population in a different colour
 adat.pc12 <- ggplot(adat, aes(x = PC1, y = PC2, colour = POP, shape = SUPERPOP)) + 
              geom_point() +
              ggtitle("Non-LD-pruned")
 # Do the same steps for the LD-pruned data
-bdat <- read.table("1kGP_chr22.ldpruned.pca_results.eigenvec", header = FALSE)
-colnames(bdat) <- c("POP", "SAMPLE", "PC1", "PC2", "PC3", "PC4", "PC5")
-bdat <- separate(data = bdat, col = POP, into = c("SUPERPOP", "POP"), sep = "_")
+bdat <- read.table("1kGP_chr22.ldpruned.smartpca_results.evec", header = FALSE)
+bdat <- bdat[,c(1:4)]
+colnames(bdat) <- c("POPSAMPLE", "PC1", "PC2", "PC3")
+bdat <- separate(data = bdat, col = POPSAMPLE, into = c("SUPERPOP", "POP", "SAMPLE"), sep = "_|:")
 bdat.pc12 <- ggplot(bdat, aes(x = PC1, y = PC2, colour = POP, shape = SUPERPOP)) + 
              geom_point() +
              ggtitle("LD-pruned")
