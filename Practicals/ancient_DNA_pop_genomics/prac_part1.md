@@ -128,7 +128,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
 ### The PLINK format
 :blue_book: [PLINK](https://www.cog-genomics.org/plink/1.9/) is a set of utilities that allows converting VCF files into more practical formats and manipulating variant calls. It also performs many operations on variant calls, such as calculating basic statistics or linkage desiquilibrium, for example.
 
-:blue_book: The PLINK online manual is extremely detailed but also not easy to follow. Alternatively, you may want to have a look (not now though) at a [PLINK tutorial](http://zzz.bwh.harvard.edu/plink/tutorial.shtml) from Harvard University or a recent [book chapter](https://link.springer.com/protocol/10.1007/978-1-0716-0199-0_3) by Christopher C Chang.
+:blue_book: The PLINK online manual is extremely detailed but also not easy to follow. Alternatively, you may want to have a look (not now though) at a [PLINK tutorial](http://zzz.bwh.harvard.edu/plink/tutorial.shtml) from Harvard University or a recent [book chapter](https://link.springer.com/protocol/10.1007/978-1-0716-0199-0_3) by Christopher Chang.
 
 :blue_book: Although PLINK can generate many different [file outputs](https://www.cog-genomics.org/plink/1.9/formats), the default outputs are as follows:
 * `.bed`: binary file that contains genotype information.
@@ -158,8 +158,9 @@ plink \
 :computer: Have a look at the newly created files.
 #### :question:*Questions*
 11. How many files have been generated, and what are their extensions?
-12. If you look at the content of the PLINK variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).
-13. Is the information stored in the panel file (integrated_call_samples_v3.20130502.ALL.panel) downloaded from the 1kGP FTP site reported in the PLINK sample file?
+12. How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?
+13. If you look at the content of the PLINK variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).
+14. Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the PLINK sample file?
 ---
 
 :blue_book: The VCF file does not contain information about each sample's population of origin or sex. That information is stored in the panel file. Thus we need to build a file that will be used to update the `.fam` output when we convert the VCF file into PLINK files. For this, we have to follow instructions from the [PLINK online manual](http://www.cog-genomics.org/plink/1.9/data#update_indiv) to build the input file. 
@@ -213,10 +214,26 @@ plink \
 ---
 :computer: Have a look at the newly created files.
 #### :question:*Questions*
-14. Does the fam file contain updated information?
+15. Does the `.fam` file contain updated information? What fields have been updated when compared to `plink_temp.fam`?
+16. How many variants are stored in the `.bim` file? How does it compare with the number of variants in `plink_temp.bim`?
 ---
 
-:blue_book: 
+:blue_book: Some population genomics analyses that focus on population demographic history and structure perform better if variants are in relative genome-wide linkage equilibrium, meaning that alleles at different SNP loci must be randomly associated. Indeed, non-random association between alleles (a.k.a. linkage disequilibrium, or LD) would mean redundancy in the data, which would increase computing unnecessarily. For other applications that focus on genomic regions (e.g., natural selection), loci in LD are highly informative. `plink --indep-pairwise` calculates the square of the correlation (*r*<sup>2</sup>) between allele counts in adjacent SNP loci and stores loci that are below (`.prune.in` output file) and above (`.prune.out` output file) a user-defined threshold. *r*<sup>2</sup>=0 when two loci are in perfect equilibrium, *r*<sup>2</sup>=1 when two loci provide redundant information.
+
+:computer: Calculate pairwise *r*<sup>2</sup> and create lists of SNP loci in LD or not.
+```bash
+plink \
+  --bfile 1kGP_chr22 \
+  --indep-pairwise 200kb 1 0.5 \
+  --out ld_snps
+```
+
+---
+:computer: Have a look at the newly created files.
+#### :question:*Questions*
+17. How many variants in the `.prune.in` and `.prune.out` output files?
+18. How does it compare to the number of variants in `1kGP_chr22.bim`?
+---
 
 
 ### The Eigenstrat format
