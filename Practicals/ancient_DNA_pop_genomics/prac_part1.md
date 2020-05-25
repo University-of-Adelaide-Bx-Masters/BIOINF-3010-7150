@@ -123,10 +123,70 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
 10. Given REF and ALT alleles found when answering question 9, and knowing that the genotypes are phased, what are the possible genotypes with nucleotides and 1kGP coding?
 ---
 
-:blue_book: You saw that the VCF genotype information can be very detailed. However, all we need usually for population genomics is a table of samples and variant calls, where the genotype information is coded so it can be parsed easily and file size remains as small as possible (imagine storing and parsing whole genome variation data for >100k individuals). [PLINK](https://www.cog-genomics.org/plink/1.9/) is a set of utilities that allows converting VCF files into more practical formats and manipulating variant calls. It also performs many operations on variant calls, such as calculating basic statistics or linkage desiquilibrium, for example.
+:blue_book: You saw that the VCF genotype information can be very detailed. However, all we need usually for population genomics is a table of samples and variant calls, where the genotype information is coded so it can be parsed easily and file size remains as small as possible (imagine storing and parsing whole genome variation data for >100k individuals). 
 
-:computer: Convert the VCF file into a series of PLINK files.
+### The PLINK format
+:blue_book: [PLINK](https://www.cog-genomics.org/plink/1.9/) is a set of utilities that allows converting VCF files into more practical formats and manipulating variant calls. It also performs many operations on variant calls, such as calculating basic statistics or linkage desiquilibrium, for example.
+
+:blue_book: The PLINK online manual is extremely detailed but also not easy to follow. Alternatively, you may want to have a look (not now though) at a [PLINK tutorial](http://zzz.bwh.harvard.edu/plink/tutorial.shtml) from Harvard University or a recent [book chapter](https://link.springer.com/protocol/10.1007/978-1-0716-0199-0_3) by Christopher C Chang.
+
+:blue_book: Although PLINK can generate many different [file outputs](https://www.cog-genomics.org/plink/1.9/formats), the default outputs are as follows:
+* .bed: binary file that contains genotype information.
+* .bim: tab-delimited text file that always accompanies a .bed genotype file. It contains variant information, has no header line, and one line per variant with the following six fields:
+  * Chromosome code (either an integer, or 'X'/'Y'/'XY'/'MT'; '0' indicates unknown) or name
+  * Variant identifier
+  * Position in morgans or centimorgans (safe to use dummy value of '0')
+  * Base-pair coordinate (1-based)
+  * Allele 1 (usually minor)
+  * Allele 2 (usually major)
+* .fam: tab-delimited text file that always accompanies a .bed genotype file. It contains sample information, has no header line, and one line per sample with the following six fields:
+  * Family ID ('FID')
+  * Within-family ID ('IID'; cannot be '0')
+  * Within-family ID of father ('0' if father isn't in dataset)
+  * Within-family ID of mother ('0' if mother isn't in dataset)
+  * Sex code ('1' = male, '2' = female, '0' = unknown)
+  * Phenotype value ('1' = control, '2' = case, '-9'/'0'/non-numeric = missing data if case/control)
+
+:computer: Convert the VCF file to PLINK files.
 ```bash
+plink \
+  --vcf 1kGP_chr22.vcf.gz \
+  --out plink_temp
+```
+
+---
+:computer: Have a look at the newly created files.
+
+#### :question:*Questions*
+11. How many files have been generated, and what are their extensions?
+12. If you look at the content of the PLINK variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).
+13. Is the information stored in the panel file (integrated_call_samples_v3.20130502.ALL.panel) downloaded from the 1kGP FTP site reported in the PLINK sample file?
+---
+
+:blue_book: The VCF file does not contain information about each sample's population of origin or sex. That information is stored in the panel file. Thus we need to create a file that will be used to generate the .fam output when we convert the VCF file into PLINK files. For this, we simply have to follow instructions from the [PLINK online manual](http://www.cog-genomics.org/plink/1.9/data#update_indiv). 
+
+:computer: By default, PLINK assigns the sample ID from the VCF file as both family ID and within-family ID. What we want instead is keep track of the population (pop) and super-population (super_pop) information stored in the panel file for future analyses. We will simply store that information using `_` in the family ID field, and store the sample ID in the within-family ID field. Also by default, PLINK assign missing sex information (`0`) to all samples, unless you provide that information. Create a tab-delimited updated ID file with one line per sample and the following 5 fields:
+* Old family ID
+* Old within-family ID
+* New family ID
+* New within-family ID
+* sex information (1 or M = male, 2 or F = female, 0 = missing)
+```bash
+# Check that the panel file only contains "male" or "female" info, and does not have missing sex information (total should be 2504)
+tail -n+2 integrated_call_samples_v3.20130502.ALL.panel | cut -f4 | sort | uniq -c
+# Generate updateFields file containing the 5 fields described above
+awk -v \
+ 'OFS=\t' \
+ 'NR>1 {print $1, $1, $3"_"$2, $1, toupper(substr($4, 1, 1))}' \
+ integrated_call_samples_v3.20130502.ALL.panel \
+ > updateFields
+# Check that the updateFields file contains 2504 records
+wc -l updateFields
+```
+
+:computer: Convert the VCF file into PLINK files.
+```bash
+# Update sex first (sex and IDs cannot be updated at the same time)
 plink \
   --vcf 1kGP_chr22.vcf.gz \
   --snps-only \
@@ -134,10 +194,19 @@ plink \
   --keep-allele-order \
   --vcf-filter \
   --maf 0.10 \
+  --update-sex updateFields 3 \
   --make-bed \
   --out 1kGP_chr22
+# Then update IDs
+plink \
+  --bfile 1kGP_chr22 \
+  --update-ids updateFields \
+  --make-just-fam \
+  --out 1kGP_chr22
 ```
-ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/browser/vcf_to_ped_converter/version_1.1/vcf_to_ped_convert.pl
+
+
+### The Eigenstrat format
 
 Prune LD
 
