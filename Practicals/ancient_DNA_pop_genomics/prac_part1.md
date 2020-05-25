@@ -319,5 +319,5 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .4))
 
 
 ### The Eigensoft format
-:blue_book: PLINK was initially developed for GWAS studies and similar largescale medical genomics studies. Another suite of utilities (Eigensoft) was developed in parallel for population genomics, and as os often the case, the file formats remained different. However, Eigensoft can convert PLINK files 
+:blue_book: PLINK was initially developed for GWAS studies and similar largescale medical genomics studies. Another suite of utilities ([Eigensoft](https://github.com/DReichLab/EIG)) was developed in parallel for population genomics, and as os often the case, the file formats remained different. However, Eigensoft can convert PLINK files 
 
