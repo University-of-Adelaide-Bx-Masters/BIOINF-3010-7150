@@ -12,9 +12,9 @@ Icons are used to highlight sections of the tutorials:
 
 :blue_book: Information
 
-:computer: Hands-on task
+:computer: Hands-on tasks
 
-:question: Question(s)
+:question: Questions
 
 ---
 # Day 1: Data handling (Tuesday 2020-05-26)
@@ -52,7 +52,7 @@ conda install -c bioconda bcftools
 ```
 
 #### VCF meta-information and header lines
-:computer: Have a look at the VCF file using `zless`. 
+:computer: Have a look at the compressed VCF file using `zless`. 
 
 :blue_book: Meta-information lines start with `##` and contain various metadata. The header line starts with `#` and is tab separated. It contains 9 columns of information about the variant calls, and then one column per sample name:
 
@@ -77,9 +77,9 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/README_vcf_info
 #### VCF body
 :blue_book: The body of the VCF file is tab separated. Each line represents a unique variant site.
 
----
-Before we move forward, let's see if you can retrieve basic information from a 1kGP VCF file that will be useful for population genomic analyses.
+:computer: Before we move forward, let's see if you can retrieve basic information from a 1kGP VCF file that will be useful for population genomic analyses.
 
+---
 #### :question: *Questions*
 1. Using `bcftools view` or bash commands, determine how many variant sites are recorded in the VCF file.
 2. Using `bcftools query` or bash commands, determine how many samples are recorded in the VCF file.
@@ -115,9 +115,9 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
 |**Diploid, not phased, n alleles**|n! genotypes: e.g., 0/0, 1/4, 0/2, 3/3|
 |**Diploid, phased, n alleles**|n<sup>2</sup> genotypes: e.g., 0/0, 1/4, 0/2, 3/3|
 
----
 :computer: Have a look at the first variant in the VCF file.
 
+---
 #### :question:*Questions*
 9. What are the REF and ALT alleles?
 10. Given REF and ALT alleles found when answering question 9, and knowing that the genotypes are phased, what are the possible genotypes with nucleotides and 1kGP coding?
@@ -154,8 +154,9 @@ plink \
   --out plink_temp
 ```
 
----
 :computer: Have a look at the newly created files.
+
+---
 #### :question:*Questions*
 11. How many files have been generated, and what are their extensions?
 12. How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?
@@ -211,8 +212,9 @@ plink \
   --out 1kGP_chr22
 ```
 
----
 :computer: Have a look at the newly created files.
+
+---
 #### :question:*Questions*
 15. Does the `.fam` file contain updated information? What fields have been updated when compared to `plink_temp.fam`?
 16. How many variants are stored in the `.bim` file? How does it compare with the number of variants in `plink_temp.bim`?
@@ -228,14 +230,15 @@ plink \
   --out ld_snps
 ```
 
----
 :computer: Have a look at the newly created files.
+
+---
 #### :question:*Questions*
 17. How many variants in the `.prune.in` and `.prune.out` output files?
 18. How does it compare to the number of variants in `1kGP_chr22.bim`?
 ---
 
-:computer: You can now create a file with just the LD-pruned data.
+:computer: You can now build PLINK files with just the LD-pruned data.
 ```bash
 plink \
  --bfile 1kGP_chr22 \
@@ -244,8 +247,9 @@ plink \
  --out 1kGP_chr22.ldpruned
 ```
 
----
 :computer: Have a look at the newly created files.
+
+---
 #### :question:*Questions*
 19. In terms of file size, what do you notice when you look at the `.bed`, `.bim` and `.fam` files before and after LD pruning?
 20. How do you explain the changes, or lack thereof?
