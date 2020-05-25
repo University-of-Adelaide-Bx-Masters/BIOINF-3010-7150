@@ -311,7 +311,13 @@ legend <- get_legend(adat.pc12 +
 plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .4))
 ```
 
+---
+#### :question:*Questions*
+21. Do you observe any obvious differences between the two plots?
+22. What patterns do you observe?
+---
+
 
 ### The Eigensoft format
-
+:blue_book: PLINK was initially developed for GWAS studies and similar largescale medical genomics studies. Another suite of utilities (Eigensoft) was developed in parallel for population genomics, and as os often the case, the file formats remained different. However, Eigensoft can convert PLINK files 
 
