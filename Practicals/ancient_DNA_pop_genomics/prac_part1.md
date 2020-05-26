@@ -275,12 +275,44 @@ plink \
  --out 1kGP_chr22.ldpruned.pca_results
 ```
 
-:computer: Go to the R console and create PCA plots.
+:computer: PLINK PCA has generated two outputs with suffixes `.eigenvec` (the PC coordinates for each sample) and `.eigenval` (all the eigenvalues). Go to the R console and create screeplots and PCA plots.
 ```R
 library(tidyr)
 library(ggplot2)
 library(cowplot)
-# Create dataframe for the non-LD-pruned data
+
+#Data for scree plots
+adat.scree <- read.table("1kGP_chr22.pca_results.eigenval", header=F)
+adat.scree$Name = 1:nrow(adat.scree)
+colnames(adat.scree) <- c("Scree","Name")
+bdat.scree <- read.table("1kGP_chr22.ldpruned.pca_results.eigenval", header=F)
+bdat.scree$Name = 1:nrow(bdat.scree)
+colnames(bdat.scree) <- c("Scree","Name")
+#Plot
+adat.screep <- ggplot(adat.scree,aes(Name,Scree)) +
+               geom_bar(stat="identity") +
+               theme(text = element_text(size = 20)) +
+               theme(axis.text.x=element_blank(),
+                     axis.ticks.x=element_blank()) +
+               xlab("component") +
+               ylab("eigenvalue") +
+               ggtitle("non-LD-pruned scree plot")
+bdat.screep <-ggplot(bdat.scree,aes(Name,Scree)) +
+              geom_bar(stat="identity") +
+              theme(text = element_text(size = 20)) +
+              theme(axis.text.x=element_blank(),
+                    axis.ticks.x=element_blank()) +
+              xlab("component") +
+              ylab("eigenvalue") +
+              ggtitle("LD-pruned scree plot")
+# Combine scree plots
+plot_grid(adat.screep,
+          bdat.screep,
+          align = 'vh',
+          hjust = -1,
+          nrow = 1)
+
+# Create dataframe for PCA for the non-LD-pruned data
 adat <- read.table("1kGP_chr22.pca_results.eigenvec", header = FALSE)
 # Rename columns
 colnames(adat) <- c("POP", "SAMPLE", "PC1", "PC2", "PC3", "PC4", "PC5")
@@ -366,7 +398,7 @@ convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22
 convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22.ldpruned
 ```
 
-:computer: Build parameter files that will be the inputs for SMARTPCA. The content of the parameter files is as follows:
+:computer: Build parameter files that will be the inputs for [SMARTPCA](https://github.com/DReichLab/EIG/tree/master/POPGEN). You need to build new parameter files as follows:
 * `par.1kGP_chr22`:
 ```bash
 genotypename:    1kGP_chr22.eigenstratgeno
@@ -390,7 +422,7 @@ numoutevec:      5
 smartpca -p par.1kGP_chr22
 smartpca -p par.1kGP_chr22.ldpruned
 ```
-:computer: Go to the R console and create PCA plots.
+:computer: SMARTPCA has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the R console and create PCA plots.
 ```R
 library(tidyr)
 library(ggplot2)
@@ -401,7 +433,7 @@ adat <- read.table("1kGP_chr22.smartpca_results.evec", header = FALSE)
 adat <- adat[,c(1:4)]
 # Rename columns
 colnames(adat) <- c("POPSAMPLE", "PC1", "PC2", "PC3")
-# Split POP column into super-population SUPERPOP and population POP
+# Split POPSAMPLE column into super-population SUPERPOP, population POP, and SAMPLE
 adat <- separate(data = adat, col = POPSAMPLE, into = c("SUPERPOP", "POP", "SAMPLE"), sep = "_|:")
 # Create plot with each population in a different colour
 adat.pc12 <- ggplot(adat, aes(x = PC1, y = PC2, colour = POP, shape = SUPERPOP)) + 
