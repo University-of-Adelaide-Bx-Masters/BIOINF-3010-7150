@@ -287,22 +287,26 @@ library(tidyr)
 library(ggplot2)
 library(cowplot)
 
-#Data for scree plots
-adat.scree <- read.table("1kGP_chr22.pca_results.eigenval", header=F)
+# Non-LD-pruned data for scree plot
+adat.scree <- read.table("1kGP_chr22.pca_results.eigenval", header = FALSE)
+# Add a column with row number (only needed to be able to do a bar plot)
 adat.scree$Name = 1:nrow(adat.scree)
+# Rename columns
 colnames(adat.scree) <- c("Scree","Name")
-bdat.scree <- read.table("1kGP_chr22.ldpruned.pca_results.eigenval", header=F)
+# Do the same steps for the LD-pruned data
+bdat.scree <- read.table("1kGP_chr22.ldpruned.pca_results.eigenval", header = FALSE)
 bdat.scree$Name = 1:nrow(bdat.scree)
 colnames(bdat.scree) <- c("Scree","Name")
-#Plot
+# Plot non-LD-pruned data
 adat.screep <- ggplot(adat.scree,aes(Name,Scree)) +
-               geom_bar(stat="identity") +
+               geom_bar(stat="identity") + # heights of the bars represent values in the data
                theme(text = element_text(size = 20)) +
-               theme(axis.text.x=element_blank(),
-                     axis.ticks.x=element_blank()) +
+               theme(axis.text.x=element_blank(), # no text for the x-axis
+                     axis.ticks.x=element_blank()) + # no ticks for the x-axis
                xlab("component") +
                ylab("eigenvalue") +
                ggtitle("non-LD-pruned scree plot")
+# Do the same steps for the LD-pruned data
 bdat.screep <-ggplot(bdat.scree,aes(Name,Scree)) +
               geom_bar(stat="identity") +
               theme(text = element_text(size = 20)) +
@@ -311,7 +315,7 @@ bdat.screep <-ggplot(bdat.scree,aes(Name,Scree)) +
               xlab("component") +
               ylab("eigenvalue") +
               ggtitle("LD-pruned scree plot")
-# Combine scree plots
+# Combine scree plots using plot_grid from cowplot
 plot_grid(adat.screep,
           bdat.screep,
           align = 'vh',
@@ -324,7 +328,7 @@ adat <- read.table("1kGP_chr22.pca_results.eigenvec", header = FALSE)
 colnames(adat) <- c("POP", "SAMPLE", "PC1", "PC2", "PC3", "PC4", "PC5")
 # Split POP column into super-population SUPERPOP and population POP
 adat <- separate(data = adat, col = POP, into = c("SUPERPOP", "POP"), sep = "_")
-# Create plot with each population in a different colour
+# Create plot with populations in different colours and super-populations with different point shapes
 adat.pc12 <- ggplot(adat, aes(x = PC1, y = PC2, colour = POP, shape = SUPERPOP)) + 
              geom_point() +
              ggtitle("Non-LD-pruned")
@@ -335,18 +339,17 @@ bdat <- separate(data = bdat, col = POP, into = c("SUPERPOP", "POP"), sep = "_")
 bdat.pc12 <- ggplot(bdat, aes(x = PC1, y = PC2, colour = POP, shape = SUPERPOP)) + 
              geom_point() +
              ggtitle("LD-pruned")
-# Combine plots
-prow <- plot_grid(adat.pc12 + theme(legend.position="none"),
-                  bdat.pc12 + theme(legend.position="none"),
-                  align = 'vh',
-                  hjust = -1,
-                  nrow = 1)
-# Prepare legend
+# Combine plots using plot_grid from cowplot
+prow <- plot_grid(adat.pc12 + theme(legend.position="none"), # remove the legend
+                  bdat.pc12 + theme(legend.position="none"), # remove the legend
+                  align = 'vh', # plots are aligned vertically and horizontally
+                  nrow = 1) # 2 plots on one row
+# Prepare common legend for the two plots
 legend <- get_legend(adat.pc12 + 
-                     guides(color = guide_legend(nrow = 4)) +
-                     theme(legend.position = "bottom"))
-# Combine plots and legend
-plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .4))
+                     guides(color = guide_legend(nrow = 4)) + # legend spans 4 lines
+                     theme(legend.position = "bottom")) # legend is displayed at the bottom of the plots (i.e., horizontal not vertical)
+# Combine plots and legend using plot_grid from cowplot
+plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots and legend is 1:0.3
 ```
 
 ---
@@ -434,38 +437,42 @@ library(tidyr)
 library(ggplot2)
 library(cowplot)
 
-#Data for scree plots
-adat.scree <- read.table("1kGP_chr22.smartpca_results.eval", header=F)
+# Non-LD-pruned data for scree plot
+adat.scree <- read.table("1kGP_chr22.smartpca_results.eval", header = FALSE)
+# Add a column with row number (only needed to be able to do a bar plot)
 adat.scree$Name = 1:nrow(adat.scree)
+# Rename columns
 colnames(adat.scree) <- c("Scree","Name")
-adat.scree <- head(adat.scree,10)
-bdat.scree <- read.table("1kGP_chr22.ldpruned.smartpca_results.eval", header=F)
+# Restrict to the first 10 lines (first 10 eigenvalues)
+adat.scree <- head(adat.scree, 10)
+# Do the same steps for the LD-pruned data
+bdat.scree <- read.table("1kGP_chr22.ldpruned.smartpca_results.eval", header = FALSE)
 bdat.scree$Name = 1:nrow(bdat.scree)
-colnames(bdat.scree) <- c("Scree","Name")
-bdat.scree <- head(bdat.scree,10)
-#Plot
-adat.screep <- ggplot(adat.scree,aes(Name,Scree)) +
-               geom_bar(stat="identity") +
+colnames(bdat.scree) <- c("Scree", "Name")
+bdat.scree <- head(bdat.scree, 10)
+# Plot non-LD-pruned data
+adat.screep <- ggplot(adat.scree,aes(x = Name, y = Scree)) +
+               geom_bar(stat = "identity") + # heights of the bars represent values in the data
                theme(text = element_text(size = 20)) +
-               theme(axis.text.x=element_blank(),
-                     axis.ticks.x=element_blank()) +
-               xlab("component") +
-               ylab("eigenvalue") +
+               theme(axis.text.x = element_blank(), # no text for the x-axis
+                     axis.ticks.x = element_blank()) + # no ticks for the x-axis
+               xlab("component") + # x-axis label
+               ylab("eigenvalue") + # y-axis label
                ggtitle("non-LD-pruned scree plot")
-bdat.screep <-ggplot(bdat.scree,aes(Name,Scree)) +
-              geom_bar(stat="identity") +
+# Do the same steps for the LD-pruned data
+bdat.screep <-ggplot(bdat.scree,aes(x = Name, y = Scree)) +
+              geom_bar(stat = "identity") +
               theme(text = element_text(size = 20)) +
-              theme(axis.text.x=element_blank(),
-                    axis.ticks.x=element_blank()) +
+              theme(axis.text.x = element_blank(),
+                    axis.ticks.x = element_blank()) +
               xlab("component") +
               ylab("eigenvalue") +
               ggtitle("LD-pruned scree plot")
-# Combine scree plots
+# Combine scree plots using plot_grid from cowplot
 plot_grid(adat.screep,
           bdat.screep,
-          align = 'vh',
-          hjust = -1,
-          nrow = 1)
+          align = 'vh', # plots are aligned vertically and horizontally
+          nrow = 1) # 2 plots on one row
           
 # Create dataframe for the non-LD-pruned data
 adat <- read.table("1kGP_chr22.smartpca_results.evec", header = FALSE)
@@ -475,7 +482,7 @@ adat <- adat[,c(1:4)]
 colnames(adat) <- c("POPSAMPLE", "PC1", "PC2", "PC3")
 # Split POPSAMPLE column into super-population SUPERPOP, population POP, and SAMPLE
 adat <- separate(data = adat, col = POPSAMPLE, into = c("SUPERPOP", "POP", "SAMPLE"), sep = "_|:")
-# Create plot with each population in a different colour
+# Create plot with populations in different colours and super-populations with different point shapes
 adat.pc12 <- ggplot(adat, aes(x = PC1, y = PC2, colour = POP, shape = SUPERPOP)) + 
              geom_point() +
              ggtitle("Non-LD-pruned")
@@ -487,18 +494,17 @@ bdat <- separate(data = bdat, col = POPSAMPLE, into = c("SUPERPOP", "POP", "SAMP
 bdat.pc12 <- ggplot(bdat, aes(x = PC1, y = PC2, colour = POP, shape = SUPERPOP)) + 
              geom_point() +
              ggtitle("LD-pruned")
-# Combine plots
-prow <- plot_grid(adat.pc12 + theme(legend.position="none"),
-                  bdat.pc12 + theme(legend.position="none"),
-                  align = 'vh',
-                  hjust = -1,
-                  nrow = 1)
-# Prepare legend
+# Combine plots using plot_grid from cowplot
+prow <- plot_grid(adat.pc12 + theme(legend.position="none"), # remove the legend
+                  bdat.pc12 + theme(legend.position="none"), # remove the legend
+                  align = 'vh', # plots are aligned vertically and horizontally
+                  nrow = 1) # 2 plots on one row
+# Prepare common legend for the two plots
 legend <- get_legend(adat.pc12 + 
-                     guides(color = guide_legend(nrow = 4)) +
-                     theme(legend.position = "bottom"))
-# Combine plots and legend
-plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .4))
+                     guides(color = guide_legend(nrow = 4)) + # legend spans 4 lines
+                     theme(legend.position = "bottom")) # legend is displayed at the bottom of the plots (i.e., horizontal not vertical)
+# Combine plots and legend using plot_grid from cowplot
+plot_grid(prow, legend, ncol = 1, rel_heights = c(1, 0.3)) # ratio between plots and legend is 1:0.3
 ```
 
 ---
