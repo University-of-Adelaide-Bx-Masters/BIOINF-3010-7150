@@ -427,6 +427,40 @@ smartpca -p par.1kGP_chr22.ldpruned
 library(tidyr)
 library(ggplot2)
 library(cowplot)
+
+#Data for scree plots
+adat.scree <- read.table("1kGP_chr22.smartpca_results.eval", header=F)
+adat.scree$Name = 1:nrow(adat.scree)
+colnames(adat.scree) <- c("Scree","Name")
+adat.scree <- head(adat.scree,10)
+bdat.scree <- read.table("1kGP_chr22.ldpruned.smartpca_results.eval", header=F)
+bdat.scree$Name = 1:nrow(bdat.scree)
+colnames(bdat.scree) <- c("Scree","Name")
+bdat.scree <- head(bdat.scree,10)
+#Plot
+adat.screep <- ggplot(adat.scree,aes(Name,Scree)) +
+               geom_bar(stat="identity") +
+               theme(text = element_text(size = 20)) +
+               theme(axis.text.x=element_blank(),
+                     axis.ticks.x=element_blank()) +
+               xlab("component") +
+               ylab("eigenvalue") +
+               ggtitle("non-LD-pruned scree plot")
+bdat.screep <-ggplot(bdat.scree,aes(Name,Scree)) +
+              geom_bar(stat="identity") +
+              theme(text = element_text(size = 20)) +
+              theme(axis.text.x=element_blank(),
+                    axis.ticks.x=element_blank()) +
+              xlab("component") +
+              ylab("eigenvalue") +
+              ggtitle("LD-pruned scree plot")
+# Combine scree plots
+plot_grid(adat.screep,
+          bdat.screep,
+          align = 'vh',
+          hjust = -1,
+          nrow = 1)
+          
 # Create dataframe for the non-LD-pruned data
 adat <- read.table("1kGP_chr22.smartpca_results.evec", header = FALSE)
 # Reduce table to just the sample name and the first 3 PCs
