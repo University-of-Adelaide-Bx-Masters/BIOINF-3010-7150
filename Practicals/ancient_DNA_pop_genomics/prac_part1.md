@@ -363,7 +363,7 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots 
 :blue_book: PLINK was initially developed for GWAS studies and similar largescale medical genomics studies. Another suite of utilities ([Eigensoft](https://github.com/DReichLab/EIG)) was developed for population genomics, and as is often the case, the file formats remained different between the two suites of utilities. However, Eigensoft can convert PLINK files into many file formats (including EIGENSTRAT files that we will use in this tutorial) using [CONVERTF](https://github.com/DReichLab/EIG/tree/master/CONVERTF).
 
 :blue_book: The EIGENSTRAT files contain more or less the same information as the PLINK files, just in a different format:
-* `.eigenstratgeno`: tab-delimited genotype file with one line per SNP and the following genotype coding:
+* `.eigenstratgeno`: tab-delimited genotype file with one line per SNP and and genotypes in non-separated columns, with the following genotype coding:
   * `0`: no copies of reference allele
   * `1`: one copy of reference allele
   * `2`: two copies of reference allele
