@@ -91,7 +91,7 @@ install.packages("admixr")
 install.packages("tidyverse")
 ```
 
-:computer: Build a parameter file named `par.AllAmerica_Ancient.smartpca` that will be the inputs for [SMARTPCA](https://github.com/DReichLab/EIG/tree/master/POPGEN).
+:computer: Build a parameter file named `par.AllAmerica_Ancient.smartpca` that will be one of the inputs for [SMARTPCA](https://github.com/DReichLab/EIG/tree/master/POPGEN). Because ancient data contain a lot of missing data, we are going to force `SMARTPCA` to construct the eigenvectors based on the contemporary populations (listed in [`poplistname`](https://github.com/DReichLab/EIG/tree/master/POPGEN)) and then project the ancient samples onto the PCA ([`lsqproject`](https://github.com/DReichLab/EIG/blob/master/POPGEN/lsqproject.pdf)).
 ```bash
 genotypename:    AllAmerica_Ancient.eigenstrat.geno
 snpname:         AllAmerica_Ancient.eigenstrat.snp
@@ -103,11 +103,14 @@ lsqproject:      YES
 poplistname:     poplistPCA
 ```
 
-:computer: SMARTPCA has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the R console and create PCA plots.
+:computer: `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create PCA plots.
 ```R
 library(stringr)
 library(ggplot2)
 library(cowplot)
+
+# Set your working directory
+setwd("~/BIOINF_Friday")
 
 # data for scree plot
 adat.scree <- read.table("AllAmerica_Ancient.smartpca_results.eval", header = FALSE)
@@ -131,15 +134,16 @@ adat <- read.table("AllAmerica_Ancient.smartpca_results.evec", header = FALSE)
 adat <- adat[,c(1:4,7)]
 # Rename columns
 colnames(adat) <- c("SAMPLE", "PC1", "PC2", "PC3", "POP")
-# Create column for ancient vs contemporary, conditioning on the string "BP" (included in the dates)
+# Create column for ancient vs contemporary, conditioning on the string "BP" (included in the dates) or the name of the ancient sample (Anzick and USR1)
 adat$DATE <- ifelse(grepl('BP', adat$POP), "Ancient",
                     ifelse(grepl('Anzick', adat$POP), "Anzick",
-                           ifelse(grepl('USR1', adat$SAMPLE), "USR1", "Contemporary")))
+                           ifelse(grepl('USR', adat$SAMPLE), "USR", "Contemporary")))
 # Create column with simplified names
-adat$GROUP <- word(adat$POP, 1, sep = "_|\\.")
+#adat$GROUP <- word(adat$POP, 1, sep = "_|\\.")
 # Create plot with populations in different colours and super-populations with different point shapes
-adat.pc12 <- ggplot(adat, aes(x = PC1, y = PC2, colour = GROUP, shape = DATE)) + 
-             geom_point()
+adat.pc12 <- ggplot(adat, aes(x = PC1, y = PC2)) + 
+             geom_point(aes(fill = POP, colour = POP, shape = DATE), size = 4) +
+             scale_shape_manual(values=c(21, 22, 24, 25))
 
 # Combine plots using plot_grid from cowplot
 prow <- plot_grid(adat.pc12 + theme(legend.position="none"), # remove the legend
@@ -157,28 +161,28 @@ legend <- get_legend(adat.pc12 +
 plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots and legend is 1:0.3
 ```
 
+:blue_book: A few observations:
+* The contemporary Peruvians from the 1kGP (PEL) show the biggest diversity, possibly due to admixture with non-Indigenous American groups.
+* All ancient samples cluster with contemporary South Americans. 
 
 
+## *F*3 statistics
 
+:blue_book: Using Eigensoft to compute *F* and *D* statistics can be very time consuming because the programs are not user friendly. Instead, we can use the `R` implementation [`admixr`](https://github.com/bodkan/admixr) by Martin Petr (article [here](https://academic.oup.com/bioinformatics/article/35/17/3194/5298728)). There is a comprehensive [tutorial](https://bodkan.net/admixr/articles/tutorial.html) that you can explore on your own time. 
 
-
-:computer: Load the 2 EIGENSTRAT datasets and merge them using `admixR` (use the `R` console). `admixR` produces a union of samples and intersection of SNPs from both input files and returns a new `EIGENSTRAT` object.
+:computer: Load the libraries needed to run `admixr` (use the `R` console).
 ```R
 library(admixr)
 library(tidyverse)
 
-# Set your working directory
-setwd("~/BIOINF_Friday")
+:computer: 
+# Load the dataset that includes the African individual
+dat <- eigenstrat(prefix = "AllAmerica_Ancient_YRI.eigenstrat")
 
-# Load the ancient Central and South American DNA dataset
-ancientCSA <- eigenstrat(prefix = "PosthNakatsuka_Cell_new2.eigenstrat")
-# Load the other dataset
-modernAmericas <- eigenstrat(prefix = "1240k_AllAmerica_v2_reduce.eigenstrat")
-# Merge the 2 datasets
-americas <- merge_eigenstrat(merged = "1240k_AllAmerica_v2_Ancient.eigenstrat",
-                             a = ancientCSA,
-                             b = modernAmericas
-                             )
+# Create a list of population we want to test (just a subset of the 
+pops <- c("French", "Sardinian", "Han", "Papuan", "Mbuti", "Dinka", "Yoruba")
+
+result <- f3(A = pops, B = pops, C = "Khomani_San", data = snps)
 ```
 
 
