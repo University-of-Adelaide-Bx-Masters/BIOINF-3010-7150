@@ -59,13 +59,22 @@ conda activate variation
   * gender (M or F). U for Unknown
   * Case or Control status, or population group label. If this entry is set to "Ignore", then that individual and all genotype data from that individual will be removed from the data set in all `CONVERTF` output.
 
-:Computer: The files with the `PosthNakatsuka_Cell_new2.eigenstrat` prefix contain the 49 ancient Central and South Americans. The files with the `v37.2.1240K_USR1Anzick1YRI` prefix contain data from other populations. 
-Using bash commands, answer the following questions.
+:computer: Unarchive the tutorial data (stored in `~/data/genomics/ancient/`) in your working directory.
+```bash
+mkdir -p ~/BIOINF_Friday
+cd ~/BIOINF_Friday
+tar xvzf ~/data/genomics/ancient/tutorial_friday.tar.gz -C .
+ll
+```
+
+:blue_book: The files with the `AllAmerica_Ancient.eigenstrat` prefix contain the 49 ancient Central and South Americans and  data from modern South American individuals, as well as Anzick-1 and USR1. The files with the `AllAmerica_Ancient_YRI.eigenstrat` prefix contain the same data with the addition of one African individual (Yoruba). 
+
+:computer: Using bash commands, answer the following questions.
 
 ---
 #### :question: *Questions*
-1. How many individuals are in the `v37.2.1240K_USR1Anzick1YRI.ind` dataset? Given the information I provided earlier and looking at the [1kGP FAQ](https://www.internationalgenome.org/faq/which-populations-are-part-your-study/), what populations do the individuals belong to?
-2. Is there missing data in the ancient dataset `PosthNakatsuka_Cell_new2.eigenstrat.geno`?
+1. How many individuals are in the `AllAmerica_Ancient.eigenstrat.eigenstrat.ind` dataset?
+2. Is there missing data in the ancient dataset `AllAmerica_Ancient.eigenstrat.geno`?
 3. How many SNPs in each dataset? Hint: look at the `.snp` files.
 ---
 
@@ -82,6 +91,77 @@ install.packages("admixr")
 install.packages("tidyverse")
 ```
 
+:computer: Build a parameter file named `par.AllAmerica_Ancient.smartpca` that will be the inputs for [SMARTPCA](https://github.com/DReichLab/EIG/tree/master/POPGEN).
+```bash
+genotypename:    AllAmerica_Ancient.eigenstrat.geno
+snpname:         AllAmerica_Ancient.eigenstrat.snp
+indivname:       AllAmerica_Ancient.eigenstrat.ind
+evecoutname:     AllAmerica_Ancient.smartpca_results.evec
+evaloutname:     AllAmerica_Ancient.smartpca_results.eval
+numoutevec:      5
+lsqproject:      YES
+poplistname:     poplistPCA
+```
+
+:computer: SMARTPCA has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the R console and create PCA plots.
+```R
+library(stringr)
+library(ggplot2)
+library(cowplot)
+
+# data for scree plot
+adat.scree <- read.table("AllAmerica_Ancient.smartpca_results.eval", header = FALSE)
+# Add a column with row number (only needed to be able to do a bar plot)
+adat.scree$Name = 1:nrow(adat.scree)
+# Rename columns
+colnames(adat.scree) <- c("Scree","Name")
+# Restrict to the first 10 lines (first 10 eigenvalues)
+adat.scree <- head(adat.scree, 10)
+# Plot scree plot data
+adat.screep <- ggplot(adat.scree,aes(x = Name, y = Scree)) +
+               geom_bar(stat = "identity") + # heights of the bars represent values in the data
+               theme(axis.text.x = element_blank(), # no text for the x-axis
+                     axis.ticks.x = element_blank()) + # no ticks for the x-axis
+               xlab("component") + # x-axis label
+               ylab("eigenvalue") # y-axis label
+          
+# Create dataframe for the data
+adat <- read.table("AllAmerica_Ancient.smartpca_results.evec", header = FALSE)
+# Reduce table to just the sample name, the first 3 PCs, and the population name
+adat <- adat[,c(1:4,7)]
+# Rename columns
+colnames(adat) <- c("SAMPLE", "PC1", "PC2", "PC3", "POP")
+# Create column for ancient vs contemporary, conditioning on the string "BP" (included in the dates)
+adat$DATE <- ifelse(grepl('BP', adat$POP), "Ancient",
+                    ifelse(grepl('Anzick', adat$POP), "Anzick",
+                           ifelse(grepl('USR1', adat$SAMPLE), "USR1", "Contemporary")))
+# Create column with simplified names
+adat$GROUP <- word(adat$POP, 1, sep = "_|\\.")
+# Create plot with populations in different colours and super-populations with different point shapes
+adat.pc12 <- ggplot(adat, aes(x = PC1, y = PC2, colour = GROUP, shape = DATE)) + 
+             geom_point()
+
+# Combine plots using plot_grid from cowplot
+prow <- plot_grid(adat.pc12 + theme(legend.position="none"), # remove the legend
+                  adat.screep + theme(legend.position="none"), # remove the legend
+                  align = 'vh', # plots are aligned vertically and horizontally
+                  nrow = 1, # 2 plots on one row
+                  rel_widths = c(1, .5)) # ratio between plots is 1:0.5
+
+# Prepare legend for the PCA plot
+legend <- get_legend(adat.pc12 + 
+                     guides(color = guide_legend(nrow = 5)) + # legend spans 4 lines
+                     theme(legend.position = "bottom")) # legend is displayed at the bottom of the plots (i.e., horizontal not vertical)
+                     
+# Combine plots and legend using plot_grid from cowplot
+plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots and legend is 1:0.3
+```
+
+
+
+
+
+
 :computer: Load the 2 EIGENSTRAT datasets and merge them using `admixR` (use the `R` console). `admixR` produces a union of samples and intersection of SNPs from both input files and returns a new `EIGENSTRAT` object.
 ```R
 library(admixr)
@@ -91,15 +171,14 @@ library(tidyverse)
 setwd("~/BIOINF_Friday")
 
 # Load the ancient Central and South American DNA dataset
-ancientCSA <- eigenstrat(PosthNakatsuka_Cell_new2.eigenstrat)
+ancientCSA <- eigenstrat(prefix = "PosthNakatsuka_Cell_new2.eigenstrat")
 # Load the other dataset
-outgroup <- eigenstrat(v37.2.1240K_USR1Anzick1YRI)
+modernAmericas <- eigenstrat(prefix = "1240k_AllAmerica_v2_reduce.eigenstrat")
 # Merge the 2 datasets
-merged <- merge_eigenstrat(
-    merged = <"prefix of the merged dataset">
-    a = first_EIGENSTRAT_object,
-    b = second_EIGENSTRAT_object
-)
+americas <- merge_eigenstrat(merged = "1240k_AllAmerica_v2_Ancient.eigenstrat",
+                             a = ancientCSA,
+                             b = modernAmericas
+                             )
 ```
 
 
