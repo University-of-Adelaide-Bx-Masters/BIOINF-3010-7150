@@ -45,7 +45,7 @@ curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase
 curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi	> 1kGP_chr22.vcf.gz.tbi
 ```
 
-:computer: Although you could use your own scripts to parse VCF files and analyse variant calls, several tools have already been developed for your convenience. In particular, [BCFtools](http://samtools.github.io/bcftools/bcftools.html) is a set of useful utilities to manipulate variant calls in VCF files. Install it easily with the conda package management system.
+:computer: Although you could use your own scripts to parse VCF files and analyse variant calls, several tools have already been developed for your convenience. In particular, [`BCFtools`](http://samtools.github.io/bcftools/bcftools.html) is a set of useful utilities to manipulate variant calls in VCF files. Install it easily with the conda package management system.
 ```bash
 # Activate a conda environment that contains other software we will use today
 conda activate variation
@@ -61,16 +61,16 @@ conda install -c bioconda bcftools
 
 ||Name|Brief description (from [Wikipedia](https://en.wikipedia.org/wiki/Variant_Call_Format#The_columns_of_a_VCF))|
 |:-|:-|:-|
-1|	CHROM|	The name of the sequence (typically a chromosome) on which the variation is being called. This sequence is usually known as 'the reference sequence', i.e. the sequence against which the given sample varies.
-2|	POS|	The 1-based position of the variation on the given sequence.
-3|	ID|	The identifier of the variation, e.g. a dbSNP rs identifier, or if unknown a ".". Multiple identifiers should be separated by semi-colons without white-space.
-4|	REF|	The reference base (or bases in the case of an indel) at the given position on the given reference sequence.
-5|	ALT|	The list of alternative alleles at this position.
-6|	QUAL|	A quality score associated with the inference of the given alleles.
-7|	FILTER|	A flag indicating which of a given set of filters the variation has passed.
-8|	INFO|    	An extensible list of key-value pairs (fields) describing the variation. See below for some common fields. Multiple fields are separated by semicolons with optional values in the format: <key>=<data>[,data].
-9|	FORMAT|	An (optional) extensible list of fields for describing the samples. See below for some common fields.
-+|	SAMPLE|	For each (optional) sample described in the file, values are given for the fields listed in FORMAT
+1|	`CHROM`|	The name of the sequence (typically a chromosome) on which the variation is being called. This sequence is usually known as 'the reference sequence', i.e. the sequence against which the given sample varies.
+2|	`POS`|	The 1-based position of the variation on the given sequence.
+3|	`ID`|	The identifier of the variation, e.g. a dbSNP rs identifier, or if unknown a ".". Multiple identifiers should be separated by semi-colons without white-space.
+4|	`REF`|	The reference base (or bases in the case of an indel) at the given position on the given reference sequence.
+5|	`ALT`|	The list of alternative alleles at this position.
+6|	`QUAL`|	A quality score associated with the inference of the given alleles.
+7|	`FILTER`|	A flag indicating which of a given set of filters the variation has passed.
+8|	`INFO`|	An extensible list of key-value pairs (fields) describing the variation. See below for some common fields. Multiple fields are separated by semicolons with optional values in the format: <key>=<data>[,data].
+9|	`FORMAT`|	An (optional) extensible list of fields for describing the samples. See below for some common fields.
++|	`SAMPLE`|	For each (optional) sample described in the file, values are given for the fields listed in `FORMAT`
 
 :computer: Have a closer look at how the information in the [INFO](https://en.wikipedia.org/wiki/Variant_Call_Format#Common_INFO_fields) and [FORMAT](https://en.wikipedia.org/wiki/Variant_Call_Format#Common_FORMAT_fields) fields is commonly coded. The 1kGP VCF datasets also contain some project-specific keys explained in a file that can be downloaded.
 ```bash
@@ -86,10 +86,10 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/README_vcf_info
 #### :question: *Questions*
 1. Using `bcftools view` or bash commands, determine how many variant sites are recorded in the VCF file.
 2. Using `bcftools query` or bash commands, determine how many samples are recorded in the VCF file.
-3. The INFO fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in East Asians.
+3. The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in East Asians.
 4. Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).
 5. How many alternative alleles are observed at position 16050654?
-6. Looking at the information contained in the FORMAT field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?
+6. Looking at the information contained in the `FORMAT` field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?
 ---
 
 #### Other useful 1kGP metadata
@@ -128,12 +128,12 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
 
 :blue_book: You saw that the VCF genotype information can be very detailed. However, all we need usually for population genomics is a table of samples and variant calls, where the genotype information is coded so it can be parsed easily and file size remains as small as possible (imagine storing and parsing whole genome variation data for >100k individuals). 
 
-### The PLINK format
-:blue_book: [PLINK](https://www.cog-genomics.org/plink/1.9/) is a set of utilities that allows converting VCF files into more practical formats and manipulating variant calls. It also performs many operations on variant calls, such as calculating basic statistics or linkage desiquilibrium, for example.
+### The `PLINK` format
+:blue_book: [`PLINK`](https://www.cog-genomics.org/plink/1.9/) is a set of utilities that allows converting VCF files into more practical formats and manipulating variant calls. It also performs many operations on variant calls, such as calculating basic statistics or linkage desiquilibrium, for example.
 
-:blue_book: The PLINK online manual is extremely detailed but also not easy to follow. Alternatively, you may want to have a look (not now though) at a [PLINK tutorial](http://zzz.bwh.harvard.edu/plink/tutorial.shtml) from Harvard University or a recent [book chapter](https://link.springer.com/protocol/10.1007/978-1-0716-0199-0_3) by Christopher Chang.
+:blue_book: The `PLINK` online manual is extremely detailed but also not easy to follow. Alternatively, you may want to have a look (not now though) at a [`PLINK` tutorial](http://zzz.bwh.harvard.edu/plink/tutorial.shtml) from Harvard University or a recent [book chapter](https://link.springer.com/protocol/10.1007/978-1-0716-0199-0_3) by Christopher Chang.
 
-:blue_book: Although PLINK can generate many different [file outputs](https://www.cog-genomics.org/plink/1.9/formats), the default outputs are as follows:
+:blue_book: Although `PLINK` can generate many different [file outputs](https://www.cog-genomics.org/plink/1.9/formats), the default outputs are as follows:
 * `.bed`: binary file that contains genotype information.
 * `.bim`: tab-delimited text file that always accompanies a `.bed` genotype file. It contains variant information, has no header line, and one line per variant with the following six fields:
   * Chromosome code (either an integer, or 'X'/'Y'/'XY'/'MT'; '0' indicates unknown) or name
@@ -150,7 +150,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
   * Sex code ('1' = male, '2' = female, '0' = unknown)
   * Phenotype value ('1' = control, '2' = case, '-9'/'0'/non-numeric = missing data if case/control)
 
-:computer: Install PLINK (if not already installed)
+:computer: OPTIONAL: Install `PLINK` if not already installed.
 ```bash
 conda install -c bioconda plink
 ```
@@ -168,13 +168,13 @@ plink \
 #### :question:*Questions*
 11. How many files have been generated, and what are their extensions?
 12. How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?
-13. If you look at the content of the PLINK variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).
-14. Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the PLINK sample file?
+13. If you look at the content of the `PLINK` variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).
+14. Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the `PLINK` sample file?
 ---
 
-:blue_book: The VCF file does not contain information about each sample's population of origin or sex. That information is stored in the panel file. Thus we need to build a file that will be used to update the `.fam` output when we convert the VCF file into PLINK files. For this, we have to follow instructions from the [PLINK online manual](http://www.cog-genomics.org/plink/1.9/data#update_indiv) to build the input file. 
+:blue_book: The VCF file does not contain information about each sample's population of origin or sex. That information is stored in the panel file. Thus we need to build a file that will be used to update the `.fam` output when we convert the VCF file into `PLINK` files. For this, we have to follow instructions from the [`PLINK` online manual](http://www.cog-genomics.org/plink/1.9/data#update_indiv) to build the input file. 
 
-:blue_book: By default, PLINK assigns the sample ID from the VCF file as both FID and IID. What we want instead is keep track of the population (pop) and super-population (super_pop) information stored in the panel file for future analyses. We will simply store `"pop"_"super_pop"` in the FID field, and store sample ID in the IID field. Also by default, PLINK assigns missing sex information (`0`) to all samples, unless you provide it. 
+:blue_book: By default, `PLINK` assigns the sample ID from the VCF file as both FID and IID. What we want instead is keep track of the population (pop) and super-population (super_pop) information stored in the panel file for future analyses. We will simply store `"pop"_"super_pop"` in the FID field, and store sample ID in the IID field. Also by default, `PLINK` assigns missing sex information (`0`) to all samples, unless you provide it. 
 
 :computer: Create a tab-delimited updated ID file with one line per sample and the following 5 fields:
 * Old family ID (VCF sample ID)
@@ -197,9 +197,9 @@ awk -v \
 wc -l updateFields
 ```
 
-:blue_book: Now we have everything to create the PLINK files. We also want to weed out variants that will not be useful for population genomics analyses, so we will keep bi-allelic SNPs only (`--snps-only just-acgt --biallelic-only strict`), keep high quality variant calls only (`--vcf-filter`), and discard rare alleles (`--maf 0.10`). Note that PLINK automatically re-orders alleles in minor/major. If you want to preserve the order of REF and ALT alleles as in the VCF file, then use `--keep-allele-order`.
+:blue_book: Now we have everything to create the PLINK files. We also want to weed out variants that will not be useful for population genomics analyses, so we will keep bi-allelic SNPs only (`--snps-only just-acgt --biallelic-only strict`), keep high quality variant calls only (`--vcf-filter`), and discard rare alleles (`--maf 0.10`). Note that `PLINK` automatically re-orders alleles in minor/major. If you want to preserve the order of REF and ALT alleles as in the VCF file, then use `--keep-allele-order`.
 
-:computer: Convert the VCF file into PLINK files.
+:computer: Convert the VCF file into `PLINK` files.
 ```bash
 # Update sex first (sex and sample IDs cannot be updated at the same time)
 plink \
@@ -249,7 +249,7 @@ plink \
 18. How does it compare to the number of variants in `1kGP_chr22.bim`?
 ---
 
-:computer: You can now build PLINK files with just the LD-pruned data.
+:computer: You can now build `PLINK` files with just the LD-pruned data.
 ```bash
 plink \
  --bfile 1kGP_chr22 \
@@ -281,7 +281,7 @@ plink \
  --out 1kGP_chr22.ldpruned.pca_results
 ```
 
-:computer: PLINK PCA has generated two outputs with suffixes `.eigenvec` (the PC coordinates for each sample) and `.eigenval` (all the eigenvalues). Go to the R console and create screeplots and PCA plots.
+:computer: `PLINK` PCA has generated two outputs with suffixes `.eigenvec` (the PC coordinates for each sample) and `.eigenval` (all the eigenvalues). Go to the `R` console and create screeplots and PCA plots.
 ```R
 library(tidyr)
 library(ggplot2)
@@ -360,9 +360,9 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots 
 
 
 ### The Eigensoft format
-:blue_book: PLINK was initially developed for GWAS studies and similar largescale medical genomics studies. Another suite of utilities ([Eigensoft](https://github.com/DReichLab/EIG)) was developed for population genomics, and as is often the case, the file formats remained different between the two suites of utilities. However, Eigensoft can convert PLINK files into many file formats (including EIGENSTRAT files that we will use in this tutorial) using [CONVERTF](https://github.com/DReichLab/EIG/tree/master/CONVERTF).
+:blue_book: PLINK was initially developed for GWAS studies and similar largescale medical genomics studies. Another suite of utilities ([`Eigensoft`](https://github.com/DReichLab/EIG)) was developed for population genomics, and as is often the case, the file formats remained different between the two suites of utilities. However, Eigensoft can convert `PLINK` files into many file formats (including `EIGENSTRAT` files that we will use in this tutorial) using [`CONVERTF`](https://github.com/DReichLab/EIG/tree/master/CONVERTF).
 
-:blue_book: The EIGENSTRAT files contain more or less the same information as the PLINK files, just in a different format:
+:blue_book: The `EIGENSTRAT` files contain more or less the same information as the `PLINK` files, just in a different format:
 * `.eigenstratgeno`: tab-delimited genotype file with one line per SNP and and genotypes in non-separated columns, with the following genotype coding:
   * `0`: no copies of reference allele
   * `1`: one copy of reference allele
@@ -377,9 +377,9 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots 
 * `.ind`: tab-delimited sample file with one line per individual and the following 3 columns:
   * sample ID
   * gender (M or F). U for Unknown
-  * Case or Control status, or population group label. If this entry is set to "Ignore", then that individual and all genotype data from that individual will be removed from the data set in all convertf output.
+  * Case or Control status, or population group label. If this entry is set to "Ignore", then that individual and all genotype data from that individual will be removed from the data set in all `CONVERTF` output.
 
-:computer: Build parameter files that will be the inputs for CONVERTF. The content of the parameter files is as follows:
+:computer: Build parameter files that will be the inputs for `CONVERTF`. The content of the parameter files is as follows:
 * `par.PACKEDPED.EIGENSTRAT.1kGP_chr22`:
 ```bash
 genotypename:    1kGP_chr22.bed
@@ -401,13 +401,13 @@ snpoutname:      1kGP_chr22.ldpruned.snp
 indivoutname:    1kGP_chr22.ldpruned.ind
 ```
 
-:computer: Run CONVERTF.
+:computer: Run `CONVERTF`.
 ```bash
 convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22
 convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22.ldpruned
 ```
 
-:computer: Build parameter files that will be the inputs for [SMARTPCA](https://github.com/DReichLab/EIG/tree/master/POPGEN). You need to build new parameter files as follows:
+:computer: Build parameter files that will be the inputs for [`SMARTPCA`](https://github.com/DReichLab/EIG/tree/master/POPGEN). You need to build new parameter files as follows:
 * `par.1kGP_chr22`:
 ```bash
 genotypename:    1kGP_chr22.eigenstratgeno
@@ -426,12 +426,12 @@ evecoutname:     1kGP_chr22.ldpruned.smartpca_results.evec
 evaloutname:     1kGP_chr22.ldpruned.smartpca_results.eval
 numoutevec:      5
 ```
-:computer: Run SMARTPCA.
+:computer: Run `SMARTPCA`.
 ```bash
 smartpca -p par.1kGP_chr22
 smartpca -p par.1kGP_chr22.ldpruned
 ```
-:computer: SMARTPCA has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the R console and create PCA plots.
+:computer: `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create PCA plots.
 ```R
 library(tidyr)
 library(ggplot2)
@@ -509,5 +509,5 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, 0.3)) # ratio between plots
 
 ---
 #### :question:*Questions*
-23. Are the SMARTPCA results fundamentally different from PLINK PCA results?
+23. Are the `SMARTPCA` results fundamentally different from `PLINK` PCA results?
 ---
