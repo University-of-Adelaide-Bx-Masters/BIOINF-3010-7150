@@ -170,22 +170,36 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots 
 
 :blue_book: Using Eigensoft to compute *F* and *D* statistics can be very time consuming because the programs are not user friendly. Instead, we can use the `R` implementation [`admixr`](https://github.com/bodkan/admixr) by Martin Petr (article [here](https://academic.oup.com/bioinformatics/article/35/17/3194/5298728)). There is a comprehensive [tutorial](https://bodkan.net/admixr/articles/tutorial.html) that you can explore on your own time. 
 
-:computer: Load the libraries needed to run `admixr` (use the `R` console).
+:blue_book: We want to infer the relative divergence times between pairs of populations, and in which order they split of from each other. We can use an outgroup *F*3 statistic by fixing the outgroup as YRI, and calculating pairwise *F*3 statistics between populations. The higher the *F*3 value, the more shared drift between the two test populations, i.e. the more related they are.
+
+:computer: Load the libraries needed to run `admixr` (use the `R` console) and run *F*3 statistics on a subset of populations.
 ```R
 library(admixr)
 library(tidyverse)
 
 :computer: 
 # Load the dataset that includes the African individual
-dat <- eigenstrat(prefix = "AllAmerica_Ancient_YRI.eigenstrat")
+snpsAmerica <- eigenstrat(prefix = "AllAmerica_Ancient_YRI.eigenstrat")
 
 # Create a list of population we want to test (just a subset of the 
-pops <- c("French", "Sardinian", "Han", "Papuan", "Mbuti", "Dinka", "Yoruba")
+pops <- c("Surui", "Aymara", "Anzick", "USR1", "Peru_Lauricocha_5800BP", "Brazil_LapaDoSanto_9600BP")
+result <- f3(A = pops, B = pops, C = "YRI", data = snpsAmerica)
 
-result <- f3(A = pops, B = pops, C = "Khomani_San", data = snps)
+# Sort the population labels according to an increasing F3 value relative to Peru_Lauricocha_5800BP
+ordered <- filter(result, A == "Peru_Lauricocha_5800BP", B != "Peru_Lauricocha_5800BP") %>% arrange(f3) %>% .[["B"]] %>% c("Peru_Lauricocha_5800BP")
+
+# Plot heatmap of pairwise F3 values
+result %>%
+  filter(A != B) %>%
+  mutate(A = factor(A, levels = ordered),
+         B = factor(B, levels = ordered)) %>%
+  ggplot(aes(A, B)) + geom_tile(aes(fill = f3))
 ```
 
 
+## *D* statistics
+
+:blue_book: Using Eigensoft to compute *F* and *D* statistics can be very time consuming because the programs are not user friendly. Instead, we can use the `R` implementation [`admixr`](https://github.com/bodkan/admixr) by Martin Petr (article [here](https://academic.oup.com/bioinformatics/article/35/17/3194/5298728)). There is a comprehensive [tutorial](https://bodkan.net/admixr/articles/tutorial.html) that you can explore on your own time. 
 
 
 
