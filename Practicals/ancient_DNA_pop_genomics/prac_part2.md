@@ -35,19 +35,80 @@ Icons are used to highlight sections of the tutorials:
 :blue_book: The research question we asked was relatively simple: what was the processus for the earliest population movements in South America? In particular, we were interested in determining if all contemporary populations descend from one migration event, or successive waves separated in time.
 
 
-## VCF format: a reminder
-:blue_book: You have previously learnt about several raw or processed high throughput sequencing data formats (e.g., FASTQ, SAM/BAM, VCF). In particular, you should now know that [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) files contain information about variant calls found at specific positions in a reference genome.
+## Let's explore the datasets
 
-:computer: We will use a VCF file of human chromosome 22 from the 1000 Genomes Project (1kGP) that we will save into a working directory in your home directory:
+:computer: Activate the environment `variation`.
 ```bash
-# Create working directory
-mkdir ~/BIOINF_Tuesday
-cd ~/BIOINF_Tuesday
-
-# Download compressed VCF file and its index from the 1kGP public FTP site (VCF file size: 214453750 bytes)
-curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz	> 1kGP_chr22.vcf.gz
-curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi	> 1kGP_chr22.vcf.gz.tbi
+conda activate variation
 ```
+
+:blue_book: I provided 2 datasets in `EIGENSTRAT` format. As a reminder, the `EIGENSTRAT` format consists of 3 files:
+* `.geno`: tab-delimited genotype file with one line per SNP and genotypes in non-separated columns, with the following genotype coding:
+  * `0`: no copies of reference allele
+  * `1`: one copy of reference allele
+  * `2`: two copies of reference allele
+  * `9`: missing data
+* `.snp`: tab-delimited SNP file with one line per SNP and the following 6 columns (last 2 optional):
+  * SNP name
+  * Chromosome (X is encoded as 23, Y as 24, mtDNA as 90, and XY as 91)
+  * Genetic position (in Morgans). 0 if unknown
+  * Physical position (in bases)
+  * Optional 5th and 6th columns are reference and variant alleles. For monomorphic SNPs, the variant allele can be encoded as X (unknown)
+* `.ind`: tab-delimited sample file with one line per individual and the following 3 columns:
+  * sample ID
+  * gender (M or F). U for Unknown
+  * Case or Control status, or population group label. If this entry is set to "Ignore", then that individual and all genotype data from that individual will be removed from the data set in all `CONVERTF` output.
+
+:Computer: The files with the `PosthNakatsuka_Cell_new2.eigenstrat` prefix contain the 49 ancient Central and South Americans. The files with the `v37.2.1240K_USR1Anzick1YRI` prefix contain data from other populations. 
+Using bash commands, answer the following questions.
+
+---
+#### :question: *Questions*
+1. How many individuals are in the `v37.2.1240K_USR1Anzick1YRI.ind` dataset? Given the information I provided earlier and looking at the [1kGP FAQ](https://www.internationalgenome.org/faq/which-populations-are-part-your-study/), what populations do the individuals belong to?
+2. Is there missing data in the ancient dataset `PosthNakatsuka_Cell_new2.eigenstrat.geno`?
+3. How many SNPs in each dataset? Hint: look at the `.snp` files.
+---
+
+## PCA
+
+:computer: We are going to use `SMARTPCA` (as part of the `EIGENSOFT` utilities, see the end of Tuesday's tutorial) and an implementation of `ADMIXTOOLS` in an `R` package called admixR (it needs `ADMIXTOOLS` to be already installed). OPTIONAL: If any of the programs are not installed, do this:
+```bash
+conda install -c bioconda eigensoft
+conda install -c bioconda admixtools
+```
+:computer: OPTIONAL: Install `R` packages if they are not readily available (use the `R` console).
+```R
+install.packages("admixr")
+install.packages("tidyverse")
+```
+
+:computer: Load the 2 EIGENSTRAT datasets and merge them using `admixR` (use the `R` console). `admixR` produces a union of samples and intersection of SNPs from both input files and returns a new `EIGENSTRAT` object.
+```R
+library(admixr)
+library(tidyverse)
+
+# Set your working directory
+setwd("~/BIOINF_Friday")
+
+# Load the ancient Central and South American DNA dataset
+ancientCSA <- eigenstrat(PosthNakatsuka_Cell_new2.eigenstrat)
+# Load the other dataset
+outgroup <- eigenstrat(v37.2.1240K_USR1Anzick1YRI)
+# Merge the 2 datasets
+merged <- merge_eigenstrat(
+    merged = <"prefix of the merged dataset">
+    a = first_EIGENSTRAT_object,
+    b = second_EIGENSTRAT_object
+)
+```
+
+
+
+
+
+
+
+
 
 :computer: Although you could use your own scripts to parse VCF files and analyse variant calls, several tools have already been developed for your convenience. In particular, [BCFtools](http://samtools.github.io/bcftools/bcftools.html) is a set of useful utilities to manipulate variant calls in VCF files. Install it easily with the conda package management system.
 ```bash
