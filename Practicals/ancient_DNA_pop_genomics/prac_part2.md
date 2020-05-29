@@ -103,7 +103,7 @@ lsqproject:      YES
 poplistname:     poplistPCA
 ```
 
-:computer: `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create PCA plots.
+:computer: `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create plots.
 ```R
 library(stringr)
 library(ggplot2)
@@ -150,27 +150,30 @@ prow <- plot_grid(adat.pc12 + theme(legend.position="none"), # remove the legend
                   adat.screep + theme(legend.position="none"), # remove the legend
                   align = 'vh', # plots are aligned vertically and horizontally
                   nrow = 1, # 2 plots on one row
-                  rel_widths = c(1, .5)) # ratio between plots is 1:0.5
+                  rel_widths = c(1, .5)) # width ratio between plots is 1:0.5
 
 # Prepare legend for the PCA plot
 legend <- get_legend(adat.pc12 + 
-                     guides(color = guide_legend(nrow = 5)) + # legend spans 4 lines
+                     guides(color = guide_legend(nrow = 5)) + # legend spans 5 lines
                      theme(legend.position = "bottom")) # legend is displayed at the bottom of the plots (i.e., horizontal not vertical)
                      
 # Combine plots and legend using plot_grid from cowplot
-plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots and legend is 1:0.3
+plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # height ratio between plots and legend is 1:0.3
 ```
 
-:blue_book: A few observations:
-* The contemporary Peruvians from the 1kGP (PEL) show the biggest diversity, possibly due to admixture with non-Indigenous American groups.
-* All ancient samples cluster with contemporary South Americans. 
+---
+#### :question: *Questions*
+4. The scree plot represents the value for each eigenvector, i.e., the variance in the data explained by the eigenvector. In your opinion, does the first eigenvector explain much variance compared to other vectors?
+5. PC1 seems to capture the variation observed between eskimos and modern Peruvian (PEL), while PC2 seems to capture the variation just within PEL. Knowing that PEL is individuals from Lima, the capital city of Peru, why would the PEL population be so diverse?
+6. Where do the ancient samples cluster in regards to the PCA coordinates? And where in regards to contemporary populations?
+---
 
 
 ## *F*3 statistics
 
-:blue_book: Using Eigensoft to compute *F* and *D* statistics can be very time consuming because the programs are not user friendly. Instead, we can use the `R` implementation [`admixr`](https://github.com/bodkan/admixr) by Martin Petr (article [here](https://academic.oup.com/bioinformatics/article/35/17/3194/5298728)). There is a comprehensive [tutorial](https://bodkan.net/admixr/articles/tutorial.html) that you can explore on your own time. 
+:blue_book: We want to infer the relative divergence times between pairs of populations, and in which order they split from each other. We can use an outgroup *F*3 statistic by fixing the outgroup as YRI, and calculating pairwise *F*3 statistics between populations. The higher the *F*3 value, the more shared drift between the two test populations, i.e. the more related they are.
 
-:blue_book: We want to infer the relative divergence times between pairs of populations, and in which order they split of from each other. We can use an outgroup *F*3 statistic by fixing the outgroup as YRI, and calculating pairwise *F*3 statistics between populations. The higher the *F*3 value, the more shared drift between the two test populations, i.e. the more related they are.
+:blue_book: Using `ADMIXTOOLS` to compute *F* and *D* statistics can be very time consuming because the programs are not user friendly, and building the parameter files can be time consuming. Instead, we can use the `R` implementation [`admixr`](https://github.com/bodkan/admixr) of `ADMIXTOOLS` by Martin Petr. You may want to read the very short [*Bioinformatics* Applications Note](https://academic.oup.com/bioinformatics/article/35/17/3194/5298728)), or better, explore the comprehensive [tutorial](https://bodkan.net/admixr/articles/tutorial.html) on your own time. 
 
 :computer: Load the libraries needed to run `admixr` (use the `R` console) and run *F*3 statistics on a subset of populations.
 ```R
@@ -182,19 +185,19 @@ library(tidyverse)
 snpsAmerica <- eigenstrat(prefix = "AllAmerica_Ancient_YRI.eigenstrat")
 
 # Create a list of population we want to test (just a subset of the 
-pops <- c("Surui", "Aymara", "Anzick", "USR1", "Peru_Lauricocha_5800BP", "Brazil_LapaDoSanto_9600BP", "Chile_LosRieles_10900BP")
+pops <- c("Eskimo", "Aymara", "Anzick", "USR1", "Peru_Lauricocha_8600BP", "Peru_Lauricocha_5800BP", "Brazil_LapaDoSanto_9600BP", "Chile_LosRieles_10900BP")
 result <- f3(A = pops, B = pops, C = "YRI", data = snpsAmerica)
 
 head(result)
 ```
 
 :blue_book: The output table contains a lot of information that we can unpack:
-* `F3`: *D* statistic value
-* `stderr`: standard error of the *D* statistic calculated using the block jackknife
-* `Zscore`: Z-score value, which is the number of standard errors the *F*3 is from 0 (i.e. how strongly do we reject the null hypothesis of no admixture)
+* `F3`: *F*3 statistic value
+* `stderr`: standard error of the *F*3 statistic calculated using the block jackknife
+* `Zscore`: *Z*-score value, which is the number of standard errors the *F*3 is from 0 (i.e. how strongly do we reject the null hypothesis of no admixture)
 * `nsnps`: number of SNPs used
  
-:computer: We can also represent the table into a heatmap to better visualise the pairwise comparisons:
+:computer: We can also plot a heatmap to better visualise the pairwise comparisons:
 ```R
 # Sort the population labels according to an increasing F3 value relative to Aymara
 ordered <- filter(result, A == "Aymara", B != "Aymara") %>% arrange(f3) %>% .[["B"]] %>% c("Aymara")
@@ -207,6 +210,11 @@ result %>%
   ggplot(aes(A, B)) + geom_tile(aes(fill = f3))
 ```
 
+---
+#### :question: *Questions*
+7. What two populations/individuals seem to diverge earlier than the others?
+---
+
 
 ## *D* statistics
 
@@ -214,32 +222,35 @@ result %>%
 
 :computer: Run *D* statistics on a subset of populations.
 ```R
-# Load the dataset that includes the African individual
-snpsAmerica <- eigenstrat(prefix = "AllAmerica_Ancient_YRI.eigenstrat")
-
 # Create a list of population we want to test (just a subset of the 
-pops <- c("Surui", "Aymara", "Peru_Lauricocha_5800BP", "Brazil_LapaDoSanto_9600BP", "Chile_LosRieles_10900BP")
-result <- d(W = pops, X = "USR1", Y = "Anzick", Z = "YRI", data = snpsAmerica)
+pops2 <- c("Eskimo", "Aymara", "Peru_Lauricocha_5800BP", "Brazil_LapaDoSanto_9600BP", "Chile_LosRieles_10900BP")
+result2 <- d(W = pops, X = "USR1", Y = "Anzick", Z = "YRI", data = snpsAmerica)
 
-head(result)
+head(result2)
 ```
 
 :blue_book: Again, the output table contains a lot of information that we can unpack:
 * `D`: *D* statistic value
 * `stderr`: standard error of the *D* statistic calculated using the block jackknife
-* `Zscore`: Z-score value, which is the number of standard errors the *D* is from 0 (i.e. how strongly do we reject the null hypothesis of no admixture)
+* `Zscore`: *Z*-score value, which is the number of standard errors the *D* is from 0 (i.e. how strongly we reject the null hypothesis of no admixture)
 * `BABA`, `ABBA`: counts of observed site patterns
 * `nsnps`: number of SNPs used
 
 :computer: However, a graphic representation is always easier to interpret:
 ```R
 # Sort the population labels according to an increasing D value and plot average and Z-score
-ggplot(result, aes(fct_reorder(W, D), D, color = abs(Zscore) > 2)) +
+ggplot(result2, aes(fct_reorder(W, D), D, color = abs(Zscore) > 2)) +
   geom_point() +
   geom_hline(yintercept = 0, linetype = 2) +
   geom_errorbar(aes(ymin = D - 2 * stderr, ymax = D + 2 * stderr))
 ```
 
-:blue_book: We can confidently say that Anzick-1 contributed ancestry to all South Americans. We also observe a trend whereby the older the sample, the more Anzick-1 ancestry is contains.
+---
+#### :question: *Questions*
+8. Is there any test population/individual for which *D* is not different from 0? What does it mean in terms of admixture?
+9. Is there any test population/individual for which *D* is different from 0? Any particular pattern to report?
+---
+
+:blue_book: To estimate the minimum number of streams of ancestry contributing to Central and South American populations, we have used in our study the software `qpWave` (also implemented in `admixr`). `qpWave` assesses whether *F*4-statistics of the form *F*4(A = South American 1, B = South American 2; X = outgroup 1, Y = outgroup 2) form a matrix that is consistent with different ranks: rank 0 is consistent with a single stream of ancestry relative to the outgroups, rank 1 means 2 streams of ancestry, etc. This is how we could identify at least 3 streams of ancestry: one related to Anzick-1, 2 others related to other North American populations and never reported before.
 
 
