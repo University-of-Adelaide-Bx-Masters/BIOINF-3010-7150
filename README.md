@@ -20,8 +20,8 @@ Semester 1 2020
 | **7**    | 27/4       | [Genome graphs1] (Yassine) and [Genome graphs2] (Yassine)                         |
 | **8**    | 4/5        | [BLAST analysis and databases] (Dave)             |
 | **9**    | 11/5       | [Clinical genomics1] (Jimmy) and [Clinical genomics2] (Jimmy)                      |
-| **10**   | 18/5       | [Agricultural genomics] (?)                       |
-| **11**   | 25/5       | [Population genetics] (Bastien)                   |
+| **10**   | 18/5       | [Agricultural genomics] (Rick)                       |
+| **11**   | 25/5       | [Population genetics1] (Bastien) [Population genetics2] (Bastien)                   |
 | **12**   | 1/6        | [Metagenomics 16S profiling] (Raphael)            |
 
 [Introduction to Bash]: Practicals/Bash_Practicals/1_IntroBash.md
@@ -39,7 +39,8 @@ Semester 1 2020
 [Clinical genomics1]: Practicals/variants_clinical/variant_annotation.md
 [Clinical genomics2]: Practicals/variants_clinical/variant_filtering.md
 [Agricultural genomics]: Practicals/
-[Population genetics]: Practicals/
+[Population genetics1]: Practicals/ancient_DNA_pop_genomics/prac_part1.md
+[Population genetics2]: Practicals/ancient_DNA_pop_genomics/prac_part2.md
 [Metagenomics 16S profiling]: Practicals/
 
 ## Assessment
