@@ -104,6 +104,11 @@ lsqproject:      YES
 poplistname:     poplistPCA
 ```
 
+:computer: Run `SMARTPCA`
+```bash
+smartpca -p par.AllAmerica_Ancient.smartpca
+```
+
 :computer: `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create plots.
 ```R
 library(stringr)
