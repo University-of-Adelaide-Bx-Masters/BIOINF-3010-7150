@@ -87,7 +87,8 @@ conda install -c bioconda admixtools
 ```
 :computer: OPTIONAL: Install `R` packages if they are not readily available (use the `R` console).
 ```R
-install.packages("admixr")
+install.packages("devtools")
+devtools::install_github("bodkan/admixr")
 install.packages("tidyverse")
 ```
 
