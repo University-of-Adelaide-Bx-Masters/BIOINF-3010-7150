@@ -73,7 +73,7 @@ ll
 
 ---
 #### :question: *Questions*
-1. How many individuals are in the `AllAmerica_Ancient.eigenstrat.eigenstrat.ind` dataset?
+1. How many individuals are in the `AllAmerica_Ancient.eigenstrat.ind` dataset?
 2. Is there missing data in the ancient dataset `AllAmerica_Ancient.eigenstrat.geno`?
 3. How many SNPs in each dataset? Hint: look at the `.snp` files.
 ---
