@@ -54,8 +54,8 @@ Semester 1 2020
 | [Assessment 2]()                                          | Experimental design |
 | [Assessment 3]()                                          | Publishing a genome |
 | [Assessment 4]()                                          | Ancient DNA         |
-| [Assessment 5]()                                          | Metagenomics        |
-| [Project](#project) (PG only)                                     | Complete Dataset    |
+| [Assessment 5](Assignments/Assignment_5.md)               | Metagenomics        |
+| [Project](#project) (PG only)                             | Complete Dataset    |
 
 ### Project
 
