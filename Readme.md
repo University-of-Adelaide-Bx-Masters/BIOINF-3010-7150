@@ -14,7 +14,7 @@ Semester 1 2020
 | **2**    | 8/3        | Resequencing (Exome/WGS)     (???)                    |[Read Quality Control] (<s>Nathan</s>) [SAMTools and alignments] (<mark><s>Jimmy</s></mark>) |
 | **3**    | 15/3       | Short read assembly Approaches and issues (<s>Nathan</s>) |[SARS-CoV-2 Resequencing] (<s>Nathan</s>) [SARS-CoV-2 Short Read Assembly] (<s>Nathan</s>)         |
 | **4**    | 22/3       | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (<s>Nathan</s>)|[Short and long read alignment] (<s>Nathan</s>) [E. coli K-12 Hybrid Genome Assembly] (<s>Nathan</s>)         |
-| **5**    | 29/3       | _De novo_ assembly genome size estimate (k-mers), coverage |[Bacterial genome assembly] (Lloyd)               |
+| **5**    | 29/3       | _De novo_ assembly genome size estimate (k-mers), coverage. (Lloyd) |[Bacterial genome assembly] (Lloyd)               |
 | **6**    | 6/4        | Long range information 10x, HiC, BioNano (Lloyd) |[HiC analysis] (Callum/Ning)                       |
 | **-**    |            |  |                                                 |
 | **7**    | 26/4       | Genome Graphs (<s>Yassine</s>) |[Genome graphs1 ] (<s>Yassine</s>) and [Genome graphs2] (<s>Yassine</s>)                         |
