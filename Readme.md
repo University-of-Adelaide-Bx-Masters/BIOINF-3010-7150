@@ -10,16 +10,16 @@ Semester 1 2020
 
 | **Week** | **Monday** | **Lecture**                                       | **Practical**                                     |
 |----------|------------|---------------------------------------------------|---------------------------------------------------|
-| **1**    | 1/3        | Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (<s>Dan</s>) | [Introduction to Bash] (<s>Dan<s>)                      |
-| **2**    | 8/3        | Resequencing (Exome/WGS)     (???)                    |[Read Quality Control] (<s>Nathan</s>) [SAMTools and alignments] (<mark><s>Jimmy</s></mark>) |
+| **1**    | 1/3        | Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (Dave) | [Introduction to Bash] (Dave)                      |
+| **2**    | 8/3        | Resequencing (Exome/WGS)     (Jimmy? or Paul?)                    |[Read Quality Control] (<s>Nathan</s> Paul?) [SAMTools and alignments] (<mark><s>Jimmy</s></mark>Paul?) |
 | **3**    | 15/3       | Short read assembly Approaches and issues (<s>Nathan</s>) |[SARS-CoV-2 Resequencing] (<s>Nathan</s>) [SARS-CoV-2 Short Read Assembly] (<s>Nathan</s>)         |
-| **4**    | 22/3       | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (<s>Nathan</s>)|[Short and long read alignment] (<s>Nathan</s>) [E. coli K-12 Hybrid Genome Assembly] (<s>Nathan</s>)         |
+| **4**    | 22/3       | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (<s>Nathan</s>Paul?)|[Short and long read alignment] (<s>Nathan</s>Paul?) [E. coli K-12 Hybrid Genome Assembly] (<s>Nathan</s>Paul?)         |
 | **5**    | 29/3       | _De novo_ assembly genome size estimate (k-mers), coverage. (Lloyd) |[Bacterial genome assembly] (Lloyd)               |
 | **6**    | 6/4        | Long range information 10x, HiC, BioNano (Lloyd) |[HiC analysis] (Callum/Ning)                       |
 | **-**    |            |  |                                                 |
-| **7**    | 26/4       | Genome Graphs (<s>Yassine</s>) |[Genome graphs1 ] (<s>Yassine</s>) and [Genome graphs2] (<s>Yassine</s>)                         |
+| **7**    | 26/4       | Genome Graphs (Yassine) |[Genome graphs1] (Yassine) and [Genome graphs2] (Yassine)                         |
 | **8**    | 3/5        | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave) |[BLAST analysis and databases] (Dave)             |
-| **9**    | 10/5       | Variant calling and high-throughput genotyping (<mark><s>Jimmy</s></mark>) | [Clinical genomics1] (<mark><s>Jimmy</s></mark>) and [Clinical genomics2] <mark>(<s>Jimmy</s>)</mark>                      |
+| **9**    | 10/5       | Variant calling and high-throughput genotyping (Julien) | [Clinical genomics1] (Julien) and [Clinical genomics2] (Julien)                      |
 | **10**   | 17/5       | High-throughput genotyping technologies and applications |[Agricultural genomics] (Rick)                       |
 | **11**   | 24/5       | Population genomics (Bastien) |[Population genetics1] (Bastien) [Population genetics2] (Bastien)                   |
 | **12**   | 31/5       | Metagenomics (???Raphael) |[Metagenomics 16S profiling] (???Raphael)            |
