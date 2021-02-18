@@ -11,9 +11,9 @@ Semester 1 2020
 | **Week** | **Monday** | **Lecture**                                       | **Practical**                                     |
 |----------|------------|---------------------------------------------------|---------------------------------------------------|
 | **1**    | 1/3        | Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (Dave) | [Introduction to Bash] (Dave)                      |
-| **2**    | 8/3        | Resequencing (Exome/WGS)     (Paul?)                    |[Read Quality Control] (<s>Nathan</s> Paul?) [SAMTools and alignments] (<mark><s>Jimmy</s></mark>Paul?) |
+| **2**    | 8/3        | Resequencing (Exome/WGS)     (Paul?)                    |[Read Quality Control] (<s>Nathan</s> Paul?) [SAMTools and alignments] (<mark><s>Jimmy</s></mark>???) |
 | **3**    | 15/3       | Short read assembly Approaches and issues (<s>Nathan</s>) |[SARS-CoV-2 Resequencing] (<s>Nathan</s>) [SARS-CoV-2 Short Read Assembly] (<s>Nathan</s>)         |
-| **4**    | 22/3       | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (<s>Nathan</s>Paul?)|[Short and long read alignment] (<s>Nathan</s>Paul?) [E. coli K-12 Hybrid Genome Assembly] (<s>Nathan</s>Paul?)         |
+| **4**    | 22/3       | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (<s>Nathan</s>???)|[Short and long read alignment] (<s>Nathan</s>???) [E. coli K-12 Hybrid Genome Assembly] (<s>Nathan</s>???)         |
 | **5**    | 29/3       | _De novo_ assembly genome size estimate (k-mers), coverage. (Lloyd) |[Bacterial genome assembly] (Lloyd)               |
 | **6**    | 6/4        | Long range information 10x, HiC, BioNano (Lloyd) |[HiC analysis] (Callum/Ning)                       |
 | **-**    |            |  |                                                 |
