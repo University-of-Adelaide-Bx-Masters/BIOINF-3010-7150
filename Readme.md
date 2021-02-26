@@ -22,7 +22,7 @@ Semester 1 2020
 | **9**    | 10/5       | Variant calling and high-throughput genotyping (Julien) | [Clinical genomics1] (Julien) and [Clinical genomics2] (Julien)                      |
 | **10**   | 17/5       | High-throughput genotyping technologies and applications |[Agricultural genomics] (Rick)                       |
 | **11**   | 24/5       | Population genomics (Bastien) |[Population genetics1] (Bastien) [Population genetics2] (Bastien)                   |
-| **12**   | 31/5       | Metagenomics (???Raphael) |[Metagenomics 16S profiling] (???Raphael)            |
+| **12**   | 31/5       | Metagenomics (TBD) |[Metagenomics 16S profiling] (TBD)            |
 
 [Introduction to Bash]: Practicals/Bash_Practicals/1_IntroBash.md
 [Read Quality Control]: Practicals/Read_QC/read-qc.md
