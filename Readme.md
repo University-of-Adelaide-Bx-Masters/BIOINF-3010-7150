@@ -4,7 +4,7 @@
 ## BIOINF3010/7150: Genomics Applications
 {:.no_toc}
 
-Semester 1 2020
+Semester 1 2021 - Provisional Timetable
 
 ### Lecture and Practical Timetable
 
@@ -51,13 +51,13 @@ Semester 1 2020
 |-----------------------------------------------------------|---------------------|
 | [Assessment 0](Assignments/Assignment_0/bash_questions.md)| Bash                |
 | [Assessment 1](Assignments/Assignment_1/genome_sequencing.md)                                          | Genome sequencing     |
-| [Assessment 2]()                                          | Experimental design |
-| [Assessment 3]()                                          | Publishing a genome |
-| [Assessment 4]()                                          | Ancient DNA         |
+| [Assessment 2]()                                          | Experimental design (no link)|
+| [Assessment 3]()                                          | Publishing a genome (no link)|
+| [Assessment 4]()                                          | Ancient DNA  (No Link)       |
 | [Assessment 5](Assignments/Assignment_5.md)               | Metagenomics        |
 | [Project](#project) (PG only)                             | Complete Dataset    |
 
-### Project
+### Major Project (Post Grad only)
 
 In this course, the following next-generation sequencing (NGS) datasets/protocols will be examined in detail:
 
@@ -87,7 +87,7 @@ The Rmd document and a compiled knitted html will form the submission; marks wil
 | References | 5% |
 | Analysis scripts | 30% |
 
-#### Project Data
+#### Major Project Data
 
 For the project I was able to download a number of publicly available datasets from the Encylopedia of DNA elements (ENCODE) project, which is a large multi-national study that wrapped up a while ago.
 The purpose of the study was to identify any "functional" region of the genome that may not be gene-coding, so the project sequenced a lot of RNA sequencing, ChIP-seq (Transcription Factor-binding), DNA methylation sequencing and arrays etc.
