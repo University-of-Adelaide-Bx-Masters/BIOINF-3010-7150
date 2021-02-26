@@ -1,8 +1,11 @@
 
-# Alignment QC tutorial
+# Alignment QC practical
 
-Jimmy Breen (jimmy.breen@sahmri.com)   
+Designed and written by Jimmy Breen (jimmy.breen@sahmri.com)   
 2020-03-12  
+
+Updated by Dave Adelson (david.adelson@adelaide.edu.au) 
+2021-02-26
 
 Fundamental to the analysis of genomic data is the availablility, or lack there of, of a reference sequence.
 The reference sequence gives a substrate to compare to and is critical for many routine Bioinformatics tasks.
@@ -10,7 +13,7 @@ In an alignment tasks, sequenced DNA fragments (or "reads") are matched to the r
 
 Today we are not go into the details of the alignment process, but get stuck into some common commands and processes that will enable you to assess the quality of your alignments. 
 
-## Tutorial Outcomes
+## Practical Outcomes
 
 1. Learn what an alignment file is; i.e. SAM, BAM and CRAM files
 2. Run commands that help you view and produce statistics on the quality of alignment files
