@@ -10,7 +10,7 @@ Semester 1 2021 - Provisional Timetable
 
 | **Week** | **Monday** | **Lecture**                                       | **Practical**                                     |
 |----------|------------|---------------------------------------------------|---------------------------------------------------|
-| **1**    | 1/3        | Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (Dave) | [Introduction to Bash] (Dave)                      |
+| **1**    | 1/3        | Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (Dave) | [Introduction to Bash 1] (Dave)   [Introduction to Bash 2] (Dave)                  |
 | **2**    | 8/3        | Resequencing (Exome/WGS)     (Dave)                    |[Read Quality Control] (Dave) [SAMTools and alignments] (Joe/Dave) |
 | **3**    | 15/3       | Short read assembly Approaches and issues (Dave |[SARS-CoV-2 Resequencing] (Dave) [SARS-CoV-2 Short Read Assembly] (Dave)         |
 | **4**    | 22/3       | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (Dave)|[Short and long read alignment] (Dave) [E. coli K-12 Hybrid Genome Assembly] (Dave)         |
@@ -24,7 +24,8 @@ Semester 1 2021 - Provisional Timetable
 | **11**   | 24/5       | Population genomics (Bastien) |[Population genetics1] (Bastien) [Population genetics2] (Bastien)                   |
 | **12**   | 31/5       | Metagenomics (TBD) |[Metagenomics 16S profiling] (TBD)            |
 
-[Introduction to Bash]: Practicals/Bash_Practicals/1_IntroBash.md
+[Introduction to Bash 1]: Practicals/Bash_Practicals/1_IntroBash.md
+[Introduction to Bash 2]: Practicals/Bash_Practicals/2_BashScripting.md
 [Read Quality Control]: Practicals/Read_QC/read-qc.md
 [SAMTools and alignments]: Practicals/Alignments_Practicals/alignment-cram.md
 [SARS-CoV-2 Resequencing]: Practicals/resequencing/resequencing.md
