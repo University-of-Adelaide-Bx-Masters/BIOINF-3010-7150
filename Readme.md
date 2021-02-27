@@ -18,7 +18,7 @@ Semester 1 2021 - Provisional Timetable
 | **6**    | 6/4        | Long range information 10x, HiC, BioNano (Lloyd) |[HiC analysis] (Callum/Ning)                       |
 | **-**    |            |  |                                                 |
 | **7**    | 26/4       | Genome Graphs (Yassine) |[Genome graphs1] (Yassine) and [Genome graphs2] (Yassine)                         |
-| **8**    | 3/5        | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave) |[BLAST analysis and databases (Dave)] (Dave)             |
+| **8**    | 3/5        | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave) |[BLAST analysis and databases] (Dave)             |
 | **9**    | 10/5       | Variant calling and high-throughput genotyping (Julien) | [Clinical genomics1] (Julien) and [Clinical genomics2] (Julien)                      |
 | **10**   | 17/5       | High-throughput genotyping technologies and applications |[Agricultural genomics] (Rick)                       |
 | **11**   | 24/5       | Population genomics (Bastien) |[Population genetics1] (Bastien) [Population genetics2] (Bastien)                   |
