@@ -52,8 +52,8 @@ Semester 1 2021 - Provisional Timetable
 |-----------------------------------------------------------|---------------------|
 | [Assessment 0](Assignments/Assignment_0/bash_questions.md)| Bash                |
 | [Assessment 1](Assignments/Assignment_1/genome_sequencing.md)                                          | Genome sequencing     |
-| [Assessment 2]()                                          | Experimental design (no link)|
-| [Assessment 3]()                                          | Publishing a genome (no link)|
+| [Assessment 2]()                                          | CANU genome assembly|
+| [Assessment 3]()                                          | Genome Annotation|
 | [Assessment 4]()                                          | Ancient DNA  (No Link)       |
 | [Assessment 5](Assignments/Assignment_5.md)               | Metagenomics        |
 | [Project](#project) (PG only)                             | Complete Dataset    |
