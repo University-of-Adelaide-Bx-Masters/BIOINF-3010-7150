@@ -9,9 +9,9 @@ Updated by Dave Adelson (david.adelson@adelaide.edu.au)
 
 Fundamental to the analysis of genomic data is the availablility, or lack there of, of a reference sequence.
 The reference sequence gives a substrate to compare to and is critical for many routine Bioinformatics tasks.
-In an alignment tasks, sequenced DNA fragments (or "reads") are matched to the reference sequence in a process called "Alignment".
+In alignment tasks, sequenced DNA fragments (or "reads") are matched to the reference sequence in a process called "Alignment".
 
-Today we are not go into the details of the alignment process, but get stuck into some common commands and processes that will enable you to assess the quality of your alignments. 
+Today we are not going into the details of the alignment process, but will get stuck into some common commands and processes that will enable you to assess the quality of your alignments. 
 
 ## Practical Outcomes
 
@@ -24,7 +24,7 @@ Today we are not go into the details of the alignment process, but get stuck int
 
 While many modern genome sequences were produced at the start of the 21st century, sequencing machines were limited in their throughput i.e. the number of DNA fragments that could be sequenced at one time.
 Bioinformatics and genomics analyses during this time centred mainly on sequence searching with local alignment tools such as the very popular Basic Local Alignment Search Tool (BLAST).
-BLAST is one of the most widely used computational tools in biological research, [and two version of the program are the 12th and 14th most cited research publications of ALL TIME](https://www.nature.com/news/the-top-100-papers-1.16224).
+BLAST is one of the most widely used computational tools in biological research, [and two versions of the program are the 12th and 14th most cited research publications of ALL TIME](https://www.nature.com/news/the-top-100-papers-1.16224).
 
 Local alignment works by matching substrings of a sequence to a reference database, which is [computationally intensive when scaling to large numbers of sequence searches](https://biology.stackexchange.com/questions/11263/what-is-the-difference-between-local-and-global-sequence-alignments).
 As high-throughput sequencing machines were further developed in the late 2010s, global or "end-to-end" alignments offered a faster and more appropriate way of identifying the position of a DNA fragment if the sample was close to the appropriate reference sequence.
@@ -41,7 +41,7 @@ The basic structure of the SAM format is depicted in the figure below:
 
 ![](https://us.v-cdn.net/5019796/uploads/editor/f4/uuzmf2cbau1y.png)
 
-SAM files contain a lot of information, with information for every mapped fragments (and sometimes unmapped sequences) all being detailed on a single line of text.
+SAM files contain a lot of information, with information for every mapped fragment (and sometimes unmapped sequences) being detailed on a single line of text.
 Text data generally takes up a large amount of storage space, meaning SAM files are an inefficiant storage format for alignment data.
 Instead, storage formats such as BAM and CRAM are often favoured over SAM as they represent the alignment information in a compressed form. 
 BAM (for Binary Alignment Map) is a lossless compression while CRAM can range from lossless to lossy depending on how much compression you want to achieve (up to very much indeed). 
@@ -116,8 +116,8 @@ SRR3096662.15588756	339	1	12048	0	125M	=	12009	-164	GCAAGCTGAGCACTGGAGTGGAGTTTTC
 SRR3096662.17486460	419	1	12174	3	54M385N71M	=	12218	549	AAAGATTGGAGGAAAGATGAGTGACAGCATCAACTTCTCTCACAACCTAGGCCAGTGTGTGGTGATGCCAGGCATGCCCTTCCCCAGCATCAGGTCTCCAGAGCTGCAGAAGACGACGGCCGACT	BBBBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF	NH:i:2	HI:i:2	AS:i:241	nM:i:1	MD:Z:24G100	NM:i:1	RG:Z:SRR3096662
 ```
 
-Each field on each line is followed by a <TAB> character or what is called a "delimiter". 
-This just means that the columns in the file are separated by <TAB> characters, much like a comma-separated file or csv file is delimited by commas.
+Each field on each line is followed by a \<TAB> character or what is called a "delimiter". 
+This just means that the columns in the file are separated by \<TAB> characters, much like a comma-separated file or csv file is delimited by commas.
 
 The specific information of each field is contained below:
 
