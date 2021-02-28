@@ -182,7 +182,7 @@ This is what you should see:
 
 ### Questions
 
-Using the [SAM standard specification](http://samtools.github.io/hts-specs/SAMv1.pdf) and the table above, answer the following questions:
+Using the [SAM standard specification](http://samtools.github.io/hts-specs/SAMv1.pdf) and the outputs of the commands shown above, answer the following questions:
 1. Which reference sequence/chromosome did the first read `SRR3096662.22171880` align to and what position did it align to?
 2. The first two lines of the file contains reads with the same ID (i.e. the first field of the first two lines are `SRR3096662.22171880`). What is a possible reason for this?
 3. What is the read group ID for the sample?
@@ -232,8 +232,7 @@ Heng Li (Harvard/MIT), who is the author of a number of alignment algorithms (`b
 
 > Uniqueness was initially introduced to measure the reliability of ungapped short read alignment with a read aligned in full length. It is not a proper concept for generic alignments. For generic alignments, what is much more useful is mapping quality, first introduced in my maq paper. Mapping quality is phred-scaled probability of the alignment being wrong. It unambiguously measures the alignment reliability in a universal way.
 
-There are some issues in how `MAPQ` is implemented in [some alignment algorithms](https://sequencing.qcfail.com/articles/mapq-values-are-really-useful-but-their-implementation-is-a-mess/), but generally it can be used to filter out ambiguously aligned reads that are often found in repetitive regions.
-
+There are some issues in how `MAPQ` is implemented in [some alignment algorithms](https://sequencing.qcfail.com/articles/mapq-values-are-really-useful-but-their-implementation-is-a-mess/), but generally it can be used to filter out ambiguously aligned reads that are often found in repetitive regions. (STAR aligner MAPQ values in the range 0-3 use a modified scoring scheme and indicate multi mapping.) 
 
 Now that we know what mapping quality is, we can use the `-q` parameter from `samtools view` to filter out any reads that are less than a specific mapping quality.
 What mapping quality is a good number to use?
@@ -247,7 +246,7 @@ Lets view the first few alignments that are greater than MAQ30:
 samtools view -q 30 SRR3096662_CJM20_Term_Female_Aligned.cram | head 
 ```
 
-As you can see, the first lines have no changed considerably and we only see alignments with >30 quality values.
+As you can see, the first lines have now changed considerably and we only see alignments with >30 quality values.
 You can actually go further in filtering mapping quality, and produce a new CRAM file which only contains your high quality alignments.
 
 ```
@@ -372,7 +371,7 @@ So do we remove duplicates for these approaches?
 
 The answer is:
 
-![](https://img.buzzfeed.com/buzzfeed-static/static/2015-03/26/19/enhanced/webdr06/original-25942-1427414325-9.jpg)
+> ## Evaluate with and without!! 
 
 Generally for RNA sequencing or ChIP-seq experiments, we will run both raw and duplicate reads through the same pipeline to compare the results to make sure our duplicates are not effecting our final outcome.
 
