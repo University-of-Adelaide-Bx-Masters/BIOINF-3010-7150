@@ -21,7 +21,7 @@ Semester 1 2021 - Provisional Timetable
 | **8**    | 3/5        | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave) | [Genome graphs2] (Yassine) [Intro to BLAST] (Dave)            |
 | **9**    | 10/5       | Variant calling and high-throughput genotyping (Julien) | [BLAST analysis and dbs] (Dave) [Clinical genomics1] (Julien)                     |
 | **10**   | 17/5       | High-throughput genotyping technologies and applications (Rick)|[Clinical genomics2] (Julien) [Agricultural genomics] (Rick)                       |
-| **11**   | 24/5       | Population genomics (Bastien) |  [Population genetics1] (Bastien)              |
+| **11**   | 24/5       | Population genomics (Bastien) | Open Practical Session Tuesday (Dave) [Population genetics1] (Bastien)              |
 | **12**   | 31/5       | Wrap up lecture (Dave) |   [Population genetics2] (Bastien) [Open  Prac session - Friday] (Dave)           |
 | **13**   | 7/6        |   TBD         |   TBD        |
 
