@@ -38,7 +38,7 @@ Semester 1 2021 - Provisional Timetable
 [Genome graphs1]: Practicals/Graph_Genomes/prac_part1.md
 [Genome graphs2]: Practicals/Graph_Genomes/prac_part2.md
 [Intro to BLAST]: Practicals/
-[BLAST analysis and databases]: Practicals/BLAST_practical/BLAST_practical_v2.md
+[BLAST analysis and dbs]: Practicals/BLAST_practical/BLAST_practical_v2.md
 [Clinical genomics1]: Practicals/variants_clinical/variant_annotation.md
 [Clinical genomics2]: Practicals/variants_clinical/variant_filtering.md
 [Agricultural genomics]: Practicals/
