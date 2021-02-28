@@ -14,8 +14,8 @@ Semester 1 2021 - Provisional Timetable
 | **2**    | 8/3        | Resequencing (Exome/WGS)     (Dave)                    |[Read Quality Control] (Dave) [SAMTools and alignments] (Joe/Dave) |
 | **3**    | 15/3       | Short read assembly Approaches and issues (Dave |[SARS-CoV-2 Resequencing] (Dave) [SARS-CoV-2 Short Read Assembly] (Dave)         |
 | **4**    | 22/3       | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (Dave)|[Short and long read alignment] (Dave) [E. coli K-12 Hybrid Genome Assembly] (Dave)         |
-| **5**    | 29/3       | _De novo_ assembly genome size estimate (k-mers), coverage. (Lloyd) |  [Assembly practical pt 1] (Lloyd)           |
-| **6**    | 6/4        | Long range information 10x, HiC, BioNano (Lloyd) | [Assembly practical pt 2] (Lloyd) [HiC analysis] (Callum)                       |
+| **5**    | 29/3       | Friday public holiday, no lecture | Tuesday [Assembly practical pt 1] (Lloyd)  Friday public holiday no practical         |
+| **6**    | 6/4        | _De novo_ assembly genome size estimate (k-mers), coverage. (Lloyd) | [Assembly practical pt 2] (Lloyd) [HiC analysis] (Callum)                       |
 | **-**    |            |  |    MID-SEMESTER BREAK                                             |
 | **7**    | 26/4       | Genome Graphs (Yassine) |  No Practical Tuesday   [Genome graphs1] (Yassine)                    |
 | **8**    | 3/5        | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave) | [Genome graphs2] (Yassine) [Intro to BLAST] (Dave)            |
