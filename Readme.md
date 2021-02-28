@@ -14,16 +14,16 @@ Semester 1 2021 - Provisional Timetable
 | **2**    | 8/3        | Resequencing (Exome/WGS)     (Dave)                    |[Read Quality Control] (Dave) [SAMTools and alignments] (Joe/Dave) |
 | **3**    | 15/3       | Short read assembly Approaches and issues (Dave |[SARS-CoV-2 Resequencing] (Dave) [SARS-CoV-2 Short Read Assembly] (Dave)         |
 | **4**    | 22/3       | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (Dave)|[Short and long read alignment] (Dave) [E. coli K-12 Hybrid Genome Assembly] (Dave)         |
-| **5**    | 29/3       | _De novo_ assembly genome size estimate (k-mers), coverage. (Lloyd) |  [Assembly practical pt 1] (Lloyd) [Assembly practical pt 2] (Lloyd)           |
-| **6**    | 6/4        | Long range information 10x, HiC, BioNano (Lloyd) | [HiC analysis] (Callum/Ning)                       |
+| **5**    | 29/3       | _De novo_ assembly genome size estimate (k-mers), coverage. (Lloyd) |  [Assembly practical pt 1] (Lloyd)           |
+| **6**    | 6/4        | Long range information 10x, HiC, BioNano (Lloyd) | [Assembly practical pt 2] (Lloyd) [HiC analysis] (Callum)                       |
 | **-**    |            |  |    MID-SEMESTER BREAK                                             |
-| **7**    | 26/4       | Genome Graphs (Yassine) |[Genome graphs1] (Yassine) and [Genome graphs2] (Yassine)                         |
-| **8**    | 3/5        | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave) |[BLAST analysis and databases] (Dave)             |
-| **9**    | 10/5       | Variant calling and high-throughput genotyping (Julien) | [Clinical genomics1] (Julien) and [Clinical genomics2] (Julien)                      |
-| **10**   | 17/5       | High-throughput genotyping technologies and applications (Rick)|[Agricultural genomics] (Rick)                       |
-| **11**   | 24/5       | Population genomics (Bastien) |[Population genetics1] (Bastien) [Population genetics2] (Bastien)                   |
-| **12**   | 31/5       | Metagenomics (TBD) |[Metagenomics 16S profiling] (TBD)            |
-|**13**    | 7/6        |            |           |
+| **7**    | 26/4       | Genome Graphs (Yassine) |  [No  practical Tuesday]   [Genome graphs1] (Yassine)                    |
+| **8**    | 3/5        | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave) | [Genome graphs2] (Yassine) [Intro to BLAST] (Dave)            |
+| **9**    | 10/5       | Variant calling and high-throughput genotyping (Julien) | [BLAST analysis and databases] (Dave) [Clinical genomics1] (Julien)                     |
+| **10**   | 17/5       | High-throughput genotyping technologies and applications (Rick)|[Clinical genomics2] (Julien) [Agricultural genomics] (Rick)                       |
+| **11**   | 24/5       | Population genomics (Bastien) |  [Population genetics1] (Bastien)              |
+| **12**   | 31/5       | Wrap up lecture (Dave) |   [Population genetics2] (Bastien) [Open  Prac session - Friday] (Dave)           |
+| **13**   | 7/6        |            |           |
 
 [Introduction to Bash 1]: Practicals/Bash_Practicals/1_IntroBash.md
 [Introduction to Bash 2]: Practicals/Bash_Practicals/2_BashScripting.md
