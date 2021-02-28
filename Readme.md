@@ -17,13 +17,13 @@ Semester 1 2021 - Provisional Timetable
 | **5**    | 29/3       | _De novo_ assembly genome size estimate (k-mers), coverage. (Lloyd) |  [Assembly practical pt 1] (Lloyd)           |
 | **6**    | 6/4        | Long range information 10x, HiC, BioNano (Lloyd) | [Assembly practical pt 2] (Lloyd) [HiC analysis] (Callum)                       |
 | **-**    |            |  |    MID-SEMESTER BREAK                                             |
-| **7**    | 26/4       | Genome Graphs (Yassine) |  [No  practical Tuesday]   [Genome graphs1] (Yassine)                    |
+| **7**    | 26/4       | Genome Graphs (Yassine) |  [No  practical Tuesday](Dave)   [Genome graphs1] (Yassine)                    |
 | **8**    | 3/5        | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave) | [Genome graphs2] (Yassine) [Intro to BLAST] (Dave)            |
 | **9**    | 10/5       | Variant calling and high-throughput genotyping (Julien) | [BLAST analysis and dbs] (Dave) [Clinical genomics1] (Julien)                     |
 | **10**   | 17/5       | High-throughput genotyping technologies and applications (Rick)|[Clinical genomics2] (Julien) [Agricultural genomics] (Rick)                       |
 | **11**   | 24/5       | Population genomics (Bastien) |  [Population genetics1] (Bastien)              |
 | **12**   | 31/5       | Wrap up lecture (Dave) |   [Population genetics2] (Bastien) [Open  Prac session - Friday] (Dave)           |
-| **13**   | 7/6        |            |           |
+| **13**   | 7/6        |   TBD         |   TBD        |
 
 [Introduction to Bash 1]: Practicals/Bash_Practicals/1_IntroBash.md
 [Introduction to Bash 2]: Practicals/Bash_Practicals/2_BashScripting.md
