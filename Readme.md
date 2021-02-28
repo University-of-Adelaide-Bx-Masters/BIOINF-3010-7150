@@ -19,7 +19,7 @@ Semester 1 2021 - Provisional Timetable
 | **-**    |            |  |    MID-SEMESTER BREAK                                             |
 | **7**    | 26/4       | Genome Graphs (Yassine) |  [No  practical Tuesday]   [Genome graphs1] (Yassine)                    |
 | **8**    | 3/5        | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave) | [Genome graphs2] (Yassine) [Intro to BLAST] (Dave)            |
-| **9**    | 10/5       | Variant calling and high-throughput genotyping (Julien) | [BLAST analysis and databases] (Dave) [Clinical genomics1] (Julien)                     |
+| **9**    | 10/5       | Variant calling and high-throughput genotyping (Julien) | [BLAST analysis and dbs] (Dave) [Clinical genomics1] (Julien)                     |
 | **10**   | 17/5       | High-throughput genotyping technologies and applications (Rick)|[Clinical genomics2] (Julien) [Agricultural genomics] (Rick)                       |
 | **11**   | 24/5       | Population genomics (Bastien) |  [Population genetics1] (Bastien)              |
 | **12**   | 31/5       | Wrap up lecture (Dave) |   [Population genetics2] (Bastien) [Open  Prac session - Friday] (Dave)           |
@@ -37,13 +37,14 @@ Semester 1 2021 - Provisional Timetable
 [HiC analysis]: Practicals/HiC/hicprac.md
 [Genome graphs1]: Practicals/Graph_Genomes/prac_part1.md
 [Genome graphs2]: Practicals/Graph_Genomes/prac_part2.md
+[Intro to BLAST]: Practicals/
 [BLAST analysis and databases]: Practicals/BLAST_practical/BLAST_practical_v2.md
 [Clinical genomics1]: Practicals/variants_clinical/variant_annotation.md
 [Clinical genomics2]: Practicals/variants_clinical/variant_filtering.md
 [Agricultural genomics]: Practicals/
 [Population genetics1]: Practicals/ancient_DNA_pop_genomics/prac_part1.md
 [Population genetics2]: Practicals/ancient_DNA_pop_genomics/prac_part2.md
-[Metagenomics 16S profiling]: Practicals/
+
 
 ## Assessment
 
