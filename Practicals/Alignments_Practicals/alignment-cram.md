@@ -265,18 +265,20 @@ Head to http://broadinstitute.github.io/picard/explain-flags.html to see a helpf
 
 | # | Decimal | Description of read                      |
 |---|---------|------------------------------------------|
-| 1 | 1       | Read paired                              |
-| 2 | 2       |	Read mapped in proper pair               |
+| 1 | 1       | Read paired                              |   
+| 2 | 2       |	Read mapped in proper pair               |   
 | 3 | 4       | Read unmapped                            |
 | 4 | 8       | Mate unmapped                            | 
 | 5 | 16      | Read reverse strand                      |
-| 6 | 32      | Mate reverse strand                      |
+| 6 | 32      | Mate reverse strand                      |   
 | 7 | 64      | First in pair                            |
-| 8 | 128     | Second in pair                           |
+| 8 | 128     | Second in pair                           |   
 | 9 | 256     | Not primary alignment                    |
 | 10 | 512    | Read fails platform/vendor quality checks|
 | 11 | 1024   | Read is PCR or optical duplicate         |
 | 12 | 2048   | Supplementary alignment                  |
+
+Example: for a read with a FLAG value of 163, this is the sum of 128, 32, 2, and 1, which references the 4 descriptions in the table which the read alignment has identified, *"Second in pair - Mate reverse strand - Read mapped in proper pair - Read paired"*.
 
 If we were to identify reads that mapped to the reverse strand, we can use the SAM flag 16.
 Then we can use the `-f` parameter to filter our BAM file to only include those reads.
