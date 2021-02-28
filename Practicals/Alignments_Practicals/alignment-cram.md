@@ -9,9 +9,9 @@ Updated by Dave Adelson (david.adelson@adelaide.edu.au)
 
 Fundamental to the analysis of genomic data is the availablility, or lack there of, of a reference sequence.
 The reference sequence gives a substrate to compare to and is critical for many routine Bioinformatics tasks.
-In an alignment tasks, sequenced DNA fragments (or "reads") are matched to the reference sequence in a process called "Alignment".
+In alignment tasks, sequenced DNA fragments (or "reads") are matched to the reference sequence in a process called "Alignment".
 
-Today we are not go into the details of the alignment process, but get stuck into some common commands and processes that will enable you to assess the quality of your alignments. 
+Today we are not going into the details of the alignment process, but will get stuck into some common commands and processes that will enable you to assess the quality of your alignments. 
 
 ## Practical Outcomes
 
@@ -24,7 +24,7 @@ Today we are not go into the details of the alignment process, but get stuck int
 
 While many modern genome sequences were produced at the start of the 21st century, sequencing machines were limited in their throughput i.e. the number of DNA fragments that could be sequenced at one time.
 Bioinformatics and genomics analyses during this time centred mainly on sequence searching with local alignment tools such as the very popular Basic Local Alignment Search Tool (BLAST).
-BLAST is one of the most widely used computational tools in biological research, [and two version of the program are the 12th and 14th most cited research publications of ALL TIME](https://www.nature.com/news/the-top-100-papers-1.16224).
+BLAST is one of the most widely used computational tools in biological research, [and two versions of the program are the 12th and 14th most cited research publications of ALL TIME](https://www.nature.com/news/the-top-100-papers-1.16224).
 
 Local alignment works by matching substrings of a sequence to a reference database, which is [computationally intensive when scaling to large numbers of sequence searches](https://biology.stackexchange.com/questions/11263/what-is-the-difference-between-local-and-global-sequence-alignments).
 As high-throughput sequencing machines were further developed in the late 2010s, global or "end-to-end" alignments offered a faster and more appropriate way of identifying the position of a DNA fragment if the sample was close to the appropriate reference sequence.
@@ -41,7 +41,7 @@ The basic structure of the SAM format is depicted in the figure below:
 
 ![](https://us.v-cdn.net/5019796/uploads/editor/f4/uuzmf2cbau1y.png)
 
-SAM files contain a lot of information, with information for every mapped fragments (and sometimes unmapped sequences) all being detailed on a single line of text.
+SAM files contain a lot of information, with information for every mapped fragment (and sometimes unmapped sequences) being detailed on a single line of text.
 Text data generally takes up a large amount of storage space, meaning SAM files are an inefficiant storage format for alignment data.
 Instead, storage formats such as BAM and CRAM are often favoured over SAM as they represent the alignment information in a compressed form. 
 BAM (for Binary Alignment Map) is a lossless compression while CRAM can range from lossless to lossy depending on how much compression you want to achieve (up to very much indeed). 
@@ -116,8 +116,8 @@ SRR3096662.15588756	339	1	12048	0	125M	=	12009	-164	GCAAGCTGAGCACTGGAGTGGAGTTTTC
 SRR3096662.17486460	419	1	12174	3	54M385N71M	=	12218	549	AAAGATTGGAGGAAAGATGAGTGACAGCATCAACTTCTCTCACAACCTAGGCCAGTGTGTGGTGATGCCAGGCATGCCCTTCCCCAGCATCAGGTCTCCAGAGCTGCAGAAGACGACGGCCGACT	BBBBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF	NH:i:2	HI:i:2	AS:i:241	nM:i:1	MD:Z:24G100	NM:i:1	RG:Z:SRR3096662
 ```
 
-Each field on each line is followed by a <TAB> character or what is called a "delimiter". 
-This just means that the columns in the file are separated by <TAB> characters, much like a comma-separated file or csv file is delimited by commas.
+Each field on each line is followed by a \<TAB> character or what is called a "delimiter". 
+This just means that the columns in the file are separated by \<TAB> characters, much like a comma-separated file or csv file is delimited by commas.
 
 The specific information of each field is contained below:
 
@@ -182,7 +182,7 @@ This is what you should see:
 
 ### Questions
 
-Using the [SAM standard specification](http://samtools.github.io/hts-specs/SAMv1.pdf) and the table above, answer the following questions:
+Using the [SAM standard specification](http://samtools.github.io/hts-specs/SAMv1.pdf) and the outputs of the commands shown above, answer the following questions:
 1. Which reference sequence/chromosome did the first read `SRR3096662.22171880` align to and what position did it align to?
 2. The first two lines of the file contains reads with the same ID (i.e. the first field of the first two lines are `SRR3096662.22171880`). What is a possible reason for this?
 3. What is the read group ID for the sample?
@@ -232,8 +232,7 @@ Heng Li (Harvard/MIT), who is the author of a number of alignment algorithms (`b
 
 > Uniqueness was initially introduced to measure the reliability of ungapped short read alignment with a read aligned in full length. It is not a proper concept for generic alignments. For generic alignments, what is much more useful is mapping quality, first introduced in my maq paper. Mapping quality is phred-scaled probability of the alignment being wrong. It unambiguously measures the alignment reliability in a universal way.
 
-There are some issues in how `MAPQ` is implemented in [some alignment algorithms](https://sequencing.qcfail.com/articles/mapq-values-are-really-useful-but-their-implementation-is-a-mess/), but generally it can be used to filter out ambiguously aligned reads that are often found in repetitive regions.
-
+There are some issues in how `MAPQ` is implemented in [some alignment algorithms](https://sequencing.qcfail.com/articles/mapq-values-are-really-useful-but-their-implementation-is-a-mess/), but generally it can be used to filter out ambiguously aligned reads that are often found in repetitive regions. (STAR aligner MAPQ values in the range 0-3 use a modified scoring scheme and indicate multi mapping.) 
 
 Now that we know what mapping quality is, we can use the `-q` parameter from `samtools view` to filter out any reads that are less than a specific mapping quality.
 What mapping quality is a good number to use?
@@ -247,7 +246,7 @@ Lets view the first few alignments that are greater than MAQ30:
 samtools view -q 30 SRR3096662_CJM20_Term_Female_Aligned.cram | head 
 ```
 
-As you can see, the first lines have no changed considerably and we only see alignments with >30 quality values.
+As you can see, the first lines have now changed considerably and we only see alignments with >30 quality values.
 You can actually go further in filtering mapping quality, and produce a new CRAM file which only contains your high quality alignments.
 
 ```
@@ -266,18 +265,20 @@ Head to http://broadinstitute.github.io/picard/explain-flags.html to see a helpf
 
 | # | Decimal | Description of read                      |
 |---|---------|------------------------------------------|
-| 1 | 1       | Read paired                              |
-| 2 | 2       |	Read mapped in proper pair               |
+| 1 | 1       | Read paired                              |   
+| 2 | 2       |	Read mapped in proper pair               |   
 | 3 | 4       | Read unmapped                            |
 | 4 | 8       | Mate unmapped                            | 
 | 5 | 16      | Read reverse strand                      |
-| 6 | 32      | Mate reverse strand                      |
+| 6 | 32      | Mate reverse strand                      |   
 | 7 | 64      | First in pair                            |
-| 8 | 128     | Second in pair                           |
+| 8 | 128     | Second in pair                           |   
 | 9 | 256     | Not primary alignment                    |
 | 10 | 512    | Read fails platform/vendor quality checks|
 | 11 | 1024   | Read is PCR or optical duplicate         |
 | 12 | 2048   | Supplementary alignment                  |
+
+Example: for a read with a FLAG value of 163, this is the sum of 128, 32, 2, and 1, which references the 4 descriptions in the table which the read alignment has identified, *"Second in pair - Mate reverse strand - Read mapped in proper pair - Read paired"*.
 
 If we were to identify reads that mapped to the reverse strand, we can use the SAM flag 16.
 Then we can use the `-f` parameter to filter our BAM file to only include those reads.
@@ -372,7 +373,7 @@ So do we remove duplicates for these approaches?
 
 The answer is:
 
-![](https://img.buzzfeed.com/buzzfeed-static/static/2015-03/26/19/enhanced/webdr06/original-25942-1427414325-9.jpg)
+> ## Evaluate with and without!! 
 
 Generally for RNA sequencing or ChIP-seq experiments, we will run both raw and duplicate reads through the same pipeline to compare the results to make sure our duplicates are not effecting our final outcome.
 
