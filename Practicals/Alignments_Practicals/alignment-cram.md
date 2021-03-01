@@ -69,22 +69,16 @@ The sample itself is taken from the Chorionic Villus of a human placenta as part
 This particular placenta was taken from the placenta of a healthy female that was born >37 weeks gestational age (a full term).
 Full public information of this sample is available at the [NCBI Short Read Archive (SRA)](https://www.ncbi.nlm.nih.gov/sra/SRX1526833[accn]).
 
-Load up a terminal on your VMs and download our CRAM file and reference sequences from following link using the command `wget`
-
-```
-wget -c https://cloudstor.aarnet.edu.au/plus/s/yChohV1TXWL42gz/download \
-    -O "tutorial_data.zip"
-unzip tutorial_data.zip
-```
+We would normalle instruct you to download the data on your own, but due to file sizes we have already downloaded the data. You will find the files in `~/data`
 
 ## File sizes
 
 As mentioned above, the size differences between SAM, BAM and CRAM files can be surprising.
 From today's CRAM file, the converted SAM and BAM files are much larger in size. 
 
-33G SRR3096662_CJM20_Term_Female_Aligned.sam \
-2.8G    SRR3096662_CJM20_Term_Female_Aligned.bam \
-1.5G    SRR3096662_CJM20_Term_Female_Aligned.cram
+31G     SRR3096662_Aligned.out.sort.sam \
+2.6G    SRR3096662_Aligned.out.sort.bam \
+1.56G   SRR3096662_Aligned.out.sort.cram
 
 A 33GB SAM file can be compressed into a 2.8GB BAM file and 1.5GB CRAM file!
 
