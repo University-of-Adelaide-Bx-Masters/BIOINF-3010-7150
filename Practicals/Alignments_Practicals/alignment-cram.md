@@ -69,7 +69,7 @@ The sample itself is taken from the Chorionic Villus of a human placenta as part
 This particular placenta was taken from the placenta of a healthy female that was born >37 weeks gestational age (a full term).
 Full public information of this sample is available at the [NCBI Short Read Archive (SRA)](https://www.ncbi.nlm.nih.gov/sra/SRX1526833[accn]).
 
-We would normalle instruct you to download the data on your own, but due to file sizes we have already downloaded the data. You will find the files in `~/data`
+We would normalle instruct you to download the data on your own, but due to file sizes we have already downloaded the data as one file is quite big. You will find the files in `~/data`
 
 ## File sizes
 
@@ -86,12 +86,12 @@ A 33GB SAM file can be compressed into a 2.8GB BAM file and 1.5GB CRAM file!
 
 To view a SAM, CRAM or BAM file, you can use the [program `samtools`](http://www.htslib.org/).
 `samtools` is a very common tool in Bioinformatics and we will be using it frequently in this course.
-This should be available to you on the command-line (see Jimmy for details during the tutorial).
+This should be available to you on the command-line (see Joe for details during the tutorial).
 
 Lets quickly view our file using the `samtools view` subcommand, which is basically similar to the command-line tool `cat` in which the file is read to our screen line by line.
 
 ```
-samtools view SRR3096662_CJM20_Term_Female_Aligned.cram
+samtools view SRR3096662_Aligned.out.sort.cram
 ```
 
 As you can probably see, there is a tonne of data flashing on your screen.
@@ -101,7 +101,7 @@ What you just saw was the alignment information for each read in the `SRR3096662
 Lets use the pipe (`|`) and `head` command to just give us the first five lines of the file so we can start to make sense of the file format.
 
 ```
-samtools view SRR3096662_CJM20_Term_Female_Aligned.cram | head -n5
+samtools view SRR3096662_Aligned.out.sort.cram | head -n5
 
 SRR3096662.22171880	163	1	11680	3	125M	=	11681	126	CTGGAGATTCTTATTAGTGATTTGGGCTTGGGCCTGGCCATGTGTATTTTTTTAAATTTCCACTGATGATTTTGCTGCATGGCCGGTGTTGAGAATGACTGCGCAAATTTGCCGGATTTCCTTTG	BBBBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFFFFFFFFFFFFFFFFFFFFBF<FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFFFF	NH:i:2	HI:i:1	AS:i:244	nM:i:2	MD:Z:28G96	NM:i:1	RG:Z:SRR3096662
 SRR3096662.22171880	83	1	11681	3	125M	=	11680	-126	TGGAGATTCTTATTAGTGATTTGGGCTTGGGCCTGGCCATGTGTATTTTTTTAAATTTCCACTGATGATTTTGCTGCATGGCCGGTGTTGAGAATGACTGCGCAAATTTGCCGGATTTCCTTTGC	FFF<FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF<FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFFFFFFFFFFFFFFBBBB	NH:i:2	HI:i:1	AS:i:244	nM:i:2	MD:Z:27G97	NM:i:1	RG:Z:SRR3096662
@@ -142,7 +142,7 @@ We can do this easily with the `samtools stats` subcommand, which summarises a l
 If we extract just the lines starting with "SN" (Summary Numbers), we will get some basic numbers
 
 ```
-samtools stats SRR3096662_CJM20_Term_Female_Aligned.cram | grep ^SN | cut -f 2-
+samtools stats SRR3096662_Aligned.out.sort.cram | grep ^SN | cut -f 2-
 ```
 
 This command will take a while to run, because it summarises all the reference sequences within the CRAM file.
@@ -155,7 +155,7 @@ The `samtools view` command actually hides this from you by default, but it cont
 To see this info we need to add the `-H` flag.
 
 ```
-samtools view -h SRR3096662_CJM20_Term_Female_Aligned.cram | head 
+samtools view -h SRR3096662_Aligned.out.sort.cram | head 
 ```
 
 This is what you should see:
@@ -195,7 +195,7 @@ There is a tonne of other information, so please check out the additional links 
 Let's run `head` on one of our alignments files again, this time without the header information at the top.
 
 ```
-samtools view SRR3096662_CJM20_Term_Female_Aligned.cram | head 
+samtools view SRR3096662_Aligned.out.sort.cram | head 
 ```
 
 The 5th field contains the `MAPQ` score which indicates how well the read aligned, and how unique each alignment is.
@@ -237,14 +237,14 @@ For example, in ancient DNA, where DNA fragments are short and therefore likely 
 Lets view the first few alignments that are greater than MAQ30:
 
 ```
-samtools view -q 30 SRR3096662_CJM20_Term_Female_Aligned.cram | head 
+samtools view -q 30 SRR3096662_Aligned.out.sort.cram | head 
 ```
 
 As you can see, the first lines have now changed considerably and we only see alignments with >30 quality values.
 You can actually go further in filtering mapping quality, and produce a new CRAM file which only contains your high quality alignments.
 
 ```
-samtools view -h -C -q 30 SRR3096662_CJM20_Term_Female_Aligned.cram -o SRR3096662_CJM20_Term_Female_Aligned.filtered.cram
+samtools view -h -C -q 30 SRR3096662_Aligned.out.sort.cram -o SRR3096662_Aligned.filtered.cram
 ```
 
 The additional flags used above are:
@@ -278,19 +278,19 @@ If we were to identify reads that mapped to the reverse strand, we can use the S
 Then we can use the `-f` parameter to filter our BAM file to only include those reads.
 
 ```
-samtools view -f 16 SRR3096662_CJM20_Term_Female_Aligned.cram | head
+samtools view -f 16 SRR3096662_Aligned.out.sort.cram | head
 ```
 
 You can also do the exact opposite, i.e. identify all reads that are not on the reverse strand, by using the `-F` parameter.
 
 ```
-samtools view -F 16 SRR3096662_CJM20_Term_Female_Aligned.cram | head
+samtools view -F 16 SRR3096662_Aligned.out.sort.cram | head
 ```
 
 Going through a lot of these SAM flags one by one would be fairly tedious, so `samtools` has a subcommand called `flagstat` which counts the number of reads in specific flags.
 
 ```
-samtools flagstat SRR3096662_CJM20_Term_Female_Aligned.cram
+samtools flagstat SRR3096662_Aligned.out.sort.cram
 ```
 
 ## Assessment of alignment rate and multi-mapping
@@ -314,7 +314,7 @@ So each read has a _primary_ alignment (i.e. region which the read aligned to wh
 Lets take one of the reads from our CRAM file and see whether it is found multiple times
 
 ```
-samtools view  SRR3096662_CJM20_Term_Female_Aligned.cram  | grep "^SRR3096662.14934677"
+samtools view  SRR3096662_Aligned.out.sort.cram  | grep "^SRR3096662.14934677"
 ```
 
 ```
@@ -422,7 +422,7 @@ I generally use this alot for a quick look, and it can be a really handy way of 
 Using the reference sequence that was included in the data downloaded today, lets use the `samtools tview` subcommand:
 
 ```
-samtools tview SRR3096662_CJM20_Term_Female_Aligned.cram --reference hg19_1000g_hs37d5.fasta.gz
+samtools tview SRR3096662_Aligned.out.sort.cram --reference hg19_1000g_hs37d5.fasta.gz
 ```
 
 Looks like nothing now, but the first part of the chromosome should not have any coverage at all. 
