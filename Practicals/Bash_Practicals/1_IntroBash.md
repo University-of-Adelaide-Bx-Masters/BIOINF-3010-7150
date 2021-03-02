@@ -624,7 +624,7 @@ Firstly, we'll need to get the file that we'll search in this section.
 First **change into your `test` directory** using the `cd` command, then enter the following, depending on your operating system:
 
 ```bash
-cp ~/data/intro_bash/words words
+cp ~/data/word words
 ```
 
 Now page through the first few lines of the file using `less` to get an idea about what it contains.
