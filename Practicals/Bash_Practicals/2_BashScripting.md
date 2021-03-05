@@ -303,6 +303,27 @@ sed -En '/TGCAGGCTC.+(GA){2}.+/ p' Drosophila_melanogaster.BDGP6.ncrna.fa
 
 Note however, that the line numbers are not present in this output, and the pattern highlighting from `grep` is not present either.
 
+For regular expression pattern matching with `grep` or `sed` here is quick summary table of special characters and their meaning.
+
+| Special Character | Meaning |
+|:----------------- |:------- |
+| \w                | match any letter or digit, i.e. a word character |
+| \s                | match any white space character, includes spaces, tabs & end-of-line marks |
+| \d                | match any digit from 0 to 9 |
+| .                 | matches any single character |
+| +                 | matches one or more of the preceding character (or pattern) |
+| *                 | matches zero or more of the preceding character (or pattern) |
+| ?                 | matches zero or one of the preceding character (or pattern)  |
+| {x} or {x,y}      | matches x or between x and y instances of the preceding character
+| ^                 | matches the beginning of a line (when not inside square brackets) |
+| $                 | matches the end of a line |
+| ()                | contents of the parentheses treated as a single pattern |
+| []                | matches only the characters inside the brackets |
+| [^]               | matches anything other than the characters in the brackets |
+| &#124;            | either the string before or the string after the "pipe" (use parentheses) |
+| \\                | don't treat the following character in the way you normally would.<br> This is why the first three entries in this table started with a backslash, as this gives them their "special" properties.<br> In contrast, placing a backslash before a `.` symbol will enable it to function as an actual dot/full-stop. |
+
+
 # Writing Scripts
 
 Now we've had a look at many of the key tools, we'll move on to writing scripts which is one of the most common things a bioinformatician will do.
