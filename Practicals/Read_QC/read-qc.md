@@ -217,7 +217,7 @@ That is, it processes each file one after the other.
 
 The VM's on which you are working have 2 CPUs/cores.
 You could utilise both these cores to speed up the process of running FastQC.
-You can specify the number of cores/threads to run using the `-t` flag, ie `fastqc -t`.
+You can specify the number of cores/threads to run using the `-t` flag, ie `fastqc -t n` where `n` is the number of threads/cores you want to use.
 Don't forget to time your "experiments" by prefixing your command with `time`.
 
 ## Inspecting FastQC Results
