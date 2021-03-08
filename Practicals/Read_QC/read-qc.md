@@ -332,7 +332,8 @@ Are they specified using a single hyphen (e.g. `-t`), two hyphens (e.g. `--threa
 Are the values separated with a space (e.g. `-t 2`), and equal sign (e.g. `-t=2`), no space at all (e.g. `-t2`), a colon (e.g. `t:2`) or something else?
 
 There are some general guidlines, but ultimately it is up to the developer of the tool as to how they design/write their software.
-The best thing to do is to read the manual and the help page to understand how it wants these thing specified. http://www.usadellab.org/cms/?page=trimmomatic#
+The best thing to do is to read the manual and the help page to understand how it wants these thing specified. 
+http://www.usadellab.org/cms/?page=trimmomatic#
 
 #### Questions
 {:.no_toc}
@@ -384,5 +385,5 @@ Take a look at the various FastQC HTML report files and compare pre and post tri
  * Overrepresented sequences
  * Adapter Content
 
-Generally, `fastp` performs comparably to `trimmomatic` but is faster.
+Generally, `fastp` performs comparably to `trimmomatic` but is faster. Do you think `fastp` has performed better for this dataset than `trimmomatic`?
 `fastp` is able to deal better with 2-colour Illumina data and the corresponding poly-G "issue" observed at the 3' end of reads.
