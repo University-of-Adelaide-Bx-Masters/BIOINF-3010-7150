@@ -250,7 +250,7 @@ These are the Phred scores we discussed earlier, and this plot is usually the fi
 #### Questions
 {:.no_toc}
 
- - *What do you notice about the quality scores as you move from the 5` to the 3` end of the reads?*
+ - *What do you notice about the quality scores as you move from the 5' to the 3' end of the reads?*
  - *Do you think we might need to trim reads with poor quality 3' ends?*
 
 ### Per Base Sequence Content
