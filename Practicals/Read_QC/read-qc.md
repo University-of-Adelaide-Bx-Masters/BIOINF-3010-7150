@@ -99,7 +99,7 @@ Some inserts may be shorter than the read length being generated, causing "read-
 
 During the library prep, a "Y" shaped adapter is used.
 This results in a different adapter sequence being present at opposite ends of the insert.
-To more accurately detect and remove adpater sequences from reads, resulting from read-though, it is benefitial to know which adapter sequences were used during the construction of the library.
+To more accurately detect and remove adapter sequences from reads, resulting from read-though, it is beneficial to know which adapter sequences were used during the construction of the library.
 However, because there are a limited number of standard Illumina adapter sequences in use, tools can often determine this for you.
 
 ### Index(es)
