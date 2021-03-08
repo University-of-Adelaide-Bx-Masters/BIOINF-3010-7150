@@ -302,6 +302,12 @@ We are going to investigate the use of 2 tools: trimmomatic and fastp.
 
 ### Trimmomatic
 
+Before you can use trimmomatic you will need to install it.
+```bash
+conda install -c bioconda trimmomatic
+```
+If prompted to update/install, please type `Y`.
+
 Below is a basic trimmomatic command for processing paired-end data.
 Modify the command to:
 
@@ -336,6 +342,11 @@ The best thing to do is to read the manual and the help page to understand how i
  - *How many read pairs survived all the trimming and length filters?*
 
 ### fastp
+first, install fastp
+
+```bash
+conda install -c bioconda fastp
+```
 
 The below `fastp` command has been constructed with the same kinds of trimming parameters we asked you to run trimmomatic with above:
 
