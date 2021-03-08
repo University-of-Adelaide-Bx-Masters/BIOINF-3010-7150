@@ -21,7 +21,7 @@ To make and enter the directory that you will be working in, run the following c
 
 ```bash
 mkdir --parents ~/Project_1/data
-cp ~/data/genomics/ERR1949188_?.fastq.gz ~/Project_1/data/
+cp ~/data/ERR1949188_?.fastq.gz ~/Project_1/data/
 cd ~/Project_1/
 ```
 
