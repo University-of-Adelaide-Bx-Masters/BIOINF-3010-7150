@@ -95,7 +95,7 @@ The Illumina library prep aims to fragment the DNA into pieces ~300-400 bp in le
 If the DNA is fragmented too much, the distribution of insert sizes will be much shorter.
 Some inserts may be shorter than the read length being generated, causing "read-though" to the adapter at the 3' end of the read.
 
-### Adpaters
+### Adapters
 
 During the library prep, a "Y" shaped adapter is used.
 This results in a different adapter sequence being present at opposite ends of the insert.
