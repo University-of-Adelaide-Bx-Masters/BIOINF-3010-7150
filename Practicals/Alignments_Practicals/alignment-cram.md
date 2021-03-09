@@ -69,7 +69,19 @@ The sample itself is taken from the Chorionic Villus of a human placenta as part
 This particular placenta was taken from the placenta of a healthy female that was born >37 weeks gestational age (a full term).
 Full public information of this sample is available at the [NCBI Short Read Archive (SRA)](https://www.ncbi.nlm.nih.gov/sra/SRX1526833[accn]).
 
-We would normalle instruct you to download the data on your own, but due to file sizes we have already downloaded the data as one file is quite big. You will find the files in `~/data`
+We would normally instruct you to download the data on your own, but due to file sizes we have already downloaded the data as one file is quite big. 
+
+Because of file sizes, we have already set up `~/alignment_prac` in your home directory and it contains a gzipped `tar` archive. 
+To extract the files:
+
+```bash
+#change directory to ~./alignment_prac
+cd ./aligment_prac
+
+tar -xvf SRR3096662.tar.gz
+```
+
+This may take 2-3 minutes to finish the file extraction.
 
 ## File sizes
 
@@ -86,7 +98,9 @@ A 33GB SAM file can be compressed into a 2.8GB BAM file and 1.5GB CRAM file!
 
 To view a SAM, CRAM or BAM file, you can use the [program `samtools`](http://www.htslib.org/).
 `samtools` is a very common tool in Bioinformatics and we will be using it frequently in this course.
-This should be available to you on the command-line (see Joe for details during the tutorial).
+
+Install `samtools` in the usual manner: `conda install -c bioconda samtools`.
+
 
 Lets quickly view our file using the `samtools view` subcommand, which is basically similar to the command-line tool `cat` in which the file is read to our screen line by line.
 
