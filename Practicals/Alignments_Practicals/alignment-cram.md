@@ -396,6 +396,9 @@ Generally for RNA sequencing or ChIP-seq experiments, we will run both raw and d
 # Remove duplicates the samtools way
 samtools rmdup [SORTED BAM] [SORTED RMDUP BAM]
 
+# Install picard
+conda install -c bioconda picard
+
 # Remove duplicates the picard way (which uses Java)
 picard MarkDuplicates I=[SORTED BAM] O=[SORTED RMDUP BAM] M=dups.metrics.txt REMOVE_DUPLICATES=true
 ```
