@@ -102,8 +102,9 @@ To view a SAM, CRAM or BAM file, you can use the [program `samtools`](http://www
 Activate `samtools` as follows: 
 
 ```bash
+
 conda activate assembly
-```.
+```
 
 
 Lets quickly view our file using the `samtools view` subcommand, which is basically similar to the command-line tool `cat` in which the file is read to our screen line by line.
