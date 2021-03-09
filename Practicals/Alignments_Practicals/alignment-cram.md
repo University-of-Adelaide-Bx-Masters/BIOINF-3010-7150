@@ -99,7 +99,11 @@ A 33GB SAM file can be compressed into a 2.8GB BAM file and 1.5GB CRAM file!
 To view a SAM, CRAM or BAM file, you can use the [program `samtools`](http://www.htslib.org/).
 `samtools` is a very common tool in Bioinformatics and we will be using it frequently in this course.
 
-Activate `samtools` as follows: `conda activate assembly`.
+Activate `samtools` as follows: 
+
+```bash
+conda activate assembly
+```.
 
 
 Lets quickly view our file using the `samtools view` subcommand, which is basically similar to the command-line tool `cat` in which the file is read to our screen line by line.
