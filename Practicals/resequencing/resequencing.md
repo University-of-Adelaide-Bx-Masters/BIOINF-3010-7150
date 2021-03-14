@@ -14,7 +14,7 @@ See [week 1's practical](../Bash_Practicals/1_IntroBash.md#rstudio) to remind yo
 
 First we will set up a directory for today's practical.
 In general it is very worthwhile to keep all your project-specific code and data organised into a consistent location and structure.
-This are not essential, but is very useful and is in general good practice.
+This is not essential, but is very useful and is in general good practice.
 If you don't follow this step, you will be making your life immeasurably harder for the duration of this practical.
 
 To make and enter the directory that you will be working in, run the following commands in the terminal pane.
@@ -35,7 +35,7 @@ We will be looking at this data in different ways, providing insights into how b
 
 ### RefSeq Genome Assembly
 
-The most recent SARS-CoV-2 genome assembly is [NC_045512.2](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2).
+The SARS-CoV-2 genome assembly we will use is one of the earliest ones generated [NC_045512.2](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2).
 
 This assembly was generated from a sample collected in Dec 2019 and submitted to NCBI on 13th Jan 2020 as [NC_045512.1](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.1).
 Subsequently, [NC_045512.1](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.1) was replaced by [NC_045512.2](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2) on the 17th Jan 2020.
@@ -78,7 +78,7 @@ We have also provided access to a subsample (~100x) of the above data sets to fa
 mkdir --parents ~/Project_2/data/illumina_pe/
 
 # Get the Illumina data for the SRR11140748 sample
-cp ~/data/genomics/SRR11140748_?_100x.fastq.gz ~/Project_2/data/illumina_pe/
+cp ~/data/SRR11140748_?_100x.fastq.gz ~/Project_2/data/illumina_pe/
 ```
 
 # Genome Resequencing
@@ -95,7 +95,7 @@ We can then interrogate the read alignments and ask questions about how our samp
 
 ## FastQC
 
-Using what you leared last week, run FastQC across the raw data for the `SRR11140748` sample and inspect the FastQC reports.
+Using what you learned last week, run FastQC across the raw data for the `SRR11140748` sample and inspect the FastQC reports.
 
 ### Questions
 
@@ -234,7 +234,7 @@ Once the reference genome is loaded, load a "Track" from a `Local File ...` by s
 #### Questions
 
  - *The stacked grey arrows represent the reads aligned to the SARS-CoV-2 reference genome. What do the coloured vertical bars within the reads indicate?*
- - *Do you see position in the genome where a coloured vertical bar seems to occur quite frequently?*
+ - *Do you see a position in the genome where a coloured vertical bar seems to occur quite frequently?*
  - *Why does the read coverage drop towards zero at the ends of the reference genome?*
 
 ### Align the Oxford Nanopore Reads
