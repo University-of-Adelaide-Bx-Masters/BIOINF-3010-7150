@@ -363,7 +363,7 @@ alignments of a read starting with 1.
 
 Using both `samtools` and other unix tools, identify:
 
-1. Using the BAM file "SRR3096662_CJM20_Term_Female_Aligned.cram", how many reads differ between `-F 16` and `-f 16`?
+1. Using the BAM file "SRR3096662_Aligned.out.sort.cram", how many reads differ between `-F 16` and `-f 16`?
 2. The number of alignments found on Chromosome 1?
 3. How many aligned reads had a MAPQ greater than 10?
 
