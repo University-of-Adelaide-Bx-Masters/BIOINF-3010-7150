@@ -160,6 +160,9 @@ mkdir --parents ~/Project_2/data/reference/
 # Get the SARS-CoV-2 reference genome
 cp ~/data/COVID-19.fasta.gz ~/Project_2/data/reference/
 
+#install bwa
+conda install -c bioconda bwa
+
 # Index the reference genome for use with BWA
 bwa index ~/Project_2/data/reference/COVID-19.fasta.gz
 ```
