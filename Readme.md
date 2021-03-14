@@ -12,7 +12,7 @@ Semester 1 2021 - Provisional Timetable
 |----------|------------|---------------------------------------------------|---------------------------------------------------|
 | **1**    | 1/3        | Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (Dave) | [Introduction to Bash 1] (Dave)   [Introduction to Bash 2] (Dave)                  |
 | **2**    | 8/3        | Resequencing (Exome/WGS)     (Dave)                    |[Read Quality Control] (Dave) [SAMTools and alignments] (Joe/Dave) |
-| **3**    | 15/3       | Short read assembly Approaches and issues (Dave |[SARS-CoV-2 Resequencing] (Dave) [SARS-CoV-2 Short Read Assembly] (Dave)         |
+| **3**    | 15/3       | Short read assembly; approaches and issues (Dave |[SARS-CoV-2 Resequencing] (Dave) [SARS-CoV-2 Short Read Assembly] (Dave)         |
 | **4**    | 22/3       | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (Dave)|[Short and long read alignment] (Dave) [E. coli K-12 Hybrid Genome Assembly] (Dave)         |
 | **5**    | 29/3       | Friday public holiday, no lecture |  [Tuesday open practical session] (Dave) [Friday public holiday no practical]         |
 | **6**    | 5/4        | _De novo_ assembly genome size estimate (k-mers), coverage. (Lloyd) | [Assembly practical pt 1] (Lloyd) [Assembly practical pt 2] (Lloyd)                        |
