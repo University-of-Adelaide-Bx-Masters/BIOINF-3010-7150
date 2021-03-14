@@ -3,7 +3,7 @@
 
 * TOC
 {:toc}
-
+## By Nathan Watson-Haigh, adapted by Dave Adelson
 As with previous week's practicals, you will be using RStudio to interact with your VM.
 
 See [week 1's practical](../Bash_Practicals/1_IntroBash.md#rstudio) to remind yourself how to connect to your VM.
