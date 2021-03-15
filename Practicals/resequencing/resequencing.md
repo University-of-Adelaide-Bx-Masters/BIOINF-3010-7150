@@ -247,9 +247,12 @@ Long reads have the potential for spanning "repeat" regions, untangling the mess
 Lets align the long reads to the reference genome.
 
 ```bash
+#install minimap2
+conda install -c bioconda minimap2
+
 # Index the reference genome for minimap2
 minimap2 \
-  -d ~/Project_2/data/COVID-19.fasta.gz.mmi \
+  -d ~/Project_2/data/reference/COVID-19.fasta.gz.mmi \
   ~/Project_2/data/reference/COVID-19.fasta.gz
 
 # Get the Nanopore reads
