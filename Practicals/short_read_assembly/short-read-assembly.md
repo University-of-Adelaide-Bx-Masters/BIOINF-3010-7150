@@ -35,19 +35,19 @@ conda activate assembly
 mkdir --parents ~/Project_3/data/reference/
 
 # Get the SARS-CoV-2 reference genome
-cp ~/data/genomics/COVID-19.fasta.gz ~/Project_3/data/reference/
+cp ~/data/COVID-19.fasta.gz ~/Project_3/data/reference/
 
 # Make the directory for the Illumina PE reads
 mkdir --parents ~/Project_3/data/illumina_pe/
 
 # Get the subsampled Illumina PE data
-cp ~/data/genomics/SRR111407{44,46,48,50}_?_*x.fastq.gz ~/Project_3/data/illumina_pe/
+cp ~/data/SRR111407{44,46,48,50}_?_*x.fastq.gz ~/Project_3/data/illumina_pe/
 
 # Make the directory for scripts
 mkdir --parents ~/Project_3/data/scripts/
 
 # Get the scripts
-cp ~/data/genomics/plot_delta.R ~/Project_3/data/scripts/
+cp ~/data/plot_delta.R ~/Project_3/data/scripts/
 ```
 
 Lets see what files and directories we have under our current working directory:
@@ -58,7 +58,7 @@ tree
 
 ### Questions
 
- - *What did `{44,46,48,50}` mean/do in the above `cp` command while grabing the Illumina PE data?*
+ - *What did `{44,46,48,50}` mean/do in the above `cp` command while grabbing the Illumina PE data?*
 
 ## Data
 
