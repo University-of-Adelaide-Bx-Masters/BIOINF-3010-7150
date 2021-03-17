@@ -138,15 +138,15 @@ Index the `.bam` files with `samtools index`
 
 Download the reference, the `.bam` files and the index files to your computer.
 
-load them as in the previous practical on [IGV-web](https://igv.org/app/).
+load the E. coli K-12 reference and index and the `.bam` files and index files as in the previous practical on [IGV-web](https://igv.org/app/).
+
+**Optional exercise**
 
 If you want to try to download and run IGV on your local computer, head to the [IGV download page](https://software.broadinstitute.org/software/igv/download) and grab the version for your operating system. This will only work if you are installing on your personal computer, not one of the computer suite workstations. 
-If you don't have Java or you have troubles running it, try using [IGV-web](https://igv.org/app/) instead.
+If you don't have Java or you have troubles running it, just use [IGV-web](https://igv.org/app/) instead.
 
 **NOTE: If you're using IGV on your own machine, you will not need to decompress the genome sequence FASTA file.**
 
-
-Once you have done this, load the E. coli K-12 genome and then load the BAM files for both the Illumina and PacBio data.
 
 What do you make of these regions:
 
