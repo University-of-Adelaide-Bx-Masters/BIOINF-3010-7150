@@ -124,6 +124,9 @@ time spades.py \
 Compare the assembly to the SARS-CoV-2 RefSeq assembly using [MUMmer](http://mummer.sourceforge.net/manual/#nucmer)'s `nucmer` tool:
 
 ```bash
+# Install MUMmer
+conda install -c bioconda mummer
+
 # Decompress the reference genome for MUMmer
 pigz -dcp2 \
   < ~/Project_3/data/reference/COVID-19.fasta.gz \
