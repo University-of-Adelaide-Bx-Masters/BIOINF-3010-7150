@@ -67,7 +67,7 @@ We will be looking at this data in different ways, providing insights into how b
 
 ### RefSeq Genome Assembly
 
-The most recent SARS-CoV-2 genome assembly is [NC_045512.2](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2).
+We will use the SARS-CoV-2 genome assembly is [NC_045512.2](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2).
 
 This assembly was generated from a sample collected in Dec 2019 and submitted to NCBI on 13th Jan 2020 as [NC_045512.1](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.1).
 Subsequently, [NC_045512.1](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.1) was replaced by [NC_045512.2](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2) on the 17th Jan 2020.
