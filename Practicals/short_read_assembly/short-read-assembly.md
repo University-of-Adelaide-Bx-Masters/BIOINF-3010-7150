@@ -212,15 +212,7 @@ echo $k
 done
 exit 0
 ```
-You can also think about how you might automate the assembly of the various coverage samples based on their filenames using a `for` loop (see trivial example below).
 
-```
-#!/bin/bash
-for file in ./*.mp3
-do
-mpg -w ./wavs/"${file}".wav "$file"
-done
-```
 
 ## Questions
 
