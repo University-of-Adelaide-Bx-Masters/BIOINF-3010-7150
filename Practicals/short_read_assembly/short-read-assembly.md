@@ -202,6 +202,26 @@ time spades.py \
 
 Now modify the above commands to produce another 2 assemblies but using the `100x` coverage data.
 
+If you feel adventurous you can automate explorations of the effect of `k` by writing a shell script using a `for` loop similar to the example below.
+
+```
+#!/bin/bash
+for k in 11 20 50 80 127
+do
+echo $k
+done
+exit 0
+```
+You can also think about how you might automate the assembly of the various coverage samples based on their filenames using a `for` loop (see trivial example below).
+
+```
+#!/bin/bash
+for file in ./*.mp3
+do
+mpg -w ./wavs/"${file}".wav "$file"
+done
+```
+
 ## Questions
 
  - *How many contigs were produced with the above 4 assemblies?*
