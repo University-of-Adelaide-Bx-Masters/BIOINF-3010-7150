@@ -1,5 +1,5 @@
 # Week 3 Practical Part 1: SARS-CoV-2 Resequencing
-## By Nathan Watson-Haigh, adapted by Dave Adelson
+## By Nathan Watson-Haigh, updated/adapted by Dave Adelson
 {:.no_toc}
 
 * TOC

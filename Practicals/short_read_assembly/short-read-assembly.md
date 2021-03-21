@@ -1,4 +1,5 @@
 # Week 3 Practical Part 2: SARS-CoV-2 Short Read Assembly
+## By Nathan Watson-Haigh, updated/adapted by Dave Adelson
 {:.no_toc}
 
 * TOC

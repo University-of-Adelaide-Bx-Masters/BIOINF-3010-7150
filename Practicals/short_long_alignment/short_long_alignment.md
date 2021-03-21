@@ -1,4 +1,5 @@
 # Week 4 Practical Part 1: Short and Long Read Alignment
+## By Nathan Watson-Haigh, updated/adapted by Dave Adelson
 {:.no_toc}
 
 * TOC
@@ -148,9 +149,9 @@ What do you make of these regions:
 **Optional exercise**
 
 If you want to try to download and run IGV on your local computer, head to the [IGV download page](https://software.broadinstitute.org/software/igv/download) and grab the version for your operating system. This will only work if you are installing on your personal computer, not one of the computer suite workstations. 
-If you don't have Java or you have troubles running it, just use [IGV-web](https://igv.org/app/) instead.
+If you don't have Java or you don't want to install the Java version that comes with it, or have troubles running it, just use [IGV-web](https://igv.org/app/) instead.
 
-**NOTE: If you're using IGV on your own machine, you will not need to decompress the genome sequence FASTA file.**
+**NOTE: If you're using IGV on your own machine, you will not need to decompress the genome sequence FASTA file or load `.bai` files.**
 
 # BWA Alignments
 
