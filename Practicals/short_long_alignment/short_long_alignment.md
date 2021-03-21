@@ -40,7 +40,7 @@ mkdir --parents ~/Project_4/data/{illumina_pe,pacbio}/
 # Get the data
 #####
 # RefSeq E. coli K-12 substr. MG1655
-cp --link ~/data/NC_000913.3.fasta.gz ~/Project_4/data/reference/
+cp ~/data/NC_000913.3.fasta.gz ~/Project_4/data/reference/
 # Illumina PE
 cp --link ~/data/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz ~/Project_4/data/illumina_pe/
 # PacBio
@@ -85,7 +85,7 @@ bwa index data/reference/NC_000913.3.fasta.gz
 mkdir --parents mappings/
 
 # Align reads
-bwa mem \
+time bwa mem \
   -t 2 \
   -T 30 \
   data/reference/NC_000913.3.fasta.gz \
