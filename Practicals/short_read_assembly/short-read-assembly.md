@@ -206,7 +206,7 @@ If you feel adventurous you can automate explorations of the effect of `k` by wr
 
 ```
 #!/bin/bash
-for k in 11 20 50 80 127
+for k in 11 21 51 81 127
 do
 echo ${k}
 done
