@@ -40,11 +40,11 @@ mkdir --parents ~/Project_4/data/{illumina_pe,pacbio}/
 # Get the data
 #####
 # RefSeq E. coli K-12 substr. MG1655
-cp --link ~/data/genomics/NC_000913.3.fasta.gz ~/Project_4/data/reference/
+cp --link ~/data/NC_000913.3.fasta.gz ~/Project_4/data/reference/
 # Illumina PE
-cp --link ~/data/genomics/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz ~/Project_4/data/illumina_pe/
+cp --link ~/data/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz ~/Project_4/data/illumina_pe/
 # PacBio
-cp --link ~/data/genomics/lima.bc1106--bc1106_40x.subreadset.fastq.gz ~/Project_4/data/pacbio/
+cp --link ~/data/lima.bc1106--bc1106_40x.subreadset.fastq.gz ~/Project_4/data/pacbio/
 # Nanopore
 # TODO
 ```
