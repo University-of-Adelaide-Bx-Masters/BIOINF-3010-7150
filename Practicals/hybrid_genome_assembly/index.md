@@ -50,8 +50,8 @@ cp --link ~/data/genomics/plot_delta.R data/scripts/
 
 Using what you have learned previously, regarding read quality control, trimming and assembly tools, process the available Illumina PE and PacBio reads to assemble the E. coli K-12 substr. MG1655 genome.
 
-Use the tool SPAdes (`spades.py`) to perform a de novo assembly from BOTH Illumina and PacBio reads.
-You will need to view the SPAdes help page to figure out how to specify both Illumina PE and PacBio reads in the same assembly.
+Use the tool SPAdes (`spades.py`) to perform a _de novo_ assembly from **BOTH** Illumina and PacBio reads.
+You will need to view the SPAdes [documentation/manual](https://github.com/ablab/spades/blob/spades_3.15.2/README.md#pacbio) to figure out how to specify both Illumina PE and PacBio reads in the same assembly.
 
 As before, there are several subsamplings (`2`, `4`, `5`, `8`, `10`, `20` and `40`) of the original reads for both the Illumina and PacBio data.
 When performing the assembly, consider how much of each data type you might need/use to generate a good assembly in reasonable time.
@@ -82,6 +82,9 @@ Given the limited amount of time in this practical:
 Visualise your assembly(ies) in IGV or IGV-web and look to see if you can see any inconsistencies between the aligned Illumina and PacBio data.
 
 <!--
+
+Sample command line for hybrid assembly.
+
 ```bash
 ILLUMINA_COV=2
 PACBIO_COV=2
