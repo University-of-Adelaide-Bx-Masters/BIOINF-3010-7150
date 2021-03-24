@@ -37,13 +37,13 @@ mkdir --parents data/{reference,scripts,illumina_pe,pacbio}/
 # Get the data
 #####
 # RefSeq E. coli K-12 substr. MG1655
-cp --link ~/data/genomics/NC_000913.3.fasta.gz data/reference/
+cp ~/data/NC_000913.3.fasta.gz data/reference/
 # Illumina PE
-cp --link ~/data/genomics/36_ACGCACCT-GGTGAAGG_L002_R?_001_*x.fastq.gz data/illumina_pe/
+cp --link ~/data/36_ACGCACCT-GGTGAAGG_L002_R?_001_*x.fastq.gz data/illumina_pe/
 # PacBio
-cp --link ~/data/genomics/lima.bc1106--bc1106_*x.subreadset.fastq.gz data/pacbio/
+cp --link ~/data/lima.bc1106--bc1106_*x.subreadset.fastq.gz data/pacbio/
 # R script
-cp --link ~/data/genomics/plot_delta.R data/scripts/
+cp --link ~/data/plot_delta.R data/scripts/
 ```
 
 # Hybrid Genome Assembly
