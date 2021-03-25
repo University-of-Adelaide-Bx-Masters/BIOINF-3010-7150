@@ -70,7 +70,7 @@ Most of these hybrid assemblies will take more than 10mins each, so you won't be
 
 ### Questions
 
- - *How many contigs and scaffold do you get for your assemblies?*
+ - *How many contigs and scaffolds do you get for your assemblies?*
 
 Given the limited amount of time in this practical:
 
