@@ -1,6 +1,8 @@
 # Week 4 Practical Part 2: Hybrid Genome Assembly
 {:.no_toc}
-
+NC_000913.3:4,533,722-4,554,201
+NC_000913.3:375,245-395,724
+NC_000913.3:378,500-378,750
 * TOC
 {:toc}
 
@@ -84,7 +86,9 @@ Visualise your assembly(ies) in IGV or IGV-web and look to see if you can see an
 for an assembly with 40x Illiumina with 10x PacBio, have a look at:
 
 NC_000913.3:4,533,722-4,554,201
+
 NC_000913.3:375,245-395,724
+
 NC_000913.3:378,500-378,750
 
 <!--
