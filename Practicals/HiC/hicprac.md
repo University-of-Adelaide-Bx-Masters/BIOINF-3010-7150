@@ -5,6 +5,10 @@ Before we start, we need to download some files.
 login to your vm.
 
 ```
+conda create --name hic
+conda activate hic
+conda install -c bioconda biopython
+pip install fithic
 cd
 mkdir utils
 cd utils
@@ -20,12 +24,6 @@ cd
 wget https://zerkalo.curie.fr/partage/HiC-Pro/HiCPro_testdata.tar.gz
 
 wget http://zerkalo.curie.fr/partage/HiC-Pro/singularity_images/hicpro_2.11.4_ubuntu.img
-
-cd miniconda3/envs/hic/lib/python3.6/site-packages/fithic
-
-rm fithic.py
-
-wget https://raw.githubusercontent.com/ningbioinfostruggling/fithic/master/fithic/fithic.py
 
 cd
 ```
