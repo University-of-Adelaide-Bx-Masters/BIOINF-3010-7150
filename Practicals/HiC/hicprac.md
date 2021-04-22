@@ -19,7 +19,7 @@ cd
 
 wget https://zerkalo.curie.fr/partage/HiC-Pro/HiCPro_testdata.tar.gz
 
-wget http://zerkalo.curie.fr/partage/HiC-Pro/singularity_images/hicpro_2.11.3_ubuntu.img
+wget http://zerkalo.curie.fr/partage/HiC-Pro/singularity_images/hicpro_2.11.4_ubuntu.img
 
 cd miniconda3/envs/hic/lib/python3.6/site-packages/fithic
 
