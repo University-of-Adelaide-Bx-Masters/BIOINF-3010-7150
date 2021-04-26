@@ -51,7 +51,7 @@ In this practical, we will learn a standard workflow to analyse Hi-C data from r
 1. in `~/`, make sure `HiCPro_testdata.tar.gz` exists.
 2. Generate files required by HiC-Pro  
 
-> **Genome Fragment file:**
+**Genome Fragment file:**
 
 ```bash
 cd 
@@ -67,7 +67,7 @@ E.g. `python digest_genome.py -r A^AGCTT -o ./data/hg19.hindIII.bed ./data/hg19.
 
 **Reference genome bowtie index**
 - The bowtie2 files will be in `~/data/hg19.zip`.
-> - `unzip hg19.zip` to extract the files.
+- `unzip hg19.zip` to extract the files.
 
 **Chromosome sizes file**
 - To generate the `chrom.sizes` file, open a text editor and type the following script to get the length of each chromosome in the hg19 reference file.
@@ -79,8 +79,8 @@ from Bio import SeqIO # Imports the SeqIO module from BioPython. This makes for 
 for record in SeqIO.parse(str(sys.argv[1]), 'parse'):
   print(str(record.id)+'\t'+str(record.seq))
 ```
->> Save the file as `get_chrom_sizes.py`.  
->> Then run `python get_chrom_sizes.py hg19.fa > hg19.chrom.sizes`.
+ Save the file as `get_chrom_sizes.py`.  
+ Then run `python get_chrom_sizes.py hg19.fa > hg19.chrom.sizes`.
 
 
 3. Recall, the `utils` directory is where we downloaded some scripts to at the start of the prac. Inside this directory, double check these files are inside it:
