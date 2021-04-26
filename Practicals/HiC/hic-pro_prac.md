@@ -56,7 +56,7 @@ python digest_genome.py -r A^AGCTT -o hg19.hindIII.bed hg19.fa
 > - The hicpro singularity image, `hicpro_2.11.4_ubuntu.img`, should already be in the home directory.
 > - The bowtie2 files will be in `~/data/hg19.zip`
 > - `unzip hg19.zip` to extract the files.
-> - Chrom.sizes file. Open a text editor and type the following script to get the length of each chromosome in the hg19 reference file.
+> - Chrom.sizes file. Open a text editor and type the following script to get the length of each chromosome in the hg19 reference file.  
 
 ```python
 import sys
