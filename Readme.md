@@ -34,7 +34,7 @@ Semester 1 2021 - Provisional Timetable
 [Short and long read alignment]: Practicals/short_long_alignment/short_long_alignment.md
 [E. coli K-12 Hybrid Genome Assembly]: Practicals/hybrid_genome_assembly/index.md
 [Bacterial genome assembly]: Practicals/
-[HiC analysis]: Practicals/HiC/hicprac.md
+[HiC analysis]: Practicals/HiC/hic-pro_prac.md
 [Genome graphs1]: Practicals/Graph_Genomes/prac_part1.md
 [Genome graphs2]: Practicals/Graph_Genomes/prac_part2.md
 [Intro to BLAST]: Practicals/
