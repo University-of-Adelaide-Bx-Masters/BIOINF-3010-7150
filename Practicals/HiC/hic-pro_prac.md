@@ -207,12 +207,14 @@ At this point you may get an error along the lines of `ValueError: max() arg is 
  Rather than do this individually, we'll loop this cleaning process with:  
 
 ```bash
-for i in ./*; do gunzip $i/*; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.biases > $i/clean_fithic.biases; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.fragmentMappability > $i/clean_fithic.fragmentMappability; sed '/gl/d' $i/fithic.interactionCounts > $i/clean_fithic.interactionCounts; gzip $i/* ; done```
+for i in ./*; do gunzip $i/*; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.biases > $i/clean_fithic.biases; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.fragmentMappability > $i/clean_fithic.fragmentMappability; sed '/gl/d' $i/fithic.interactionCounts > $i/clean_fithic.interactionCounts; gzip $i/* ; done
+```
 
 Now when we run FitHiC it should work with no issues.  
 
 ```bash
-for j in ${res[@]}; do for i in dixon*${j}/; do name=$(basename $i); fithic -i ${i}/clean_fithic.interactionCounts.gz -f ${i}/clean_fithic.fragmentMappability.gz -r ${j} -t ${i}/clean_fithic.biases.gz -o ./ -l ${name}; done; done```
+for j in ${res[@]}; do for i in dixon*${j}/; do name=$(basename $i); fithic -i ${i}/clean_fithic.interactionCounts.gz -f ${i}/clean_fithic.fragmentMappability.gz -r ${j} -t ${i}/clean_fithic.biases.gz -o ./ -l ${name}; done; done
+```
 
 
 1. At resolution of 500kb, how many significant interactions are identified with p-value <= 0.05?
