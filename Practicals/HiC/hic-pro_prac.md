@@ -58,8 +58,9 @@ cd
 cd utils
 
 python digest_genome.py -r A^AGCTT -o <outfile_path.bed> <input_reference_genome.fa>
-# E.g. python digest_genome.py -r A^AGCTT -o ./data/hg19.hindIII.bed ./data/hg19.fa
 ```
+E.g. `python digest_genome.py -r A^AGCTT -o ./data/hg19.hindIII.bed ./data/hg19.fa`
+
 **Singularity image**
 - The hicpro singularity image, `hicpro_2.11.4_ubuntu.img`, should already be in the home directory.
 
