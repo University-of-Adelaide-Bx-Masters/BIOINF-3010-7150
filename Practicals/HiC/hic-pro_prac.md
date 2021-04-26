@@ -1,13 +1,15 @@
 # BIOINF 7150 Hi-C data analysis practical
 
+## Updated 26 April 2021 by Callum McPhillamy
+
 Before we start, we need to download some files.
 
 login to your vm.
 
-```
+``` bash
 conda create --name hic
 conda activate hic
-conda install -c bioconda biopython
+conda install -c bioconda biopython numpy
 pip install fithic
 cd
 mkdir utils
@@ -46,46 +48,63 @@ In this practical, we will learn a standard workflow to analyse Hi-C data from r
 
 ![HiC-pipeline](https://raw.githubusercontent.com/UofABioinformaticsHub/genomics_applications/master/images/hic-pipeline.png) Figure 1: Standard workflow for analysing Hi-C data.
 
-1. in `~/`, make sure `HiCPro_testdata.tar.gz` exists
-2. Generate files required by HiC-Pro
-> - Genome Fragment file:
+1. in `~/`, make sure `HiCPro_testdata.tar.gz` exists.
+2. Generate files required by HiC-Pro  
 
+> **Genome Fragment file:**
 ```bash
-python digest_genome.py -r A^AGCTT -o hg19.hindIII.bed hg19.fa
+cd 
+
+cd utils
+
+python digest_genome.py -r A^AGCTT -o <outfile_path.bed> <input_reference_genome.fa>
+# E.g. python digest_genome.py -r A^AGCTT -o ./data/hg19.hindIII.bed ./data/hg19.fa
 ```
-> - The hicpro singularity image, `hicpro_2.11.4_ubuntu.img`, should already be in the home directory.
-> - The bowtie2 files will be in `~/data/hg19.zip`
+**Singularity image**
+- The hicpro singularity image, `hicpro_2.11.4_ubuntu.img`, should already be in the home directory.
+
+**Reference genome bowtie index**
+- The bowtie2 files will be in `~/data/hg19.zip`.
 > - `unzip hg19.zip` to extract the files.
-> - Chrom.sizes file. Open a text editor and type the following script to get the length of each chromosome in the hg19 reference file.  
 
-```python
-import sys
-from Bio import SeqIO
+**Chromosome sizes file**
+- To generate the `chrom.sizes` file, open a text editor and type the following script to get the length of each chromosome in the hg19 reference file.
+``` python
+import sys # Allows Python to take command line arguments.
+from Bio import SeqIO # Imports the SeqIO module from BioPython. This makes for super easy fasta file parsing.
 
+# Iterate over the fasta file, printing the record ID and the length of each fasta record
 for record in SeqIO.parse(str(sys.argv[1]), 'parse'):
   print(str(record.id)+'\t'+str(record.seq))
 ```
-> - Save the file as `get_chrom_sizes.py`.
-> - Then run `python get_chrom_sizes.py > hg19.chrom.sizes`.
+>> Save the file as `get_chrom_sizes.py`.  
+>> Then run `python get_chrom_sizes.py hg19.fa > hg19.chrom.sizes`.
 
 
-3. a directory called `utils` and these files inside it:
+3. Recall, the `utils` directory is where we downloaded some scripts to at the start of the prac. Inside this directory, double check these files are inside it:
 
-  - `hicpro2fithic.py`
-  - `hicpro2juicebox.sh`
-  - `juicer_tools_1.19.02.jar`
+```bash
+cd
 
+cd utils
+
+ls
+digest_genome.py
+hicpro2fithic.py
+hicpro2juicebox.sh
+juicer_tools_1.19.02.jar
+```
 ## Check out HiC-Pro
 
 Here we used the singularity container to use HiC-Pro.
 
-To shell into the HiC-Pro image, do `singularity shell hicpro_2.11.4_ubuntu.img`
+To shell into the HiC-Pro image, type `singularity shell hicpro_2.11.4_ubuntu.img` into your terminal
 
 you should see `Singularity hicpro_2.11.4_ubuntu.img:~>`
 
-Try `HiC-Pro -h`, see if you can see the help page of HiC-Pro.
+Try `HiC-Pro -h`, see if you can access the help page for HiC-Pro.
 
-Based on the help page, we can learn that there are three required parameters for running HiC-Pro, `-i|--input INPUT`, `-o|--output OUTPUT` and `-c|--conf CONFIG`.
+Based on the help page, we can see that there are three required parameters for running HiC-Pro, `-i|--input INPUT`, `-o|--output OUTPUT` and `-c|--conf CONFIG`.
 
 ## Explain and edit the config file
 
@@ -98,17 +117,17 @@ tar -zxvf HiCPro_testdata.tar.gz
 less config_test_latest.txt
 ```
 
-Now we need to edit the configure file so HiC-Pro know where it can find all the files it need, including:
+Now we need to edit the configure file so HiC-Pro know where it can find all the files it needs, including:
 
 1. reference genome
 2. genome size file
 3. restriction fragment file
 
-## Run HiC-Pro and explain every step of it
+## Run HiC-Pro and explain every steps of it
 
 In order to run HiC-Pro, first get into the singularity shell, but this time, we need files from local so we need to bind the files to it by doing:
 
-```bash
+```
 singularity shell --bind /home/student:/mnt hicpro_2.11.3_ubuntu.img
 ```
 
@@ -116,7 +135,7 @@ And when we use the `--bind` parameter, we can find all the local files in `/mnt
 
 Now we can run HiC-Pro with the edited configure file.
 
-```bash
+```
 HiC-Pro -c /mnt/config_test_latest.txt -i /mnt/test_data/ -o /mnt/test_out
 ```
 
@@ -138,20 +157,20 @@ HiC-Pro -c /mnt/config_test_latest.txt -i /mnt/test_data/ -o /mnt/test_out
 
 Before we use FithiC, we need to check one thing by:
 
-```bash
+```
 grep 'ningbioinfostruggling' miniconda3/envs/hic/lib/python3.6/site-packages/fithic/fithic.py
 ```
 
 Source to hic environment and check out the help page of Fithic
 
-```bash
+```
 source activate miniconda3/envs/hic/
 fithic -h
 ```
 
 To run Fithic, first we need to get the input for fithic, and it required python 2.7 while now we are in the environment of python 3
 
-```bash
+```
 python2 utils/hicpro2fithic.py -h
 ```
 
@@ -159,7 +178,7 @@ This script can link the output of HiC-Pro to FitHiC
 
 so we have 4 target to identify significant interactions, to avoid writing the command over and over again, we use loops:
 
-```bash
+```
 mkdir fithic_input
 
 cd fithic_input
@@ -173,7 +192,7 @@ for i in ${sample[@]}; do for j in ${res[@]}; do mkdir ${i}_${j}; python2 ../uti
 
 Now we can again source to hic environment.
 
-```bash
+```
 for j in ${res[@]}; do for i in dixon*${j}/; do name=$(basename $i); fithic -i ${i}/fithic.interactionCounts.gz -f ${i}/fithic.fragmentMappability.gz -r ${j} -t ${i}/fithic.biases.gz -o ./ -l ${name}; done; done
 ```
 
@@ -182,15 +201,11 @@ At this point you may get an error along the lines of `ValueError: max() arg is 
 - `sed -r -n -e '/^chr[X0-9]{1,2}\t/p' fithic.fragmentMappability > clean_fragmentMappability`
 - `sed '/gl/d' fithic.interactionCounts > clean_fithic.interactionCounts`
 - Rather than do this individually, we'll loop this cleaning process with:
-
-```bash
-for i in ./*; do gunzip $i/*; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.biases > $i/clean_fithic.biases; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.fragmentMappability > $i/clean_fithic.fragmentMappability; sed '/gl/d' $i/fithic.interactionCounts > $i/clean_fithic.interactionCounts; gzip $i/* ; done
-```
+`for i in ./*; do gunzip $i/*; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.biases > $i/clean_fithic.biases; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.fragmentMappability > $i/clean_fithic.fragmentMappability; sed '/gl/d' $i/fithic.interactionCounts > $i/clean_fithic.interactionCounts; gzip $i/* ; done`
 
 Now when we run FitHiC it should work with no issues.
-```bash
 for j in ${res[@]}; do for i in dixon*${j}/; do name=$(basename $i); fithic -i ${i}/clean_fithic.interactionCounts.gz -f ${i}/clean_fithic.fragmentMappability.gz -r ${j} -t ${i}/clean_fithic.biases.gz -o ./ -l ${name}; done; done
-```
+
 
 1. At resolution of 500kb, how many significant interactions are identified with p-value <= 0.05?
 2. Think about what we can use with this interactions, i.e. how to give them biological meaning?
@@ -203,7 +218,7 @@ Take dixon_2M at 500000 as example.
 
 Like FitHiC, first we need to make the output of HiC-Pro compatible.
 
-```bash
+```
 cd
 
 mkdir juicebox_input
