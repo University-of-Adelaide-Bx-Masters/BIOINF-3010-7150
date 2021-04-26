@@ -90,7 +90,7 @@ The configure file is specific design for HiC-Pro to recognise all the parameter
 
 First we get the configure file by doing:
 
-```
+```bash
 tar -zxvf HiCPro_testdata.tar.gz
 less config_test_latest.txt
 ```
@@ -105,7 +105,7 @@ Now we need to edit the configure file so HiC-Pro know where it can find all the
 
 In order to run HiC-Pro, first get into the singularity shell, but this time, we need files from local so we need to bind the files to it by doing:
 
-```
+```bash
 singularity shell --bind /home/student:/mnt hicpro_2.11.3_ubuntu.img
 ```
 
@@ -113,7 +113,7 @@ And when we use the `--bind` parameter, we can find all the local files in `/mnt
 
 Now we can run HiC-Pro with the edited configure file.
 
-```
+```bash
 HiC-Pro -c /mnt/config_test_latest.txt -i /mnt/test_data/ -o /mnt/test_out
 ```
 
@@ -135,20 +135,20 @@ HiC-Pro -c /mnt/config_test_latest.txt -i /mnt/test_data/ -o /mnt/test_out
 
 Before we use FithiC, we need to check one thing by:
 
-```
+```bash
 grep 'ningbioinfostruggling' miniconda3/envs/hic/lib/python3.6/site-packages/fithic/fithic.py
 ```
 
 Source to hic environment and check out the help page of Fithic
 
-```
+```bash
 source activate miniconda3/envs/hic/
 fithic -h
 ```
 
 To run Fithic, first we need to get the input for fithic, and it required python 2.7 while now we are in the environment of python 3
 
-```
+```bash
 python2 utils/hicpro2fithic.py -h
 ```
 
@@ -156,7 +156,7 @@ This script can link the output of HiC-Pro to FitHiC
 
 so we have 4 target to identify significant interactions, to avoid writing the command over and over again, we use loops:
 
-```
+```bash
 mkdir fithic_input
 
 cd fithic_input
@@ -170,7 +170,7 @@ for i in ${sample[@]}; do for j in ${res[@]}; do mkdir ${i}_${j}; python2 ../uti
 
 Now we can again source to hic environment.
 
-```
+```bash
 for j in ${res[@]}; do for i in dixon*${j}/; do name=$(basename $i); fithic -i ${i}/fithic.interactionCounts.gz -f ${i}/fithic.fragmentMappability.gz -r ${j} -t ${i}/fithic.biases.gz -o ./ -l ${name}; done; done
 ```
 
@@ -179,11 +179,15 @@ At this point you may get an error along the lines of `ValueError: max() arg is 
 - `sed -r -n -e '/^chr[X0-9]{1,2}\t/p' fithic.fragmentMappability > clean_fragmentMappability`
 - `sed '/gl/d' fithic.interactionCounts > clean_fithic.interactionCounts`
 - Rather than do this individually, we'll loop this cleaning process with:
-`for i in ./*; do gunzip $i/*; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.biases > $i/clean_fithic.biases; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.fragmentMappability > $i/clean_fithic.fragmentMappability; sed '/gl/d' $i/fithic.interactionCounts > $i/clean_fithic.interactionCounts; gzip $i/* ; done`
+
+```bash
+for i in ./*; do gunzip $i/*; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.biases > $i/clean_fithic.biases; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.fragmentMappability > $i/clean_fithic.fragmentMappability; sed '/gl/d' $i/fithic.interactionCounts > $i/clean_fithic.interactionCounts; gzip $i/* ; done
+```
 
 Now when we run FitHiC it should work with no issues.
+```bash
 for j in ${res[@]}; do for i in dixon*${j}/; do name=$(basename $i); fithic -i ${i}/clean_fithic.interactionCounts.gz -f ${i}/clean_fithic.fragmentMappability.gz -r ${j} -t ${i}/clean_fithic.biases.gz -o ./ -l ${name}; done; done
-
+```
 
 1. At resolution of 500kb, how many significant interactions are identified with p-value <= 0.05?
 2. Think about what we can use with this interactions, i.e. how to give them biological meaning?
@@ -196,7 +200,7 @@ Take dixon_2M at 500000 as example.
 
 Like FitHiC, first we need to make the output of HiC-Pro compatible.
 
-```
+```bash
 cd
 
 mkdir juicebox_input
