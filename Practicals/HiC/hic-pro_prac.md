@@ -199,10 +199,10 @@ for j in ${res[@]}; do for i in dixon*${j}/; do name=$(basename $i); fithic -i $
 ```
 
 At this point you may get an error along the lines of `ValueError: max() arg is an empty sequence`. If so, this is is most likely due to the presence of unplaced scaffolds in the fithic files. To remove these we need to clean up our input files. Using each of the sed commands below in a for loop we can clean them up nicely.
-- `sed -r -n -e '/^chr[X0-9]{1,2}\t/p' fithic.biases > clean_fithic.biases`
-- `sed -r -n -e '/^chr[X0-9]{1,2}\t/p' fithic.fragmentMappability > clean_fragmentMappability`
-- `sed '/gl/d' fithic.interactionCounts > clean_fithic.interactionCounts`
-- Rather than do this individually, we'll loop this cleaning process with:
+ `sed -r -n -e '/^chr[X0-9]{1,2}\t/p' fithic.biases > clean_fithic.biases`
+ `sed -r -n -e '/^chr[X0-9]{1,2}\t/p' fithic.fragmentMappability > clean_fragmentMappability`
+ `sed '/gl/d' fithic.interactionCounts > clean_fithic.interactionCounts`
+ Rather than do this individually, we'll loop this cleaning process with:
 
 ```bash
 for i in ./*; do gunzip $i/*; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.biases > $i/clean_fithic.biases; sed -r -n -e '/^chr[X0-9]{1,2}\t/p' $i/fithic.fragmentMappability > $i/clean_fithic.fragmentMappability; sed '/gl/d' $i/fithic.interactionCounts > $i/clean_fithic.interactionCounts; gzip $i/* ; done```
