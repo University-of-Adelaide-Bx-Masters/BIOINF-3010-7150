@@ -52,6 +52,7 @@ In this practical, we will learn a standard workflow to analyse Hi-C data from r
 2. Generate files required by HiC-Pro  
 
 > **Genome Fragment file:**
+
 ```bash
 cd 
 
