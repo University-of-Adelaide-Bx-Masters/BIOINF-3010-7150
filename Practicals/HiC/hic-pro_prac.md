@@ -48,25 +48,28 @@ In this practical, we will learn a standard workflow to analyse Hi-C data from r
 
 1. in `~/`, make sure `HiCPro_testdata.tar.gz` exists
 2. Generate files required by HiC-Pro
->- Genome Fragment file:
-> `python digest_genome.py -r A^AGCTT -o hg19.hindIII.bed hg19.fa`
+> - Genome Fragment file:
 
->- The hicpro singularity image, `hicpro_2.11.4_ubuntu.img`, should already be in the home directory.
->- The bowtie2 files will be in `~/data/hg19.zip`
-> `unzip hg19.zip` to extract the files.
->- Chrom.sizes file. Open a text editor and type the following script to get the length of each chromosome in the hg19 reference file.
-``` python
+```bash
+python digest_genome.py -r A^AGCTT -o hg19.hindIII.bed hg19.fa
+```
+> - The hicpro singularity image, `hicpro_2.11.4_ubuntu.img`, should already be in the home directory.
+> - The bowtie2 files will be in `~/data/hg19.zip`
+> - `unzip hg19.zip` to extract the files.
+> - Chrom.sizes file. Open a text editor and type the following script to get the length of each chromosome in the hg19 reference file.
+
+```python
 import sys
 from Bio import SeqIO
 
 for record in SeqIO.parse(str(sys.argv[1]), 'parse'):
   print(str(record.id)+'\t'+str(record.seq))
 ```
-> Save the file as `get_chrom_sizes.py`.
-> Then run `python get_chrom_sizes.py > hg19.chrom.sizes`.
+> - Save the file as `get_chrom_sizes.py`.
+> - Then run `python get_chrom_sizes.py > hg19.chrom.sizes`.
 
 
-4. a directory called `utils` and these files inside it:
+3. a directory called `utils` and these files inside it:
 
   - `hicpro2fithic.py`
   - `hicpro2juicebox.sh`
