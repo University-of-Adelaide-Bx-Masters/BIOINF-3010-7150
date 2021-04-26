@@ -75,8 +75,7 @@ E.g. `python digest_genome.py -r A^AGCTT -o ./data/hg19.hindIII.bed ./data/hg19.
 import sys # Allows Python to take command line arguments.
 from Bio import SeqIO # Imports the SeqIO module from BioPython. This makes for super easy fasta file parsing.
 
-# Iterate over the fasta file, printing the record ID and the length of each fasta record
-for record in SeqIO.parse(str(sys.argv[1]), 'parse'):
+for record in SeqIO.parse(str(sys.argv[1]), 'parse'): # Iterate over the fasta file, printing the record ID and the length of each fasta record
   print(str(record.id)+'\t'+str(record.seq))
 ```
  Save the file as `get_chrom_sizes.py`.  
