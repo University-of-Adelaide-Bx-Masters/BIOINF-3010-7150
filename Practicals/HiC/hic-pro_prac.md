@@ -63,14 +63,15 @@ python digest_genome.py -r A^AGCTT -o <outfile_path.bed> <input_reference_genome
 E.g. `python digest_genome.py -r A^AGCTT -o ./data/hg19.hindIII.bed ./data/hg19.fa`
 
 **Singularity image**
-- The hicpro singularity image, `hicpro_2.11.4_ubuntu.img`, should already be in the home directory.
+ The hicpro singularity image, `hicpro_2.11.4_ubuntu.img`, should already be in the home directory.
 
 **Reference genome bowtie index**
-- The bowtie2 files will be in `~/data/hg19.zip`.
-- `unzip hg19.zip` to extract the files.
+ The bowtie2 files will be in `~/data/hg19.zip`.
+ `unzip hg19.zip` to extract the files.
 
 **Chromosome sizes file**
-- To generate the `chrom.sizes` file, open a text editor and type the following script to get the length of each chromosome in the hg19 reference file.
+ To generate the `chrom.sizes` file, open a text editor and type the following script to get the length of each chromosome in the hg19 reference file.   
+
 ``` python
 import sys # Allows Python to take command line arguments.
 from Bio import SeqIO # Imports the SeqIO module from BioPython. This makes for super easy fasta file parsing.
