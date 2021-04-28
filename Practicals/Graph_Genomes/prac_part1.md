@@ -57,19 +57,16 @@ Let's construct a graph from just one sequence in file `tiny/tiny.fa`, which loo
 
 To construct a graph, run
 
-    vg construct -r tiny.fa -m 32 > tiny.ref.vg
+    vg construct -r /data/tiny.fa -m 32 > tiny.ref.vg
 
 This will create a (very boring) graph that just consists of a linear chain of nodes, each with 32 characters.
 
 The switch `-m` tells vg to put at most 32 characters into each graph node. (You might want to run it with different values and observe the different results.) To visualize a graph, you can use `vg view`. Per default, `vg view` will output a graph in [GFA](https://github.com/GFA-spec/GFA-spec/blob/master/GFA1.md) format. By adding `-j` or `-d`, you can generate [JSON](https://www.json.org/) or [DOT](https://www.graphviz.org/doc/info/lang.html) output.
 
-    vg view /data/tiny.ref.vg
+    vg view -j /data/tiny.ref.vg
     vg view -d /data/tiny.ref.vg
 
 To work with the JSON output the tool [jq](https://stedolan.github.io/jq/) comes in handy. To get all sequences in the graph, for instance, try
-
-    # Install jq:
-    conda install -c conda-forge jq
 
     vg view -j /data/tiny.ref.vg | jq '.node[].sequence'
 
@@ -82,30 +79,40 @@ Next, we use graphviz to layout the graph representation in DOT format.
 
 View the PDF and compare it to the input sequence. Now vary the parameter passed to `-m` of `vg construct` and visualize the result.
 
-Ok, let's build a new graph that has some variants built into it. First, take a look at at `tiny/tiny.vcf.gz`, which contains variants in (gzipped) [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) format.
+tiny.ref.pdf![image](https://user-images.githubusercontent.com/1767457/116363995-e2202f00-a842-11eb-9077-03f889941242.png)
 
-    vg construct -r /data/tiny.fa -v /data/tiny.vcf.gz -m 32 > tiny.vg
-
-Visualize the outcome.  
+### Constructing and viewing an enhanced graph
 
 Ok, that's nice, but you might wonder which sequence of nodes actually corresponds to the sequence (`tiny.fa`) you started from? To keep track of that, vg adds a **path** to the graph. Let's add this path to the visualization.
 
     vg view -dp /data/tiny.vg | dot -Tpdf -o tiny.pdf
+    
+tiny.pdf![image](https://user-images.githubusercontent.com/1767457/116364268-2f9c9c00-a843-11eb-9302-ebecace420f7.png)
 
 You find the output too crowded? Option `-S` removes the sequence labels and only plots node IDs.
 
-    vg view -dpS /data/tiny.vg | dot -Tpdf -o tiny.pdf
+    vg view -dpS /data/tiny.vg | dot -Tpdf -o tiny_noSeqLabels.pdf
+
+tiny_noSeqLabels.pdf![image](https://user-images.githubusercontent.com/1767457/116364305-39260400-a843-11eb-942e-42c83a250ae0.png)
 
 Another tool that comes with the graphviz package is *Neato*. It creates force-directed layouts of a graph.
 
-    vg view -dpS /data/tiny.vg | neato -Tpdf -o tiny.pdf
+    vg view -dpS /data/tiny.vg | neato -Tpdf -o tiny_noSeqLabels_Neato.pdf
+
+tiny_noSeqLabels_Neato.pdf![image](https://user-images.githubusercontent.com/1767457/116364329-3fb47b80-a843-11eb-816b-29041a5a770b.png)
 
 For these small graphs, the difference is not that big, but for more involved cases, these layouts can be much easier to read.
 
 A better solution for larger graphs is [Bandage](http://rrwick.github.io/Bandage/), which is designed for visualizing assembly graphs. It can't display path information, but it can scale to multi-megabase graphs with ease. Adjust the `--nodewidth` parameter (e.g. `--nodewidth 100`, up to 1000) if you are rendering a large graph and the resulting image appears blank.
 
+    # Install bandage:
+    conda install -c bioconda Bandage
+    
     vg view /data/tiny.vg > x.gfa
-    Bandage image /data/x.gfa /data/x.gfa.png
+    Bandage image x.gfa x.gfa.png
+    
+x.gfa.png![image](https://user-images.githubusercontent.com/1767457/116364441-59ee5980-a843-11eb-8c81-155a6ef4200a.png)
+
 
 You can also apply `vg viz` to obtain a special kind of linear layout that scales well without losing path information.
 It requires the `xg` index, which we'll build first.
@@ -114,3 +121,5 @@ It requires the `xg` index, which we'll build first.
     vg viz -x /data/tiny.xg -o /data/tiny.svg
 
 If the graph is very big, you'll need to view tiny.svg in chrome or chromium web browser.
+
+Screen Shot 2021-04-28 at 5.14.09 pm.png![image](https://user-images.githubusercontent.com/1767457/116366200-32988c00-a845-11eb-9d70-53f90bc96b0c.png)
