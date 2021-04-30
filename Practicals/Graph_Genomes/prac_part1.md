@@ -83,6 +83,10 @@ tiny.ref.pdf![image](https://user-images.githubusercontent.com/1767457/116363995
 
 ### Constructing and viewing an enhanced graph
 
+Ok, let's build a new graph that has some variants built into it. First, take a look at at `tiny/tiny.vcf.gz`, which contains variants in (gzipped) [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) format.
+    
+    vg construct -r /data/tiny.fa -v /data/tiny.vcf.gz -m 32 > tiny.vg
+
 Ok, that's nice, but you might wonder which sequence of nodes actually corresponds to the sequence (`tiny.fa`) you started from? To keep track of that, vg adds a **path** to the graph. Let's add this path to the visualization.
 
     vg view -dp /data/tiny.vg | dot -Tpdf -o tiny.pdf
