@@ -57,7 +57,7 @@ conda install -c conda-forge gdown
 ```bash
 gdown https://drive.google.com/uc?id=1LKYFxAovMTcSPk54ZfSoL7kHhTlnCKm_
 ```
-I suggest you run gdown from that newly created directory to obtain the hg38.nsq file.
+I suggest you run `gdown` from that newly created directory to obtain the hg38.nsq file.
 
 All analyses will be conducted using the bash command line in this directory. 
 
@@ -110,12 +110,13 @@ For detailed documentation for all things BLAST see: https://www.ncbi.nlm.nih.go
 
 General syntax for BLAST searches is as follows:\
 
-
+```bash
 blastn -query [file.fasta] -task [blastn] -db [database file]  -outfmt [0 through 17] -out [outputfile]
+```
 
 - I suggest using outfmt 7 and 17, 7 gives you a tab delimited file, 17 gives you a .sam file. 
 
-I used the following. You may need to reduce the num_threads to something that will run on your VM. 
+I used the following. *You will need to reduce the num_threads to something that will run on your VM*. 
 
 ```bash
 blastx -query Human15gene.fasta -task blastx -db sprot -num_threads 6 -out H15_blastx_sprot.txt -outfmt 7
