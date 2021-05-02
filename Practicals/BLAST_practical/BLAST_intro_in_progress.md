@@ -36,7 +36,7 @@ The files you need are in `~/data/`.
 
 See the `README_BLAST.txt` file for descriptions of the data files.
 
-Make sure you create a working directory, along  with useful subdirectories for the practical. 
+Make sure you create a working directory, along  with useful sub-directories for the practical. 
 
 ```bash
 mkdir -p ~/BLAST_practical/blast_dbs
