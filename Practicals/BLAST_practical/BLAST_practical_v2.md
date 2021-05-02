@@ -3,9 +3,9 @@
 
 ## 1. Background
 
-To find protein coding regions (exons) in the human sequence we have provided you will use BLASTX to find local alignments of your sequence with proteins in Uniprot-swissprot, a curated protein database. 
+To find protein coding regions (exons) in the human sequence we have provided, you will use BLASTX to find local alignments of your sequence with proteins in Uniprot-swissprot, a curated protein database. 
 
-To find repeats in the human sequence we have provided you will use BLASTN to find local alignments of your sequence with human repeat consensus sequences from RepBase, a curated repeat database. 
+To find repeats in the human sequence we have provided, you will use BLASTN to find local alignments of your sequence with human repeat consensus sequences from RepBase, a curated repeat database. 
 
 To see how difficult it can be to deal with the large numbers of repeats in the genome you will extract one repeat interval identified in your repeat BLAST output using Samtools and you will use that repeat sequence to search the human genome for alignments using BLASTN. 
 
