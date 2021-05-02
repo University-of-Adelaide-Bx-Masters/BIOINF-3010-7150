@@ -101,7 +101,7 @@ blastx -help
 
 Try these to see what the allowed syntax, flags and parameters are.  
 
-For detailed documentation for all things BLAST see: https://www.ncbi.nlm.nih.gov/books/NBK1762/
+For detailed documentation for all things BLAST see [here](https://www.ncbi.nlm.nih.gov/books/NBK1762/)
 
 
 #### 2.4.1 Alignments to Swissprot proteins
