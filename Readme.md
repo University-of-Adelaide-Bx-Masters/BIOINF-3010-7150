@@ -37,7 +37,7 @@ Semester 1 2021 - Provisional Timetable
 [HiC analysis]: Practicals/HiC/hic-pro_prac.md
 [Genome graphs1]: Practicals/Graph_Genomes/prac_part1.md
 [Genome graphs2]: Practicals/Graph_Genomes/prac_part2.md
-[Intro to BLAST]: Practicals/BLAST_practical/BLAST_Intro.md
+[Intro to BLAST]: Practicals/BLAST_practical/BLAST_intro.md
 [BLAST practical]: Practicals/BLAST_practical/BLAST_practical_v2.md
 [Clinical genomics1]: Practicals/variants_clinical/variant_annotation.md
 [Clinical genomics2]: Practicals/variants_clinical/variant_filtering.md
