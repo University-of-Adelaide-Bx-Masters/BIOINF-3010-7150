@@ -3,8 +3,6 @@
 
 ## 1. Background
 
-NCBI BLAST is a suite of programs that will find local alignments of query sequences to database entries. We will use the command line version of BLAST to identify protein coding regions in a human genomic sequence and also to identify repeats (transposons) in the same human sequence.  This will give you an idea of the complexity of alignment based annotation. 
-
 To find protein coding regions (exons) in the human sequence we have provided you will use BLASTX to find local alignments of your sequence with proteins in Uniprot-swissprot, a curated protein database. 
 
 To find repeats in the human sequence we have provided you will use BLASTN to find local alignments of your sequence with human repeat consensus sequences from RepBase, a curated repeat database. 
