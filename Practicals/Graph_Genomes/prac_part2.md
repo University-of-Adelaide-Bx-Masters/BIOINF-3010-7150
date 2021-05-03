@@ -114,7 +114,9 @@ Try doing this on graphs with a range of minimum allele frequencies (e.g. 0.5, 0
 
 How do these files seem to scale with the minimum cutoff? Note that the identity metric is flawed, in that we are not asking if the mapping itself is more accurate, just if it matches the graph better in the aggregate.
 
-### Mapping data from real data to examine the improvement
+*****************
+### Mapping data from real data to examine the improvement [DEPRECATED]
+DUE TO A RESTRUCTURE OF THE NIST-GAIB RESTRUCTURE OF THE FTP SERVER, WE ARE UNABLE TO STREAM THE BAM FILE LINKED BELLOW. BUT THE INSTRUCTIONS HOLD TRUE STILL.
 
 We can also download some real data mapping to this region to see if the different graphs provide varying levels of performance.
 
