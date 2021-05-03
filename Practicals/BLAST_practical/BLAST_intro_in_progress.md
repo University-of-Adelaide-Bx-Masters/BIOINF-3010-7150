@@ -39,7 +39,7 @@ See the `README_BLAST.txt` file for descriptions of the data files.
 Make sure you create a working directory, along  with useful sub-directories for the practical. 
 
 ```bash
-mkdir -p ~/BLAST_practical/blast_dbs
+mkdir -p ~/BLAST_practical/dbs
 mkdir -p ~/BLAST_practical/queries
 mkdir -p ~/BLAST_practical/results
 ```
@@ -103,12 +103,72 @@ blastn -query [file.fasta] -task [megablast] -db [database file]  -outfmt [0 thr
 
 - I suggest using outfmt 7 and/or 17, 7 gives you a tab delimited file, 17 gives you a .sam file. 
 
+Output formatting options shown below.
+
+> -outfmt `<number>`  
+   alignment view options:  
+     0 = Pairwise,  
+     1 = Query-anchored showing identities,  
+     2 = Query-anchored no identities,  
+     3 = Flat query-anchored showing identities,  
+     4 = Flat query-anchored no identities,  
+     5 = BLAST XML,  
+     6 = Tabular,  
+     7 = Tabular with comment lines,  
+     8 = Seqalign (Text ASN.1),  
+     9 = Seqalign (Binary ASN.1),  
+    10 = Comma-separated values,  
+    11 = BLAST archive (ASN.1),  
+    12 = Seqalign (JSON),  
+    13 = Multiple-file BLAST JSON,  
+    14 = Multiple-file BLAST XML2,  
+    15 = Single-file BLAST JSON,  
+    16 = Single-file BLAST XML2,  
+    17 = Sequence Alignment/Map (SAM),  
+    18 = Organism Report  
+
+Note that when using output formats >4 some options for choosing the number and description of hits do not work or are incompatible (see below). 
+
+> -num_descriptions `<Integer, >=0>`  
+   Number of database sequences to show one-line descriptions for  
+   Not applicable for outfmt > 4  
+   Default = `500'  
+    * Incompatible with:  max_target_seqs  
+>    
+> -num_alignments `<Integer, >=0>`  
+   Number of database sequences to show alignments for  
+   Default = `250'  
+    * Incompatible with:  max_target_seqs  
+>    
+> -max_target_seqs `<Integer, >=1>`  
+   Maximum number of aligned sequences to keep   
+   (value of 5 or more is recommended)  
+   Default = `500'  
+    * Incompatible with:  num_descriptions, num_alignments  
+
+
 #### 2.4.1 Alignments to Swissprot proteins
 
-I used the following. *You will need to reduce the num_threads to something that will run on your VM*. 
+You can try the following 
+
+> A "vanilla" BLAST command line that give the basic text output from BLAST
 
 ```bash
-blastx -query Human15gene.fasta -task blastx -db sprot -num_threads 6 -out H15_blastx_sprot.txt -outfmt 7
+blastp -query ~/BLAST_practical/queries/protein_query.fa -task blastp -db ~/BLAST_practical/dbs/sprot
+```
+
+> A command line that specifies a set of custom columns to report
+
+```bash
+blastp -query ~/BLAST_practical/queries/protein_query.fa -task blastp -db ~/BLAST_practical/dbs/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+```
+
+These will of course just dump everything to `stdout` but you know how to cope with that.
+
+> A command line that writes output to a file and specifies the number of threads to run and limits output to 50 targets. 
+
+```bash
+blastx -query ~/BLAST_practical/queries/hg38_gene_query.fasta -task blastx -db ~/BLAST_practical/dbs/sprot -num_threads 2 -max_target_seqs 50 -out ~/BLAST_practical/results/humgene_blastx_sprot.txt -outfmt 7 
 ```
 Call your output file whatever you like, as long as it makes sense to you. 
 
