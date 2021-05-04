@@ -2,7 +2,7 @@
 
 ## 1. Background
 
-NCBI BLAST is a suite of programs that will find local alignments of query sequences to database entries. We will use the command line version of BLAST to identify matching nucleotide or protein coding regions in a human genomic sequence and in the SwissProt database. You can find out about all things BLAST for command line BLAST [here](https://www.ncbi.nlm.nih.gov/books/NBK279690/)
+NCBI BLAST is a suite of programs that will find local alignments of query sequences to database entries. We will use the command line version of BLAST to identify matching nucleotide or protein coding regions in a human genomic sequence and in the SwissProt database. You can find out about all things BLAST for command line BLAST [here](https://www.ncbi.nlm.nih.gov/books/NBK279690/) or in the [BLAST Book](https://www.oreilly.com/library/view/blast/0596002998/).  
 
 BLAST can align a variety of sequence types:
 - nucleotide sequences to nucleotide sequences (BLASTN)
@@ -11,13 +11,30 @@ BLAST can align a variety of sequence types:
 - protein sequences to translated nucleotide sequences (TBLASTN)
 - translated nucleotide sequences to translated nucleotide sequences (TBLASTX)
 
-There are a number of parameters that can be varied to increase sensitivity or speed up a search at the expense of sensitivity. There also numerous [parameters](https://www.ncbi.nlm.nih.gov/books/NBK279684/#appendices.Options_for_the_commandline_a) to modify BLAST behaviour and customise output
+There are a number of parameters that can be varied to increase sensitivity or speed up a search at the expense of sensitivity. There also numerous [parameters](https://www.ncbi.nlm.nih.gov/books/NBK279684/#appendices.Options_for_the_commandline_a) to modify BLAST behaviour and customise output.
 
-## 2. Having a BLAST
+## 2. The BLAST algorithm
+
+BLAST algorithm steps:  
+- Generate a word list from the query sequence (W letters)  *Smaller values of W give a more sensitive search as the expense of speed*
+- For each word, scan database for high scoring word matches (>T)  *T parameter only for protein alignments, smaller values of T give a more sensitive search at the expense of speed*  
+
+[Effect of T on word matches - Fig 5.3 BLAST Book](https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/blastp_T_param.png)
+
+- For each word, find high scoring neighbours and make word clusters  
+
+[Word clusters - Fig 5.4 BLAST book](https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/blast_word_size.png)
+
+- Extend words/clusters to form High Scoring Pairs (HSP)  
+- Evaluate significance for each HSP  
+- Get local alignment for each HSP  
+- Report matches with low `e-value`
+
+## 3. Having a BLAST
 
 This practical aims to familiarise you with the use of NCBI BLAST as a tool for annotation. You will use your VMs for this. Your first task will be to install BLAST and download the databases you will require. 
 
-### 2.1 Install NCBI BLAST
+### 3.1 Install NCBI BLAST
 
 Open a terminal and at the bash command line prompt type the following to create a new `conda` environment for `blast`. 
 
@@ -30,7 +47,7 @@ This will install NCBI BLAST and all its dependencies.
 
 Once you have installed NCBI BLAST you will need to download the data you will need for the practical.
 
-### 2.2 The data
+### 3.2 The data
 
 The files you need are in `~/data/`.
 
@@ -44,7 +61,7 @@ mkdir -p ~/BLAST_practical/queries
 mkdir -p ~/BLAST_practical/results
 ```
 
-### 2.3 Prepare the BLAST databases
+### 3.3 Prepare the BLAST databases
 
 BLAST searches a special database of nucleotide sequences that have been broken into `kmers` for faster searching. It finds matching words in the database and then extends the matches to create a local alignment. You will need to format the two BLAST databases that you will use.
 
@@ -77,7 +94,7 @@ makeblastdb -in hg38.fa -dbtype 'nucl' -parse_seqids -out hg38
 ```
 Now you are ready to use BLAST.
 
-### 2.4 Have a BLAST
+### 3.4 Have a BLAST
 
 For quick BLASTN help you can type:
 
@@ -147,7 +164,7 @@ Note that when using output formats >4 some options for choosing the number and 
     * Incompatible with:  num_descriptions, num_alignments  
 
 
-#### 2.4.1 Alignments to Swissprot proteins
+#### 3.4.1 Alignments to Swissprot proteins
 
 You can try the following 
 
