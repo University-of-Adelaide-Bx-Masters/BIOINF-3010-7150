@@ -16,14 +16,23 @@ There are a number of parameters that can be varied to increase sensitivity or s
 ## 2. The BLAST algorithm
 
 BLAST algorithm steps:  
-- Generate a word list from the query sequence (W letters)  *Smaller values of W give a more sensitive search as the expense of speed*
+- Generate a word list from the query sequence (W letters)  *Smaller values of W give a more sensitive search as the expense of speed* 
+
+- **A word size of 5 would find no seeds to start an alignment in these sequences.**  
+
+- <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/blast_word_size.png" alt="A word size of 5 is too big here" style="height: 100px; width: 400px;"/>
+
 - For each word, scan database for high scoring word matches (>T)  *T parameter only for protein alignments, smaller values of T give a more sensitive search at the expense of speed*  
 
-[Effect of T on word matches - Fig 5.3 BLAST Book](https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/blastp_T_param.png)
+- **Effect of T on word matches; X axis sequence 1 vs Y axis sequence 2 - Fig 5.3 BLAST Book**
+
+- <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/blastp_T_param.png" alt="Effect of T on word matches" style="height:800px; width: 300px;"/>
 
 - For each word, find high scoring neighbours and make word clusters  
 
-[Word clusters - Fig 5.4 BLAST book](https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/blast_word_size.png)
+**Word clusters - Fig 5.4 BLAST book**
+
+- <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/blastp_word_clusters.png" alt="Word clusters" style="height:300px; width: 700px;"/>
 
 - Extend words/clusters to form High Scoring Pairs (HSP)  
 - Evaluate significance for each HSP  
