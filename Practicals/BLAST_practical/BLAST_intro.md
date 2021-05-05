@@ -105,7 +105,7 @@ makeblastdb -in hg38.fa -dbtype 'nucl' -parse_seqids -out hg38
 ```
 Now you are ready to familiarise yourself with command line BLAST.
 
-### 3.4 Have a BLAST
+### 3.4 BLAST it!
 
 For quick BLASTN help you can type:
 
