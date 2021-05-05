@@ -60,7 +60,7 @@ Once you have installed NCBI BLAST you will need to set up a project directory w
 
 ### 3.2 The data and project directory
 
-The files you need are in `~/data/`.
+The files you need are in `~/data/`. 
 
 See the `README_BLAST.txt` file for descriptions of the data files.
 
@@ -71,14 +71,16 @@ mkdir -p ~/BLAST_practical/dbs
 mkdir -p ~/BLAST_practical/queries
 mkdir -p ~/BLAST_practical/results
 ```
+Once you have created these directories move the `hg38.fa.gz`, `humanReps.fa.gz` and `uniprot_sprot.fasta.gz` to `~/BLAST_practical/dbs`. Move the remaining files to `~/BLAST_practical/queries`.
 
 ### 3.3 Prepare the BLAST databases
 
-BLAST searches a special database of nucleotide sequences that have been broken into `kmers` for faster searching. It finds matching words in the database and then extends the matches to create a local alignment. You will need to format the BLAST databases that you will use.
+BLAST searches a special database of nucleotide sequences that have been broken into `kmers/words` for faster searching (it uses a [hash table](https://en.wikipedia.org/wiki/Hash_table)). It finds matching words in the database and then extends the matches to create a local alignment. You will need to format the BLAST databases that you will use.
 
 You will need to decompress the hg 38.fa uniprot_sprot.fasta files:
 
 ```bash
+cd ~/BLAST_practical/dbs
 unpigz -p 2 uniprot_sprot.fasta.gz
 unpigz -p 2 hg38.fa.gz
 ```
@@ -207,11 +209,11 @@ Once BLASTX has completed you can look at your output using "head", "less", "mor
 ### 4.1 You can test the effect of `-word_size` on output and speed:
 
 ```bash
-time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 28 -num_threads 2 -db ~/BLAST_practical/dbs/hg38 -out W28.txt
+time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 28 -num_threads 2 -db ~/BLAST_practical/dbs/hg38 -out ~/BLAST_practical/results/W28.txt
 ```
 
 ```bash
-time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 11 -num_threads 2 -db ~/BLAST_practical/dbs/hg38 -out W11.txt
+time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 11 -num_threads 2 -db ~/BLAST_practical/dbs/hg38 -out ~/BLAST_practical/results/W11.txt
 ```
 This will take some time.
 
@@ -241,6 +243,6 @@ time blastp -query ~/BLAST_practical/queries/Q967Q8.fasta -num_threads 2 -thresh
 
 ### 4.3 You can play with parameter combinations and with search types
 
-Try other parameters for nucleotide or protein comparisons, such as `gapopen` and `gapextend`
+Try other parameters for nucleotide comparisons, such as `reward` and `penalty`. These set the score or penalty for match vs mismatch during alignment. Default values for `blastn` are +2/-3. For increased sensitivity when searching less conserved sequences you can try +4/-5. Cost for gaps can be set with `gapopen` and `gapextend` and default values for `blastn` for these are 5 and 2, while default values for `blastp/blastx` are 11 and 1. 
 
-Try using different scoring matrices for protein alignments (BLASTP, BLASTX) such as `blosum62` (default) vs `blosum45` or `blosum90`. 
+Try using different scoring matrices `-matrix` for protein alignments (BLASTP, BLASTX) such as `blosum62` (default) vs `blosum45` or `blosum90`. 
