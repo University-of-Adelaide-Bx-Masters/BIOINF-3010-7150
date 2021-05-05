@@ -4,7 +4,7 @@ We should really run a full course just on BLAST, but here we just show you how 
 
 ## 1. Background
 
-NCBI BLAST is a suite of programs that will find local alignments of query sequences to database entries. We will use the command line version of BLAST to identify matching nucleotide or protein coding regions in a human genomic sequence and in the SwissProt database. You can find out about all things BLAST for command line BLAST [here](https://www.ncbi.nlm.nih.gov/books/NBK279690/) or in the [BLAST Book](https://www.oreilly.com/library/view/blast/0596002998/).  
+The original BLAST tool [published](https://doi.org/10.1016/S0022-2836(05)80360-2)/released in 1990 is one of the highest cited papers in the literature. The current version has been reengineered and is called BLAST+. NCBI BLAST is a suite of programs that will find local alignments of query sequences to database entries. We will use the command line version of BLAST to identify matching nucleotide or protein coding regions in a human genomic sequence and in the SwissProt database. You can find out about all things BLAST for command line BLAST [here](https://www.ncbi.nlm.nih.gov/books/NBK279690/) or in the [BLAST Book](https://www.oreilly.com/library/view/blast/0596002998/).  
 
 BLAST can align a variety of sequence types:
 - nucleotide sequences to nucleotide sequences (BLASTN)
