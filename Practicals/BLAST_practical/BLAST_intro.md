@@ -245,4 +245,4 @@ time blastp -query ~/BLAST_practical/queries/Q967Q8.fasta -num_threads 2 -thresh
 
 Try other parameters for nucleotide comparisons, such as `reward` and `penalty`. These set the score or penalty for match vs mismatch during alignment. Default values for `blastn` are +2/-3. For increased sensitivity when searching less conserved sequences you can try +4/-5. Cost for gaps can be set with `gapopen` and `gapextend` and default values for `blastn` for these are 5 and 2, while default values for `blastp/blastx` are 11 and 1. 
 
-Try using different scoring matrices `-matrix` for protein alignments (BLASTP, BLASTX) such as `blosum62` (default) vs `blosum45` or `blosum90`. 
+Try using different scoring [matrices](https://www.nature.com/articles/nbt0804-1035) `-matrix` for protein alignments (BLASTP, BLASTX) such as `blosum62` (default) vs `blosum45` or `blosum90`. 
