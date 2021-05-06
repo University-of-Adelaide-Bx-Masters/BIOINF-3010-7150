@@ -95,7 +95,7 @@ In this example your input file is a nucleotide sequence file `reference.fa` so 
 You will use the following command.  
 
 ```bash
-makeblastdb -in uniprot_sprot.fasta -dbtype 'prot' -parse_seqids -out sprot
+makeblastdb -in ~BLAST_practical/dbs/uniprot_sprot.fasta -dbtype 'prot' -parse_seqids -out ~/BLAST_practical/dbs/sprot
 ```
 
 This will generate three files that BLAST uses.
@@ -103,7 +103,7 @@ This will generate three files that BLAST uses.
 You will then need to index/format the human hg38 chromosome sequences so that BLAST can search them.
 
 ```bash
-makeblastdb -in hg38.fa -dbtype 'nucl' -parse_seqids -out hg38
+makeblastdb -in ~/BLAST_practical/dbs/hg38.fa -dbtype 'nucl' -parse_seqids -out ~/BLAST_practical/dbs/hg38
 ```
 Now you are ready to familiarise yourself with command line BLAST. *Once you make the blast dbs you can delete the original fasta files and recover some disk space*
 
