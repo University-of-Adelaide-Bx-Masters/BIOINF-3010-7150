@@ -105,7 +105,7 @@ You will then need to index/format the human hg38 chromosome sequences so that B
 ```bash
 makeblastdb -in hg38.fa -dbtype 'nucl' -parse_seqids -out hg38
 ```
-Now you are ready to familiarise yourself with command line BLAST.
+Now you are ready to familiarise yourself with command line BLAST. *Once you make the blast dbs you can delete the original fasta files and recover some disk space*
 
 ### 3.4 BLAST it!
 
