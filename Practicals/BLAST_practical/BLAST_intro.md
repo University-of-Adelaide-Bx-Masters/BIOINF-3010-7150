@@ -95,7 +95,7 @@ In this example your input file is a nucleotide sequence file `reference.fa` so 
 You will use the following command.  
 
 ```bash
-makeblastdb -in uniprot_sprot.fasta -dbtype 'prot' -parse_sequids -out sprot
+makeblastdb -in uniprot_sprot.fasta -dbtype 'prot' -parse_seqids -out sprot
 ```
 
 This will generate three files that BLAST uses.
