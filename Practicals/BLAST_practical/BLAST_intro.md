@@ -95,7 +95,7 @@ In this example your input file is a nucleotide sequence file `reference.fa` so 
 You will use the following command.  
 
 ```bash
-makeblastdb -in ~BLAST_practical/dbs/uniprot_sprot.fasta -dbtype 'prot' -parse_seqids -out ~/BLAST_practical/dbs/sprot
+makeblastdb -in ~/BLAST_practical/dbs/uniprot_sprot.fasta -dbtype 'prot' -parse_seqids -out ~/BLAST_practical/dbs/sprot
 ```
 
 This will generate three files that BLAST uses.
@@ -226,11 +226,11 @@ time blastp -query ~/BLAST_practical/queries/multi-protein_query.fa  -word_size 
 ```  
 
 ```bash
- time blastp -query ~BLAST_practical/data/multi-protein_query.fa  -word_size 7 -threshold 21 -db ~BLAST_practical/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/BLAST_practical/results/W7T21multi.txt
+ time blastp -query ~/BLAST_practical/queries/multi-protein_query.fa  -word_size 7 -threshold 21 -db ~BLAST_practical/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/BLAST_practical/results/W7T21multi.txt
 ```
 
 ```bash
- time blastp -query ~BLAST_practical/data/multi-protein_query.fa  -word_size 7 -threshold 11 -db ~BLAST_practical/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/BLAST_practical/results/W7T11multi.txt
+ time blastp -query ~/BLAST_practical/queries/multi-protein_query.fa  -word_size 7 -threshold 11 -db ~BLAST_practical/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/BLAST_practical/results/W7T11multi.txt
 ```
 
 ```bash
