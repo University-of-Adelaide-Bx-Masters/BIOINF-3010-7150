@@ -99,7 +99,10 @@ The output will be very large, so do not open with the text editor. You can see 
 
 ```bash
 head -n5 hg38_repeats.txt
+
 ```
+This gives you an estimate of the number of insertions of that repeat type in the genome.
+
 You can get sum of the values for `alignment length` to calculate the exact number of base pairs contributed by this repeat to the genome. *Hint: you can use `awk` with something like this:*
 
 ```bash
