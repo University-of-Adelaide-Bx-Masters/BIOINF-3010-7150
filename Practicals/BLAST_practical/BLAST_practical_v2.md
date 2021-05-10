@@ -1,5 +1,9 @@
 
 # BLAST Practical - 11 May 2021 - Dave Adelson
+{:.no_toc}
+
+* TOC
+{:toc}
 
 Annotation can be tricky. In this practical you will use BLAST to identify the protein encoded by a gene (sequence supplied) and to determine the principal repeat sequence in the interval and then estimate the number of those repeats and the number of base pairs they contribute to the human genome.  
 

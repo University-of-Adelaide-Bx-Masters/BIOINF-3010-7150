@@ -1,6 +1,10 @@
 # Introduction to BLAST 
 
 We should really run a full course just on BLAST, but here we just show you how to use it for common scenarios.
+{:.no_toc}
+
+* TOC
+{:toc}
 
 ## 1. Background
 
