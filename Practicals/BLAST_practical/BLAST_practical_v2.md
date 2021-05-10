@@ -1,7 +1,7 @@
 
-# BLAST Practical
+# BLAST Practical - 11 May 2021 - Dave Adelson
 
-Annotation can be tricky. In this practical you will use BLAST to identify the protein encoded by a gene (sequence supplied) and to determine the principal repeat sequence in the interval and then estimate the number of those repeats in the human genome.  
+Annotation can be tricky. In this practical you will use BLAST to identify the protein encoded by a gene (sequence supplied) and to determine the principal repeat sequence in the interval and then estimate the number of those repeats and the number of base pairs they contribute to the human genome.  
 
 ## 1. Background
 
@@ -101,7 +101,7 @@ The output will be very large, so do not open with the text editor. You can see 
 head -n5 hg38_repeats.txt
 
 ```
-This gives you an estimate of the number of insertions of that repeat type in the genome.
+This gives you an estimate of the number of insertions of that repeat/transposon type in the genome.
 
 You can get sum of the values for `alignment length` to calculate the exact number of base pairs contributed by this repeat to the genome. *Hint: you can use `awk` with something like this:*
 
