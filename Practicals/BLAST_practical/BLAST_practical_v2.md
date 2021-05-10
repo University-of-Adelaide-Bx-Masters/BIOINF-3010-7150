@@ -68,14 +68,14 @@ grep "Homo sapiens" ~/BLAST_practical/results/HUMAN H15_blastx_sprot.txt | less
 blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -task blastn -db ~/BLAST_practical/dbs/humrep -out ~/BLAST_practical/results/gene_blastn_humrep.txt -outfmt 7
 ```
 
-In order to obtain a human repeat sub-sequence from Human15gen.fasta you will need to use samtools-faidx https://www.htslib.org/doc/samtools-faidx.html. You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. Do this by inspecting the text output file from above and selecting an interval from a robust (longest or almost longest `alignment length`  with high `bitscore` and low `evalue`) looking alignment for the most abundant type of repeat in your output. 
+In order to obtain a human repeat sub-sequence from Human15gen.fasta you will need to use `samtools-faidx` https://www.htslib.org/doc/samtools-faidx.html. You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. Do this by inspecting the text output file from above and selecting an interval from a robust (longest or almost longest `alignment length`  with high `bitscore` and low `evalue`) alignment for the most abundant type of repeat in your output. 
 
 To determine the most abundant repeat type in your output you can try:
-- just scroll through the output
+- just scroll through the output and eyball it
 - use `cut` , `sort` and `uniq` to list all the repeat types
 - use `grep -c` to count some of the repeat types to get an objective assessment of how many insertions there are for every repeat type. *Hint: when using `grep` use the shortest search pattern you can to group repeats of the same type into the count*.
 
-I have used arbitrary coordinate values in the example below, you will need to use your own coordinates.
+**I have used arbitrary coordinate values in the example below, you will need to use your own coordinates.**
 
 Activate the `assembly` environment in order to use `samtools`.
 
@@ -87,7 +87,7 @@ samtools faidx ~/BLAST_practical/queries/hg38_gene_query.fasta hg38:12045-12345 
 
 #### 2.4 Alignment of your human repeat sub-sequence to the human genome
 
-This may take a while to run, so be patient. Use as many threads as you can get away with for this in order to make it run as fast as possible. Remember to activate the `blast` environment with conda first. 
+This may take a while to run, so be patient. Remember to activate the `blast` environment with conda first. 
 
 ```bash
 conda activate blast
@@ -103,7 +103,7 @@ head -n5 hg38_repeats.txt
 ```
 This gives you an estimate of the number of insertions of that repeat/transposon type in the genome.
 
-You can get sum of the values for `alignment length` to calculate the exact number of base pairs contributed by this repeat to the genome. *Hint: you can use `awk` with something like this:*
+You can get the sum of the values for `alignment length` to determine the exact number of base pairs contributed by this repeat to the genome. *Hint: you can use `awk` with something like this:*
 
 ```bash
 awk '{sum+=$n} END {print sum}' [input file]
