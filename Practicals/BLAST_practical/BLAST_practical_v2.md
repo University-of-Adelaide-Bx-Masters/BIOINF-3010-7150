@@ -72,7 +72,7 @@ grep "Homo sapiens" ~/BLAST_practical/results/HUMAN H15_blastx_sprot.txt | less
 blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -task blastn -db ~/BLAST_practical/dbs/humrep -out ~/BLAST_practical/results/gene_blastn_humrep.txt -outfmt 7
 ```
 
-In order to obtain a human repeat sub-sequence from Human15gen.fasta you will need to use `samtools-faidx` https://www.htslib.org/doc/samtools-faidx.html. You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. Do this by inspecting the text output file from above and selecting an interval from a robust (longest or almost longest `alignment length`  with high `bitscore` and low `evalue`) alignment for the most abundant type of repeat in your output. 
+In order to obtain a human repeat sub-sequence from `chr15.fasta` you will need to use `samtools-faidx` https://www.htslib.org/doc/samtools-faidx.html. You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. Do this by inspecting the text output file from above and selecting an interval from a robust (longest or almost longest `alignment length`  with high `bitscore` and low `evalue`) alignment for the most abundant type of repeat in your output. 
 
 To determine the most abundant repeat type in your output you can try:
 - just scroll through the output and eyball it
