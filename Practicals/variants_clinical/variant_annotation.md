@@ -32,7 +32,7 @@ Aaron's group has written some really helpful pieces of software including `bedt
 To demonstrate a lot of what we're doing this week, we'll be using variants that have already been called using the GenomeAnalysisToolkit (GATK), that was developed by the Broad Institute (Cambridge, USA).
 Let's download the vcf as a gzipped compressed VCF file, as well as two pedigree files that contain two separate examples looking at dominant and recessive disorders.
 
-```
+```bash
 # Download data
 # Main VCF
 curl https://s3.amazonaws.com/gemini-tutorials/trio.trim.vep.vcf.gz	> trio.trim.vep.vcf.gz
@@ -47,7 +47,7 @@ wget https://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf
 
 Our VCF file already has annotations attached, so lets strip off that information so we can start the process at the start (and hopefully learn a few things along the way!).
 
-```
+```bash
 # First let's install bcftools through bioconda
 conda install -c bioconda bcftools
 
@@ -74,14 +74,14 @@ If we have a look at the VCF file there is the header and the full VCF informati
 The header is denoted by lines that start with two # (i.e. ^##).
 The name of the fields for the rest of the file (that contain the actual results) is denoted by lines that start with only one # (i.e. ^#)
 
-```
+```bash
 zcat trio.trim.vcf.gz |less
 ```
 
 Headers are an amazing mass of information that comes from the variant calling process.
 It will have metadata regarding the aligned reference genome, steps that were run to make the file and the definitions of the specific fields and tags within the file.
 
-```
+```bash
 # view the header
 bcftools view -h trio.trim.vcf.gz
 ```
@@ -102,13 +102,13 @@ bcftools view -h trio.trim.vcf.gz
 Not all variants are created equal.
 Much like the genotype and alignment quality metrics (base and mapping quality) that we learnt in previous lectures, the VCF file contains a QUALITY field that is also phred scaled.
 
-`QUAL phred-scaled quality score for the assertion made in ALT. i.e. -10log_10 prob(call in ALT is wrong). If ALT is ”.” (no variant) then this is -10log_10 p(variant), and if ALT is not ”.” this is -10log_10p(no variant). High QUAL scores indicate high confidence calls. Although traditionally people use integer phred scores, this field is permitted to be a floating point to enable higher resolution for low confidence calls if desired. If unknown, the missing value should be specified. (Numeric)`
+>QUAL phred-scaled quality score for the assertion made in ALT. i.e. -10log_10 prob(call in ALT is wrong). If ALT is ”.” (no variant) then this is -10log_10 p(variant), and if ALT is not ”.” this is -10log_10p(no variant). High QUAL scores indicate high confidence calls. Although traditionally people use integer phred scores, this field is permitted to be a floating point to enable higher resolution for low confidence calls if desired. If unknown, the missing value should be specified. (Numeric)
 
 So lets say that we want to warn the user that we have some variants that are probably poor quality.
 We can add a tag (i.e. a bit of text) in the FILTER field to indicate that our variant is potentially poor quality.
 This is important later on when you start interpreting the value of the variant.
 
-```
+```bash
 # Put a the text "LowQual" to the FILTER tag when QUAL<30
 bcftools filter -mx -sLowQual -e'%QUAL<30' trio.trim.vcf.gz
 ```
@@ -156,7 +156,7 @@ It is also good practice to create an index every time you make a new VCF file, 
 A number of variant toolkit's (`gatk`, `picard`, `sambamb` etc) will often create an index automatically for you.
 You can either use the `tabix` program using the VCF prefix (`tabix -p vcf`) or use the `bcftools` sub-command `bcftools index`
 
-```
+```bash
 # Index our files
 bcftools index -t hg19.dbSNP.vcf.gz
 bcftools index -t trio.trim.vcf.gz
@@ -168,7 +168,7 @@ List the files in the directory and see what is produced.
 
 Now we can add rsIds using the `bcftools annotation` sub-command and output a new files with our IDs attached.
 
-```
+```bash
 # Add Ids
 bcftools annotate -c CHROM,FROM,ID,REF,ALT \
     -a hg19.dbSNP.vcf.gz \
@@ -204,9 +204,10 @@ Additional to protein-coding changes, non-coding or regulatory variant sequence 
 
 So how are these included in the actual VCF file? Let's look:
 
-```
+```bash
 # View the VCF that contains full annotation (without the header i.e. -H param)
 bcftools view -H trio.trim.vep.vcf.gz | head
+
 2	41647	.	A	G	4495.41	PASS	CSQ=intron_variant&non_coding_transcript_variant|||ENSG00000184731|FAM110C|ENST00000460464|||||processed_transcript|||||||||,intron_variant&non_coding_transcript_variant|||ENSG00000184731|FAM110C|ENST00000461026|||||processed_transcript|||||||||,intron_variant|||ENSG00000184731|FAM110C|ENST00000327669||||-/321|protein_coding|YES|CCDS42645.1|||||||	GT:AD:DP:GQ:PL	0/0:56,0:56:99:0,169,2183	0/1:33,35:68:99:1139,0,1044	0/1:119,117:237:99:3356,0,3283
 2	45895	.	A	G	463.75	PASS	CSQ=missense_variant|aTc/aCc|I/T|ENSG00000184731|FAM110C|ENST00000327669|1/2|benign(0)|tolerated(0.62)|164/321|protein_coding|YES|CCDS42645.1|||||||,upstream_gene_variant|||ENSG00000184731|FAM110C|ENST00000460464|||||processed_transcript|||||||||,intron_variant&non_coding_transcript_variant|||ENSG00000184731|FAM110C|ENST00000461026|||||processed_transcript|||||||||	GT:AD:DP:GQ:PL	1/1:0,6:6:18.05:207,18,0	1/1:0,9:9:24.07:292,24,0	./.:.:.:.:.
 2	224970	.	C	T	4241.64	PASS	CSQ=intron_variant|||ENSG00000035115|SH3YL1|ENST00000415006||||-/246|protein_coding||CCDS62842.1|||||||,intron_variant|||ENSG00000035115|SH3YL1|ENST00000403657||||-/227|protein_coding||CCDS62841.1|||||||,intron_variant|||ENSG00000035115|SH3YL1|ENST00000403658||||-/227|protein_coding||CCDS62841.1|||||||,intron_variant|||ENSG00000035115|SH3YL1|ENST00000405430||||-/342|protein_coding|||||||||,intron_variant&non_coding_transcript_variant|||ENSG00000035115|SH3YL1|ENST00000473104|||||processed_transcript|||||||||,intron_variant|||ENSG00000035115|SH3YL1|ENST00000451005||||-/255|protein_coding|||||||||,intron_variant|||ENSG00000035115|SH3YL1|ENST00000356150||||-/342|protein_coding|YES|CCDS42646.2|||||||,intron_variant&NMD_transcript_variant|||ENSG00000035115|SH3YL1|ENST00000479739||||-/155|nonsense_mediated_decay|||||||||,intron_variant&non_coding_transcript_variant|||ENSG00000035115|SH3YL1|ENST00000463865|||||processed_transcript|||||||||,intron_variant&non_coding_transcript_variant|||ENSG00000035115|SH3YL1|ENST00000472012|||||processed_transcript|||||||||,downstream_gene_variant|||ENSG00000035115|SH3YL1|ENST00000431160||||-/230|protein_coding|||||||||,intron_variant|||ENSG00000035115|SH3YL1|ENST00000403712||||-/323|protein_coding||CCDS54332.1|||||||,intron_variant&non_coding_transcript_variant|||ENSG00000035115|SH3YL1|ENST00000468321|||||processed_transcript|||||||||GT:AD:DP:GQ:PL	0/1:40,26:66:99:789,0,1374	0/1:47,41:88:99:1247,0,1555	0/1:93,80:175:99:2205,0,2918
@@ -219,8 +220,9 @@ As you can see, there is a mass of information in the INFO field, all of which s
 This field has a lot of information separated by pipes (|) and it is also possible to get multiple annotations per variant.
 If you look at the header you can get the header information for each of these fields that are separated by |.
 
-```
+```bash
 zgrep "^##INFO=<ID=CSQ" trio.trim.vep.vcf.gz
+
 ##INFO=<ID=CSQ,Number=.,Type=String,Description="Consequence annotations from Ensembl VEP. Format: Consequence|Codons|Amino_acids|Gene|SYMBOL|Feature|EXON|PolyPhen|SIFT|Protein_position|BIOTYPE|CANONICAL|CCDS|RadialSVM_score|RadialSVM_pred|LR_score|LR_pred|CADD_raw|CADD_phred|Reliability_index">
 ```
 
