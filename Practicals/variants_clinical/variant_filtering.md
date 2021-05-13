@@ -39,7 +39,7 @@ This program is used extensively for genome-wide association studies, and was de
 Unfortunately the database loading command also adds a lot of annotation information that requires >50GB of data to be used, so instead of running the loading commands below I will provide each database separately
 
 
-```
+```bash
 # Loading VCF files require all the annotation databases
 ## Create the gemini db for dominant study
 #gemini load --cores 4 -v trio.trim.vep.vcf.gz -t VEP \
@@ -64,7 +64,7 @@ We will also need some conditionals to  like `WHERE`, `IS`, `IS NOT` etc
 
 In order to query we need to know what we have.
 
-```
+```bash
 gemini db_info trio.trim.vep.dominant.db
 ```
 
@@ -75,7 +75,7 @@ All of these are available to be queried
 
 Let's look at some examples by using the `gemini query` sub-command.
 
-```
+```bash
 # Get everything from the samples table with a wildcard
 gemini query -q "SELECT * FROM samples" trio.trim.vep.dominant.db
 
@@ -123,7 +123,7 @@ It occurs in about in 1 in 1,000 to 3,000 individuals (1 in ~1,000 in Europeans)
 Both the mother (`1805`) and the son (`4805`) are affected with the disorder, with normal plasma HDL, fat malabsorption and are in the bottom 5% for plasma cholesterol and triglycerides.
 We want to be able to see these sort of relationships in the PED file so lets have a quick look at that
 
-```
+```bash
 cat dominant.ped | column -t
 
 #family_id  sample_id  paternal_id  maternal_id  sex  phenotype  ancestry
@@ -141,7 +141,7 @@ Given that we will be comparing the pattern of inheritance of these variants, it
 For example, what if we wanted to identify variants where both 1805 and 4805 have a non-reference allele?
 (After all, 1805 and 4805 are both affected)
 
-```
+```bash
 # Show all info
 gemini query -q "SELECT * from variants" \
             --gt-filter "(gt_types.1805 <> HOM_REF AND gt_types.4805 <> HOM_REF)" \
@@ -158,9 +158,11 @@ gemini query -q "SELECT gts.1805, gts.4805 from variants" \
 Or how about using a wildcard with the `--gt-filter` to identify all heterozygous variants.
 The syntax for wildcards in `--gt-filter` follows a slightly different format:
 
-```--gt-filter (COLUMN).(SAMPLE_WILDCARD).(SAMPLE_WILDCARD_RULE).(RULE_ENFORCEMENT)```
-
+```bash
+--gt-filter (COLUMN).(SAMPLE_WILDCARD).(SAMPLE_WILDCARD_RULE).(RULE_ENFORCEMENT)
 ```
+
+```bash
 # Print heterozygous variants in all
 gemini query -q "SELECT chrom, start, end, ref, alt, gene, impact, (gts).(*) \
                  FROM variants" \
@@ -197,7 +199,7 @@ The genotype requirements for an autosomal dominant disorder are:
 
 Ok lets have a look:
 
-```
+```bash
 gemini autosomal_dominant \
     --columns "chrom, start, end, ref, alt, gene, impact, cadd_raw" \
     trio.trim.vep.dominant.db | head | column -t
