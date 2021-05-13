@@ -257,10 +257,3 @@ CADD provides a ranking rather than a prediction or default cut-off, with higher
 For example, scores above 30 are 'likely deleterious' and scores below as 'likely benign'.
 Variants with scores over 30 are predicted to be the 0.1% most deleterious possible substitutions in the human genome.
 
----
-
-### TASK
-
-In the questions above, you used some filters to identify the presence of any variants where a stop codon was gained. Of the variants, identify their CADD scores and identify the one with the highest score.
-
----
