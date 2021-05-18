@@ -406,7 +406,8 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots 
   * gender (M or F). U for Unknown
   * Case or Control status, or population group label. If this entry is set to "Ignore", then that individual and all genotype data from that individual will be removed from the data set in all `CONVERTF` output.
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Build parameter files that will be the inputs for `CONVERTF`. The content of the parameter files is as follows:
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Build parameter files that will be the inputs for `CONVERTF`. The content of the parameter files is as follows:  
+
 * `par.PACKEDPED.EIGENSTRAT.1kGP_chr22`:
 ```bash
 genotypename:    1kGP_chr22.bed
@@ -435,6 +436,7 @@ convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22.ldpruned
 ```
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Build parameter files that will be the inputs for [`SMARTPCA`](https://github.com/DReichLab/EIG/tree/master/POPGEN). You need to build new parameter files as follows:
+
 * `par.1kGP_chr22`:
 ```bash
 genotypename:    1kGP_chr22.eigenstratgeno
@@ -445,6 +447,7 @@ evaloutname:     1kGP_chr22.smartpca_results.eval
 numoutevec:      5
 ```
 * `par.1kGP_chr22.ldpruned`:
+
 ```bash
 genotypename:    1kGP_chr22.ldpruned.eigenstratgeno
 snpname:         1kGP_chr22.ldpruned.snp
@@ -454,11 +457,13 @@ evaloutname:     1kGP_chr22.ldpruned.smartpca_results.eval
 numoutevec:      5
 ```
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Run `SMARTPCA`.
+
 ```bash
 smartpca -p par.1kGP_chr22
 smartpca -p par.1kGP_chr22.ldpruned
 ```
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create PCA plots.  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create PCA plots.
+
 ```R
 library(tidyr)
 library(ggplot2)
