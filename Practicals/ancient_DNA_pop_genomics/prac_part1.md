@@ -38,7 +38,7 @@ Icons are used to highlight sections of the tutorials:
 mkdir ~/BIOINF_Tuesday
 cd ~/BIOINF_Tuesday
 
-# Download compressed VCF file and its index from the 1kGP public FTP site (VCF file size: 214453750 bytes)
+\# Download compressed VCF file and its index from the 1kGP public FTP site (VCF file size: 214453750 bytes)
 curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz	> 1kGP_chr22.vcf.gz
 curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi	> 1kGP_chr22.vcf.gz.tbi
 ```
@@ -72,6 +72,7 @@ conda install -c bioconda bcftools
 +|	`SAMPLE`|	For each (optional) sample described in the file, values are given for the fields listed in `FORMAT`
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Have a closer look at how the information in the [INFO](https://en.wikipedia.org/wiki/Variant_Call_Format#Common_INFO_fields) and [FORMAT](https://en.wikipedia.org/wiki/Variant_Call_Format#Common_FORMAT_fields) fields is commonly coded. The 1kGP VCF datasets also contain some project-specific keys explained in a file that can be downloaded.
+
 ```bash
 wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/README_vcf_info_annotation.20141104
 ```
