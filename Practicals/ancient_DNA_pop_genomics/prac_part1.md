@@ -102,9 +102,10 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
 
 - 7) Using bash commands on the panel file you just downloaded, determine how many different populations and super-populations are represented in the 1kGP dataset.  
-- 8) How many individuals are in each super-population?
+- 8) How many individuals are in each super-population?  
 ---
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> You can learn more about the populations in the 1kGP [here](https://www.internationalgenome.org/faq/which-populations-are-part-your-study/).
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> You can learn more about the populations in the 1kGP [here](https://www.internationalgenome.org/faq/which-populations-are-part-your-study/).  
+
 ## Converting VCF files into population genomics formats
 ### Rationale
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> A VCF file may contain a lot of information (e.g. variant annotation) that can be very useful for clinical genomics. This was the case when you looked at a trio data with Jimmy Breen. However, population genomics applications only need a subset of the information in VCF file, i.e., variant genomic coordinates, variant ID, reference (REF) and alternative (ALT) alleles, and sample genotypes. This is what you typically find in the 1kGP data.
@@ -124,8 +125,9 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
 
-- 9) What are the REF and ALT alleles?
-- 10) Given REF and ALT alleles found when answering question 9, and knowing that the genotypes are phased, what are the possible genotypes with nucleotides and 1kGP coding?
+- 9) What are the REF and ALT alleles?  
+- 10) Given REF and ALT alleles found when answering question 9, and knowing that the genotypes are phased, what are the possible genotypes with nucleotides and 1kGP coding?  
+
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> You saw that the VCF genotype information can be very detailed. However, all we need usually for population genomics is a table of samples and variant calls, where the genotype information is coded so it can be parsed easily and file size remains as small as possible (imagine storing and parsing whole genome variation data for >100k individuals). 
@@ -173,7 +175,8 @@ plink \
 - 11) How many files have been generated, and what are their extensions?
 - 12) How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?  
 - 13) If you look at the content of the `PLINK` variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).  
-- 14) Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the `PLINK` sample file?
+- 14) Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the `PLINK` sample file?  
+
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> The VCF file does not contain information about each sample's population of origin or sex. That information is stored in the panel file. Thus we need to build a file that will be used to update the `.fam` output when we convert the VCF file into `PLINK` files. For this, we have to follow instructions from the [`PLINK` online manual](http://www.cog-genomics.org/plink/1.9/data#update_indiv) to build the input file. 
@@ -192,7 +195,7 @@ plink \
 tail -n+2 integrated_call_samples_v3.20130502.ALL.panel | cut -f4 | sort | uniq -c
 ```
 
-# Generate updateFields file containing the 5 fields described above
+#### Generate updateFields file containing the 5 fields described above
 ```bash
 awk -v \
  'OFS=\t' \
@@ -200,7 +203,7 @@ awk -v \
  integrated_call_samples_v3.20130502.ALL.panel \
  > updateFields
 ```
-# Check that the updateFields file contains 2504 lines
+#### Check that the updateFields file contains 2504 lines
 `wc -l updateFields`
 
 
@@ -218,11 +221,15 @@ plink \
   --update-sex updateFields 3 \
   --make-bed \
   --out 1kGP_chr22
+```
 
-# Remove the .nosex file
+#### Remove the .nosex file
+```bash
 rm 1kGP_chr22.nosex
+```
 
-# Then update sample IDs in the .fam file
+#### Then update sample IDs in the .fam file
+```bash
 plink \
   --bfile 1kGP_chr22 \
   --update-ids updateFields \
@@ -233,9 +240,11 @@ plink \
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Have a look at the newly created files.
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
-- 15) Does the `.fam` file contain updated information? What fields have been updated when compared to `plink_temp.fam`?
-- 16) How many variants are stored in the `.bim` file? How does it compare with the number of variants in `plink_temp.bim`?
+#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
+
+- 15) Does the `.fam` file contain updated information? What fields have been updated when compared to `plink_temp.fam`?  
+- 16) How many variants are stored in the `.bim` file? How does it compare with the number of variants in `plink_temp.bim`?  
+
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Some population genomics analyses that focus on population demographic history and structure perform better if variants are in relative genome-wide linkage equilibrium, meaning that alleles at different SNP loci must be randomly associated. Indeed, non-random association between alleles (a.k.a. linkage disequilibrium, or LD) would mean redundancy in the data, which would increase computing unnecessarily. For other applications that focus on genomic regions (e.g., natural selection), loci in LD are highly informative. `plink --indep-pairwise` calculates the square of the correlation (*r*<sup>2</sup>) between allele counts in adjacent SNP loci and stores loci that are below (`.prune.in` output file) and above (`.prune.out` output file) a user-defined threshold. *r*<sup>2</sup>=0 when two loci are in perfect equilibrium, *r*<sup>2</sup>=1 when two loci provide redundant information.
@@ -251,12 +260,15 @@ plink \
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Have a look at the newly created files.
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
-- 17) How many variants in the `.prune.in` and `.prune.out` output files?
-- 18) How does it compare to the number of variants in `1kGP_chr22.bim`?
+#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
+
+- 17) How many variants in the `.prune.in` and `.prune.out` output files?  
+- 18) How does it compare to the number of variants in `1kGP_chr22.bim`?  
+
 ---
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> You can now build `PLINK` files with just the LD-pruned data.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> You can now build `PLINK` files with just the LD-pruned data.  
+
 ```bash
 plink \
  --bfile 1kGP_chr22 \
@@ -268,12 +280,15 @@ plink \
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Have a look at the newly created files.
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
-- 19) In terms of file size, what do you notice when you look at the `.bed`, `.bim` and `.fam` files before and after LD pruning?
-- 20) How do you explain the changes, or lack thereof?
+#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
+
+- 19) In terms of file size, what do you notice when you look at the `.bed`, `.bim` and `.fam` files before and after LD pruning?  
+- 20) How do you explain the changes, or lack thereof?  
+
 ---
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Let's see how the non-LD-pruned and LD-pruned data behave in a PCA plot.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Let's see how the non-LD-pruned and LD-pruned data behave in a PCA plot.  
+
 ```bash
 # PCA on non-LD-pruned data
 plink \
