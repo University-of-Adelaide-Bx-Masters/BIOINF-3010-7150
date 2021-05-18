@@ -100,7 +100,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
 
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
-7.\ Using bash commands on the panel file you just downloaded, determine how many different populations and super-populations are represented in the 1kGP dataset.  
+7\. Using bash commands on the panel file you just downloaded, determine how many different populations and super-populations are represented in the 1kGP dataset.  
 8.\ How many individuals are in each super-population?
 ---
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> You can learn more about the populations in the 1kGP [here](https://www.internationalgenome.org/faq/which-populations-are-part-your-study/).
