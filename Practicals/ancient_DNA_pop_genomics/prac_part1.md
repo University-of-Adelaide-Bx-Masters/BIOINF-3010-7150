@@ -439,7 +439,7 @@ library(tidyr)
 library(ggplot2)
 library(cowplot)
 
-# Non-LD-pruned data for scree plot
+#Non-LD-pruned data for scree plot
 adat.scree <- read.table("1kGP_chr22.smartpca_results.eval", header = FALSE)
 # Add a column with row number (only needed to be able to do a bar plot)
 adat.scree$Name = 1:nrow(adat.scree)
