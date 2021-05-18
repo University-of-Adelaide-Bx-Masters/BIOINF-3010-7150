@@ -544,5 +544,6 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, 0.3)) # ratio between plots
 
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
 
-- 23) Are the `SMARTPCA` results fundamentally different from `PLINK` PCA results?
+- 23) Are the `SMARTPCA` results fundamentally different from `PLINK` PCA results?  
+
 ---
