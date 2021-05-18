@@ -75,7 +75,8 @@ ll
 #### :question: *Questions*
 1. How many individuals are in the `AllAmerica_Ancient.eigenstrat.ind` dataset?
 2. Is there missing data in the ancient dataset `AllAmerica_Ancient.eigenstrat.geno`?
-3. How many SNPs in each dataset? Hint: look at the `.snp` files.
+3. How many SNPs in each dataset? Hint: look at the `.snp` files.  
+
 ---
 
 ## PCA
@@ -86,13 +87,15 @@ conda install -c bioconda eigensoft
 conda install -c bioconda admixtools
 ```
 :computer: OPTIONAL: Install `R` packages if they are not readily available (use the `R` console).
+
 ```R
 install.packages("devtools")
 devtools::install_github("bodkan/admixr")
 install.packages("tidyverse")
 ```
 
-:computer: Build a parameter file named `par.AllAmerica_Ancient.smartpca` that will be one of the inputs for [SMARTPCA](https://github.com/DReichLab/EIG/tree/master/POPGEN). Because ancient data contain a lot of missing data, we are going to force `SMARTPCA` to construct the eigenvectors based on the contemporary populations (listed in [`poplistname`](https://github.com/DReichLab/EIG/tree/master/POPGEN)) and then project the ancient samples onto the PCA ([`lsqproject`](https://github.com/DReichLab/EIG/blob/master/POPGEN/lsqproject.pdf)).
+:computer: Build a parameter file named `par.AllAmerica_Ancient.smartpca` that will be one of the inputs for [SMARTPCA](https://github.com/DReichLab/EIG/tree/master/POPGEN). Because ancient data contain a lot of missing data, we are going to force `SMARTPCA` to construct the eigenvectors based on the contemporary populations (listed in [`poplistname`](https://github.com/DReichLab/EIG/tree/master/POPGEN)) and then project the ancient samples onto the PCA ([`lsqproject`](https://github.com/DReichLab/EIG/blob/master/POPGEN/lsqproject.pdf)).  
+
 ```bash
 genotypename:    AllAmerica_Ancient.eigenstrat.geno
 snpname:         AllAmerica_Ancient.eigenstrat.snp
@@ -105,11 +108,13 @@ poplistname:     poplistPCA
 ```
 
 :computer: Run `SMARTPCA`
+
 ```bash
 smartpca -p par.AllAmerica_Ancient.smartpca
 ```
 
 :computer: `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create plots.
+
 ```R
 library(stringr)
 library(ggplot2)
@@ -169,9 +174,10 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # height ratio between
 
 ---
 #### :question: *Questions*
-4. The scree plot represents the value for each eigenvector, i.e., the variance in the data explained by the eigenvector. In your opinion, does the first eigenvector explain much variance compared to other vectors?
-5. PC1 seems to capture the variation observed between eskimos and modern Peruvian (PEL), while PC2 seems to capture the variation just within PEL. Knowing that PEL is individuals from Lima, the capital city of Peru, why would the PEL population be so diverse?
-6. Where do the ancient samples cluster in regards to the PCA coordinates? And where in regards to contemporary populations?
+4. The scree plot represents the value for each eigenvector, i.e., the variance in the data explained by the eigenvector. In your opinion, does the first eigenvector explain much variance compared to other vectors?  
+5. PC1 seems to capture the variation observed between eskimos and modern Peruvian (PEL), while PC2 seems to capture the variation just within PEL. Knowing that PEL is individuals from Lima, the capital city of Peru, why would the PEL population be so diverse?  
+6. Where do the ancient samples cluster in regards to the PCA coordinates? And where in regards to contemporary populations?  
+
 ---
 
 
@@ -182,6 +188,7 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # height ratio between
 :blue_book: Using `ADMIXTOOLS` to compute *F* and *D* statistics can be very time consuming because the programs are not user friendly, and building the parameter files can be time consuming. Instead, we can use the `R` implementation [`admixr`](https://github.com/bodkan/admixr) of `ADMIXTOOLS` by Martin Petr. You may want to read the very short [*Bioinformatics* Applications Note](https://academic.oup.com/bioinformatics/article/35/17/3194/5298728)), or better, explore the comprehensive [tutorial](https://bodkan.net/admixr/articles/tutorial.html) on your own time. 
 
 :computer: Load the libraries needed to run `admixr` (use the `R` console) and run *F*3 statistics on a subset of populations.
+
 ```R
 library(admixr)
 library(tidyverse)
@@ -217,8 +224,10 @@ result %>%
 ```
 
 ---
-#### :question: *Questions*
-7. What two populations/individuals seem to diverge earlier than the others?
+#### :question: *Questions*  
+
+7. What two populations/individuals seem to diverge earlier than the others?  
+
 ---
 
 
@@ -227,6 +236,7 @@ result %>%
 :blue_book: Now we want to know how populations compare in terms of ancestry from Anzick-1. For this, we can consider of either Anzick-1 or USR1 with the different populations, using YRI as an outgroup. Since we know already that USR1 did not contribute any ancestry to South Americans, We are basically testing the proportion of Anzick-1 ancestry only.
 
 :computer: Run *D* statistics on a subset of populations.
+
 ```R
 # Create a list of population we want to test (just a subset of the 
 pops2 <- c("Eskimo", "Aymara", "Peru_Lauricocha_5800BP", "Brazil_LapaDoSanto_9600BP", "Chile_LosRieles_10900BP")
@@ -242,7 +252,8 @@ head(result2)
 * `BABA`, `ABBA`: counts of observed site patterns
 * `nsnps`: number of SNPs used
 
-:computer: However, a graphic representation is always easier to interpret:
+:computer: However, a graphic representation is always easier to interpret:  
+
 ```R
 # Sort the population labels according to an increasing D value and plot average and Z-score
 ggplot(result2, aes(fct_reorder(W, D), D, color = abs(Zscore) > 2)) +
@@ -252,9 +263,11 @@ ggplot(result2, aes(fct_reorder(W, D), D, color = abs(Zscore) > 2)) +
 ```
 
 ---
-#### :question: *Questions*
-8. Is there any test population/individual for which *D* is not different from 0? What does it mean in terms of admixture?
-9. Is there any test population/individual for which *D* is different from 0? Any particular pattern to report?
+#### :question: *Questions*  
+
+8. Is there any test population/individual for which *D* is not different from 0? What does it mean in terms of admixture?  
+9. Is there any test population/individual for which *D* is different from 0? Any particular pattern to report?  
+
 ---
 
 :blue_book: To estimate the minimum number of streams of ancestry contributing to Central and South American populations, we have used in our study the software `qpWave` (also implemented in `admixr`). `qpWave` assesses whether *F*4-statistics of the form *F*4(A = South American 1, B = South American 2; X = outgroup 1, Y = outgroup 2) form a matrix that is consistent with different ranks: rank 0 is consistent with a single stream of ancestry relative to the outgroups, rank 1 means 2 streams of ancestry, etc. This is how we could identify at least 3 streams of ancestry: one related to Anzick-1, 2 others related to other North American populations and never reported before.
