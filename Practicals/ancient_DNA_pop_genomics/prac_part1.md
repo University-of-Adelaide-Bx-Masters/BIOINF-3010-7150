@@ -168,10 +168,10 @@ plink \
 
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
-11 . How many files have been generated, and what are their extensions?
-12 . How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?
-13 . If you look at the content of the `PLINK` variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).
-14 . Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the `PLINK` sample file?
+- 11) How many files have been generated, and what are their extensions?
+- 12) How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?
+- 13) If you look at the content of the `PLINK` variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).
+- 14) Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the `PLINK` sample file?
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> The VCF file does not contain information about each sample's population of origin or sex. That information is stored in the panel file. Thus we need to build a file that will be used to update the `.fam` output when we convert the VCF file into `PLINK` files. For this, we have to follow instructions from the [`PLINK` online manual](http://www.cog-genomics.org/plink/1.9/data#update_indiv) to build the input file. 
@@ -229,8 +229,8 @@ plink \
 
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
-15 . Does the `.fam` file contain updated information? What fields have been updated when compared to `plink_temp.fam`?
-16 . How many variants are stored in the `.bim` file? How does it compare with the number of variants in `plink_temp.bim`?
+- 15) Does the `.fam` file contain updated information? What fields have been updated when compared to `plink_temp.fam`?
+- 16) How many variants are stored in the `.bim` file? How does it compare with the number of variants in `plink_temp.bim`?
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Some population genomics analyses that focus on population demographic history and structure perform better if variants are in relative genome-wide linkage equilibrium, meaning that alleles at different SNP loci must be randomly associated. Indeed, non-random association between alleles (a.k.a. linkage disequilibrium, or LD) would mean redundancy in the data, which would increase computing unnecessarily. For other applications that focus on genomic regions (e.g., natural selection), loci in LD are highly informative. `plink --indep-pairwise` calculates the square of the correlation (*r*<sup>2</sup>) between allele counts in adjacent SNP loci and stores loci that are below (`.prune.in` output file) and above (`.prune.out` output file) a user-defined threshold. *r*<sup>2</sup>=0 when two loci are in perfect equilibrium, *r*<sup>2</sup>=1 when two loci provide redundant information.
@@ -247,8 +247,8 @@ plink \
 
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
-17. How many variants in the `.prune.in` and `.prune.out` output files?
-18. How does it compare to the number of variants in `1kGP_chr22.bim`?
+- 17) How many variants in the `.prune.in` and `.prune.out` output files?
+- 18) How does it compare to the number of variants in `1kGP_chr22.bim`?
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> You can now build `PLINK` files with just the LD-pruned data.
@@ -264,8 +264,8 @@ plink \
 
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
-19 . In terms of file size, what do you notice when you look at the `.bed`, `.bim` and `.fam` files before and after LD pruning?
-20 . How do you explain the changes, or lack thereof?
+- 19) In terms of file size, what do you notice when you look at the `.bed`, `.bim` and `.fam` files before and after LD pruning?
+- 20) How do you explain the changes, or lack thereof?
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Let's see how the non-LD-pruned and LD-pruned data behave in a PCA plot.
@@ -356,8 +356,8 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots 
 
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
-21 . Do you observe any obvious differences between the two plots?
-22 . What patterns do you observe?
+- 21) Do you observe any obvious differences between the two plots?
+- 22) What patterns do you observe?
 ---
 
 
@@ -509,7 +509,8 @@ legend <- get_legend(adat.pc12 +
 plot_grid(prow, legend, ncol = 1, rel_heights = c(1, 0.3)) # ratio between plots and legend is 1:0.3
 ```
 
----
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  ####  
-23 . Are the `SMARTPCA` results fundamentally different from `PLINK` PCA results?
+---  
+
+#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  ####  
+- 23) Are the `SMARTPCA` results fundamentally different from `PLINK` PCA results?
 ---
