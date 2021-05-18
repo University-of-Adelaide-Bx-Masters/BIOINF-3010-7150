@@ -73,9 +73,9 @@ ll
 
 ---
 #### :question: *Questions*
-1. How many individuals are in the `AllAmerica_Ancient.eigenstrat.ind` dataset?
-2. Is there missing data in the ancient dataset `AllAmerica_Ancient.eigenstrat.geno`?
-3. How many SNPs in each dataset? Hint: look at the `.snp` files.  
+- 1) How many individuals are in the `AllAmerica_Ancient.eigenstrat.ind` dataset?
+- 2) Is there missing data in the ancient dataset `AllAmerica_Ancient.eigenstrat.geno`?
+- 3) How many SNPs in each dataset? Hint: look at the `.snp` files.  
 
 ---
 
@@ -174,9 +174,9 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # height ratio between
 
 ---
 #### :question: *Questions*
-4. The scree plot represents the value for each eigenvector, i.e., the variance in the data explained by the eigenvector. In your opinion, does the first eigenvector explain much variance compared to other vectors?  
-5. PC1 seems to capture the variation observed between eskimos and modern Peruvian (PEL), while PC2 seems to capture the variation just within PEL. Knowing that PEL is individuals from Lima, the capital city of Peru, why would the PEL population be so diverse?  
-6. Where do the ancient samples cluster in regards to the PCA coordinates? And where in regards to contemporary populations?  
+- 4) The scree plot represents the value for each eigenvector, i.e., the variance in the data explained by the eigenvector. In your opinion, does the first eigenvector explain much variance compared to other vectors?  
+- 5) PC1 seems to capture the variation observed between eskimos and modern Peruvian (PEL), while PC2 seems to capture the variation just within PEL. Knowing that PEL is individuals from Lima, the capital city of Peru, why would the PEL population be so diverse?  
+- 6) Where do the ancient samples cluster in regards to the PCA coordinates? And where in regards to contemporary populations?  
 
 ---
 
@@ -226,7 +226,7 @@ result %>%
 ---
 #### :question: *Questions*  
 
-7. What two populations/individuals seem to diverge earlier than the others?  
+- 7) What two populations/individuals seem to diverge earlier than the others?  
 
 ---
 
@@ -265,8 +265,8 @@ ggplot(result2, aes(fct_reorder(W, D), D, color = abs(Zscore) > 2)) +
 ---
 #### :question: *Questions*  
 
-8. Is there any test population/individual for which *D* is not different from 0? What does it mean in terms of admixture?  
-9. Is there any test population/individual for which *D* is different from 0? Any particular pattern to report?  
+- 8) Is there any test population/individual for which *D* is not different from 0? What does it mean in terms of admixture?  
+- 9) Is there any test population/individual for which *D* is different from 0? Any particular pattern to report?  
 
 ---
 
