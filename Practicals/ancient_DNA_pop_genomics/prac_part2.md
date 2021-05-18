@@ -1,12 +1,12 @@
 # Practicals: Ancient DNA and population genomics
 
 Bastien Llamas \(bastien.llamas@adelaide.edu.au\)
-2020-05-26 and 2020-05-29
+2021-05-28 and 2021-06-01
 
 ---
 The two tutorials will be separated into:
-1. Data handling (Tuesday 2020-05-26)
-2. Population genomics applications (Friday 2020-05-29)
+1. Data handling (Friday 2021-05-28)
+2. Population genomics applications (Tuesday 2021-06-01)
 
 Icons are used to highlight sections of the tutorials:
 
@@ -17,7 +17,7 @@ Icons are used to highlight sections of the tutorials:
 :question: Questions
 
 ---
-# Day 2: Population genomics applications (Friday 2020-05-29)
+# Day 2: Population genomics applications (Tuesday 2021-06-01)
 
 ## Tutorial outcomes
 
