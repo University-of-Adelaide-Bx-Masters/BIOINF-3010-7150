@@ -10,6 +10,7 @@ The two tutorials will be separated into:
 
 Icons are used to highlight sections of the tutorials:
 
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/>
 :blue_book: Information
 
 :computer: Hands-on tasks
