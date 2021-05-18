@@ -86,11 +86,11 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/README_vcf_info
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
 >- 1) Using `bcftools view` or bash commands, determine how many variant sites are recorded in the VCF file.
-- 2) Using `bcftools query` or bash commands, determine how many samples are recorded in the VCF file.
-- 3) The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in East Asians.
-- 4) Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).
-- 5) How many alternative alleles are observed at position 16050654?    
-- 6) Looking at the information contained in the `FORMAT` field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?  
+>- 2) Using `bcftools query` or bash commands, determine how many samples are recorded in the VCF file.
+>- 3) The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in East Asians.
+>- 4) Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).
+>- 5) How many alternative alleles are observed at position 16050654?    
+>- 6) Looking at the information contained in the `FORMAT` field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?  
 
 ---
 
@@ -104,7 +104,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
 
 >- 7) Using bash commands on the panel file you just downloaded, determine how many different populations and super-populations are represented in the 1kGP dataset.  
-- 8) How many individuals are in each super-population?  
+>- 8) How many individuals are in each super-population?  
 
 ---
 
@@ -130,7 +130,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
 
 >- 9) What are the `REF` and `ALT` alleles?  
-- 10) Given `REF` and `ALT` alleles found when answering question 9, and knowing that the genotypes are phased, what are the possible genotypes with nucleotides and 1kGP coding?  
+>- 10) Given `REF` and `ALT` alleles found when answering question 9, and knowing that the genotypes are phased, what are the possible genotypes with nucleotides and 1kGP coding?  
 
 ---
 
@@ -176,10 +176,10 @@ plink \
 
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
-- 11) How many files have been generated, and what are their extensions?
-- 12) How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?  
-- 13) If you look at the content of the `PLINK` variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).  
-- 14) Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the `PLINK` sample file?  
+>- 11) How many files have been generated, and what are their extensions?
+>- 12) How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?  
+>- 13) If you look at the content of the `PLINK` variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).  
+>- 14) Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the `PLINK` sample file?  
 
 ---
 
@@ -250,7 +250,7 @@ plink \
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
 
 >- 15) Does the `.fam` file contain updated information? What fields have been updated when compared to `plink_temp.fam`?  
-- 16) How many variants are stored in the `.bim` file? How does it compare with the number of variants in `plink_temp.bim`?  
+>- 16) How many variants are stored in the `.bim` file? How does it compare with the number of variants in `plink_temp.bim`?  
 
 ---
 
@@ -271,7 +271,7 @@ plink \
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
 
 >- 17) How many variants in the `.prune.in` and `.prune.out` output files?  
-- 18) How does it compare to the number of variants in `1kGP_chr22.bim`?  
+>- 18) How does it compare to the number of variants in `1kGP_chr22.bim`?  
 
 ---
 
@@ -388,7 +388,7 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots 
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
 
 >- 21) Do you observe any obvious differences between the two plots?  
-- 22) What patterns do you observe?  
+>- 22) What patterns do you observe?  
 
 ---
 
