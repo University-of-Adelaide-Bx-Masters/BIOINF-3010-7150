@@ -377,9 +377,12 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots 
 ```
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
-- 21) Do you observe any obvious differences between the two plots?
-- 22) What patterns do you observe?
+
+#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
+
+- 21) Do you observe any obvious differences between the two plots?  
+- 22) What patterns do you observe?  
+
 ---
 
 
