@@ -10,11 +10,9 @@ The two tutorials will be separated into:
 
 Icons are used to highlight sections of the tutorials:
 
-:blue_book: Information
-
-:computer: Hands-on tasks
-
-:question: Questions
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Information  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Hands-on tasks  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> Questions 
 
 ---
 # Day 2: Population genomics applications (Tuesday 2021-06-01)
