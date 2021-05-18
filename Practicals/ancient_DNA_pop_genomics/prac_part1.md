@@ -85,7 +85,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/README_vcf_info
 
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
-- 1) Using `bcftools view` or bash commands, determine how many variant sites are recorded in the VCF file.
+>- 1) Using `bcftools view` or bash commands, determine how many variant sites are recorded in the VCF file.
 - 2) Using `bcftools query` or bash commands, determine how many samples are recorded in the VCF file.
 - 3) The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in East Asians.
 - 4) Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).
@@ -103,7 +103,7 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
 
-- 7) Using bash commands on the panel file you just downloaded, determine how many different populations and super-populations are represented in the 1kGP dataset.  
+>- 7) Using bash commands on the panel file you just downloaded, determine how many different populations and super-populations are represented in the 1kGP dataset.  
 - 8) How many individuals are in each super-population?  
 
 ---
@@ -129,8 +129,8 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
 
-- 9) What are the REF and ALT alleles?  
-- 10) Given REF and ALT alleles found when answering question 9, and knowing that the genotypes are phased, what are the possible genotypes with nucleotides and 1kGP coding?  
+>- 9) What are the `REF` and `ALT` alleles?  
+- 10) Given `REF` and `ALT` alleles found when answering question 9, and knowing that the genotypes are phased, what are the possible genotypes with nucleotides and 1kGP coding?  
 
 ---
 
@@ -213,7 +213,8 @@ awk -v \
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Now we have everything to create the PLINK files. We also want to weed out variants that will not be useful for population genomics analyses, so we will keep bi-allelic SNPs only (`--snps-only just-acgt --biallelic-only strict`), keep high quality variant calls only (`--vcf-filter`), and discard rare alleles (`--maf 0.10`). Note that `PLINK` automatically re-orders alleles in minor/major. If you want to preserve the order of REF and ALT alleles as in the VCF file, then use `--keep-allele-order`.
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Convert the VCF file into `PLINK` files.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Convert the VCF file into `PLINK` files.  
+
 ```bash
 # Update sex first (sex and sample IDs cannot be updated at the same time)
 plink \
@@ -227,12 +228,14 @@ plink \
   --out 1kGP_chr22
 ```
 
-#### Remove the .nosex file
+#### Remove the .nosex file  
+
 ```bash
 rm 1kGP_chr22.nosex
 ```
 
-#### Then update sample IDs in the .fam file
+#### Then update sample IDs in the .fam file  
+
 ```bash
 plink \
   --bfile 1kGP_chr22 \
@@ -246,14 +249,15 @@ plink \
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
 
-- 15) Does the `.fam` file contain updated information? What fields have been updated when compared to `plink_temp.fam`?  
+>- 15) Does the `.fam` file contain updated information? What fields have been updated when compared to `plink_temp.fam`?  
 - 16) How many variants are stored in the `.bim` file? How does it compare with the number of variants in `plink_temp.bim`?  
 
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Some population genomics analyses that focus on population demographic history and structure perform better if variants are in relative genome-wide linkage equilibrium, meaning that alleles at different SNP loci must be randomly associated. Indeed, non-random association between alleles (a.k.a. linkage disequilibrium, or LD) would mean redundancy in the data, which would increase computing unnecessarily. For other applications that focus on genomic regions (e.g., natural selection), loci in LD are highly informative. `plink --indep-pairwise` calculates the square of the correlation (*r*<sup>2</sup>) between allele counts in adjacent SNP loci and stores loci that are below (`.prune.in` output file) and above (`.prune.out` output file) a user-defined threshold. *r*<sup>2</sup>=0 when two loci are in perfect equilibrium, *r*<sup>2</sup>=1 when two loci provide redundant information.
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Calculate pairwise *r*<sup>2</sup> and create lists of SNP loci in LD or not.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Calculate pairwise *r*<sup>2</sup> and create lists of SNP loci in LD or not.  
+
 ```bash
 plink \
   --bfile 1kGP_chr22 \
@@ -266,14 +270,14 @@ plink \
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
 
-- 17) How many variants in the `.prune.in` and `.prune.out` output files?  
+>- 17) How many variants in the `.prune.in` and `.prune.out` output files?  
 - 18) How does it compare to the number of variants in `1kGP_chr22.bim`?  
 
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> You can now build `PLINK` files with just the LD-pruned data.  
 
-```bash
+```bash  
 plink \
  --bfile 1kGP_chr22 \
  --extract ld_snps.prune.in \
@@ -286,7 +290,7 @@ plink \
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
 
-- 19) In terms of file size, what do you notice when you look at the `.bed`, `.bim` and `.fam` files before and after LD pruning?  
+>- 19) In terms of file size, what do you notice when you look at the `.bed`, `.bim` and `.fam` files before and after LD pruning?  
 - 20) How do you explain the changes, or lack thereof?  
 
 ---
@@ -307,7 +311,8 @@ plink \
  --out 1kGP_chr22.ldpruned.pca_results
 ```
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `PLINK` PCA has generated two outputs with suffixes `.eigenvec` (the PC coordinates for each sample) and `.eigenval` (all the eigenvalues). Go to the `R` console and create screeplots and PCA plots.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `PLINK` PCA has generated two outputs with suffixes `.eigenvec` (the PC coordinates for each sample) and `.eigenval` (all the eigenvalues). Go to the `R` console and create screeplots and PCA plots.  
+
 ```R
 library(tidyr)
 library(ggplot2)
@@ -382,7 +387,7 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots 
 
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
 
-- 21) Do you observe any obvious differences between the two plots?  
+>- 21) Do you observe any obvious differences between the two plots?  
 - 22) What patterns do you observe?  
 
 ---
@@ -391,7 +396,8 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots 
 ### The Eigensoft format
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> PLINK was initially developed for GWAS studies and similar largescale medical genomics studies. Another suite of utilities ([`Eigensoft`](https://github.com/DReichLab/EIG)) was developed for population genomics, and as is often the case, the file formats remained different between the two suites of utilities. However, Eigensoft can convert `PLINK` files into many file formats (including `EIGENSTRAT` files that we will use in this tutorial) using [`CONVERTF`](https://github.com/DReichLab/EIG/tree/master/CONVERTF).
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> The `EIGENSTRAT` files contain more or less the same information as the `PLINK` files, just in a different format:
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> The `EIGENSTRAT` files contain more or less the same information as the `PLINK` files, just in a different format:  
+
 * `.eigenstratgeno`: tab-delimited genotype file with one line per SNP and and genotypes in non-separated columns, with the following genotype coding:
   * `0`: no copies of reference allele
   * `1`: one copy of reference allele
@@ -431,7 +437,8 @@ snpoutname:      1kGP_chr22.ldpruned.snp
 indivoutname:    1kGP_chr22.ldpruned.ind
 ```
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Run `CONVERTF`.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Run `CONVERTF`. 
+
 ```bash
 convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22
 convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22.ldpruned
@@ -546,6 +553,6 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, 0.3)) # ratio between plots
 
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
 
-- 23) Are the `SMARTPCA` results fundamentally different from `PLINK` PCA results?  
+>- 23) Are the `SMARTPCA` results fundamentally different from `PLINK` PCA results?  
 
 ---
