@@ -152,12 +152,14 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
   * Sex code ('1' = male, '2' = female, '0' = unknown)
   * Phenotype value ('1' = control, '2' = case, '-9'/'0'/non-numeric = missing data if case/control)
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> OPTIONAL: Install `PLINK` if not already installed.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> OPTIONAL: Install `PLINK` if not already installed.  
+
 ```bash
 conda install -c bioconda plink
 ```
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Convert the VCF file to PLINK files.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Convert the VCF file to PLINK files.  
+
 ```bash
 plink \
   --vcf 1kGP_chr22.vcf.gz \
@@ -169,8 +171,8 @@ plink \
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
 - 11) How many files have been generated, and what are their extensions?
-- 12) How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?
-- 13) If you look at the content of the `PLINK` variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).
+- 12) How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?  
+- 13) If you look at the content of the `PLINK` variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).  
 - 14) Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the `PLINK` sample file?
 ---
 
@@ -183,21 +185,24 @@ plink \
 * Old within-family ID (VCF sample ID)
 * New family ID (`"pop"_"super_pop"`)
 * New within-family ID (VCF sample ID)
-* sex information (1 or M = male, 2 or F = female, 0 = missing)
+* sex information (1 or M = male, 2 or F = female, 0 = missing) 
+
 ```bash
-# Check that the panel file only contains "male" or "female" in the sex field, and does not have missing sex information (total should be 2504)
+#Check that the panel file only contains "male" or "female" in the sex field, and does not have missing sex information (total should be 2504)  
 tail -n+2 integrated_call_samples_v3.20130502.ALL.panel | cut -f4 | sort | uniq -c
+```
 
 # Generate updateFields file containing the 5 fields described above
+```bash
 awk -v \
  'OFS=\t' \
  'NR>1 {print $1, $1, $3"_"$2, $1, toupper(substr($4, 1, 1))}' \
  integrated_call_samples_v3.20130502.ALL.panel \
  > updateFields
-
-# Check that the updateFields file contains 2504 lines
-wc -l updateFields
 ```
+# Check that the updateFields file contains 2504 lines
+`wc -l updateFields`
+
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Now we have everything to create the PLINK files. We also want to weed out variants that will not be useful for population genomics analyses, so we will keep bi-allelic SNPs only (`--snps-only just-acgt --biallelic-only strict`), keep high quality variant calls only (`--vcf-filter`), and discard rare alleles (`--maf 0.10`). Note that `PLINK` automatically re-orders alleles in minor/major. If you want to preserve the order of REF and ALT alleles as in the VCF file, then use `--keep-allele-order`.
 
@@ -433,7 +438,7 @@ numoutevec:      5
 smartpca -p par.1kGP_chr22
 smartpca -p par.1kGP_chr22.ldpruned
 ```
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create PCA plots.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create PCA plots.  
 ```R
 library(tidyr)
 library(ggplot2)
@@ -507,6 +512,7 @@ legend <- get_legend(adat.pc12 +
                      theme(legend.position = "bottom")) # legend is displayed at the bottom of the plots (i.e., horizontal not vertical)
 #Combine plots and legend using plot_grid from cowplot  
 plot_grid(prow, legend, ncol = 1, rel_heights = c(1, 0.3)) # ratio between plots and legend is 1:0.3  
+
 ```
 
 ---  
