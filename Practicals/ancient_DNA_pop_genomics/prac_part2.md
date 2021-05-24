@@ -4,11 +4,11 @@ Bastien Llamas \(bastien.llamas@adelaide.edu.au\)
 2021-05-28 and 2021-06-01
 
 ---
-The two tutorials will be separated into:
+The two practicals will be separated into:
 1. Data handling (Friday 2021-05-28)
 2. Population genomics applications (Tuesday 2021-06-01)
 
-Icons are used to highlight sections of the tutorials:
+Icons are used to highlight sections of the practicals:
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Information  
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Hands-on tasks  
@@ -17,9 +17,9 @@ Icons are used to highlight sections of the tutorials:
 ---
 # Day 2: Population genomics applications (Tuesday 2021-06-01)
 
-## Tutorial outcomes
+## Practical outcomes
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> At the end of today's tutorial, you will know how to explore contemporary and ancient genomic diversity to infer population history. The tutorial is loosely based on yesterday's lecture about the population history of Indigenous peoples of the Americas, in particular the [Posth *et al.*](https://www.sciencedirect.com/science/article/pii/S0092867418313801) *Cell* paper we published in 2018.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> At the end of today's practical, you will know how to explore contemporary and ancient genomic diversity to infer population history. The practical is loosely based on yesterday's lecture about the population history of Indigenous peoples of the Americas, in particular the [Posth *et al.*](https://www.sciencedirect.com/science/article/pii/S0092867418313801) *Cell* paper we published in 2018.
 
 ## Reconstructing the Deep Population History of Central and South America [(Posth *et al.* 2018 Cell)](https://www.sciencedirect.com/science/article/pii/S0092867418313801)
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> For this study, we generated 49 new genome-wide datasets that consist of an enrichment and Illumina high-throughput sequencing of 1.2M SNPs from ancient DNA samples. All sampled individuals are from Central (Belize) and South (Brazil, Peru, Chile, Argentina) American individuals. The skeletal remains are dated between 10,900–700 BP (years before present), with the large majority of remains older than 1,000 BP.
@@ -57,11 +57,11 @@ conda activate variation
   * gender (M or F). U for Unknown
   * Case or Control status, or population group label. If this entry is set to "Ignore", then that individual and all genotype data from that individual will be removed from the data set in all `CONVERTF` output.
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Unarchive the tutorial data (stored in `~/data/genomics/ancient/`) in your working directory.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Unarchive the practical data (stored in `~/data/genomics/ancient/`) in your working directory.
 ```bash
 mkdir -p ~/BIOINF_Friday
 cd ~/BIOINF_Friday
-tar xvzf ~/data/genomics/ancient/tutorial_friday.tar.gz -C .
+tar xvzf ~/data/genomics/ancient/practical_tuesday.tar.gz -C .
 ll
 ```
 
@@ -79,7 +79,7 @@ ll
 
 ## PCA
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We are going to use `SMARTPCA` (as part of the `EIGENSOFT` utilities, see the end of Tuesday's tutorial) and an implementation of `ADMIXTOOLS` in an `R` package called admixR (it needs `ADMIXTOOLS` to be already installed). OPTIONAL: If any of the programs are not installed, do this:
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We are going to use `SMARTPCA` (as part of the `EIGENSOFT` utilities, see the end of Tuesday's practical) and an implementation of `ADMIXTOOLS` in an `R` package called admixR (it needs `ADMIXTOOLS` to be already installed). OPTIONAL: If any of the programs are not installed, do this:
 ```bash
 conda install -c bioconda eigensoft
 conda install -c bioconda admixtools

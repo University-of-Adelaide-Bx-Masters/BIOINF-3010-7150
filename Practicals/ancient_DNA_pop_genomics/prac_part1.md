@@ -4,11 +4,11 @@ Bastien Llamas \(bastien.llamas@adelaide.edu.au\)
 2021-05-28 and 2021-06-01
 
 ---
-The two tutorials will be separated into:
+The two practicals will be separated into:
 1. Data handling (Friday 2021-05-28)
 2. Population genomics applications (Tuesday 2021-06-01)
 
-Icons are used to highlight sections of the tutorials:
+Icons are used to highlight sections of the practicals:
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Information  
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Hands-on tasks  
@@ -17,9 +17,9 @@ Icons are used to highlight sections of the tutorials:
 ---
 # Day 1: Data handling (Friday 2021-05-28)
 
-## Tutorial outcomes
+## Practical outcomes
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> At the end of today's tutorial, you will know how to convert the information contained in a VCF file into other formats compatible with widely-used population genomics programs.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> At the end of today's practical, you will know how to convert the information contained in a VCF file into other formats compatible with widely-used population genomics programs.
 
 ## Population genomics
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> In a nutshell, population genomics is the study of the genomic composition of populations and how evolution shaped it. Questions in population genomics classically target demographic history (population size through time), gene flow between populations, populations ancestry, or identification of conservation biology units.
@@ -394,7 +394,7 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots 
 
 
 ### The Eigensoft format
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> PLINK was initially developed for GWAS studies and similar largescale medical genomics studies. Another suite of utilities ([`Eigensoft`](https://github.com/DReichLab/EIG)) was developed for population genomics, and as is often the case, the file formats remained different between the two suites of utilities. However, Eigensoft can convert `PLINK` files into many file formats (including `EIGENSTRAT` files that we will use in this tutorial) using [`CONVERTF`](https://github.com/DReichLab/EIG/tree/master/CONVERTF).
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> PLINK was initially developed for GWAS studies and similar largescale medical genomics studies. Another suite of utilities ([`Eigensoft`](https://github.com/DReichLab/EIG)) was developed for population genomics, and as is often the case, the file formats remained different between the two suites of utilities. However, Eigensoft can convert `PLINK` files into many file formats (including `EIGENSTRAT` files that we will use in this practical) using [`CONVERTF`](https://github.com/DReichLab/EIG/tree/master/CONVERTF).
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> The `EIGENSTRAT` files contain more or less the same information as the `PLINK` files, just in a different format:  
 
