@@ -35,8 +35,8 @@ Icons are used to highlight sections of the practicals:
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We will use a VCF file of human chromosome 22 from the 1000 Genomes Project (1kGP) that we will save into a working directory in your home directory:
 ```bash
 # Create working directory
-mkdir ~/BIOINF_Tuesday
-cd ~/BIOINF_Tuesday
+mkdir ~/BIOINF_Friday
+cd ~/BIOINF_Friday
 ```
 ```bash
 # Download compressed VCF file and its index from the 1kGP public FTP site (VCF file size: 214453750 bytes)
