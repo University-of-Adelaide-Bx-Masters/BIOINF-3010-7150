@@ -117,12 +117,12 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Genotypes can be coded differently depending on ploidy (in humans, diploid for autosomes or chrX in females, haploid for mitochondrial genomes and chrY), the number of alternate alleles, whether the genomes are phased (i.e., alleles on maternal and paternal chromosomes are identified) or not, and homo/heterozygosity. For convenience, 0 is used to code REF, and 1, 2, 3, etc are used to code ALT.
 ||Example|
 |:-|:-|
-|**Haploid, 2 alleles**|2 genotypes: 0, 1|
-|**Diploid, not phased, 2 alleles**|3 genotypes: 0/0, 0/1, 1/1|
-|**Diploid, phased, 2 alleles**|4 genotypes: 0\|0, 0\|1, 1\|0, 1\|1|
-|**Haploid, n alleles**|n genotypes: e.g., 0, 1, 2, 7|
-|**Diploid, not phased, n alleles**|n! genotypes: e.g., 0/0, 1/4, 0/2, 3/3|
-|**Diploid, phased, n alleles**|n<sup>2</sup> genotypes: e.g., 0/0, 1/4, 0/2, 3/3||
+|**Haploid, 2 alleles**|2 genotypes: 0, 1
+|**Diploid, not phased, 2 alleles**|3 genotypes: 0/0, 0/1, 1/1
+|**Diploid, phased, 2 alleles**|4 genotypes: 0\|0, 0\|1, 1\|0, 1\|1
+|**Haploid, n alleles**|n genotypes: e.g., 0, 1, 2, 7
+|**Diploid, not phased, n alleles**|n! genotypes: e.g., 0/0, 1/4, 0/2, 3/3
+|**Diploid, phased, n alleles**|n<sup>2</sup> genotypes: e.g., 0/0, 1/4, 0/2, 3/3
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Have a look at the first variant in the VCF file.
 
