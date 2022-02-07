@@ -1,4 +1,5 @@
-* TOC {:toc}
+* TOC 
+{:toc}
 
 ## BIOINF3010/7150: Genomics Applications
 {:.no_toc}
