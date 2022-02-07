@@ -15,7 +15,7 @@ Semester 1 2022 - Provisional Timetable
 | **3**    | 14/3      | **No lecture - Public Holiday**  |[SARS-CoV-2 Resequencing] (Dave) [SARS-CoV-2 Short Read Assembly] (Dave)         |
 | **4**    | 21/3       | Short read assembly; approaches and issues (Dave) |[Short and long read alignment] (Dave) [E. coli K-12 Hybrid Genome Assembly] (Dave)         |
 | **5**    | 28/3       | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (Dave) |  Tuesday open practical session (Dave) [**Friday practical TBA**]         |
-| **6**    | 4/4        | _De novo_ assembly genome size estimate (k-mers), coverage. (**Chelsea?**) | [Assembly practical pt 1] (**Chelsea?**) [Assembly practical pt 2] (**Chelsea?**)                        |
+| **6**    | 4/4        | _De novo_ assembly genome size estimate (k-mers), coverage. (Chelsea) | [Assembly practical pt 1] (Chelsea) [Assembly practical pt 2] (Chelsea)                        |
 | **-**    |            |  |    MID-SEMESTER BREAK                                             |
 | **7**    | 25/4       | **No lecture - Public Holiday** _Lecture in Tuesday prac session ->_ |  **Genome Graphs Lecture - Tuesday  (Yassine)**   [Genome graphs1] (Yassine)                    |
 | **8**    | 2/5        | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave) | [Genome graphs2] (Yassine) [Intro to BLAST] (Dave)            |
