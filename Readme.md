@@ -12,15 +12,15 @@ Semester 1 2022 - Provisional Timetable
 |----------|------------|---------------------------------------------------|---------------------------------------------------|
 | **1**    | 28/2        | Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (Dave) | [Introduction to Bash 1] (Dave)   [Introduction to Bash 2] (Dave)                  |
 | **2**    | 7/3        | Resequencing (Exome/WGS)     (Dave)                    |[Read Quality Control] (Dave) [SAMTools and alignments] (Joe/Dave) |
-| **3**    | 14/3      | __No lecture - Public Holiday__ Short read assembly; approaches and issues (Dave) |[SARS-CoV-2 Resequencing] (Dave) [SARS-CoV-2 Short Read Assembly] (Dave)         |
-| **4**    | 21/3       | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (Dave)|[Short and long read alignment] (Dave) [E. coli K-12 Hybrid Genome Assembly] (Dave)         |
-| **5**    | 28/3       | __TBA__ |  [Tuesday open practical session] (Dave) [__Friday practical TBA__]         |
-| **6**    | 4/4        | _De novo_ assembly genome size estimate (k-mers), coverage. (__~~Lloyd~~ Chelsea?__) | [Assembly practical pt 1] (__~~Lloyd~~ Chelsea?__) [Assembly practical pt 2] (__~~Lloyd~~ Chelsea?__)                        |
+| **3**    | 14/3      | **No lecture - Public Holiday**  |[SARS-CoV-2 Resequencing] (Dave) [SARS-CoV-2 Short Read Assembly] (Dave)         |
+| **4**    | 21/3       | Short read assembly; approaches and issues (Dave) |[Short and long read alignment] (Dave) [E. coli K-12 Hybrid Genome Assembly] (Dave)         |
+| **5**    | 28/3       | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (Dave) |  Tuesday open practical session (Dave) [**Friday practical TBA**]         |
+| **6**    | 4/4        | _De novo_ assembly genome size estimate (k-mers), coverage. (**Chelsea?**) | [Assembly practical pt 1] (**Chelsea?**) [Assembly practical pt 2] (**Chelsea?**)                        |
 | **-**    |            |  |    MID-SEMESTER BREAK                                             |
-| **7**    | 25/4       | __No lecture - Public Holiday__ Genome Graphs (Yassine) |  __~~[HiC analysis] (Callum)~~ TBA__   [Genome graphs1] (Yassine)                    |
+| **7**    | 25/4       | **No lecture - Public Holiday** _Lecture in Tuesday prac session ->_ |  **Genome Graphs Lecture - Tuesday  (Yassine)**   [Genome graphs1] (Yassine)                    |
 | **8**    | 2/5        | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave) | [Genome graphs2] (Yassine) [Intro to BLAST] (Dave)            |
 | **9**    | 9/5       | Variant calling and high-throughput genotyping (Julien) | [BLAST practical] (Dave) [Clinical genomics1] (Julien)                     |
-| **10**   | 16/5       | __~~High-throughput genotyping technologies and applications (Rick~~Frank?) TBA__|[Clinical genomics2] (Julien) __~~[Agricultural genomics] (Rick~~Frank?) TBA__                       |
+| **10**   | 16/5       | **~~High-throughput genotyping technologies and applications (Rick~~Frank?) TBA**  |  [Clinical genomics2] (Julien) **~~[Agricultural genomics] (Rick~~Frank?) TBA**                       |
 | **11**   | 23/5       | Population genomics (Bastien) | Open Practical Session Tuesday (Dave) [Population genomics1] (Bastien)              |
 | **12**   | 30/5       | Wrap up lecture (Dave) |   [Population genomics2] (Bastien) [Open  Prac session - Friday] (Dave)           |
 | **13**   | 6/6        |   TBD         |   TBD        |
@@ -50,13 +50,13 @@ Semester 1 2022 - Provisional Timetable
 
 ### Assessment Tasks
 
-| **Assessment**                                            | **Subject**         |
+| **Assignment**                                            | **Subject**         |
 |-----------------------------------------------------------|---------------------|
-| [Assessment 0]()                                          | Bash                |
-| [Assessment 1]()                                          | Genome sequencing     |
-| [Assessment 2]()                                          | Genome assembly|
-| [Assessment 3]()                                          | Genome Annotation|
-| [Assessment 4]()                                          | Population Genomics  (No Link)       |
+| [Assignment 0]()                                          | Bash                |
+| [Assignment 1]()                                          | Genome sequencing     |
+| [Assignment 2]()                                          | Genome assembly|
+| [Assignment 3]()                                          | Genome Annotation|
+| [Assignment 4]()                                          | Population Genomics  (No Link)       |
 
 
 ### Assessment Checklist
