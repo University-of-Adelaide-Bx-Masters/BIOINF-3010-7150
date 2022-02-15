@@ -4,7 +4,7 @@
 ## BIOINF3010/7150: Genomics Applications
 {:.no_toc}
 
-Semester 1 2022 - Provisional Timetable
+Semester 1 2022 - *Provisional Timetable*
 
 ### Lecture and Practical Timetable
 
