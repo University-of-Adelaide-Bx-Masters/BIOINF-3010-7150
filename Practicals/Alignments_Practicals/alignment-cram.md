@@ -1,11 +1,9 @@
+# Week 4 Practical Part 1: Alignment QC practical
+## By Jimmy Breen, updated/adapted by Dave Adelson
+{:.no_toc}
 
-# Alignment QC practical
-
-Designed and written by Jimmy Breen (jimmy.breen@sahmri.com)   
-2020-03-12  
-
-Updated by Dave Adelson (david.adelson@adelaide.edu.au) 
-2021-02-26
+* TOC
+{:toc}
 
 Fundamental to the analysis of genomic data is the availablility, or lack there of, of a reference sequence.
 The reference sequence gives a substrate to compare to and is critical for many routine Bioinformatics tasks.
