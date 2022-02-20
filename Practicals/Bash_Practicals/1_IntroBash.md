@@ -99,10 +99,10 @@ Now we have setup our VM, the basic aims of the following sessions are:
 Once you're in the `Terminal` section of `RStudio`, you will notice some text describing your computer of the form
 
 ```
-student@bioinf-xx:~/Project_0$
+(base) student@bioinf-3010-2022-xx:~/Project_0$
 ```
 
-The first section of this describes your username (`student`) and the machine `@bioinf-xx`.
+The first section of this describes your username (`student`) and the machine `@bioinf-3010-2022-xx`.
 The end of the machine identifier is marked with a colon (`:`).
 
 After the colon, the string (`~/Project_0`) represents your current directory, whilst the dollar sign (`$`) indicates the end of this path and the beginning of where you will type commands.
