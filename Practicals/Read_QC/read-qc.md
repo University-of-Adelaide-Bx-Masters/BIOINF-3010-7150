@@ -1,4 +1,4 @@
-# Week 2 Practical Part 1
+# Week 2 Practical
 {:.no_toc}
 
 * TOC
@@ -40,12 +40,52 @@ Managing your data and code intelligently is a considerable challenge in bioinfo
 
 ## Software Environment
 
-For the practicals, we have configured conda software environments to provide you with convienient access to the software you need.
-In order to have access to, and use, the software for today's practical, you need to activate the conda environment called "assembly":
+For the practicals, we will use anaconda (`conda`) software environments to provide you with convienient access to the software you need. We have installed anaconda for you already, so all that you need to do is use the `conda` command. You can find information about `conda` [here](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html). 
+
+For today's practical, you need to install the required software packages in the `base` conda environment:
 
 ```bash
-conda activate assembly
+conda install -c bioconda fastqc trimmomatic fastp
 ```
+This will install the three software tools (`fastqc`, `trimmomatic` and `fastp`) and their dependencies that you will need for this practical. 
+
+When you do this you will see something like this:
+
+```bash
+(base) student@bioinf-3010-2022-1:~$ conda install -c bioconda trimmomatic fastp
+Collecting package metadata (current_repodata.json): done
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: /home/student/anaconda3
+
+  added / updated specs:
+    - fastp
+    - trimmomatic
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    fastp-0.12.4               |                0         1.5 MB  bioconda
+    libgcc-7.2.0               |       h69d50b8_2         269 KB
+    trimmomatic-0.39           |       hdfd78af_2         144 KB  bioconda
+    ------------------------------------------------------------
+                                           Total:         1.9 MB
+
+The following NEW packages will be INSTALLED:
+
+  fastp              bioconda/linux-64::fastp-0.12.4-0
+  libgcc             pkgs/main/linux-64::libgcc-7.2.0-h69d50b8_2
+  trimmomatic        bioconda/noarch::trimmomatic-0.39-hdfd78af_2
+
+
+Proceed ([y]/n)? 
+
+```
+You will need to type `y` to proceed with the installation.
 
 # Read Quality Control
 
@@ -65,7 +105,7 @@ Before we can begin to analyse any data, it is helpful to understand how it was 
 While there are numerous platforms for generation of HTS data, today we will look at the Illumina Sequencing by Synthesis method, which is one of the most common methods in use today.
 It is worth looking at the following 5-minute video from Illumina:
 
-[![Illumina Sequencing by Sythesis](https://img.youtube.com/vi/fCd6B5HRaZ8/0.jpg)](https://youtu.be/fCd6B5HRaZ8)
+[![Illumina Sequencing by Synthesis](https://img.youtube.com/vi/fCd6B5HRaZ8/0.jpg)](https://youtu.be/fCd6B5HRaZ8)
 
 Illumina have released [multiple sequencing machines](https://sapac.illumina.com/systems/sequencing-platforms.html), with different capabilities, throughputs and applications.
 
@@ -302,18 +342,12 @@ We are going to investigate the use of 2 tools: trimmomatic and fastp.
 
 ### Trimmomatic
 
-Before you can use trimmomatic you will need to install it.
-```bash
-conda install -c bioconda trimmomatic
-```
-If prompted to update/install, please type `Y`.
-
 Below is a basic trimmomatic command for processing paired-end data.
 Modify the command to:
 
  * Use 2 cores/threads to speed up processing
  * Increase the quality value threshold, at which 3' quality trimming is performed, to 20
- * Include a minimum length filter of 75 bp (hint look for `MINLEN` in the manual).
+ * Include a minimum length filter of 75 bp (hint look for `MINLEN` in the [manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf).
 
 ```bash
 # Trimmomatic requires any output directories to exist before running
@@ -333,7 +367,7 @@ Are the values separated with a space (e.g. `-t 2`), and equal sign (e.g. `-t=2`
 
 There are some general guidlines, but ultimately it is up to the developer of the tool as to how they design/write their software.
 The best thing to do is to read the manual and the help page to understand how it wants these thing specified. 
-http://www.usadellab.org/cms/?page=trimmomatic#
+[http://www.usadellab.org/cms/?page=trimmomatic#](http://www.usadellab.org/cms/?page=trimmomatic#)
 
 #### Questions
 {:.no_toc}
@@ -343,11 +377,6 @@ http://www.usadellab.org/cms/?page=trimmomatic#
  - *How many read pairs survived all the trimming and length filters?*
 
 ### fastp
-first, install fastp
-
-```bash
-conda install -c bioconda fastp
-```
 
 The below `fastp` command has been constructed with the same kinds of trimming parameters we asked you to run trimmomatic with above:
 
