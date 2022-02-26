@@ -260,7 +260,7 @@ Note that we haven't edited the file on disk, we've just streamed the data conta
 
 # sed: The Stream Editor
 
-One additional and very useful command in the terminal is `sed`, which is short for *stream editor*.
+One additional and very useful command in the terminal is `sed`, which is short for *stream editor*. A tutorial is available at [http://www.grymoire.com/Unix/Sed.html](http://www.grymoire.com/Unix/Sed.html).
 Instead of the `man` page for `sed` the `info sed` page is larger but a little easier to digest.
 This is a very powerful command which can be a little overwhelming at first.
 If using this for your own scripts and you can't figure something out, remember 'Google is your friend' and sites like \url{www.stackoverflow.com} are full of people wrestling with similar problems to you.

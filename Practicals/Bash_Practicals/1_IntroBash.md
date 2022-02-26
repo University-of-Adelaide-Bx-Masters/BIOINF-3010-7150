@@ -679,8 +679,8 @@ In most of the above commands we used the option `-E` to specify the extended ve
 An alternative to this is to use the command `egrep`, which is the same as `grep -E`.
 Repeat a few of the above commands using `egrep` instead of `grep -E`.
 
-We briefly covered the idea of capturing text in the R practical, however these operations in `bash` are beyond the scope of this course.
-To perform this we usually use the Stream EDitor `sed`.
+Capturing text is something you may want to do, however these operations in `bash` are beyond the scope of this course.
+To perform this we usually use the Stream EDitor `sed` and this will be covered in part 2 of this practical.
 For those who are interested, there is a tutorial available at http://www.grymoire.com/Unix/Sed.html.
 
 
