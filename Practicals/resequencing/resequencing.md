@@ -24,9 +24,13 @@ To make and enter the directory that you will be working in, run the following c
 # Setup project working directory
 mkdir --parents ~/Project_2/data/
 cd ~/Project_2/
+```
+## Software packages
 
-# load the required software environment
-conda activate assembly
+Install `bwa`, `samtools` and `minimap2` using `conda`
+
+```bash
+conda install -c bioconda bwa samtools minimap2
 ```
 
 ## Data
@@ -160,9 +164,6 @@ mkdir --parents ~/Project_2/data/reference/
 # Get the SARS-CoV-2 reference genome
 cp ~/data/COVID-19.fasta.gz ~/Project_2/data/reference/
 
-#install bwa
-conda install -c bioconda bwa
-
 # Index the reference genome for use with BWA
 bwa index ~/Project_2/data/reference/COVID-19.fasta.gz
 ```
@@ -247,9 +248,6 @@ Long reads have the potential for spanning "repeat" regions, untangling the mess
 Lets align the long reads to the reference genome.
 
 ```bash
-#install minimap2
-conda install -c bioconda minimap2
-
 # Index the reference genome for minimap2
 minimap2 \
   -d ~/Project_2/data/reference/COVID-19.fasta.gz.mmi \
