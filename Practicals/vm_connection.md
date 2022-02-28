@@ -11,7 +11,7 @@ All VMs are the same and we will use these for the entire practical series.
 
 Now you should see the following image:
 
-![RStudio initial login screen](../Bash_Practicals/images/RStudio_VM.png)
+![RStudio initial login screen](../Bash_Practicals/images/RStudio_VM_login.png)
 
 
 **Reset your password**
