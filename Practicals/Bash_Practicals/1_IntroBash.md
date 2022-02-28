@@ -250,7 +250,7 @@ Now to change back into your Project_0 folder, type `cd P` without hitting enter
 Instead hit your <kbd>Tab</kbd> key and `bash` will complete as far as it can.
 If you have setup your directories correctly, you should see this complete to `cd Pr` which is unfinished.
 You also have `Practical_1` and `Practical_2` in your home folder, so `bash` has gone as far as it can.
-Now it's up to us to enter the next letter `a` or `o` before hitting <kbd>Enter</kbd>. If you enter `a` as the next letter `cd Pra` it will complete to `cd Practical_` which is as far as it can go. 
+Now it's up to us to enter the next letter `a` or `o` before hitting <kbd>Tab</kbd><kbd>Enter</kbd>. If you enter `a` as the next letter `cd Pra` it will complete to `cd Practical_` which is as far as it can go. 
 
 When faced with multiple choices, we can also hit the <kbd>Tab</kbd> key twice and `bash` will give us all available alternatives.
 Let's see this in action by changing back to our home folder.
