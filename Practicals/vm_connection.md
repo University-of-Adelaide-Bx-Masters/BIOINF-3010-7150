@@ -37,4 +37,4 @@ Importantly, you will be the only person to be able to access your VM:
 - When connected directly to the University WiFi Network
 - When connected from another network using the [University of Adelaide VPN](https://www.adelaide.edu.au/technology/your-services/network-services/remote-access-via-virtual-private-network-vpn)
 
-[Back](Bash_Practicals/1_IntroBash)
+[Back](./Bash_Practicals/1_IntroBash.md)
