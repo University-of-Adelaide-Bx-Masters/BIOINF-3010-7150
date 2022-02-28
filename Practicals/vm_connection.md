@@ -28,7 +28,7 @@ This is also known as the prompt.
     - Enter a new password. Again, *you will not see any characters appear*.
     - Re-enter your new password to confirm you haven't made any typos. (If you do make a mistake, the process will abort, so just begin again by typing `passwd` + <kbd>Enter</kbd>)
     - **PLEASE REMEMBER THIS PASSWORD**
-3. At the top right of RStudio, next to `student`, click the logout (![logout](./Bash_Practicals/images/RStudion_VM_logout.png)) symbol.
+3. At the top right of RStudio, next to `student`, click the logout (![logout](./Bash_Practicals/images/RStudio_VM_logout.png)) symbol.
 4. Login once again using your new password.
 
 You now have access to your VM.
