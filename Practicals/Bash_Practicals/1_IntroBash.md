@@ -38,7 +38,7 @@ We can utilise `bash` in two primary ways:
 
 For most of today we will work interactively, however a complete analysis should be scripted so we have a record of everything we do.
 This is often referred to as *Reproducible Research*, and in reality, our scripts are like an electronic lab book and will help you remember exactly what analyses you have performed.
-When you're writing your thesis, referring back to your scripts will be very useful for writing your methods section.
+When you're writing up methods for a report, paper or thesis, referring back to your scripts will be very useful.
 
 ## Running `bash` on your VM
 
@@ -47,7 +47,7 @@ To keep everything consistent for this practical, we'll use the terminal which i
 Note that even though we're using `RStudio`, we won't be interacting with `R` today as `R` runs interactively in the `Console`.
 Instead we'll be using one of the other features provided by `RStudio` to access `bash`
 
-To access this, open `RStudio` as you have for the previous practicals and make sure the `Console` window is visible.
+To access this, open `RStudio` and make sure the `Console` window is visible.
 Inside this pane, you will see a **Terminal** Tab so click on this and you will be at an interactive terminal running `bash`.
 
 We'll explore a few important commands below, and the words *shell* and *bash* will often be used interchangeably with the terminal window.
@@ -55,18 +55,15 @@ We'll explore a few important commands below, and the words *shell* and *bash* w
 If you've ever heard of the phrase **shell scripts**, this refers to a series of commands like we will learn in these sessions, strung together into a plain text file, and which is then able to be run as a single process.
 
 Although we haven't specifically mentioned this up until now, your virtual machines are running a distribution of Linux, and we can access these machines by logging in remotely, as well as through the `RStudio` interface.
-We'll cover this later in the practical course.
-Most High-Performance Computing (HPC) systems you use will require a knowledge of Linux so these practicals will give you the basics skills for working in this environment.
-Most of the data analysis performed by the Bioinformatics Hub relies on the University of Adelaide HPC for data storage and data processing.
 
 
 ## Setup the directory for today
 
 First we will set up a directory for today's practical.
 In general it is very worthwhile to keep all your project-specific code and data organised into a consistent location and structure.
-This are not essential, but is very useful and is in general good practice.
-If you don't follow this step, you will be making your life immeasurably harder and will not be following 'best practice' data analysis.
-For practicals in Transcriptomics Applications where R will be used, everything will be harder if you do not follow the equivalent strategy there.
+This is not essential, but is very useful and is good practice.
+If you don't follow this step, you will be making your life much harder and will not be following 'best practice' data analysis.
+For practicals where R will be used, everything will be harder if you do not follow the equivalent strategy there.
 
 To make and enter the directory that you will be working in, run the following commands in the terminal pane (try to figure out what they mean — we will be going over them more later in the prac).
 
@@ -80,7 +77,7 @@ If you look at the bottom right pane of your RStudio session you will see `Proje
 If you need to, you can navigate through the directories and select files with the file navigation pane just as you would with a normal file browser.
 
 Making this directory to work in will help you keep everything organised so you can find your work later.
-Managing your data and code intelligently is a considerable challenge in bioinformatics.
+Managing your data and code well is a considerable challenge in bioinformatics.
 
 
 ## Initial Goals
@@ -120,7 +117,7 @@ pwd
 ```
 
 The command `pwd` is what we use to **p**rint the current (i.e. **w**orking) **d**irectory.
-Even though we are not using `R`, if you have setup the R project like we instructed above this command will probably return the directory.
+
 
 ```
 /home/student/Project_0
@@ -132,7 +129,7 @@ If not, see if you can figure out why.
 At the beginning of this section we mentioned that `~/Project_0` represented your current directory, but now our machine is telling us that our directory is `/home/student/Project_0`.
 This raises an important and very useful point.
 In `bash` the `~` symbol is a shortcut for the home directory of the current user.
-If Dan was logged in, this would be `/home/Dan` whilst if Steve was logged in this would be `/home/Steve`.
+If Dave was logged in, this would be `/home/Dave` whilst if Anna was logged in this would be `/home/Anna`.
 As we are all logged on as `student`, this now stands for `/home/student`.
 
 Importantly every user with an account on a machine will have their own home directory of the format `/home/username1`, `/home/username2` etc..
@@ -249,11 +246,11 @@ mkdir Practical_1
 mkdir Practical_2
 ```
 
-Now to change back into your Project_0 folder, type `cd Pr` without hitting enter.
+Now to change back into your Project_0 folder, type `cd P` without hitting enter.
 Instead hit your <kbd>Tab</kbd> key and `bash` will complete as far as it can.
-If you have setup your directories correctly, you should see this complete to `cd Practical_` which is unfinished.
+If you have setup your directories correctly, you should see this complete to `cd Pr` which is unfinished.
 You also have `Practical_1` and `Practical_2` in your home folder, so `bash` has gone as far as it can.
-Now it's up to us to enter the final `0` before hitting <kbd>Enter</kbd>.
+Now it's up to us to enter the next letter `a` or `o` before hitting <kbd>Enter</kbd>. If you enter `a` as the next letter `cd Pra` it will complete to `cd Practical_` which is as far as it can go. 
 
 When faced with multiple choices, we can also hit the <kbd>Tab</kbd> key twice and `bash` will give us all available alternatives.
 Let's see this in action by changing back to our home folder.
@@ -263,7 +260,7 @@ cd
 ```
 
 Now type `cd Pr` and hit the <kbd>Tab</kbd> key twice and you will be shown all of the alternatives.
-You'll still have to type the `0` though.
+You'll still have to type the `o` though to get to `Project_0`.
 
 Another example which will complete all the way for you might be to go up one from your home folder.
 
@@ -624,7 +621,7 @@ Firstly, we'll need to get the file that we'll search in this section.
 First **change into your `test` directory** using the `cd` command, then enter the following, depending on your operating system:
 
 ```bash
-cp ~/data/words words
+cp ~/data/intro_bash/words words
 ```
 
 Now page through the first few lines of the file using `less` to get an idea about what it contains.
