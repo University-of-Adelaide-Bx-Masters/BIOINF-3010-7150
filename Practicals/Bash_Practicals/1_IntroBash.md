@@ -576,8 +576,6 @@ We'll download a file from the internet, then look through the file.
 ## Introduction
 Regular expressions are a powerful & flexible way of searching for text strings amongst a large document or file.
 Most of us are familiar with searching for a word within a file, but regular expressions allow us to search for these with more flexibility, particularly in the context of genomics.
-We briefly saw this idea in the `R` practical using the functions `str_extract()` and `str_replace()`.
-Instead of searching strictly for a word or text string, we can search using less strict matching criteria.
 For example, we could search for a sequence that is either `AGT` or `ACT` by using the patterns  `A[GC]T` or  `A(G|C)T`.
 These two patterns will search for an  `A`, followed by either a  `G` or  `C`, then followed strictly by a  `T`.
 Similarly a match to `ANNT` can be found by using the patterns `A[AGCT][AGCT]T` or  `A[AGCT]{2}T`.
@@ -586,7 +584,7 @@ We'll discuss that syntax below, so don't worry if those patterns didn't make mu
 Whilst the bash shell has a great capacity for searching a file to matches to regular expressions, this is where languages like *perl* and *python* offer a great degree more power.
 
 ## The command `grep`
-The built-in command which searches using regular expressions in the terminal is `grep`, which stands for `g`lobal `r`egular `e`xpression `p`rint.
+The built-in command which searches using regular expressions in the terminal is `grep`, which stands for [`g`lobal `r`egular `e`xpression `p`rint](https://en.wikipedia.org/wiki/Grep).
 This function searches a file or input on a line-by-line basis, so patterns contained within a line can be found, but patterns split across lines are more difficult to find.
 This can be overcome by using regular expressions in a programming language like Python or Perl.  
 
