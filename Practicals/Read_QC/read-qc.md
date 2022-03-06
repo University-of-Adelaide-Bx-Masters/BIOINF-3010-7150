@@ -45,14 +45,15 @@ For the practicals, we will use anaconda (`conda`) software environments to prov
 For today's practical, you need to install the required software packages in the `base` conda environment:
 
 ```bash
-conda install -c bioconda fastqc trimmomatic fastp
+conda install -c bioconda/label/main fastp
+conda install -c bioconda fastqc trimmomatic
 ```
 This will install the three software tools (`fastqc`, `trimmomatic` and `fastp`) and their dependencies that you will need for this practical. 
 
 When you do this you will see something like this:
 
 ```bash
-(base) student@bioinf-3010-2022-1:~$ conda install -c bioconda trimmomatic fastp
+(base) student@bioinf-3010-2022-1:~/Project_1$ conda install -c bioconda/label/main fastp
 Collecting package metadata (current_repodata.json): done
 Solving environment: done
 
@@ -62,29 +63,20 @@ Solving environment: done
 
   added / updated specs:
     - fastp
-    - trimmomatic
 
-
-The following packages will be downloaded:
-
-    package                    |            build
-    ---------------------------|-----------------
-    fastp-0.12.4               |                0         1.5 MB  bioconda
-    libgcc-7.2.0               |       h69d50b8_2         269 KB
-    trimmomatic-0.39           |       hdfd78af_2         144 KB  bioconda
-    ------------------------------------------------------------
-                                           Total:         1.9 MB
 
 The following NEW packages will be INSTALLED:
 
-  fastp              bioconda/linux-64::fastp-0.12.4-0
-  libgcc             pkgs/main/linux-64::libgcc-7.2.0-h69d50b8_2
-  trimmomatic        bioconda/noarch::trimmomatic-0.39-hdfd78af_2
+  fastp              bioconda/label/main/linux-64::fastp-0.20.1-h2e03b76_1
 
 
-Proceed ([y]/n)? 
+Proceed ([y]/n)? y
 
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
 ```
+
 You will need to type `y` to proceed with the installation.
 
 # Read Quality Control
@@ -170,7 +162,7 @@ There doesn't yet exist a technology capable of "reading" an entire chromosome i
 Instead we have to make use of technologies capable of generating short (<300bp) but accurate (>99%) reads.
 
 FASTQ files are plain-text, although they are usually compressed using `gzip` and have the file extension `.gz`.
-Lets take a look:
+Lets take a look:(note that we use `\` to make this more readable. `\` allows us to use multiple lines without an actual end of line character, therefore the three lines below are read as one line)
 
 ```bash
 gunzip \
@@ -324,7 +316,7 @@ If this is significant enough, it is worth asking the sequencing service provide
 #### Questions
 {:.no_toc}
 
- - *Do you think it will be necessary to look for and remove adpater sequences from the reads?*
+ - *Do you think it will be necessary to look for and remove adapter sequences from the reads?*
 
 ## Adapter and Quality Trimming Reads
 
@@ -345,7 +337,7 @@ We are going to investigate the use of 2 tools: trimmomatic and fastp.
 Below is a basic trimmomatic command for processing paired-end data.
 Modify the command to:
 
- * Use 2 cores/threads to speed up processing
+ * Use 1 core/thread to compare to the default, which will use all cores available (2).
  * Increase the quality value threshold, at which 3' quality trimming is performed, to 20
  * Include a minimum length filter of 75 bp (hint look for `MINLEN` in the [manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf).
 
@@ -357,7 +349,7 @@ time trimmomatic PE \
   data/ERR1949188_1.fastq.gz data/ERR1949188_2.fastq.gz \
   qc_reads/trimmomatic/ERR1949188_1.fastq.gz qc_reads/trimmomatic/ERR1949188_1.orphans.fastq.gz \
   qc_reads/trimmomatic/ERR1949188_2.fastq.gz qc_reads/trimmomatic/ERR1949188_2.orphans.fastq.gz \
-  ILLUMINACLIP:${CONDA_PREFIX}/share/trimmomatic-0.39-1/adapters/TruSeq3-PE.fa:2:30:10:3:true \
+  ILLUMINACLIP:${CONDA_PREFIX}/share/trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:3:true \
   SLIDINGWINDOW:4:10
 ```
 
@@ -372,7 +364,7 @@ The best thing to do is to read the manual and the help page to understand how i
 #### Questions
 {:.no_toc}
 
- - *By specifying trimmomatic to use 2 CPUs/cores, how much quicker does trimmomatic finish?*
+ - *By allowing trimmomatic to use it's default of all possible cores (2 CPUs/cores in our case), how much quicker does trimmomatic finish?*
  - *Does it matter what order the trimming steps are specified? Try specifying `MINLEN` before `ILLUMINACLIP` and then at the end. What happend and why?*
  - *How many read pairs survived all the trimming and length filters?*
 
@@ -385,9 +377,11 @@ mkdir -p qc_reads/fastp
 
 time fastp \
   --thread 2 \
-  -i data/ERR1949188_1.fastq.gz -I data/ERR1949188_2.fastq.gz \
-  -o qc_reads/fastp/ERR1949188_1.fastq.gz --unpaired1 qc_reads/fastp/ERR1949188_1.orphans.fastq.gz \
-  -O qc_reads/fastp/ERR1949188_2.fastq.gz --unpaired2 qc_reads/fastp/ERR1949188_2.orphans.fastq.gz \
+  -i ./data/ERR1949188_1.fastq.gz -I data/ERR1949188_2.fastq.gz \
+  -o ./qc_reads/fastp/ERR1949188_1.fastq.gz \
+  -O ./qc_reads/fastp/ERR1949188_2.fastq.gz \
+  --unpaired1 ./qc_reads/fastp/ERR1949188_1.orphans.fastq.gz \
+  --unpaired2 ./qc_reads/fastp/ERR1949188_2.orphans.fastq.gz \
   --cut_right --cut_window_size 4 --cut_mean_quality 20 \
   --length_required 75
 ```
