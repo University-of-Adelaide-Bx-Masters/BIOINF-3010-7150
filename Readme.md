@@ -11,7 +11,7 @@ Semester 1 2022 - *Provisional Timetable*
 | **Week** | **Monday** | **Lecture**                                       | **Practical**                                     |
 |----------|------------|---------------------------------------------------|---------------------------------------------------|
 | **1**    | 28/2       | Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (Dave) | [Introduction to Bash 1] (Dave)   [Introduction to Bash 2] (Dave)                  |
-| **2**    | 7/3        | Resequencing (Exome/WGS)     (Dave)                    |[Read Quality Control] (Dave) [TBA] |
+| **2**    | 7/3        | Resequencing (Exome/WGS)     (Dave)                    |[Read Quality Control] (Dave)[Read Quality Control contd] |
 | **3**    | 14/3       | **No lecture - Public Holiday**  |[SARS-CoV-2 Resequencing] (Dave)  [TBA]       |
 | **4**    | 21/3       | Short read assembly; approaches and issues (Dave) | [SAMTools and alignments] (Dave)  [SARS-CoV-2 Short Read Assembly] (Dave)          |
 | **5**    | 28/3       | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (Anna) |  [Short and long read alignment] (Anna) [E. coli K-12 Hybrid Genome Assembly] (Anna)         |
@@ -57,7 +57,44 @@ Semester 1 2022 - *Provisional Timetable*
 | [Assignment 2]()                                          | Genome assembly|
 | [Assignment 3]()                                          | Genome Annotation|
 | [Assignment 4]()                                          | Population Genomics  (No Link)       |
+| [Project]() (PG only)                          | Complete Dataset   |
 
+### Major Project (Post Grad only)
+
+In this course, the following next-generation sequencing (NGS) datasets/protocols will be examined in detail:
+
+- Whole genome sequencing/Resequencing
+- Whole genome assembly
+- Sequence alignment
+- Ancient DNA/Population Genomics
+- Genome graphs
+- SNV variant/structural variation analysis
+
+Each of these NGS approaches uses similar programs and analysis approaches, such as quality control (quality and sequencing adapter trimming), genome alignment, and downstream visualisation and statistical methods.
+For the project, you will take a published (or otherwise obtained) dataset and complete all the analysis tasks (from raw data to final results) during the course.
+You have the freedom to choose any dataset you would like. You will prepare a final report that will be due at the end of the semester.
+The report should be prepared using RStudio as an Rmd document including all code needed to perform the analysis, and will include the standard components of a scientific report:
+
+- Introduction (background on the study and identification of the research hypothesis)
+- Methods (analysis steps and programs used)
+- Results (what you found) and; 
+- Discussion (how the results relate to the research hypothesis and the published literature).
+
+The Rmd document and a compiled knitted html will form the submission; marks will be awarded to the code and Rmd that you use.
+
+| Section | Mark |
+|---------|-----:|
+| Abstract | 5% |
+| Introduction and hypothesis |	10% |
+| Methods | 20% |
+| Results and Discussion | 30% |
+| References | 5% |
+| Analysis scripts | 30% |
+
+#### Major Project Data
+
+For the project I was able to download a number of publicly available datasets from the Encylopedia of DNA elements (ENCODE) project, which is a large multi-national study that wrapped up a while ago.
+The purpose of the study was to identify any "functional" region of the genome that may not be gene-coding, so the project sequenced a lot of RNA sequencing, ChIP-seq (Transcription Factor-binding), DNA methylation sequencing and arrays etc.
 
 ### Assessment Checklist
 
