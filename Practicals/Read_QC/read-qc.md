@@ -321,7 +321,7 @@ If this is significant enough, it is worth asking the sequencing service provide
 ## Adapter and Quality Trimming Reads
 
 If we do not trim adapters or low quality regions from reads we might not be able to align reads to a genome.
-Adapter-containing reads will fail to align as the adpeter does not match anything in the genome.
+Adapter-containing reads will fail to align as the adapter does not match anything in the genome.
 Low quality stretches of reads might contain too many sequencing errors and stop the read aligning to the correct location in the genome.
 
 If we have a large excess of data, the fact that a small proportion of reads contain some adapter or have low quality regions doesn't has a significant effect when aligning reads to a genome.
