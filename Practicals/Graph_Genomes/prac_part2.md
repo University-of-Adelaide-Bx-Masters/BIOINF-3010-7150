@@ -1,27 +1,48 @@
-### Getting started
+### Getting (re)started
 
-First you will need to activate the conda environment that we will be using.
+Double check if the directories (~/data/graph_genomes) exist (persists):
 
-    conda activate variation
+    ls -lh ~/Project_8
     
-### Setup VG if you haven't already
-    
-    # Download vg
-    wget https://github.com/vgteam/vg/releases/download/v1.32.0/vg
-    
-    # Make it executable
-    chmod u+x vg
-    
-    # Add current directory to PATH
-    export PATH=$PWD:$PATH
+And all the software we installed is still available:
 
-### Mapping reads to a graph
-Ok, let's step up to a slightly bigger example.
+    vg
+    bcftools
+    jq -h
+    dot -h
+    Bandage -h 
 
-    cd /data
-    cp -r vg/test/1mb1kgp ./exercise2
+If your environement is not persistent (resets everytime you log out), rerun the following commands, otherwise skip directly to the exercise (Working with larger graphs):
+
+#### Installing the required packages
+
+First you will need to aquire the necessary packages using the conda package manager:
+
+    conda install -c conda-forge mamba
+    mamba install -c conda-forge -c bioconda vg jq graphviz bcftools Bandage
+
+vg is a large collection of tools that is under very active development. If you want to learn more about vg visit the [vg homepage](https://github.com/vgteam/vg). 
+
+To test if things are working smoothly, you can run:
+
+    vg
+
+#### Getting the required data
+
+In this exercise, let's step up to a slightly bigger example .Make sure you have checked out vg (again if the environement isn't persistent):
+
+    mkdir ~/Project_8
+    cd ~/Project_8
+    git clone https://github.com/vgteam/vg.git
+
+Now create a directory to work on for this tutorial:
+
+    mkdir exercise2
+    cp vg/test/1mb1kgp/* exercise2/
     cd exercise2
-    ls -lh
+
+### Working with larger graphs
+
 
 This directory contains 1Mbp of 1000 Genomes data for chr20:1000000-2000000. As for the tiny example, let's' build one linear graph that only contains the reference sequence and one graph that additionally encodes the known sequence variation. The reference sequence is contained in `1mb1kgp/z.fa`, and the variation is contained in `1mb1kgp/z.vcf.gz`. Make a reference-only graph named `ref.vg`, and a graph with variation named `z.vg`. Look at the previous examples to figure out the command.
 
@@ -37,8 +58,8 @@ Passing option `-k 16` tells vg to use a k-mer size of *16k*. The best choice of
 
 As mentioned above, the whole graph is unwieldy to visualize. But thanks to the XG representation, we can now quickly **find** individual pieces of the graph. Let's extract the vicinity of the node with ID 2401 and create a PDF.
 
-    vg find -n 2401 -x z.xg -c 10 > 2401c10.vg
-    vg view -dp 2401c10.vg | dot -Tpdf -o 2401c10.pdf
+    vg find -n 2401 -x z.xg -c 10 | vg view -dp - | dot -Tpdf -o 2401c10.pdf
+
     
 2401c10.pdf![image](https://user-images.githubusercontent.com/1767457/116373399-74790080-a84c-11eb-8f77-95d57aa2beb2.png)
 
@@ -64,6 +85,7 @@ These commands would show us the first alignment in the set:
     vg find -x z.xg -G first_aln.gam | vg view -dA first_aln.gam - | dot -Tpdf -o first_aln.pdf
 
 first_aln.pdf![image](https://user-images.githubusercontent.com/1767457/116373438-7cd13b80-a84c-11eb-9b57-e55adf916198.png)
+
 
 We see the `Mappings` of the `Alignment` written in blue for exact matches and yellow for mismatches above the nodes that they refer to. Many alignments can be visualized at the same time. A simpler mode of visualization `vg view -dSA` gives us the alignment's mappings to nodes, colored in the range from green to red depending on the quality of the match to the particular node.
 
@@ -114,9 +136,8 @@ Try doing this on graphs with a range of minimum allele frequencies (e.g. 0.5, 0
 
 How do these files seem to scale with the minimum cutoff? Note that the identity metric is flawed, in that we are not asking if the mapping itself is more accurate, just if it matches the graph better in the aggregate.
 
-*****************
-### Mapping data from real data to examine the improvement [DEPRECATED]
-DUE TO A RESTRUCTURE OF THE NIST-GAIB RESTRUCTURE OF THE FTP SERVER, WE ARE UNABLE TO STREAM THE BAM FILE LINKED BELLOW. BUT THE INSTRUCTIONS HOLD TRUE STILL.
+### BONUS: Mapping data from real data to examine the improvement
+DUE TO A RESTRUCTURE OF THE NIST-GAIB RESTRUCTURE OF THE FTP SERVER, YOU ARE UNABLE TO STREAM THE BAM FILE LINKED BELLOW. BUT THE INSTRUCTIONS HOLD TRUE STILL.
 
 We can also download some real data mapping to this region to see if the different graphs provide varying levels of performance.
 
@@ -135,7 +156,7 @@ We can run a single-ended alignment test to compare with bwa mem:
     bcftools filter -i 'AF > 0.01' z.vcf.gz >z.AF0.01.vcf
     vg construct -r z.fa -v z.AF0.01.vcf -m 32 >z.AF0.01.vg
     vg index -x z.AF0.01.xg -g z.AF0.01.gcsa z.AF0.01.vg
-    vg map --drop-full-l-bonus -d z.AF0.01 -f HG002-NA24385-20_1M-2M-50x_1.fq.gz -j | pv -l | jq -cr '[.name, .score] | @tsv' > vg_map.AF0.01.scores.tsv
+    vg map --drop-full-l-bonus -d z.AF0.01 -f HG002-NA24385-20_1M-2M-50x_1.fq.gz -j | pv -l | jq -cr '[.name, .score] | @tsv' >vg_map.AF0.01.scores.tsv
 
 Then we can compare the results using sort and join:
 
@@ -160,6 +181,4 @@ Let's dig into some of the more-highly differentiated reads to understand why vg
 - `vg view -aJG ALN.json` : convert the JSON representation back into a .gam alignment file
 - `vg mod -g ID -x N GRAPH.vg` : extract the subgraph that is within `N` nodes from node `ID`
 - `vg mod -P -i ALN.gam GRAPH.vg` : add the paths from the alignment into the graph (similar to the reference path in the exercise)
-
-
 
