@@ -1,6 +1,18 @@
 
 # Clinical Genomics & Pedigree Analysis
 
+#### Let's start the tool installation first, as it can take a while:
+```bash
+# Update conda
+conda update -n base -c defaults conda
+# Create a python 2 environment and activate it
+conda create --name py27 python=2.7
+conda activate py27
+# Install required tools
+conda install -c bioconda cyvcf2
+pip install gemini
+```
+
 High-throughput sequencing is currently used ubiquitously in identifying the cause of a large range of genetic diseases.
 While single gene and well-known Mendelian genetic disorders, such as sickle-cell anemia, Tay–Sachs disease and cystic fibrosis, can be identified with simple diagnostic techniques, whole genome (WGS) and exome (WES/WXS) sequencing can be used to identify and study a wide variety of inherited traits.
 Cost used to be a barrier for using high-throughput sequencing approaches, but now it is possible to sequence a patient in [under 27 hours for less than ~US$1,000 per sample](https://genomemedicine.biomedcentral.com/articles/10.1186/s13073-015-0221-8). 
@@ -12,7 +24,7 @@ The current clinical workflow works a lot like this:
 
 ![Priest. (2017). _Curr Opin Pediatr_. 29(5): 513–519.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5590671/bin/nihms899674f1.jpg)
 
-In Tuesday's tutorial, we discussed annotation of identified variants in three samples, and today we will be looking at family inheritance patterns.
+In Friday's tutorial, we discussed annotation of identified variants in three samples, and today we will be looking at family inheritance patterns.
 As you may have noticed, the three samples sequenced in our data are related, and form a "trio" (mother-father-daughter). 
 Trios and other members of an affected individual's family are often sequenced in clinical genetics, allowing clinicians to establish the inheritance pattern of the trait or identify new _de novo_ mutations that may have arisen independently of the parents.
 
@@ -36,17 +48,17 @@ Gemini can take the VCF file and sample information in the form of a ped file (s
 The ped file is actually a standard metadata information file that was developed in the [genetics application `PLINK`](http://zzz.bwh.harvard.edu/plink/data.shtml#ped).
 This program is used extensively for genome-wide association studies, and was developed in the era of genotyping arrays rather than WGS approaches. 
 
-Unfortunately the database loading command also adds a lot of annotation information that requires >50GB of data to be used, so instead of running the loading commands below I will provide each database separately
+Unfortunately the database loading command also adds a lot of annotation information that requires >50GB of data to be used, so instead of running the loading commands below, let's use a pre-generated database
 
 
-```
+```bash
 # Loading VCF files require all the annotation databases
 ## Create the gemini db for dominant study
 #gemini load --cores 4 -v trio.trim.vep.vcf.gz -t VEP \
 #        --skip-gene-tables -p dominant.ped trio.trim.vep.dominant.db
 
-# Copy the dominant gemini db to your working directory for todays prac
-cp ~/data/genomics/trio.trim.vep.dominant.db .
+# Download the pre-generated dominant gemini db to your working directory for todays prac
+wget https://universityofadelaide.box.com/shared/static/sz1b6iv6e2no8z57qf7synk0t9ke03lt.db -O "trio.trim.vep.dominant.db"
 ```
 
 We'll use this database for our querying and `autosomal_dominant` analysis.
@@ -64,7 +76,7 @@ We will also need some conditionals to  like `WHERE`, `IS`, `IS NOT` etc
 
 In order to query we need to know what we have.
 
-```
+```bash
 gemini db_info trio.trim.vep.dominant.db
 ```
 
@@ -75,7 +87,7 @@ All of these are available to be queried
 
 Let's look at some examples by using the `gemini query` sub-command.
 
-```
+```bash
 # Get everything from the samples table with a wildcard
 gemini query -q "SELECT * FROM samples" trio.trim.vep.dominant.db
 
@@ -123,7 +135,7 @@ It occurs in about in 1 in 1,000 to 3,000 individuals (1 in ~1,000 in Europeans)
 Both the mother (`1805`) and the son (`4805`) are affected with the disorder, with normal plasma HDL, fat malabsorption and are in the bottom 5% for plasma cholesterol and triglycerides.
 We want to be able to see these sort of relationships in the PED file so lets have a quick look at that
 
-```
+```bash
 cat dominant.ped | column -t
 
 #family_id  sample_id  paternal_id  maternal_id  sex  phenotype  ancestry
@@ -141,7 +153,7 @@ Given that we will be comparing the pattern of inheritance of these variants, it
 For example, what if we wanted to identify variants where both 1805 and 4805 have a non-reference allele?
 (After all, 1805 and 4805 are both affected)
 
-```
+```bash
 # Show all info
 gemini query -q "SELECT * from variants" \
             --gt-filter "(gt_types.1805 <> HOM_REF AND gt_types.4805 <> HOM_REF)" \
@@ -160,7 +172,7 @@ The syntax for wildcards in `--gt-filter` follows a slightly different format:
 
 ```--gt-filter (COLUMN).(SAMPLE_WILDCARD).(SAMPLE_WILDCARD_RULE).(RULE_ENFORCEMENT)```
 
-```
+```bash
 # Print heterozygous variants in all
 gemini query -q "SELECT chrom, start, end, ref, alt, gene, impact, (gts).(*) \
                  FROM variants" \
@@ -197,7 +209,7 @@ The genotype requirements for an autosomal dominant disorder are:
 
 Ok lets have a look:
 
-```
+```bash
 gemini autosomal_dominant \
     --columns "chrom, start, end, ref, alt, gene, impact, cadd_raw" \
     trio.trim.vep.dominant.db | head | column -t
@@ -220,4 +232,7 @@ From here we can start widdling down our variants based on variant filtering con
 ### EXTRA EXTRA TASK: Recessive example
 
 - Do the same exercise with the recessive database
+```bash
+wget https://universityofadelaide.box.com/shared/static/rickfu8x44gqmcvqannrina8z70is2ru.db -O "trio.trim.vep.recessive.db"
+```
   - What `gemini` functions can be employed to identify recessive variants?

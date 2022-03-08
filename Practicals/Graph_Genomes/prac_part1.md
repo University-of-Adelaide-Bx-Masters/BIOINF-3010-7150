@@ -29,9 +29,8 @@ To test if things are working smoothly, you can run:
 
 In this exercise, you will use small toy examples from the `test` directory. So make sure you have checked out vg:
 
-    cd data
-    mkdir graph_genomes
-    cd graph_genomes
+    mkdir -p ~/Project_8
+    cd ~/Project_8
     git clone https://github.com/vgteam/vg.git
 
 Now create a directory to work on for this tutorial:
@@ -59,7 +58,8 @@ This will create a (very boring) graph that just consists of a linear chain of n
 
 The switch `-m` tells vg to put at most 32 characters into each graph node. (You might want to run it with different values and observe the different results.) To visualize a graph, you can use `vg view`. Per default, `vg view` will output a graph in [GFA](https://github.com/GFA-spec/GFA-spec/blob/master/GFA1.md) format. By adding `-j` or `-d`, you can generate [JSON](https://www.json.org/) or [DOT](https://www.graphviz.org/doc/info/lang.html) output.
 
-    vg view tiny.ref.vg
+
+    vg view -j tiny.ref.vg
     vg view -d tiny.ref.vg
 
 To work with the JSON output the tool [jq](https://stedolan.github.io/jq/) comes in handy. To get all sequences in the graph, for instance, try
@@ -72,13 +72,16 @@ Next, we use graphviz to layout the graph representation in DOT format.
 
 View the PDF and compare it to the input sequence. Now vary the parameter passed to `-m` of `vg construct` and visualize the result.
 
-Ok, let's build a new graph that has some variants built into it. First, take a look at at `tiny/tiny.vcf.gz`, which contains variants in (gzipped) [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) format.
+tiny.ref.pdf![image](https://user-images.githubusercontent.com/1767457/116363995-e2202f00-a842-11eb-9077-03f889941242.png)
 
+
+### Constructing and viewing an enhanced graph
+
+Ok, let's build a new graph that has some variants built into it. First, take a look at at `tiny/tiny.vcf.gz`, which contains variants in (gzipped) [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) format.
+    
     vg construct -r tiny.fa -v tiny.vcf.gz -m 32 > tiny.vg
 
-Visualize the outcome.  
-
-Ok, that's nice, but you might wonder which sequence of nodes actually corresponds to the sequence (`tiny.fa`) you started from? To keep track of that, vg adds a **path** to the graph. Let's add this path to the visualization.
+That's nice, but you might wonder which sequence of nodes actually corresponds to the sequence (`tiny.fa`) you started from? To keep track of that, vg adds a **path** to the graph. Let's add this path to the visualization.
 
     vg view -dp tiny.vg | dot -Tpdf -o tiny.pdf
 
@@ -86,6 +89,7 @@ You find the output too crowded? Option `-S` removes the sequence labels and onl
 
     vg view -dpS tiny.vg | dot -Tpdf -o tiny.pdf
     
+tiny.pdf![image](https://user-images.githubusercontent.com/1767457/116364268-2f9c9c00-a843-11eb-9302-ebecace420f7.png)
 
 For these small graphs, the difference is not that big, but for more involved cases, these layouts can be much easier to read.
 
@@ -93,6 +97,8 @@ A better solution for larger graphs is [Bandage](http://rrwick.github.io/Bandage
 
     vg view tiny.vg > x.gfa
     Bandage image x.gfa x.gfa.png
+    
+x.gfa.png![image](https://user-images.githubusercontent.com/1767457/116364441-59ee5980-a843-11eb-8c81-155a6ef4200a.png)
 
 You can also apply `vg viz` to obtain a special kind of linear layout that scales well without losing path information.
 It requires the `xg` index, which we'll build first.
@@ -100,4 +106,6 @@ It requires the `xg` index, which we'll build first.
     vg index -x tiny.xg tiny.vg
     vg viz -x tiny.xg -o tiny.svg
 
-If the graph is very big, you'll need to view tiny.svg in chrome or a chromium-based web browser (e.g. edge).
+When the graph is very big, you'll need to view tiny.svg in chrome or a chromium-based web browser (e.g. edge).
+
+Screen Shot 2021-04-28 at 5.14.09 pm.png![image](https://user-images.githubusercontent.com/1767457/116366200-32988c00-a845-11eb-9d70-53f90bc96b0c.png)

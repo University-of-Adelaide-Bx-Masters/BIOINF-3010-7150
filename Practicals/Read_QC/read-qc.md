@@ -1,4 +1,4 @@
-# Week 2 Practical Part 1
+# Week 2 Practical
 {:.no_toc}
 
 * TOC
@@ -21,7 +21,7 @@ To make and enter the directory that you will be working in, run the following c
 
 ```bash
 mkdir --parents ~/Project_1/data
-cp ~/data/ERR1949188_?.fastq.gz ~/Project_1/data/
+cp ~/data/ReadQC/ERR1949188_?.fastq.gz ~/Project_1/data/
 cd ~/Project_1/
 ```
 
@@ -40,12 +40,44 @@ Managing your data and code intelligently is a considerable challenge in bioinfo
 
 ## Software Environment
 
-For the practicals, we have configured conda software environments to provide you with convienient access to the software you need.
-In order to have access to, and use, the software for today's practical, you need to activate the conda environment called "assembly":
+For the practicals, we will use anaconda (`conda`) software environments to provide you with convienient access to the software you need. We have installed anaconda for you already, so all that you need to do is use the `conda` command. You can find information about `conda` [here](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html). 
+
+For today's practical, you need to install the required software packages in the `base` conda environment:
 
 ```bash
-conda activate assembly
+conda install -c bioconda/label/main fastp
+conda install -c bioconda fastqc trimmomatic
 ```
+This will install the three software tools (`fastqc`, `trimmomatic` and `fastp`) and their dependencies that you will need for this practical. 
+
+When you do this you will see something like this:
+
+```bash
+(base) student@bioinf-3010-2022-1:~/Project_1$ conda install -c bioconda/label/main fastp
+Collecting package metadata (current_repodata.json): done
+Solving environment: done
+
+## Package Plan ##
+
+  environment location: /home/student/anaconda3
+
+  added / updated specs:
+    - fastp
+
+
+The following NEW packages will be INSTALLED:
+
+  fastp              bioconda/label/main/linux-64::fastp-0.20.1-h2e03b76_1
+
+
+Proceed ([y]/n)? y
+
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+```
+
+You will need to type `y` to proceed with the installation.
 
 # Read Quality Control
 
@@ -65,7 +97,7 @@ Before we can begin to analyse any data, it is helpful to understand how it was 
 While there are numerous platforms for generation of HTS data, today we will look at the Illumina Sequencing by Synthesis method, which is one of the most common methods in use today.
 It is worth looking at the following 5-minute video from Illumina:
 
-[![Illumina Sequencing by Sythesis](https://img.youtube.com/vi/fCd6B5HRaZ8/0.jpg)](https://youtu.be/fCd6B5HRaZ8)
+[![Illumina Sequencing by Synthesis](https://img.youtube.com/vi/fCd6B5HRaZ8/0.jpg)](https://youtu.be/fCd6B5HRaZ8)
 
 Illumina have released [multiple sequencing machines](https://sapac.illumina.com/systems/sequencing-platforms.html), with different capabilities, throughputs and applications.
 
@@ -130,7 +162,7 @@ There doesn't yet exist a technology capable of "reading" an entire chromosome i
 Instead we have to make use of technologies capable of generating short (<300bp) but accurate (>99%) reads.
 
 FASTQ files are plain-text, although they are usually compressed using `gzip` and have the file extension `.gz`.
-Lets take a look:
+Lets take a look:(note that we use `\` to make this more readable. `\` allows us to use multiple lines without an actual end of line character, therefore the three lines below are read as one line)
 
 ```bash
 gunzip \
@@ -284,7 +316,7 @@ If this is significant enough, it is worth asking the sequencing service provide
 #### Questions
 {:.no_toc}
 
- - *Do you think it will be necessary to look for and remove adpater sequences from the reads?*
+ - *Do you think it will be necessary to look for and remove adapter sequences from the reads?*
 
 ## Adapter and Quality Trimming Reads
 
@@ -302,18 +334,12 @@ We are going to investigate the use of 2 tools: trimmomatic and fastp.
 
 ### Trimmomatic
 
-Before you can use trimmomatic you will need to install it.
-```bash
-conda install -c bioconda trimmomatic
-```
-If prompted to update/install, please type `Y`.
-
 Below is a basic trimmomatic command for processing paired-end data.
 Modify the command to:
 
- * Use 2 cores/threads to speed up processing
+ * Use 1 core/thread to compare to the default, which will use all cores available (2).
  * Increase the quality value threshold, at which 3' quality trimming is performed, to 20
- * Include a minimum length filter of 75 bp (hint look for `MINLEN` in the manual).
+ * Include a minimum length filter of 75 bp (hint look for `MINLEN` in the [manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf).
 
 ```bash
 # Trimmomatic requires any output directories to exist before running
@@ -323,7 +349,7 @@ time trimmomatic PE \
   data/ERR1949188_1.fastq.gz data/ERR1949188_2.fastq.gz \
   qc_reads/trimmomatic/ERR1949188_1.fastq.gz qc_reads/trimmomatic/ERR1949188_1.orphans.fastq.gz \
   qc_reads/trimmomatic/ERR1949188_2.fastq.gz qc_reads/trimmomatic/ERR1949188_2.orphans.fastq.gz \
-  ILLUMINACLIP:${CONDA_PREFIX}/share/trimmomatic-0.39-1/adapters/TruSeq3-PE.fa:2:30:10:3:true \
+  ILLUMINACLIP:${CONDA_PREFIX}/share/trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:3:true \
   SLIDINGWINDOW:4:10
 ```
 
@@ -333,21 +359,16 @@ Are the values separated with a space (e.g. `-t 2`), and equal sign (e.g. `-t=2`
 
 There are some general guidlines, but ultimately it is up to the developer of the tool as to how they design/write their software.
 The best thing to do is to read the manual and the help page to understand how it wants these thing specified. 
-http://www.usadellab.org/cms/?page=trimmomatic#
+[http://www.usadellab.org/cms/?page=trimmomatic#](http://www.usadellab.org/cms/?page=trimmomatic#)
 
 #### Questions
 {:.no_toc}
 
- - *By specifying trimmomatic to use 2 CPUs/cores, how much quicker does trimmomatic finish?*
+ - *By allowing trimmomatic to use it's default of all possible cores (2 CPUs/cores in our case), how much quicker does trimmomatic finish?*
  - *Does it matter what order the trimming steps are specified? Try specifying `MINLEN` before `ILLUMINACLIP` and then at the end. What happend and why?*
  - *How many read pairs survived all the trimming and length filters?*
 
 ### fastp
-first, install fastp
-
-```bash
-conda install -c bioconda fastp
-```
 
 The below `fastp` command has been constructed with the same kinds of trimming parameters we asked you to run trimmomatic with above:
 
@@ -356,9 +377,11 @@ mkdir -p qc_reads/fastp
 
 time fastp \
   --thread 2 \
-  -i data/ERR1949188_1.fastq.gz -I data/ERR1949188_2.fastq.gz \
-  -o qc_reads/fastp/ERR1949188_1.fastq.gz --unpaired1 qc_reads/fastp/ERR1949188_1.orphans.fastq.gz \
-  -O qc_reads/fastp/ERR1949188_2.fastq.gz --unpaired2 qc_reads/fastp/ERR1949188_2.orphans.fastq.gz \
+  -i ./data/ERR1949188_1.fastq.gz -I data/ERR1949188_2.fastq.gz \
+  -o ./qc_reads/fastp/ERR1949188_1.fastq.gz \
+  -O ./qc_reads/fastp/ERR1949188_2.fastq.gz \
+  --unpaired1 ./qc_reads/fastp/ERR1949188_1.orphans.fastq.gz \
+  --unpaired2 ./qc_reads/fastp/ERR1949188_2.orphans.fastq.gz \
   --cut_right --cut_window_size 4 --cut_mean_quality 20 \
   --length_required 75
 ```

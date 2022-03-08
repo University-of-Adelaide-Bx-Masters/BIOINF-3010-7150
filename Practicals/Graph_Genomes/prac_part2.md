@@ -2,7 +2,7 @@
 
 Double check if the directories (~/data/graph_genomes) exist (persists):
 
-    ls -lh ~/data/graph_genomes
+    ls -lh ~/Project_8
     
 And all the software we installed is still available:
 
@@ -31,9 +31,8 @@ To test if things are working smoothly, you can run:
 
 In this exercise, let's step up to a slightly bigger example .Make sure you have checked out vg (again if the environement isn't persistent):
 
-    cd data
-    mkdir graph_genomes
-    cd graph_genomes
+    mkdir ~/Project_8
+    cd ~/Project_8
     git clone https://github.com/vgteam/vg.git
 
 Now create a directory to work on for this tutorial:
@@ -43,6 +42,7 @@ Now create a directory to work on for this tutorial:
     cd exercise2
 
 ### Working with larger graphs
+
 
 This directory contains 1Mbp of 1000 Genomes data for chr20:1000000-2000000. As for the tiny example, let's' build one linear graph that only contains the reference sequence and one graph that additionally encodes the known sequence variation. The reference sequence is contained in `1mb1kgp/z.fa`, and the variation is contained in `1mb1kgp/z.vcf.gz`. Make a reference-only graph named `ref.vg`, and a graph with variation named `z.vg`. Look at the previous examples to figure out the command.
 
@@ -59,6 +59,10 @@ Passing option `-k 16` tells vg to use a k-mer size of *16k*. The best choice of
 As mentioned above, the whole graph is unwieldy to visualize. But thanks to the XG representation, we can now quickly **find** individual pieces of the graph. Let's extract the vicinity of the node with ID 2401 and create a PDF.
 
     vg find -n 2401 -x z.xg -c 10 | vg view -dp - | dot -Tpdf -o 2401c10.pdf
+
+    
+2401c10.pdf![image](https://user-images.githubusercontent.com/1767457/116373399-74790080-a84c-11eb-8f77-95d57aa2beb2.png)
+
 
 The option `-c 10` tells `vg find` to include a context of 10 nodes in either direction around node 2401. You are welcome to experiment with different parameter to `vg find` to pull out pieces of the graph you are interested in.  
 
@@ -77,8 +81,11 @@ More advanced visualization methods (like [IVG](https://vgteam.github.io/sequenc
 
 These commands would show us the first alignment in the set:
 
-    vg view -a z.gam | head -1 | vg view -JaG - >first_aln.gam
+    vg view -a z.gam | head -1 | vg view -JaG - > first_aln.gam
     vg find -x z.xg -G first_aln.gam | vg view -dA first_aln.gam - | dot -Tpdf -o first_aln.pdf
+
+first_aln.pdf![image](https://user-images.githubusercontent.com/1767457/116373438-7cd13b80-a84c-11eb-9b57-e55adf916198.png)
+
 
 We see the `Mappings` of the `Alignment` written in blue for exact matches and yellow for mismatches above the nodes that they refer to. Many alignments can be visualized at the same time. A simpler mode of visualization `vg view -dSA` gives us the alignment's mappings to nodes, colored in the range from green to red depending on the quality of the match to the particular node.
 
@@ -88,6 +95,8 @@ To visualize many alignments, we can sort and index our GAM and then pull out th
     vg find -n 1020 -x z.xg -c 10 >z.sub.vg
     vg find -l z.sort.gam -A z.sub.vg >z.sub.gam
     vg view -dA z.sub.gam z.sub.vg | dot -Tpdf -o z1020gam.pdf
+
+z1020gam.pdf![image](https://user-images.githubusercontent.com/1767457/116373469-83f84980-a84c-11eb-98d0-36530e1499ce.png)
 
 For evaluation purposes, vg has the capability to compare the newly created read alignments to true paths of each reads used during simulation.
 
@@ -107,7 +116,8 @@ It is essential to understand that our alignment process works against the graph
 
 To get a first impression of how a graph reference helps us do a better job while mapping reads. We will construct a series of graphs from a linear reference to a graph with a lot variation and look at mapping rates, i.e. at the fraction of reads that can successfully be mapped to the graph. For examples, we might include variation above given allele frequency (AF) cutoffs and vary this cutoff. You can make a VCF with a minimum allele fequency with this command (replace `FREQ` with the frequency you want):
     
-    conda install -c bioconda samtools bwa bcftools # get required tools for next steps
+    # get required tools for next steps
+    conda install -c bioconda samtools bwa bcftools sambamba 
     bcftools filter -i 'AF > FREQ' z.vcf.gz > min_af_filtered.vcf
 
 The ``--exclude`` option in conjunction with custom [expressions](https://samtools.github.io/bcftools/bcftools-man.html#expressions) is particularly useful to this end. You may also want to think about other properties that would be useful to filter on.
@@ -127,10 +137,11 @@ Try doing this on graphs with a range of minimum allele frequencies (e.g. 0.5, 0
 How do these files seem to scale with the minimum cutoff? Note that the identity metric is flawed, in that we are not asking if the mapping itself is more accurate, just if it matches the graph better in the aggregate.
 
 ### BONUS: Mapping data from real data to examine the improvement
+DUE TO A RESTRUCTURE OF THE NIST-GAIB RESTRUCTURE OF THE FTP SERVER, YOU ARE UNABLE TO STREAM THE BAM FILE LINKED BELLOW. BUT THE INSTRUCTIONS HOLD TRUE STILL.
 
 We can also download some real data mapping to this region to see if the different graphs provide varying levels of performance.
 
-    samtools view -b ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftp/data/NA12878/NIST_NA12878_HG001_HiSeq_300x/RMNISTHS_30xdownsample.bam 20:1000000-2000000 >NA12878.20_1M-2M.30x.bam
+    samtools view -b ftp://ftp-trace.ncbi.nlm.nih.gov/giab/ftpNA12878/NIST_NA12878_HG001_HiSeq_300x/RMNISTHS_30xdownsample.bam 20:1000000-2000000 >NA12878.20_1M-2M.30x.bam
     # alternatively:
     # note: if you are taking this course, this data is available in /home/ubuntu/workshop/2_Tue_Garrison/human
     wget http://hypervolu.me/~erik/tmp/HG002-NA24385-20_1M-2M-50x.bam
@@ -141,7 +152,7 @@ We can run a single-ended alignment test to compare with bwa mem:
 
     samtools fastq -1 HG002-NA24385-20_1M-2M-50x_1.fq.gz -2 HG002-NA24385-20_1M-2M-50x_2.fq.gz HG002-NA24385-20_1M-2M-50x.bam
     bwa index z.fa
-    bwa mem z.fa HG002-NA24385-20_1M-2M-50x_1.fq.gz | sambamba view -S -f json /dev/stdin | jq -cr '[.qname, .tags.AS] | @tsv' >bwa_mem.scores.tsv
+    bwa mem z.fa HG002-NA24385-20_1M-2M-50x_1.fq.gz | sambamba view -S -f json /dev/stdin | jq -cr '[.qname, .tags.AS] | @tsv' > bwa_mem.scores.tsv
     bcftools filter -i 'AF > 0.01' z.vcf.gz >z.AF0.01.vcf
     vg construct -r z.fa -v z.AF0.01.vcf -m 32 >z.AF0.01.vg
     vg index -x z.AF0.01.xg -g z.AF0.01.gcsa z.AF0.01.vg

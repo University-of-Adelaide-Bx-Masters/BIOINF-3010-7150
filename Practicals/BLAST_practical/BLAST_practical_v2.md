@@ -1,13 +1,17 @@
 
-# BLAST Practical
+# BLAST Practical - 11 May 2021 - Dave Adelson
+{:.no_toc}
+
+* TOC
+{:toc}
+
+Annotation can be tricky. In this practical you will use BLAST to identify the protein encoded by a gene (sequence supplied) and to determine the principal repeat sequence in the interval and then estimate the number of those repeats and the number of base pairs they contribute to the human genome.  
 
 ## 1. Background
 
-NCBI BLAST is a suite of programs that will find local alignments of query sequences to database entries. We will use the command line version of BLAST to identify protein coding regions in a human genomic sequence and also to identify repeats (transposons) in the same human sequence.  This will give you an idea of the complexity of alignment based annotation. 
+To find protein coding regions (exons) in the human gene sequence we have provided, you will use BLASTX to find local alignments of your sequence with proteins in Uniprot-swissprot, a curated protein database. 
 
-To find protein coding regions (exons) in the human sequence we have provided you will use BLASTX to find local alignments of your sequence with proteins in Uniprot-swissprot, a curated protein database. 
-
-To find repeats in the human sequence we have provided you will use BLASTN to find local alignments of your sequence with human repeat consensus sequences from RepBase, a curated repeat database. 
+To find repeats in the human gene sequence we have provided, you will use BLASTN to find local alignments of your sequence with human repeat consensus sequences from RepBase, a curated repeat database. 
 
 To see how difficult it can be to deal with the large numbers of repeats in the genome you will extract one repeat interval identified in your repeat BLAST output using Samtools and you will use that repeat sequence to search the human genome for alignments using BLASTN. 
 
@@ -25,100 +29,32 @@ To see how difficult it can be to deal with the large numbers of repeats in the 
 
 ## 2. Practical instructions.
 
-This practical aims to familiarise you with the use of NCBI BLAST as a tool for annotation. You will use your VMs for this. Your first task will be to install BLAST and download the databases you will require. 
+### 2.1  Prepare the data
 
-### 2.1 Install NCBI BLAST
-
-Open a terminal and at the bash command line prompt type the following:
-
+You will then need to index/format the `humanrReps.fa.gz` consensus sequences and `chr15.fa.gz` so that BLASTN can search them. Rembember that `makeblastdb` will not accept `.gz` compressed files. 
 
 ```bash
-conda activate assembly
-```
-
-```bash
-conda install -c conda-forge -c bioconda blast
-
-```
-Once you have installed NCBI BLAST you will need to download the data you will need to carry out the practical.
-
-### 2.2 Download the data
-
-
-Some of the files you need are in a zip archive called BLAST_prac_data.zip in your home directory.
-
-Make sure you create a directory for the practical and put the zip file there prior to unzipping. You should make sure that all of your data files are in this directory. 
-
-To obtain the human genome blastdb do the following:
-
-```bash
-conda install -c conda-forge gdown
-```
-```bash
-gdown https://drive.google.com/uc?id=1LKYFxAovMTcSPk54ZfSoL7kHhTlnCKm_
-```
-I suggest you run gdown from that newly created directory to obtain the hg38.nsq file.
-
-All analyses will be conducted using the bash command line in this directory. 
-
-Once you have all the files you can consult the README.txt file to learn what you have downloaded. 
-
-
-
-### 2.3 Prepare the data
-
-You will need to decompress the Swissprot fasta file:
-
-```bash
-gunzip uniprot_sprot.fasta.gz
-```
-Once you have done this, you will need to index/format it so that BLAST can search it.
-
-```bash
-makeblastdb -in uniprot_sprot.fasta -dbtype 'prot' -out sprot
-```
-
-This will generate three files that BLASTX uses.
-
-You will then need to index/format the human repeat fasta consensus sequences so that BLASTN can search them.
 makeblastdb -in chr15.fa -dbtype 'nucl' -out chr15
-```bash
-makeblastdb -in humrep.ref -dbtype 'nucl' -out humrep
+
+makeblastdb -in humanReps.fa -dbtype 'nucl' -out humrep
 ```
 Now you are ready to use BLAST.
 
-### 2.4 Have a BLAST
+### 2.2 Alignments to Swissprot proteins
 
-For quick BLASTN help you can type:
-
-```bash
-blastn -help
-```
-
-For BLASTX:
+Reminder: general syntax for BLAST searches is as follows:\
 
 ```bash
-blastx -help
-```
-
-Try these to see what the allowed syntax, flags and parameters are.  
-
-For detailed documentation for all things BLAST see: https://www.ncbi.nlm.nih.gov/books/NBK1762/
-
-
-#### 2.4.1 Alignments to Swissprot proteins
-
-General syntax for BLAST searches is as follows:\
-
-
 blastn -query [file.fasta] -task [blastn] -db [database file]  -outfmt [0 through 17] -out [outputfile]
+```
 
 - I suggest using outfmt 7 and 17, 7 gives you a tab delimited file, 17 gives you a .sam file. 
 
-I used the following. You may need to reduce the num_threads to something that will run on your VM. 
-
 ```bash
-blastx -query Human15gene.fasta -task blastx -db sprot -num_threads 6 -out H15_blastx_sprot.txt -outfmt 7
+blastx -query ~/BLAST_practical/queries/hg38_gene_query.fasta -db ~/BLAST_practical/dbs/sprot \
+-num_threads 2 -out ~/BLAST_practical/results/H15_blastx_sprot.txt \
+-outfmt "7 delim= qaccver qlen sallgi sallacc stitle slen pident length \
+mismatch gapopen qstart qend sstart send evalue bitscore"
 ```
 Call your output file whatever you like, as long as it makes sense to you. 
 
@@ -127,39 +63,55 @@ Once BLASTX has completed you can look at your output using "head", "less", "mor
 There will be quite a few hits. You can reduce them to a manageable level by parsing the output to find only the alignments with human proteins.
 
 ```bash
-grep HUMAN H15_blastx_sprot.txt | less
+grep "Homo sapiens" ~/BLAST_practical/results/HUMAN H15_blastx_sprot.txt | less
 ```
 
-#### 2.4.2 Alignments to human repeat consensus sequences
+#### 2.3 Alignments to human repeat consensus sequences
 
 ```bash
-blastn -query Human15gene.fasta -task blastn -db humrep -out H15_blastn_humrep.txt -outfmt 7
+blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -task blastn -db ~/BLAST_practical/dbs/humrep -out ~/BLAST_practical/results/gene_blastn_humrep.txt -outfmt 7
 ```
-You can then run this again to get the .sam output
+
+In order to obtain a human repeat sub-sequence from `chr15.fasta` you will need to use `samtools-faidx` https://www.htslib.org/doc/samtools-faidx.html. You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. Do this by inspecting the text output file from above and selecting an interval from a robust (longest or almost longest `alignment length`  with high `bitscore` and low `evalue`) alignment for the most abundant type of repeat in your output. 
+
+To determine the most abundant repeat type in your output you can try:
+- just scroll through the output and eyball it
+- use `cut` , `sort` and `uniq` to list all the repeat types
+- use `grep -c` to count some of the repeat types to get an objective assessment of how many insertions there are for every repeat type. *Hint: when using `grep` use the shortest search pattern you can to group repeats of the same type into the count*.
+
+**I have used arbitrary coordinate values in the example below, you will need to use your own coordinates.**
+
+Activate the `assembly` environment in order to use `samtools`.
 
 ```bash
-blastn -query Human15gene.fasta -task blastn -db humrep -out H15_blastn_humrep.sam -outfmt 17
+conda activate assembly
+
+samtools faidx ~/BLAST_practical/queries/hg38_gene_query.fasta hg38:12045-12345 > ~/BLAST_practical/queries/hg38_12045-12345.fasta
 ```
 
-In order to obtain a human repeat sub-sequence from Human15gen.fasta you will need to use samtools-faidx https://www.htslib.org/doc/samtools-faidx.html. You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. Do this by inspecting the text output file from above and selecting an interval from a robust looking alignment for the most dominant type of repeat in your output. 
+#### 2.4 Alignment of your human repeat sub-sequence to the human genome
 
-I have used arbitrary coordinate values in the example below, you will need to use your own coordinates.
-
-```bash 
-samtools faidx Human15gene.fasta hg38:12345-12345 > hg38_12345_12345.fasta
-```
-
-#### 2.4.3 Alignment of your human repeat sub-sequence to the human genome
-
-This may take a while to run, so be patient. Use as many threads as you can get away with for this in order to make it run as fast as possible. 
+This may take a while to run, so be patient. Remember to activate the `blast` environment with conda first. 
 
 ```bash
-blastn -query hg38_12345_13345.fasta -task blastn -db hg38 -num_threads 6 -out hg38_repeats.txt -outfmt 7
+conda activate blast
+
+blastn -query hg38_12045_13345.fasta -task blastn -db hg38 -num_threads 2 -out hg38_repeats.txt -outfmt 7
 ```
 
 The output will be very large, so do not open with the text editor. You can see how many hits you have by using:
 
 ```bash
 head -n5 hg38_repeats.txt
+
 ```
+This gives you an estimate of the number of insertions of that repeat/transposon type in the genome.
+
+You can get the sum of the values for `alignment length` to determine the exact number of base pairs contributed by this repeat to the genome. *Hint: you can use `awk` with something like this:*
+
+```bash
+awk '{sum+=$n} END {print sum}' [input file]
+```
+Where `n` is the column number in your input file you want to sum.
+
 

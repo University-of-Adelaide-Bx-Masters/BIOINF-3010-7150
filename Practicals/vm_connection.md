@@ -6,12 +6,12 @@ All VMs are the same and we will use these for the entire practical series.
 **Follow all instructions here very, very carefully**
 
 1. Open your favourite internet browser. We recommend Firefox, but Chrome is also acceptable. Safari and Edge are discouraged.
-2. Enter your given IP address (10.150.x.xx) in the address bar of your browser, but follow these numbers with `:8787`. (RStudio has been set to broadcast on the port 8787)
+2. Enter your given IP address (`http://10.150.x.xx`) in the address bar of your browser, but follow these numbers with `:8787` (RStudio has been set to broadcast on the port 8787). *It is important that you use `http` and NOT `https`, as the version of RStudio we use only allows `http` connections.*
 3. Login with the username `student`. The username is also your initial password.
 
 Now you should see the following image:
 
-![RStudio initial login screen](R_Practicals/images/RStudio_VM.png)
+![RStudio initial login screen](./Bash_Practicals/images/RStudio_VM_login.png)
 
 
 **Reset your password**
@@ -21,20 +21,20 @@ To do this we're going to briefly use another language known as `bash` which we'
 
 **Follow all instructions here very, very carefully**
 
-1. Inside RStudio *click the Terminal* tab at the top left. You will see something like `student@bioinf-xx:~$` with a cursor flashing and indicating you can type here.
+1. Inside RStudio *click the Terminal* tab at the top left. You will see something like `student@Bioinf_3010_2022-xx:~$` with a cursor flashing and indicating you can type here.
 This is also known as the prompt.
 2. Type the command `passwd` followed by <kbd>Enter</kbd>
     - You will now be asked to enter your existing password. NOTE THAT WHEN ENTERING YOUR PASSWORD **NO TEXT WILL APPEAR AT THE PROMPT**. This is a security feature.
     - Enter a new password. Again, *you will not see any characters appear*.
     - Re-enter your new password to confirm you haven't made any typos. (If you do make a mistake, the process will abort, so just begin again by typing `passwd` + <kbd>Enter</kbd>)
     - **PLEASE REMEMBER THIS PASSWORD**
-3. At the top right of RStudio, next to `student`, click the logout (![logout](R_Practicals/images/logout.png)) symbol.
+3. At the top right of RStudio, next to `student`, click the logout symbol. ![logout](./Bash_Practicals/images/RStudio_VM_logout.png)
 4. Login once again using your new password.
 
 You now have access to your VM.
-Importantly, you will only be able to access your VM:
+Importantly, you will be the only person to be able to access your VM:
 
 - When connected directly to the University WiFi Network
 - When connected from another network using the [University of Adelaide VPN](https://www.adelaide.edu.au/technology/your-services/network-services/remote-access-via-virtual-private-network-vpn)
 
-[Back](Bash_Practicals/1_IntroBash)
+[Back](./Bash_Practicals/1_IntroBash.md)

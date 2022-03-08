@@ -56,7 +56,12 @@ echo ~
 
 ## Sending Output To A File
 
-The next part of the practical will make use of a file that you will need to download.
+The next part of the practical will make use of a file that you will need to download. First, make sure you are in your `Project_0` sub-directory.
+
+```
+cd ./Project_0
+```
+
 Get the file by running the following command.
 ```
 wget ftp://ftp.ensembl.org/pub/release-89/fasta/drosophila_melanogaster/ncrna/Drosophila_melanogaster.BDGP6.ncrna.fa.gz
@@ -100,16 +105,19 @@ This trick of writing a header at the start of a file is very common and can be 
 Now let's add another row describing where we've obtained the data from.
 
 ```
-echo -e '# Obtained from ftp://ftp.ensembl.org/pub/release-89/fasta/drosophila_melanogaster/ncrna/Drosophila_melanogaster.BDGP6.ncrna.fa.gz on 2017-08-14' >> SeqIDs.txt
+echo -e '# Obtained from ftp://ftp.ensembl.org/pub/release-89/fasta/drosophila_melanogaster/ncrna/Drosophila_melanogaster.BDGP6.ncrna.fa.gz on 2022-03-04' >> SeqIDs.txt
 ```
-
 Have a look at the file using `less`
 
 ```
 less SeqIDs.txt
 ```
 
-Now we can add the sequence identifiers
+Now we can add the sequence identifiers, but first you need to `gunzip` the compressed file.
+
+```
+gunzip drosophila_melanogaster/ncrna/Drosophila_melanogaster.BDGP6.ncrna.fa.gz
+```
 
 ```
 grep -e '^>' Drosophila_melanogaster.BDGP6.ncrna.fa >> SeqIDs.txt
@@ -151,7 +159,7 @@ gunzip GCF_000182855.2_ASM18285v1_genomic.gff.gz
 This file is in `gff` format, which is very commonly used.
 The first 5 lines of this file is what we refer to as a *header*, which contains important information about how the file was generated in a standardised format.
 Many file formats have these structures at the beginning, but for our purposes today we don't need to use any of this information so we can move on.
-Have a look at the beginning of the file just to see what it looks like.
+Have a look at the beginning of the file just to see what it looks like. 
 
 ```
 head -n12 GCF_000182855.2_ASM18285v1_genomic.gff
@@ -167,7 +175,7 @@ The first feature is annotated as a *region* in the third field, whilst the seco
 - *How many features are contained in this file?*
 - *If we tried the following*: `wc -l GCF_000182855.2_ASM18285v1_genomic.gff` *would it be correct?*
 
-This will give 4446, but we know the first 5 lines are header lines.
+This will give 4478, but we know the first 5 lines are header lines.
 To count the non-header lines you could try several things:
 
 ```
@@ -240,10 +248,10 @@ This might seem a bit confusing, but this means *don't print lines without delim
 cut -f3 -s GCF_000182855.2_ASM18285v1_genomic.gff | head
 ```
 
-Now we could use our `grep -e` approach and we know we're counting the correct field.
+Now we could use our `grep -E` approach and we know we're counting the correct field.
 
 ```
-cut -f3 -s GCF_000182855.2_ASM18285v1_genomic.gff | grep -ec 'gene'
+cut -f3 -s GCF_000182855.2_ASM18285v1_genomic.gff | grep -Ec 'gene'
 ```
 
 A similar question would be: *How many* **types** *of features are in this file?*
@@ -260,7 +268,7 @@ Note that we haven't edited the file on disk, we've just streamed the data conta
 
 # sed: The Stream Editor
 
-One additional and very useful command in the terminal is `sed`, which is short for *stream editor*.
+One additional and very useful command in the terminal is `sed`, which is short for *stream editor*. A tutorial is available at [http://www.grymoire.com/Unix/Sed.html](http://www.grymoire.com/Unix/Sed.html).
 Instead of the `man` page for `sed` the `info sed` page is larger but a little easier to digest.
 This is a very powerful command which can be a little overwhelming at first.
 If using this for your own scripts and you can't figure something out, remember 'Google is your friend' and sites like \url{www.stackoverflow.com} are full of people wrestling with similar problems to you.
@@ -293,7 +301,7 @@ We could also restrict the range to specific lines by using the `sed` increment 
 sed -n '1~4p' Drosophila_melanogaster.BDGP6.ncrna.fa
 ```
 This will print every 4th line, beginning at the first, and is very useful for files with multi-line entries.
-The `fastq` file format from NGS data, and which we'll look at in week 6 will use this format.
+The `fastq` file format from NGS data, and which we'll look at next week will use this format.
 
 
 We can also make `sed` operate like `grep` by making it only print the lines which match a pattern.
@@ -331,7 +339,7 @@ We often do this on a HPC to run long data processing pipelines (or workflows).
 
 Scripts are commonly written to perform repetitive tasks on multiple files, or need to perform complex series of tasks and writing the set of instructions as a script is a very powerful way of performing these tasks.
 They are also an excellent way of ensuring the commands you have used in your research are retained for future reference.
-Keeping copies of all electronic processes to ensure reproducibility is a very important component of any research.
+Keeping copies of all electronic processes to ensure reproducibility is a **very** important component of any research.
 Writing scripts requires an understanding of several key concepts which form the foundation of much computer programming, so let's walk our way through a few of them.
 
 ## Some Important Concepts

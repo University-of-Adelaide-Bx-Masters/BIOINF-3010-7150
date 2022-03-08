@@ -1,4 +1,4 @@
-# Week 4 Practical Part 2: Hybrid Genome Assembly
+# Week 5 Practical Part 2: Hybrid Genome Assembly
 {:.no_toc}
 NC_000913.3:4,533,722-4,554,201
 NC_000913.3:375,245-395,724
