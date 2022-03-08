@@ -324,7 +324,7 @@ If we do not trim adapters or low quality regions from reads we might not be abl
 Adapter-containing reads will fail to align as the adapter does not match anything in the genome.
 Low quality stretches of reads might contain too many sequencing errors and stop the read aligning to the correct location in the genome.
 
-If we have a large excess of data, the fact that a small proportion of reads contain some adapter or have low quality regions doesn't has a significant effect when aligning reads to a genome.
+If we have a large volume of data, the fact that a small proportion of reads contain some adapter or have low quality regions doesn't have a significant effect when aligning reads to a genome.
 Those reads will just not align, but we have plenty more where they came from!
 If you find yourself performing excessive quality or adapter trimming, the data is probably poor and you should have it resequenced or you have insufficient coverage and are trying to scrape-the-barrel to save every last read.
 However, if you are planning to perform de novo genome assembly from the reads, then it is important to remove such regions as they can dramatically increase computational requirements. 
