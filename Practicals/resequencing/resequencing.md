@@ -27,10 +27,10 @@ cd ~/Project_2/
 ```
 ## Software packages
 
-Install `bwa`, `samtools` and `minimap2` using `conda`
+Install `bwa` and `minimap2` using `conda`. You do not need to install `samtools` as it is already installed for you. 
 
 ```bash
-conda install -c bioconda bwa samtools minimap2
+conda install -c bioconda bwa minimap2
 ```
 
 ## Data
