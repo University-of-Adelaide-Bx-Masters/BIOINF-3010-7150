@@ -11,6 +11,8 @@ See [week 1's practical](../Bash_Practicals/1_IntroBash.md#rstudio) to remind yo
 
 # Setup for today
 
+Today you are expected to be able to follow the instructions on your own. There will be a brief introduction by Dave, but after that you will need to work through the instructions. Try to work out for yourselves the answers to the questions before asking for help. If you are really stuck and can't figure out how to get unstuck, ask for help. 
+
 ## Working Directory
 
 First we will set up a directory for today's practical.
