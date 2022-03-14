@@ -83,7 +83,7 @@ We have also provided access to a subsample (~100x) of the above data sets to fa
 mkdir --parents ~/Project_2/data/illumina_pe/
 
 # Get the Illumina data for the SRR11140748 sample
-cp ~/data/SRR11140748_?_100x.fastq.gz ~/Project_2/data/illumina_pe/
+cp ~/data/SARS-CoV-2_Resequencing/SRR11140748_?_100x.fastq.gz ~/Project_2/data/illumina_pe/
 ```
 
 # Genome Resequencing
@@ -162,7 +162,7 @@ Index the reference genome:
 mkdir --parents ~/Project_2/data/reference/
 
 # Get the SARS-CoV-2 reference genome
-cp ~/data/COVID-19.fasta.gz ~/Project_2/data/reference/
+cp ~/data/SARS-CoV-2_Resequencing/COVID-19.fasta.gz ~/Project_2/data/reference/
 
 # Index the reference genome for use with BWA
 bwa index ~/Project_2/data/reference/COVID-19.fasta.gz
