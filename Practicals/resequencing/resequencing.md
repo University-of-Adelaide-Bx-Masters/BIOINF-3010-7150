@@ -255,7 +255,7 @@ minimap2 \
 
 # Get the Nanopore reads
 mkdir -p ~/Project_2/data/nanopore/
-cp ~/data/SRR11140749_1_100x.fastq.gz ~/Project_2/data/nanopore/
+cp ~/data/SARS-CoV-2_Resequencing/SRR11140749_1_100x.fastq.gz ~/Project_2/data/nanopore/
 
 # Align the reads
 time minimap2 \
