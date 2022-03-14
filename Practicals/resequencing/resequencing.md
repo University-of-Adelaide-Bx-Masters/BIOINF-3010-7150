@@ -281,6 +281,6 @@ Load the nanopore read alignment file into your IGV-web.
 
 # External Resources
 
- * [https://openresearch.labkey.com/wiki/ZEST/Ncov/page.view?name=SARS-CoV-2%20Deep%20Sequencing](https://openresearch.labkey.com/wiki/ZEST/Ncov/page.view?name=SARS-CoV-2%20Deep%20Sequencing)
+ * [https://openresearch.labkey.com/Coven/project-begin.view?](https://openresearch.labkey.com/Coven/project-begin.view?)
  * [https://github.com/katarinabraun/SARS-CoV-2_sequencing](https://github.com/katarinabraun/SARS-CoV-2_sequencing)
 
