@@ -56,7 +56,7 @@ Subsequently, [NC_045512.1](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.1) wa
 Public sequence data is being released via NCBI's [SARS-CoV-2](https://www.ncbi.nlm.nih.gov/genbank/sars-cov-2-seqs/) page.
 
 We will be looking at some data released on [21st Feb 2020](https://trace.ncbi.nlm.nih.gov/Traces/sra/?study=SRP250294) for a clinical swab obtained from a confirmed case in Madison, WI, USA.
-For further information see: [https://openresearch.labkey.com/wiki/ZEST/Ncov/page.view?name=SARS-CoV-2%20Deep%20Sequencing](https://openresearch.labkey.com/wiki/ZEST/Ncov/page.view?name=SARS-CoV-2%20Deep%20Sequencing)
+For further information see: [https://openresearch.labkey.com/Coven/project-begin.view?](https://openresearch.labkey.com/Coven/project-begin.view?)
 
 There is both Illumina and Oxford Nanopore data available for several samples.
 We will be working with the `SRR11140748` sample but you are welcome to also look at any of the other 3 samples if you have time.
