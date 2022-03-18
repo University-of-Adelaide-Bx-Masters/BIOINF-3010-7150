@@ -93,8 +93,7 @@ The Rmd document and a compiled knitted html will form the submission; marks wil
 
 #### Major Project Data
 
-For the project I was able to download a number of publicly available datasets from the Encylopedia of DNA elements (ENCODE) project, which is a large multi-national study that wrapped up a while ago.
-The purpose of the study was to identify any "functional" region of the genome that may not be gene-coding, so the project sequenced a lot of RNA sequencing, ChIP-seq (Transcription Factor-binding), DNA methylation sequencing and arrays etc.
+Look [here](./Assignments/Major_Project/major_project.md) for major project data. 
 
 ### Assessment Checklist
 
