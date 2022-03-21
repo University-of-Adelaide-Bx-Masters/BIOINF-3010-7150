@@ -432,10 +432,11 @@ Generally the easiest way to view a alignment file from a model organism such as
 However because of the restraits of our VMs, today we're going to use one of the most basic alignment viewers that is included in `samtools`.
 I generally use this alot for a quick look, and it can be a really handy way of initially visualising reads.
 
-Using the reference sequence that was included in the data downloaded today, lets use the `samtools tview` subcommand:
+Using the reference sequence that was included in the data downloaded today, lets use the `samtools tview` subcommand: (for this to work, we need to have a decompressed reference genome)
 
 ```bash
-samtools tview SRR3096662_Aligned.out.sort.cram --reference GRCh37.p13.genome.fa.gz
+pigz -d GRCh37.p13.genome.fa
+samtools tview SRR3096662_Aligned.out.sort.cram --reference GRCh37.p13.genome.fa
 ```
 
 Looks like nothing now, but the first part of the chromosome should not have any coverage at all. 
