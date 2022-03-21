@@ -441,7 +441,7 @@ samtools tview SRR3096662_Aligned.out.sort.cram --reference GRCh37.p13.genome.fa
 
 Looks like nothing now, but the first part of the chromosome should not have any coverage at all. 
 Lets try looking for coverage over a gene like CGB1.
-Press "g" on the keyboard and type in "19:49538826".
+Press "g" on the keyboard and type in "chr19:49538826".
 This means chromosome 19 and position "49538826". 
 
 Spend some time looking across this gene and see what features you can make out.
