@@ -259,7 +259,7 @@ samtools view -h -B -q 30 SRR3096662_Aligned.out.sort.bam -o SRR3096662_Aligned.
 
 The additional flags used above are:
 `-h`: Print the alignment file with the header
-`-B`: Output a CRAM file
+`-B`: Output a BAM file
 
 ### SAM Flags
 
