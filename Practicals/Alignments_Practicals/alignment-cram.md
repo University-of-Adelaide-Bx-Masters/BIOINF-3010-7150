@@ -435,7 +435,7 @@ I generally use this alot for a quick look, and it can be a really handy way of 
 Using the reference sequence that was included in the data downloaded today, lets use the `samtools tview` subcommand: (for this to work, we need to have a decompressed reference genome)
 
 ```bash
-pigz -d GRCh37.p13.genome.fa
+pigz -d GRCh37.p13.genome.fa.gz
 samtools tview SRR3096662_Aligned.out.sort.cram --reference GRCh37.p13.genome.fa
 ```
 
