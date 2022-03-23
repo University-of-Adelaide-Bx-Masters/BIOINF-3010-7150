@@ -36,25 +36,33 @@ conda activate assembly
 mkdir --parents ~/Project_3/data/reference/
 
 # Get the SARS-CoV-2 reference genome
-cp ~/data/COVID-19.fasta.gz ~/Project_3/data/reference/
+
+cp ~/data/SARS-CoV-2_Resequencing/COVID-19.fasta.gz ~/Project_3/data/reference/
 
 # Make the directory for the Illumina PE reads
 mkdir --parents ~/Project_3/data/illumina_pe/
 
 # Get the subsampled Illumina PE data
-cp ~/data/SRR111407{44,46,48,50}_?_*x.fastq.gz ~/Project_3/data/illumina_pe/
+cp ~/data/SARS-CoV-2_Resequencing/SRR111407{44,46,48,50}_?_*x.fastq.gz ~/Project_3/data/illumina_pe/
 
 # Make the directory for scripts
 mkdir --parents ~/Project_3/data/scripts/
 
 # Get the scripts
-cp ~/data/plot_delta.R ~/Project_3/data/scripts/
+cp ~/data/SARS-CoV-2_Resequencing/plot_delta.R ~/Project_3/data/scripts/
 ```
 
 Lets see what files and directories we have under our current working directory:
 
 ```bash
 tree
+```
+## Install software using conda
+
+Today we will use `spades` a deBruijn graph based assembler and `mummer` a suffix tree based fast whole genome aligner.
+
+```bash
+conda install -c bioconda spades mummer
 ```
 
 ### Questions
@@ -78,7 +86,7 @@ Subsequently, [NC_045512.1](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.1) wa
 Public sequence data is being released via NCBI's [SARS-CoV-2](https://www.ncbi.nlm.nih.gov/genbank/sars-cov-2-seqs/) page.
 
 We will be looking at some data released on [21st Feb 2020](https://trace.ncbi.nlm.nih.gov/Traces/sra/?study=SRP250294) for a clinical swab obtained from a confirmed case in Madison, WI, USA.
-For further information see: [https://openresearch.labkey.com/wiki/ZEST/Ncov/page.view?name=SARS-CoV-2%20Deep%20Sequencing](https://openresearch.labkey.com/wiki/ZEST/Ncov/page.view?name=SARS-CoV-2%20Deep%20Sequencing)
+For further information see: [https://openresearch.labkey.com/Coven/project-begin.view?](https://openresearch.labkey.com/Coven/project-begin.view?)
 
 We will be working with the `SRR11140748` sample (Illumina data) but you are welcome to also look at any of the other 3 samples if you have time.
 Here is a table of information linking to the orginal source of the data:
@@ -96,9 +104,9 @@ Here is a table of information linking to the orginal source of the data:
 
 ## Initial Goals
 
- 1. Assemble a genome using a de Bruijn graph assembler (SPAdes)
+ 1. Assemble a genome using a de Bruijn graph assembler [(SPAdes)](https://github.com/ablab/spades)
  2. Visualise assembly graphs
- 3. Compare assemblies against an existing reference (MUMmer)
+ 3. Compare assemblies against an existing reference [(MUMmer)](http://mummer.sourceforge.net/)
 
 
 # De Novo Genome Assembly
@@ -125,8 +133,6 @@ time spades.py \
 Compare the assembly to the SARS-CoV-2 RefSeq assembly using [MUMmer](http://mummer.sourceforge.net/manual/#nucmer)'s `nucmer` tool:
 
 ```bash
-# Install MUMmer
-conda install -c bioconda mummer
 
 # Decompress the reference genome for MUMmer
 pigz -dcp2 \
