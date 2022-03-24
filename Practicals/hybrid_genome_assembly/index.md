@@ -16,7 +16,7 @@ See [week 1's practical](../Bash_Practicals/1_IntroBash.md#rstudio) to remind yo
 
 First we will set up a directory for today's practical.
 In general it is very worthwhile to keep all your project-specific code and data organised into a consistent location and structure.
-This are not essential, but is very useful and is in general good practice.
+This is not essential, but is very useful and is in general good practice.
 If you don't follow this step, you will be making your life immeasurably harder for the duration of this practical.
 
 To make and enter the directory that you will be working in, run the following commands in the terminal pane.
@@ -25,9 +25,6 @@ To make and enter the directory that you will be working in, run the following c
 # Setup project working directory
 mkdir --parents ~/Project_5/data/
 cd ~/Project_5/
-
-# load the required software environment
-conda activate assembly
 ```
 
 ## Get the Data
@@ -39,13 +36,13 @@ mkdir --parents data/{reference,scripts,illumina_pe,pacbio}/
 # Get the data
 #####
 # RefSeq E. coli K-12 substr. MG1655
-cp ~/data/NC_000913.3.fasta.gz data/reference/
+cp ~/data/S_LR_Alignment/NC_000913.3.fasta.gz data/reference/
 # Illumina PE
-cp --link ~/data/36_ACGCACCT-GGTGAAGG_L002_R?_001_*x.fastq.gz data/illumina_pe/
+cp --link ~/data/S_LR_Alignment/36_ACGCACCT-GGTGAAGG_L002_R?_001_*x.fastq.gz data/illumina_pe/
 # PacBio
-cp --link ~/data/lima.bc1106--bc1106_*x.subreadset.fastq.gz data/pacbio/
+cp --link ~/data/S_LR_Alignment/lima.bc1106--bc1106_*x.subreadset.fastq.gz data/pacbio/
 # R script
-cp --link ~/data/plot_delta.R data/scripts/
+cp --link ~/data/SARS-CoV-2_Resequencing/plot_delta.R data/scripts/
 ```
 
 # Hybrid Genome Assembly
