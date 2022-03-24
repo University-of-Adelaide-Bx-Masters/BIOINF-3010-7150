@@ -25,8 +25,6 @@ To make and enter the directory that you will be working in, run the following c
 mkdir --parents ~/Project_3/data/
 cd ~/Project_3/
 
-# load the required software environment
-conda activate assembly
 ```
 
 ## Get the Data
