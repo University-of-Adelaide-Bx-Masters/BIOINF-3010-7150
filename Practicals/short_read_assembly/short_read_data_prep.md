@@ -13,7 +13,6 @@ cd ~/tmp
 ## Week 2 Part 1: Read  Quality Control
 
 ```bash
-conda activate assembly
 
 ILLUMINA_PE_SRA_ACCESSIONS=(
   ERR1949188
@@ -31,7 +30,6 @@ done
 ## Week 3 Part 1 and 2: SARS-CoV-2 Resequencing and Short Read Assembly
 
 ```bash
-conda activate assembly
 
 # Download SARS-Cov-2 RefSeq
 #####
