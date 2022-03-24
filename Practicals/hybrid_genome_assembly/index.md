@@ -26,8 +26,6 @@ To make and enter the directory that you will be working in, run the following c
 mkdir --parents ~/Project_5/data/
 cd ~/Project_5/
 
-# load the required software environment
-conda activate assembly
 ```
 
 ## Get the Data
@@ -39,13 +37,13 @@ mkdir --parents data/{reference,scripts,illumina_pe,pacbio}/
 # Get the data
 #####
 # RefSeq E. coli K-12 substr. MG1655
-cp ~/data/NC_000913.3.fasta.gz data/reference/
+cp ~/data/S_LR_Alignment/NC_000913.3.fasta.gz data/reference/
 # Illumina PE
-cp --link ~/data/36_ACGCACCT-GGTGAAGG_L002_R?_001_*x.fastq.gz data/illumina_pe/
+cp --link ~/data/S_LR_Alignment/36_ACGCACCT-GGTGAAGG_L002_R?_001_*x.fastq.gz data/illumina_pe/
 # PacBio
-cp --link ~/data/lima.bc1106--bc1106_*x.subreadset.fastq.gz data/pacbio/
+cp --link ~/data/S_LR_Alignment/lima.bc1106--bc1106_*x.subreadset.fastq.gz data/pacbio/
 # R script
-cp --link ~/data/plot_delta.R data/scripts/
+cp --link ~/data/SARS-CoV-2_Resequencing/plot_delta.R data/scripts/
 ```
 
 # Hybrid Genome Assembly
