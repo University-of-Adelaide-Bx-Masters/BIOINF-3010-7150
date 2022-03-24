@@ -15,7 +15,7 @@ See [week 1's practical](../Bash_Practicals/1_IntroBash.md#rstudio) to remind yo
 
 First we will set up a directory for today's practical.
 In general it is very worthwhile to keep all your project-specific code and data organised into a consistent location and structure.
-This are not essential, but is very useful and is in general good practice.
+This is not essential, but is very useful and is in general good practice.
 If you don't follow this step, you will be making your life immeasurably harder for the duration of this practical.
 
 To make and enter the directory that you will be working in, run the following commands in the terminal pane.
@@ -24,9 +24,6 @@ To make and enter the directory that you will be working in, run the following c
 # Setup project working directory
 mkdir --parents ~/Project_4/data/
 cd ~/Project_4/
-
-# load the required software environment
-conda activate assembly
 ```
 
 ## Get the Data
@@ -41,13 +38,11 @@ mkdir --parents ~/Project_4/data/{illumina_pe,pacbio}/
 # Get the data
 #####
 # RefSeq E. coli K-12 substr. MG1655
-cp ~/data/NC_000913.3.fasta.gz ~/Project_4/data/reference/
+cp ~/data/S_LR_Alignment/NC_000913.3.fasta.gz ~/Project_4/data/reference/
 # Illumina PE
-cp --link ~/data/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz ~/Project_4/data/illumina_pe/
+cp --link ~/data/S_LR_Alignment/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz ~/Project_4/data/illumina_pe/
 # PacBio
-cp --link ~/data/lima.bc1106--bc1106_40x.subreadset.fastq.gz ~/Project_4/data/pacbio/
-# Nanopore
-# TODO
+cp --link ~/data/S_LR_Alignment/lima.bc1106--bc1106_40x.subreadset.fastq.gz ~/Project_4/data/pacbio/
 ```
 
 ### Questions
