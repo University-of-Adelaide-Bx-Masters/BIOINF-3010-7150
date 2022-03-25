@@ -148,8 +148,3 @@ If you don't have Java or you don't want to install the Java version that comes 
 
 **NOTE: If you're using IGV on your own machine, you will not need to decompress the genome sequence FASTA file or load `.bai` files.**
 
-# BWA Alignments
-
-In the above `bwa mem` alignment step, we used the default value (`30`) for `-T`.
-I asked you what the option does.
-Now I want you to explore the effect of increasing this value on the number of mismatches observed in the read alignments when you load the resulting BAM files into IGV.
