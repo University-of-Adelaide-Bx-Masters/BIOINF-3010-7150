@@ -16,7 +16,7 @@ See [week 1's practical](../Bash_Practicals/1_IntroBash.md#rstudio) to remind yo
 
 First we will set up a directory for today's practical.
 In general it is very worthwhile to keep all your project-specific code and data organised into a consistent location and structure.
-This are not essential, but is very useful and is in general good practice.
+This is not essential, but is very useful and is in general good practice.
 If you don't follow this step, you will be making your life immeasurably harder for the duration of this practical.
 
 To make and enter the directory that you will be working in, run the following commands in the terminal pane.
@@ -66,7 +66,7 @@ When performing the assembly, consider how much of each data type you might need
 
 You should use what you learned about comparing an assembly against a reference genome to ascertain if an assembly is reasonable or whether more/less data might be required.
 
-Most of these hybrid assemblies will take more than 10mins each, so you won't be able to do many within the time limit of this practical.
+Most of these hybrid assemblies will take more than 10 mins each, so you won't be able to do many within the time limit of this practical.
 
 ### Questions
 
@@ -74,20 +74,27 @@ Most of these hybrid assemblies will take more than 10mins each, so you won't be
 
 Given the limited amount of time in this practical:
 
- - *What sort of coverage would be wise to start with high or low?*
- - *To explore assemblies with different mixes of Illumina/PacBio coverage, how as a group, might you be able to explore more assemblies with different levels of input coverage?*
+ - *What sort of coverage would be wise to start with? High or low?*
+ - *To explore assemblies with different mixes of Illumina/PacBio coverage, how, as a group, might you be able to explore more assemblies with different levels of input coverage?*
 
 ## Visualisation
 
-Visualise your assembly(ies) in IGV or IGV-web and look to see if you can see any inconsistencies between the aligned Illumina and PacBio data.
+Visualise one of your good assemblies in IGV or IGV-web and look to see if you can find any inconsistencies between the aligned Illumina and PacBio data. To do this you will first need to align your assembly to the reference using bwa mem. Then, load your **assembly** alignment, as well as the **read** alignments from the last practical, into IGV.
 
-for an assembly with 40x Illiumina with 10x PacBio, have a look at:
+Have a look at the following regions:
 
-NC_000913.3:4,533,722-4,554,201
+* `NC_000913.3:4,533,722-4,554,201`
+* `NC_000913.3:375,245-395,724`
+* `NC_000913.3:378,500-378,750`
 
-NC_000913.3:375,245-395,724
+Also, take another look at the regions we explored in the last practical:
 
-NC_000913.3:378,500-378,750
+ * `NC_000913.3:276291-294244`
+ * `NC_000913.3:4295777-4296810`
+
+### Questions
+
+- *How do you think SPAdes deals with inconsistencies between the Illumina and PacBio data?*
 
 <!--
 

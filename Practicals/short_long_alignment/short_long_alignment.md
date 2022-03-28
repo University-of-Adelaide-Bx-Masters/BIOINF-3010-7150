@@ -15,7 +15,7 @@ See [week 1's practical](../Bash_Practicals/1_IntroBash.md#rstudio) to remind yo
 
 First we will set up a directory for today's practical.
 In general it is very worthwhile to keep all your project-specific code and data organised into a consistent location and structure.
-This are not essential, but is very useful and is in general good practice.
+This is not essential, but is very useful and is in general good practice.
 If you don't follow this step, you will be making your life immeasurably harder for the duration of this practical.
 
 To make and enter the directory that you will be working in, run the following commands in the terminal pane.
@@ -24,9 +24,6 @@ To make and enter the directory that you will be working in, run the following c
 # Setup project working directory
 mkdir --parents ~/Project_4/data/
 cd ~/Project_4/
-
-# load the required software environment
-conda activate assembly
 ```
 
 ## Get the Data
@@ -46,8 +43,7 @@ cp ~/data/S_LR_Alignment/NC_000913.3.fasta.gz ~/Project_4/data/reference/
 cp --link ~/data/S_LR_Alignment/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz ~/Project_4/data/illumina_pe/
 # PacBio
 cp --link ~/data/S_LR_Alignment/lima.bc1106--bc1106_40x.subreadset.fastq.gz ~/Project_4/data/pacbio/
-# Nanopore
-# TODO
+
 ```
 
 ### Questions
@@ -153,8 +149,3 @@ If you don't have Java or you don't want to install the Java version that comes 
 
 **NOTE: If you're using IGV on your own machine, you will not need to decompress the genome sequence FASTA file or load `.bai` files.**
 
-# BWA Alignments
-
-In the above `bwa mem` alignment step, we used the default value (`30`) for `-T`.
-I asked you what the option does.
-Now I want you to explore the effect of increasing this value on the number of mismatches observed in the read alignments when you load the resulting BAM files into IGV.
