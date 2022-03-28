@@ -16,7 +16,7 @@ See [week 1's practical](../Bash_Practicals/1_IntroBash.md#rstudio) to remind yo
 First we will set up a directory for today's practical.
 In general it is very worthwhile to keep all your project-specific code and data organised into a consistent location and structure.
 This are not essential, but is very useful and is in general good practice.
-If you don't follow this step, you will be making your life immeasurably harder for the duration of this practical.
+If you don't follow this step, you will be making your life much harder for the duration of this practical.
 
 To make and enter the directory that you will be working in, run the following commands in the terminal pane.
 
@@ -25,8 +25,6 @@ To make and enter the directory that you will be working in, run the following c
 mkdir --parents ~/Project_3/data/
 cd ~/Project_3/
 
-# load the required software environment
-conda activate assembly
 ```
 
 ## Get the Data
@@ -72,7 +70,7 @@ conda install -c bioconda spades mummer
 ## Data
 
 We're going to be using some very topical data, SARS-CoV-2 data, the virus causing COVID-19.
-We will be looking at this data in different ways, providing insights into how bioinformaticians analyses these types of data.
+We will be looking at this data in different ways, providing insights into how bioinformaticians analyse these types of data.
 
 ### RefSeq Genome Assembly
 
@@ -113,7 +111,7 @@ Here is a table of information linking to the orginal source of the data:
 
 Lets perform some *de novo* genome assemblies of Illumina reads.
 I encourage you to explore the effects of using differing amounts of coverage of the input data on the assembly and explore the assembly of the other 3 samples.
-We have made data files available for `10x`, `20x`, `40x`, `80x` and `100x` coverage of all 4 Illumina samples.
+We have made data files available for `10x`, `20x`, `40x`, `80x` and `100x` coverage of all 4 Illumina samples. You will note that we have used `time` in our commands to find out how long the assemblies take. Since you will be exploring both the effect of coverage depth and `k-mer` length it will be instructive for you to keep track of these times as you determine what gives you the most complete, contiguous assembly. 
 
 ```bash
 time spades.py \

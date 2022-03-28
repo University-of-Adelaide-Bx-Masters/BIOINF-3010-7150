@@ -25,6 +25,7 @@ To make and enter the directory that you will be working in, run the following c
 # Setup project working directory
 mkdir --parents ~/Project_5/data/
 cd ~/Project_5/
+
 ```
 
 ## Get the Data
