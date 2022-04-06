@@ -1,9 +1,5 @@
 # Week 6 Practical Part 1: **Genome Assembly** 
 ## By Chelsea Matthews 
-{:.no_toc}
-
-* TOC
-{:toc}
 
 Today we will be looking at *de novo* assembly with more of a focus on larger, more complex genomes.  
 
@@ -29,81 +25,69 @@ mkdir --parents ~/Project_6/0_data/
 cd ~/Project_6/
 ```
 
-We will be using PacBio CLR reads for our assembly today. Copy the appropriate data from the `~/data` directory to your local folder.
+We will be using PacBio CLR reads for our assembly today. Copy the appropriate data from the `/data` directory to your local folder.
 
 ```
-cp ~/data/project_6/c_hepaticus.fastq ./0_data/
+cp ../data/project_6/c_hepaticus.fastq ./0_data/
 ```
 
-## 2. Create conda environments
+## 2. Quick look at the input data
 
-We will also need a new conda environment.
-To create our conda environment, we will first install mamba and then use it to create an environment using a configuration file. 
-Using a configuration file means that we can easily track which versions of tools we are using. 
+Today we are assembling a Campylobacter hepaticus genome from PacBio CLRs (Continuous Long Reads) using Canu.
+See [this video](https://www.youtube.com/watch?v=_lD8JyAbwEo) for a quick summary/review of how PacBio sequencing works. 
 
-First, copy over the config file from `~/data/`.
-
-```
-cp -r ~/data/project_6/genomeassembly.yaml .
-```
- 
-Have a quick look at the contents of the .yaml file to see which tools we will be installing in the environment. 
-
-```
-# install mamba 
-conda install -c conda-forge mamba
-
-# create the conda environment
-mamba env create -f genomeassembly.yaml
-```
-
-This hopefully won't take too long. 
-
-Now, when you run `conda env list`, a new environment should appear called `genomeassembly`.
-
-We will now activate the `genomeassembly` environment. 
-
-```
-conda activate genomeassembly
-```
-
-## 3. Quick look at the input data
-
-Today we are assembling a Campylobacter hepaticus genome from PacBio CLR reads using Canu.
 Campylobacter is a bacteria and is one of the most common causes of baterial gastroenteritis in humans.
 It was selected for the practical because of its small size (~1.5Mbp) to reduce computation time.
 
-We will use seqtk to get a quick summary of the fastq data. 
-We could alternatively use FastQC for this but the first three lines of the seqtk report are all we really want as PacBio reads don't have quality scores.
+Let's have a look at the raw data using FastQC.
+If you can't remember how to use FastQC, run `fastqc -h` to see the help menu. 
+
+You'll notice when you look at the .html report that these reads don't have any quality scores associated with them.
+This is expected as quality scores don't really make sense due to the way that PacBio CLRs are created.
+
+* *How many sequences are there in the dataset?*
+* *What are the minimum and maximum read lengths in the dataset?* 
+
+FastQC doesn't tell us the average read length or the total number of bases in our dataset so we will calculate this ourselves. 
+
+The command below will count the total number of basepairs in the fastq file. 
 
 ```
-seqtk fqchk 0_data/c_hepaticus.fastq > raw_fastq_summary.txt
-head -n 3 raw_fastq_summary.txt
-``` 
+cat c_hepaticus.fastq | paste - - - - | cut -f 2 | tr -d '\n' | wc -c
+```
 
-* *How many reads are there in total in the `c_hepaticus.fastq` file?*
-* *What are the minimum and maximum read lengths?*
-* *Assuming that our genome is approximately 1.5Mbp long, what coverage do these reads give us?*
+* *What is the average read length?*
+* *Assuming that our genome is approximately 1.5Mbp long, what coverage do these reads give us? Remember that Coverage = (total number of bases in reads)/genome size*
 * *Do you think this is sufficient to generate a good assembly? Why or why not?*
 
-## 4. Assemble!
+While you might be used to trimming reads before you use them for assembly or alignment, Canu (our assembler) includes both a correction and trimming step. 
+Therefore, trimming is unnecessary in this case.  
 
-We will be using the assembler Canu today. Canu was installed as part of the `genomeassembly` conda environment. 
-Test that it works by running `canu`.
-The Canu usage instructions should be printed to the screen.
+## 3. Assemble!
+
+Dave has very kindly installed Canu on our VM's for us. 
+
+Do a test run to see if it works using the following:
+
+```
+canu
+```
+
+The Canu usage instructions should be printed to the screen. 
 
 Now let's run the Canu assembly. 
 
 ```bash
+# first move back into the Project_6 home directory
+cd ..
+
 # run canu assembly
 canu -p c_hepaticus -d 1_canu_assembly genomeSize=1.5m corThreads=2 -pacbio 0_data/c_hepaticus.fastq
 ```
 
 It should take between 10 and 15 minutes for the assembly to complete.   
 
-## 5. While we wait...
-
-### Resources for genome assembly
+## 4. While we wait ...  Resources for genome assembly
 
 Larger, more complex genomes contain high percentages of repeats. Assembling these repeats accurately with short reads is not effective. Long reads that are able to span these repeat regions result in much better assemblies. There are many long read assembly tools available including the following: 
 
@@ -137,7 +121,7 @@ Have a look at the [Canu FAQ](https://canu.readthedocs.io/en/latest/faq.html) an
 
 You can see now why we aren't assembling a larger genome. 
 
-### Canu
+## 5. Canu
 
 As it says above, Canu has been designed to run where resources are somewhat limited. 
 It does this by breaking the assembly process down into many steps (hundreds when the genome is very large) and submitting each small job separately to the scheduler. 
@@ -166,31 +150,30 @@ corThreads
 * *What is the "correctedErrorRate" default parameter for PacBio reads?*
 * *Why is this parameter higher for Nanopore reads than for PacBio reads?*
 * *Given that we have only approximately 16x coverage of reads for the C. hepaticus genome, is this correctedErrorRate still appropriate? If not, what should it be adjusted to and why?* 
-* *Canu requires a genomeSize parameter. What does it use this parameter for?*
 * *What is the default minimum read length (minReadLength)? Hint - you may need to look in a different section of the Canu documentation.*
 
 ## 6. Looking at the assembly report
 
-Canu should have finished running by now so let's see what it's done by having a look at the summary report it has prepared.  
+Canu should have finished running by now so let's have a look at the summary report generated. 
 
 ```
-cd 1_canu_assembly
+cd 1_canu_assembly 
 
-# have a look at the contents of the directory created by Canu 
-# c_hepaticus.contigs.fasta is the final assembly
 ls
+# The actual assembly is the c_hepaticus.contigs.fasta
+#You can have a look around the assembly directory to see what Canu has done. It's actually pretty well organised.
 
-# page through the assembly report
 less c_hepaticus.report
 ```
 
-The report should begin with a heading that says [CORRECTION/READS]. Remember that read correction is the first step in the Canu workflow. Take a look through this first section and answer the following questions. 
+The report should begin with a heading that says [CORRECTION/READS]. Remember that read correction is the first step in the Canu workflow.
+Take a look through this first section and answer the following questions. 
 
 * *How many reads did Canu find in the raw data?*
 * *What depth of coverage does that equate to?*
 * *Why is the number of reads different to the number of reads in the input .fastq file?*
 
-After correction, Canu trims the data and then the final step - unitigging - starts. 
+After correction, Canu trims the data (feel free to have a look through this part of the report too) and then the final step - unitigging - starts. 
 
 Scroll down to the UNITIGGING section. Unitigging is the assembly stage and a unitig can be thought of as a high-confidence contig. 
 
@@ -200,11 +183,33 @@ Scroll down to the UNITIGGING section. Unitigging is the assembly stage and a un
 
 When you are finished, exit out of the report with `q`. 
 
+We can also verify the assembly size and number of contigs using the command line.  
+
+Let's count the number of contigs in our assembly. 
+
+Remember that this is a fasta file and so every contig will first have a description line that begins with the `>` character. 
+To count the contigs, we will count the number of lines that begin with this character.
+ 
+```
+grep "^>" c_hepaticus.contigs.fasta | wc -l
+```
+
+Let's count the total number of basepairs in our assembly as well. 
+
+```
+grep -v "^>" c_hepaticus.contigs.fasta | wc | awk '{print $3-$1}'
+```
+
 We will have a closer look at the assembly quality in the next practical. 
 
 ## 7. Another Canu assembly
 
 Re-do your Canu assembly with the same options as before but add in an adjustment of the correctedErrorRate parameter to the value that you suggested in Part 5. 
+
+```
+canu -p c_hepaticus -d 1_canu_adjusted_assembly genomeSize=1.5m corThreads=2 correctedErrorRate=0.055 -pacbio 0_data/c_hepaticus.fastq
+```
+
 The output directory should be 1_canu_adjusted_assembly. 
 Leave the other options the same. 
 
@@ -215,9 +220,8 @@ We will use this assembly in the next practical.
 C. hepaticus is a small haploid genome which means that it is fairly straightforward nowadays to assemble. 
 What is more challenging are larger diploid and polyploid genomes.
 
-* *Can you think of a few reasons why diploid or polyploid genomes are more difficult to assemble than haploid genomes? Relate these reasons back to the OLC algorithm.*
-* *If we were assembling a diploid genome with a genome size of 2Gbp, under what circumstances might our resulting assembly be approximately 2Gbp in length?*
-* *With the same assumptions, under what circumstances might our resulting assembly be greater than 2Gbp in length?* 
+* *Can you think of a few reasons why diploid or polyploid genomes are more difficult to assemble than haploid genomes? Relate these reasons back to the OLC algorithm if you can.*
+* *If we were assembling a diploid genome with a genome size of 2Gbp, under what circumstances might our resulting assembly be greater than 2Gbp in length?*
 
 Canu is capable of assembling both haplotypes of a diploid genome - termed phasing. 
 Have a look at the paper below (mainly the first figure) to understand how this works.
@@ -226,4 +230,4 @@ Have a look at the paper below (mainly the first figure) to understand how this 
 
 * *Briefly summarise in your own words how trio binning works in Canu.*
 
-
+I know that today's practical wasn't very visual but we'll have more to look at in the second part of the prac. 
