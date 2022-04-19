@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Readme.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<ul>
+<li>TOC
+{:toc}</li>
+</ul>
+<h2 id="bioinf30107150-genomics-applications">BIOINF3010/7150: Genomics Applications</h2>
+<p>{:.no_toc}</p>
+<p>Semester 1 2022 - <em>Provisional Timetable</em></p>
+<h3 id="lecture-and-practical-timetable">Lecture and Practical Timetable</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Week</strong></th>
+<th><strong>Monday</strong></th>
+<th><strong>Lecture</strong></th>
+<th><strong>Practical</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1</strong></td>
+<td>28/2</td>
+<td>Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (Dave)</td>
+<td><a href="Practicals/Bash_Practicals/1_IntroBash.md">Introduction to Bash 1</a> (Dave)   <a href="Practicals/Bash_Practicals/2_BashScripting.md">Introduction to Bash 2</a> (Dave)</td>
+</tr>
+<tr>
+<td><strong>2</strong></td>
+<td>7/3</td>
+<td>Resequencing (Exome/WGS)     (Dave)</td>
+<td><a href="Practicals/Read_QC/read-qc.md">Read Quality Control</a> (Dave)[Read Quality Control contd]</td>
+</tr>
+<tr>
+<td><strong>3</strong></td>
+<td>14/3</td>
+<td><strong>No lecture - Public Holiday</strong></td>
+<td><a href="Practicals/resequencing/resequencing.md">SARS-CoV-2 Resequencing</a> (Dave)  [TBA]</td>
+</tr>
+<tr>
+<td><strong>4</strong></td>
+<td>21/3</td>
+<td>Short read assembly; approaches and issues (Dave)</td>
+<td><a href="Practicals/Alignments_Practicals/alignment-cram.md">SAMTools and alignments</a> (Dave)  <a href="Practicals/short_read_assembly/short-read-assembly.md">SARS-CoV-2 Short Read Assembly</a> (Dave)</td>
+</tr>
+<tr>
+<td><strong>5</strong></td>
+<td>28/3</td>
+<td>Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (Anna)</td>
+<td><a href="Practicals/short_long_alignment/short_long_alignment.md">Short and long read alignment</a> (Anna) <a href="Practicals/hybrid_genome_assembly/index.md">E. coli K-12 Hybrid Genome Assembly</a> (Anna)</td>
+</tr>
+<tr>
+<td><strong>6</strong></td>
+<td>4/4</td>
+<td><em>De novo</em> assembly genome size estimate (k-mers), coverage. (Chelsea)</td>
+<td><a href="Practicals/Genome_assembly/genome_assembly_prac_1.md">Genome Assembly I</a> (Chelsea) <a href="Practicals/Genome_assembly/genome_assembly_prac_2.md">Genome Assembly II</a> (Chelsea)</td>
+</tr>
+<tr>
+<td><strong>-</strong></td>
+<td></td>
+<td></td>
+<td>MID-SEMESTER BREAK</td>
+</tr>
+<tr>
+<td><strong>7</strong></td>
+<td>25/4</td>
+<td><strong>No lecture - Public Holiday</strong> <em>Lecture in Tuesday prac session -&gt;</em></td>
+<td><strong>Genome Graphs Lecture - Tuesday  (Yassine)</strong>   <a href="Practicals/Graph_Genomes/prac_part1.md">Genome graphs1</a> (Yassine)</td>
+</tr>
+<tr>
+<td><strong>8</strong></td>
+<td>2/5</td>
+<td>Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave)</td>
+<td><a href="Practicals/Graph_Genomes/prac_part2.md">Genome graphs2</a> (Yassine) <a href="Practicals/BLAST_practical/BLAST_intro.md">Intro to BLAST</a> (Dave)</td>
+</tr>
+<tr>
+<td><strong>9</strong></td>
+<td>9/5</td>
+<td>Structural variation and cancer genomics (Paul)</td>
+<td><a href="Practicals/BLAST_practical/BLAST_practical_v2.md">BLAST practical</a> (Dave) [Structural variants, cancer genomics] (Paul)</td>
+</tr>
+<tr>
+<td><strong>10</strong></td>
+<td>16/5</td>
+<td>Variant calling and high-throughput genotyping (Julien)</td>
+<td><a href="Practicals/variants_clinical/variant_annotation.md">Clinical genomics1</a> (Julien)  <a href="Practicals/variants_clinical/variant_filtering.md">Clinical genomics2</a> (Julien)</td>
+</tr>
+<tr>
+<td><strong>11</strong></td>
+<td>23/5</td>
+<td>Population genomics (Bastien)</td>
+<td>Open Practical Session Tuesday (Dave) [Population genomics1] (Bastien)</td>
+</tr>
+<tr>
+<td><strong>12</strong></td>
+<td>30/5</td>
+<td>Wrap up lecture (Dave)</td>
+<td>[Population genomics2] (Bastien) [Open  Prac session - Friday] (Dave)</td>
+</tr>
+<tr>
+<td><strong>13</strong></td>
+<td>6/6</td>
+<td>TBD</td>
+<td>TBD</td>
+</tr>
+</tbody>
+</table>
+<h2 id="assessment">Assessment</h2>
+<h3 id="assessment-tasks">Assessment Tasks</h3>
+<table>
+<thead>
+<tr>
+<th><strong>Assignment</strong></th>
+<th><strong>Subject</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="">Assignment 0</a></td>
+<td>Bash</td>
+</tr>
+<tr>
+<td><a href="">Assignment 1</a></td>
+<td>Genome sequencing</td>
+</tr>
+<tr>
+<td><a href="">Assignment 2</a></td>
+<td>Genome assembly</td>
+</tr>
+<tr>
+<td><a href="">Assignment 3</a></td>
+<td>Genome Annotation</td>
+</tr>
+<tr>
+<td><a href="">Assignment 4</a></td>
+<td>Population Genomics  (No Link)</td>
+</tr>
+<tr>
+<td><a href="">Project</a> (PG only)</td>
+<td>Complete Dataset</td>
+</tr>
+</tbody>
+</table>
+<h3 id="major-project-post-grad-only">Major Project (Post Grad only)</h3>
+<p>In this course, the following next-generation sequencing (NGS) datasets/protocols will be examined in detail:</p>
+<ul>
+<li>Whole genome sequencing/Resequencing</li>
+<li>Whole genome assembly</li>
+<li>Sequence alignment</li>
+<li>Ancient DNA/Population Genomics</li>
+<li>Genome graphs</li>
+<li>SNV variant/structural variation analysis</li>
+</ul>
+<p>Each of these NGS approaches uses similar programs and analysis approaches, such as quality control (quality and sequencing adapter trimming), genome alignment, and downstream visualisation and statistical methods.
+For the project, you will take a published (or otherwise obtained) dataset and complete all the analysis tasks (from raw data to final results) during the course.
+You have the freedom to choose any dataset you would like. You will prepare a final report that will be due at the end of the semester.
+The report should be prepared using RStudio as an Rmd document including all code needed to perform the analysis, and will include the standard components of a scientific report:</p>
+<ul>
+<li>Introduction (background on the study and identification of the research hypothesis)</li>
+<li>Methods (analysis steps and programs used)</li>
+<li>Results (what you found) and;</li>
+<li>Discussion (how the results relate to the research hypothesis and the published literature).</li>
+</ul>
+<p>The Rmd document and a compiled knitted html will form the submission; marks will be awarded to the code and Rmd that you use.</p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th style="text-align:right">Mark</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Abstract</td>
+<td style="text-align:right">5%</td>
+</tr>
+<tr>
+<td>Introduction and hypothesis</td>
+<td style="text-align:right">10%</td>
+</tr>
+<tr>
+<td>Methods</td>
+<td style="text-align:right">20%</td>
+</tr>
+<tr>
+<td>Results and Discussion</td>
+<td style="text-align:right">30%</td>
+</tr>
+<tr>
+<td>References</td>
+<td style="text-align:right">5%</td>
+</tr>
+<tr>
+<td>Analysis scripts</td>
+<td style="text-align:right">30%</td>
+</tr>
+</tbody>
+</table>
+<h4 id="major-project-data">Major Project Data</h4>
+<p>Look <a href="./Assignments/Major_Project/major_project.md">here</a> for major project data.</p>
+<h3 id="assessment-checklist">Assessment Checklist</h3>
+<p>Have you:</p>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">Answered all the questions?</label></li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">Followed naming conventions for Assessments?</label></li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">Checked that you have not breached the </label><a href="http://www.adelaide.edu.au/policies/230/">Academic Honesty Policy</a>.</li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">Identified the work as yours?</label>
+<ul>
+<li>Emails should have the course and assessment task names.</li>
+<li>Documents should be named with your name, the course name and the assessment task.</li>
+<li>Printed documents should have you name and the course and assessment task in the text/footer/header.</li>
+</ul>
+</li>
+<li><input type="checkbox" id="checkbox4"><label for="checkbox4">Used appropriate electronic communication with assessors?</label>
+<ul>
+<li>Emails should have a meaningful subject.</li>
+</ul>
+</li>
+<li><input type="checkbox" id="checkbox5"><label for="checkbox5">Handed in the assignment before the due time (see MyUni)?</label></li>
+</ul>
+<h2 id="useful-links">Useful Links</h2>
+<p><a href="http://www.catb.org/esr/faqs/smart-questions.html">How To Ask Questions The Smart Way</a></p>
+<p><a href="https://musescore.org/en/developers-handbook/how-write-good-bug-report-step-step-instructions">How to write a good bug report</a></p>
+<p><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.</p>
+
+</body>
+</html>
