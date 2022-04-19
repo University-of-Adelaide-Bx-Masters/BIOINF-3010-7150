@@ -17,11 +17,11 @@ Your datasets are as follows:
 * 25x.fq - random subset of original dataset to ~25x coverage
 * 35x.fq - random subset of original dataset to ~35x coverage
 
-These files can be found in the `/data/assignment2` directory
+These files can be found in the `~/data/Assignment_2` directory
 
 You are also provided with the Lactobacillus acidophilus reference (taken from [here](https://www.ncbi.nlm.nih.gov/assembly/GCF_020883435.1) if you want to have a look). 
 
-It is also in the `/data/assignment2` directory and is called `reference.fasta`. 
+It is also in the `~/data/Assignment_2` directory and is called `reference.fasta`. 
 
 ### Part 1
 
