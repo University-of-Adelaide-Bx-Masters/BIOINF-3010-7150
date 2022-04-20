@@ -21,8 +21,8 @@ Semester 1 2022 - *Provisional Timetable*
 | **8**    | 2/5        | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave) | [Genome graphs2] (Yassine) [Intro to BLAST] (Dave)            |
 | **9**    | 9/5        | Structural variation and cancer genomics (Paul)  |   [BLAST practical] (Dave) [Structural variants, cancer genomics] (Paul)                       |
 | **10**   | 16/5       | Variant calling and high-throughput genotyping (Julien) |  [Clinical genomics1] (Julien)  [Clinical genomics2] (Julien)                   |
-| **11**   | 23/5       | Population genomics (Bastien) | Open Practical Session Tuesday (Dave) [Population genomics1] (Bastien)              |
-| **12**   | 30/5       | Wrap up lecture (Dave) |   [Population genomics2] (Bastien) [Open  Prac session - Friday] (Dave)           |
+| **11**   | 23/5       | Population genomics (Bastien) | [Population genomics1] (Bastien)  [Population genomics2] (Bastien)              |
+| **12**   | 30/5       | Wrap up lecture (Dave) |  Open Practical Session Tuesday (Dave)  [Open  Prac session - Friday] (Dave)           |
 | **13**   | 6/6        |   TBD         |   TBD        |
 
 [Introduction to Bash 1]: Practicals/Bash_Practicals/1_IntroBash.md
