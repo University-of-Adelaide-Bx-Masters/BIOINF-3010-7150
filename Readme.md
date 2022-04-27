@@ -43,8 +43,8 @@ Semester 1 2022 - *Provisional Timetable*
 [Clinical genomics1]: Practicals/variants_clinical/variant_annotation.md
 [Clinical genomics2]: Practicals/variants_clinical/variant_filtering.md
 [Agricultural genomics]: Practicals/
-[Population genetics1]: Practicals/ancient_DNA_pop_genomics/prac_part1.md
-[Population genetics2]: Practicals/ancient_DNA_pop_genomics/prac_part2.md
+[Population genomics1]: Practicals/ancient_DNA_pop_genomics/prac_part1.md
+[Population genomics2]: Practicals/ancient_DNA_pop_genomics/prac_part2.md
 
 
 ## Assessment
