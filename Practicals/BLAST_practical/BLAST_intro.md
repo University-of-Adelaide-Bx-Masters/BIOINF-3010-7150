@@ -64,7 +64,7 @@ Once you have installed NCBI BLAST you will need to set up a project directory w
 
 ### 3.2 The data and project directory
 
-The files you need are in `~/data/`. 
+The files you need are in `~/data/BLAST/`. 
 
 See the `README_BLAST.txt` file for descriptions of the data files.
 

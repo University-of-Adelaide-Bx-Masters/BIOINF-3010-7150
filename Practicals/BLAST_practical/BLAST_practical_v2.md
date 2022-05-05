@@ -79,12 +79,11 @@ To determine the most abundant repeat type in your output you can try:
 - use `cut` , `sort` and `uniq` to list all the repeat types
 - use `grep -c` to count some of the repeat types to get an objective assessment of how many insertions there are for every repeat type. *Hint: when using `grep` use the shortest search pattern you can to group repeats of the same type into the count*.
 
-**I have used arbitrary coordinate values in the example below, you will need to use your own coordinates.**
+**I have used arbitrary coordinate values 12045-12345 in the example below, you will need to use your own coordinates.**
 
-Activate the `assembly` environment in order to use `samtools`.
+`samtools` should be already installed on your VMs and you can use it to extract the subsequence you want from the genome. 
 
 ```bash
-conda activate assembly
 
 samtools faidx ~/BLAST_practical/queries/hg38_gene_query.fasta hg38:12045-12345 > ~/BLAST_practical/queries/hg38_12045-12345.fasta
 ```
