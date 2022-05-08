@@ -75,7 +75,7 @@ mkdir -p ~/BLAST_practical/dbs
 mkdir -p ~/BLAST_practical/queries
 mkdir -p ~/BLAST_practical/results
 ```
-Once you have created these directories move the `hg38.fa.gz`, `humanReps.fa.gz` and `uniprot_sprot.fasta.gz` to `~/BLAST_practical/dbs`. Move the remaining files to `~/BLAST_practical/queries`.
+Once you have created these directories copy the `hg38.fa.gz`, `hg38_reduced.fa.gz`, `humanReps.fa.gz` and `uniprot_sprot.fasta.gz` to `~/BLAST_practical/dbs`. Copy the remaining files to `~/BLAST_practical/queries`.
 
 ### 3.3 Prepare the BLAST databases
 
@@ -87,6 +87,7 @@ You will need to decompress the hg 38.fa uniprot_sprot.fasta files:
 cd ~/BLAST_practical/dbs
 unpigz -p 2 uniprot_sprot.fasta.gz
 unpigz -p 2 hg38.fa.gz
+unpigz -p 2 hg38_reduced.fa.gz
 ```
 Once you have done this, you will need to index/format these files so that BLAST can search them.
 
@@ -102,7 +103,7 @@ You will use the following command.
 makeblastdb -in ~/BLAST_practical/dbs/uniprot_sprot.fasta -dbtype 'prot' -parse_seqids -out ~/BLAST_practical/dbs/sprot
 ```
 
-This will generate three files that BLAST uses.
+This will generate six files that BLAST uses.
 
 You will then need to index/format the human hg38 chromosome sequences so that BLAST can search them.
 
