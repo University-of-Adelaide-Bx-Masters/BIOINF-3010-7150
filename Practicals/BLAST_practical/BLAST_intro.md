@@ -108,6 +108,8 @@ You will then need to index/format the human hg38 chromosome sequences so that B
 
 ```bash
 makeblastdb -in ~/BLAST_practical/dbs/hg38.fa -dbtype 'nucl' -parse_seqids -out ~/BLAST_practical/dbs/hg38
+
+makeblastdb -in ~/BLAST_practical/dbs/hg38_reduced.fa -dbtype 'nucl' -parse_seqids -out ~/BLAST_practical/dbs/hg38_reduced
 ```
 Now you are ready to familiarise yourself with command line BLAST. *Once you make the blast dbs you can delete the original fasta files and recover some disk space*
 
@@ -213,11 +215,11 @@ Once BLASTX has completed you can look at your output using "head", "less", "mor
 ### 4.1 You can test the effect of `-word_size` on output and speed:
 
 ```bash
-time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 28 -num_threads 2 -db ~/BLAST_practical/dbs/hg38 -out ~/BLAST_practical/results/W28.txt
+time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 28 -num_threads 2 -db ~/BLAST_practical/dbs/hg38_reduced -out ~/BLAST_practical/results/W28.txt
 ```
 
 ```bash
-time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 11 -num_threads 2 -db ~/BLAST_practical/dbs/hg38 -out ~/BLAST_practical/results/W11.txt
+time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 11 -num_threads 2 -db ~/BLAST_practical/dbs/hg38_reduced -out ~/BLAST_practical/results/W11.txt
 ```
 This will take some time.
 
