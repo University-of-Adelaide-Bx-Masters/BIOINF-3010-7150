@@ -81,7 +81,7 @@ To determine the most abundant repeat type in your output you can try:
 
 **I have used arbitrary coordinate values 12045-12345 in the example below, you will need to use your own coordinates.**
 
-`samtools` should be already installed on your VMs and you can use it to extract the subsequence you want from the genome. 
+`samtools` should be already installed on your VMs and you should be able use it from within the `conda blast` environment to extract the subsequence you want from the genome. 
 
 ```bash
 
@@ -90,12 +90,11 @@ samtools faidx ~/BLAST_practical/queries/hg38_gene_query.fasta hg38:12045-12345 
 
 #### 2.4 Alignment of your human repeat sub-sequence to the human genome
 
-This may take a while to run, so be patient. Remember to activate the `blast` environment with conda first. 
+This may take a while to run, so be patient. Remember to activate the `blast` environment with conda first if you have not already activated that environment. 
 
 ```bash
-conda activate blast
 
-blastn -query hg38_12045_13345.fasta -task blastn -db hg38 -num_threads 2 -out hg38_repeats.txt -outfmt 7
+blastn -query ~/BLAST_practical/queries/hg38_12045_13345.fasta -task blastn -db ~/BLAST_practical/dbs/hg38 -num_threads 2 -out ~/BLAST_practical/results/hg38_repeats.txt -outfmt 7
 ```
 
 The output will be very large, so do not open with the text editor. You can see how many hits you have by using:
