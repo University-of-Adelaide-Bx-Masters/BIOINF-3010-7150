@@ -216,11 +216,11 @@ Once BLASTX has completed you can look at your output using "head", "less", "mor
 ### 4.1 You can test the effect of `-word_size` on output and speed:
 
 ```bash
-time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 28 -db ~/BLAST_practical/dbs/hg38_reduced -out ~/BLAST_practical/results/W28.txt
+time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 28 -db ~/BLAST_practical/dbs/hg38_reduced -outfmt 7 -out ~/BLAST_practical/results/W28.txt
 ```
 
 ```bash
-time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 11 -db ~/BLAST_practical/dbs/hg38_reduced -out ~/BLAST_practical/results/W11.txt
+time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 11 -db ~/BLAST_practical/dbs/hg38_reduced -outfmt 7 -out ~/BLAST_practical/results/W11.txt
 ```
 This will take some time.
 
