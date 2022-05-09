@@ -52,7 +52,7 @@ blastn -query [file.fasta] -task [blastn] -db [database file]  -outfmt [0 throug
 
 ```bash
 blastx -query ~/BLAST_practical/queries/hg38_gene_query.fasta -db ~/BLAST_practical/dbs/sprot \
--num_threads 2 -out ~/BLAST_practical/results/H15_blastx_sprot.txt \
+-num_threads 2 -out ~/BLAST_practical/results/HumGene_blastx_sprot.txt \
 -outfmt "7 delim= qaccver qlen sallgi sallacc stitle slen pident length \
 mismatch gapopen qstart qend sstart send evalue bitscore"
 ```
@@ -63,7 +63,7 @@ Once BLASTX has completed you can look at your output using "head", "less", "mor
 There will be quite a few hits. You can reduce them to a manageable level by parsing the output to find only the alignments with human proteins.
 
 ```bash
-grep "Homo sapiens" ~/BLAST_practical/results/HUMAN H15_blastx_sprot.txt | less
+grep "Homo sapiens" ~/BLAST_practical/results/HumGene_blastx_sprot.txt | less
 ```
 
 #### 2.3 Alignments to human repeat consensus sequences
