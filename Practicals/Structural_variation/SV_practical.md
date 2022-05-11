@@ -22,7 +22,7 @@ tar -xvf sv_data.tar.gz
 ```
 
 You should now see these files in your working directory:
-```
+```bash
 .
 ├── manta-1.6.0.centos6_x86_64.tar.bz2
 ├── reference.fasta
@@ -54,6 +54,7 @@ bwa index reference.fasta
 ```
 
 Then perform the alignment and read sorting:
+
 ```bash
 bwa mem \
   -t 2 \
@@ -70,7 +71,7 @@ Note that the `samtools sort` option `--write-index` creates a .csi index file,
 rather than .bai. If you come across a program that does not support .csi and
 requires .bai instead, you can generate .bai index by:
 
-```
+```bash
 samtools index sorted.bam
 ```
 
@@ -78,7 +79,7 @@ samtools index sorted.bam
 
 Following the instructions for Week 3 Practical Part 1, visualise the mapped data by downloading the following files from the VM onto your workstation (via RStudio's file browser):
 
-```
+```bash
 reference.fasta
 reference.fasta.fai
 sorted.bam
@@ -130,7 +131,7 @@ tar xvf manta-1.6.0.centos6_x86_64.tar.bz2
 
 This should have extracted into a directory called `manta` with 4 sub-directories.
 
-```
+```bash
 manta/
 ├── bin
 │   ├── configManta.py
@@ -145,7 +146,7 @@ Manta execution is a 2-step process, first you need to run `configManta.py`, whi
 
 Execute `configManta.py` with no arguments to see how to use the command:
 
-```
+```bash
 $ manta/bin/configManta.py
 
 Usage: configManta.py [options]
@@ -186,7 +187,7 @@ manta/bin/configManta.py \
 
 This should then create a sub-directory, `manta_output`, with the structure:
 
-```
+```bash
 manta_output/
 ├── results
 │   ├── evidence
@@ -199,12 +200,13 @@ manta_output/
 
 Then execute the `runWorkflow.py` script within:
 
-```
+```bash
 manta_output/runWorkflow.py
 ```
 
 If everything goes well you should see something like this at the end of the standard output:
-```
+
+```bash
 [2022-05-11T01:36:39.577201Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner] Manta workflow successfully completed.
 [2022-05-11T01:36:39.577201Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner]
 [2022-05-11T01:36:39.577201Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner]  workflow version: 1.6.0
@@ -215,7 +217,7 @@ If everything goes well you should see something like this at the end of the sta
 
 Now, if you examine the directory `manta_output/results` you should see something like:
 
-```
+```bash
 manta_output/
 ├── results
 │   ├── evidence
@@ -257,8 +259,6 @@ by changing the track name (click on the gear icon to the right, and select
 The red bar shows the information about the variant.
 
 ![VCF INFO](images/VCF_redbox.png)
-
-
 
 
 The blue bar shows the sample specific information about this variant.
