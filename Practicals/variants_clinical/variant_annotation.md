@@ -1,21 +1,21 @@
 
-# Practicals: Variant Calling & Clinical Genomics
+# Clinical Genomics Practicals
 
-For the process of separating out two tutorials,
+Practicals for clinical genomics are split into two tutorials:
 
-1. Variant Annotation (Friday)
-2. Variant Filtering and Pedigree Analyses (Tuesday)
+1. Variant Annotation (Tuesday)
+2. Variant Filtering and Pedigree Analyses (Wednesday)
 
-## Clinical Genetics
+## Some backgound on Clinical Genomics
 
 Clinical genomics and mendelian genetics can be separated into two groups based on their stated analysis goals; Diagnostics and Research.
 Many labs in major hospitals, independent research institutes and universities do a mixture of both work.
-They have a goal of informing clinical practice (i.e. can we inform the diagnosis of the clinician in the lab?) through genome sequencing methods, and can further investigate difficult cases that could ultimately lead to developing new tests and techniques.
+They have a goal of informing clinical practice (_i.e.,_ can we inform the diagnosis of the clinician in the lab?) through genome sequencing methods, and can further investigate difficult cases that could ultimately lead to developing new tests and techniques.
 On a computational level, these environments are where computational methods, workflows and standards are developed.
 
 The complete opposite is true of diagnostic approaches.
-The goal is to identify _known_ patterns in sequencing data, with an emphasis of using established and highly tested "best practice".
-Diagnostic tests are also about identifying known issues in the quickest way possible because treatment pathways are reliant on the information, much like other tests such as blood profiles.
+The goal is to identify _known_ patterns in sequencing data, with an emphasis of using well established and highly tested "best practices".
+Diagnostic tests are also about identifying known issues in the quickest and most reliable way possible, because treatment pathways are reliant on the information, much like other tests such as blood profiles.
 
 A critical thing to considering about high-throughput sequencing is the enormous amount of information that is obtained.
 Additionally, a lot of the information that is obtained is difficult to interpret.
@@ -24,34 +24,35 @@ Non-coding regions of the genome, or the other 99% are much more difficult to in
 
 In this tutorial, we are firstly going to look at ways in which we can give context to variant analyses, by running a process called "Variant Annotation".
 
+## 1. Variant Annotation
+
 ### This week's data
 
 This week we are going to use three samples from a [gemini database tutorial](https://s3.amazonaws.com/gemini-tutorials/Gemini-Recessive-Tutorial.pdf) written by Aaron Quinlan (University of Utah).
 Aaron's group has written some really helpful pieces of software including `bedtools`, `giggle` and `vcfanno`, which are all becoming standard tools in the toolkit of clinical researchers.
 
 To demonstrate a lot of what we're doing this week, we'll be using variants that have already been called using the GenomeAnalysisToolkit (GATK), that was developed by the Broad Institute (Cambridge, USA).
-Let's download the vcf as a gzipped compressed VCF file, as well as two pedigree files that contain two separate examples looking at dominant and recessive disorders.
+The data was pre-loaded to your VM at ***/home/student/data/Variants/***:
+- 1 gzipped compressed Variant Call Format (VCF) = _trio.trim.vep.vcf.gz_
+- 2 pedigree files that contain two separate examples looking at dominant and recessive disorders = _recessive.ped / dominant.ped_
+- 1 SNP ID annotation file from dbSNP = _hg19.dbSNP.vcf.gz_
+
+We will mostly use **BCFtools** for this tutorial:
+https://samtools.github.io/bcftools/bcftools.html
+
+As our VCF file already has annotations attached, let's start by stripping off that information so we can start the process at the start (and hopefully learn a few things along the way!).
 
 ```bash
-# Download data
-# Main VCF
-curl https://s3.amazonaws.com/gemini-tutorials/trio.trim.vep.vcf.gz	> trio.trim.vep.vcf.gz
+# First let's make a working directory and copy the data over
+mkdir -p ~/clinicalGenomics && cd $_
+cp /home/student/data/Variants/*  ~/clinicalGenomics/
 
-# Pedigree files
-curl https://s3.amazonaws.com/gemini-tutorials/recessive.ped > recessive.ped
-curl https://s3.amazonaws.com/gemini-tutorials/dominant.ped > dominant.ped
-
-# ID annotation table
-wget https://ftp.ncbi.nlm.nih.gov/snp/organisms/human_9606/VCF/00-common_all.vcf.gz -O "hg19.dbSNP.vcf.gz"
-```
-
-Our VCF file already has annotations attached, so lets strip off that information so we can start the process at the start (and hopefully learn a few things along the way!).
-
-```bash
-# First let's install bcftools through bioconda
+# Then make a standalone conda environment and install BCFtools through bioconda
+conda create --name bcftoolsEnv
+conda activate bcftoolsEnv
 conda install -c bioconda bcftools
 
-# Then use bcftools to remove fields but keep GT (genotypes)
+# Finally, use BCFtools to remove fields but keep GT (genotypes)
 bcftools annotate -x FILTER,INFO,^FORMAT/GT trio.trim.vep.vcf.gz -Oz -o trio.trim.vcf.gz
 ```
 
@@ -60,7 +61,7 @@ bcftools annotate -x FILTER,INFO,^FORMAT/GT trio.trim.vep.vcf.gz -Oz -o trio.tri
 
 Lets have a look at our VCF file.
 Firstly, lets review the Variant Call Format (VCF) file.
-This is the standard file for listing variants that are 'called' via a variant calling algorithms such as `bcftools`, `GATK` or `freebayes`.
+This is the standard file for listing variants that are 'called' via a variant calling tools such as `BCFtools`, `GATK` or `freebayes`.
 The basic premise for calling variants is to identify both alleles in a diploid genome.
 To do this, sequenced DNA fragments ("reads") are aligned to the reference sequence and the base at each position is determined, counted and then run through a number of tests to determine whether the site is different from the reference sequence.
 If the site is polymorphic, we count the bases at the position and determine whether it is a homozygous or a heterozygous variant.
@@ -68,27 +69,27 @@ In this file, a "0" denotes the reference base and "1" as the alternate base at 
 So a heterozygous variant is "0/1" and a homozygous alternate variant is "1/1".
 Additionally, it is possible to have multi-allelic sites, so additional alternate alleles are coded as greater than 1 (e.g. 2/2 or 0/2).
 
-## VCF headers
+### VCF headers
 
-If we have a look at the VCF file there is the header and the full VCF information.
+If we have a look at the VCF file there is the header with the full VCF information.
 The header is denoted by lines that start with two # (i.e. ^##).
 The name of the fields for the rest of the file (that contain the actual results) is denoted by lines that start with only one # (i.e. ^#)
 
 ```bash
-zcat trio.trim.vcf.gz |less
+zcat trio.trim.vcf.gz | less
 ```
 
 Headers are an amazing mass of information that comes from the variant calling process.
 It will have metadata regarding the aligned reference genome, steps that were run to make the file and the definitions of the specific fields and tags within the file.
 
 ```bash
-# view the header
+# View the header using BCFtools
 bcftools view -h trio.trim.vcf.gz
 ```
 
 ---
 
-### QUESTIONS
+##### :question::question:QUESTIONS:question::question:
 
 1. What was the name of the reference genome file was used to make the VCF file?
 2. What program was used to call variants?
@@ -97,15 +98,15 @@ bcftools view -h trio.trim.vcf.gz
 
 ---
 
-## Adding a FILTER tag
+### Adding a FILTER tag
 
 Not all variants are created equal.
 Much like the genotype and alignment quality metrics (base and mapping quality) that we learnt in previous lectures, the VCF file contains a QUALITY field that is also phred scaled.
 
->QUAL phred-scaled quality score for the assertion made in ALT. i.e. -10log_10 prob(call in ALT is wrong). If ALT is ”.” (no variant) then this is -10log_10 p(variant), and if ALT is not ”.” this is -10log_10p(no variant). High QUAL scores indicate high confidence calls. Although traditionally people use integer phred scores, this field is permitted to be a floating point to enable higher resolution for low confidence calls if desired. If unknown, the missing value should be specified. (Numeric)
+>QUAL phred-scaled quality score for the assertion made in ALT. _i.e.,_ -10log_10 prob(call in ALT is wrong). If ALT is ”.” (no variant) then this is -10log_10 p(variant), and if ALT is not ”.” this is -10log_10p(no variant). High QUAL scores indicate high confidence calls. Although traditionally people use integer phred scores, this field is permitted to be a floating point to enable higher resolution for low confidence calls if desired. If unknown, the missing value should be specified. (Numeric)
 
 So lets say that we want to warn the user that we have some variants that are probably poor quality.
-We can add a tag (i.e. a bit of text) in the FILTER field to indicate that our variant is potentially poor quality.
+We can add a tag (_i.e.,_ a bit of text) in the FILTER field to indicate that our variant is potentially poor quality.
 This is important later on when you start interpreting the value of the variant.
 
 ```bash
@@ -115,45 +116,46 @@ bcftools filter -mx -sLowQual -e'%QUAL<30' trio.trim.vcf.gz
 
 ---
 
-### TASK
+##### :question::question:TASK:question::question:
 
 Variants that are located close to indels can also indicate poor quality calls, so:
-- Use the `bcftools filter` sub-command to tag low quality variants that are less that 30 quality and within 10 base-pairs of an InDel, and count those variants
+- Use the `bcftools filter` sub-command to tag low quality variants (QUAL<30) that are within 10 base-pairs of an InDel, and count those variants
 
 ---
 
-## Adding a variant id
+### Adding a variant ID
 
 As you can probably imagine, each variant within the current reference genome has been extensively studied through the continual sampling of patients and individuals from around the world.
-Due to this, each variant that is found within an individual sequenced over the last 10 years has been given an rsId in the [NCBI dbSNP database](https://www.ncbi.nlm.nih.gov/snp/).
-These rsIds are helpful because it gives you an extensive list of information about the particular variant, including
+Due to this, each variant that is found within an individual sequenced over the last ~10 years has been given an rsId in the [NCBI dbSNP database](https://www.ncbi.nlm.nih.gov/snp/).
+These rsIds are helpful because it gives you an extensive list of information about each particular variant.
 
-This is actually not _technically_ correct anymore, as we have sampled so many genome recently that the rsId numbers couldn't keep up!
+This is actually not _technically_ correct anymore, as we have sampled so many genomes recently that the rsId numbers couldn't keep up!
 
 There are now databases such as the [genome aggregation database (gnomAD)](https://gnomad.broadinstitute.org/) that samples over 100,000 individuals.
 
 ---
 
-### EXTRA TASK
+##### :question::question:TASK:question::question:
 
 - Take a little bit of time to explore gnomAD, as it is an important tool in determining a baseline allele-frequency of every variant.
 It is also helpful in finding potential loss-of-function (pLoF) variants.
   - Search gnomAD for the gene SATB1
   - Count the number of missense variants and list the pLoF variants in SATB1
-- Look up the variant `14-82565377-G-C` (rs75115269) and identify its allele-frequency in Ashkenazi Jews
+- Look up the variant `14-82565377-G-C` (rs75115269) and identify its allele frequency in Ashkenazi Jews
+- Can you find its equivalent genomics coordinates and allele frequency for the newer hg38 reference genome?
 
 ---
 
-ok back to annotating Ids.
+OK, back to annotating Ids.
 If we have a database of known Id, we can easily compare to the VCF file and add text to the ID field in the VCF (3rd field after CHROM and POS).
 For this we can use any type of tab-delimited file, but for this week I have provided the dbSNP reference VCF which is perfect for this task.
 
 **NOTE:** In order to subset or retrieve data from a tab-delimited file (or any other delimited file for that matter), it is helpful to use an index.
 File indexes are like phone-books (if you can remember a time when people used phone books!) which are sorted alpha-numerically to make it easy to find a name/phone number.
 A file index, commonly created by the program [`tabix`](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3042176/), can be created on most standard bioinformatics files (BED, VCF etc).
-Before running this annotation task, we need to also index both the database (i.e. our hg19.dbSNP.vcf.gz file) and the query (our VCF file that we want to add Ids to).
-It is also good practice to create an index every time you make a new VCF file, as many of these tasks require an index to work.
-A number of variant toolkit's (`gatk`, `picard`, `sambamb` etc) will often create an index automatically for you.
+Before running this annotation task, we need to also index both the database (_i.e.,_ our hg19.dbSNP.vcf.gz file) and the query (our VCF file that we want to add IDs to).
+It is also good practice to create an index every time you make a new VCF file, as most tasks require it to work.
+A number of variant toolkit's (`gatk`, `picard`, `sambamb`, etc...) will often create an index automatically for you.
 You can either use the `tabix` program using the VCF prefix (`tabix -p vcf`) or use the `bcftools` sub-command `bcftools index`
 
 ```bash
@@ -166,7 +168,7 @@ bcftools index -t trio.trim.vcf.gz
 
 List the files in the directory and see what is produced.
 
-Now we can add rsIds using the `bcftools annotation` sub-command and output a new files with our IDs attached.
+Now we can add rsIDs using the `bcftools annotation` sub-command and output a new files with our IDs attached.
 
 ```bash
 # Add Ids
@@ -177,10 +179,10 @@ bcftools annotate -c CHROM,FROM,ID,REF,ALT \
 
 ---
 
-### QUESTIONS
+### :question::question:QUESTIONS:question::question:
 
 1. Is the variant we explored in gnomAD (rs75115269) present in this VCF?
-2. Can you find the variant rs191680234, get its genomic coordinates, and for which individual it is variable?
+2. Can you find the variant rs191680234, get its genomic coordinates, and identify for which individual it is variable?
 
 ---
 
@@ -205,7 +207,7 @@ Additional to protein-coding changes, non-coding or regulatory variant sequence 
 So how are these included in the actual VCF file? Let's look:
 
 ```bash
-# View the VCF that contains full annotation (without the header i.e. -H param)
+# View the VCF that contains full annotation (without the header _i.e.,_ -H param)
 bcftools view -H trio.trim.vep.vcf.gz | head
 
 2	41647	.	A	G	4495.41	PASS	CSQ=intron_variant&non_coding_transcript_variant|||ENSG00000184731|FAM110C|ENST00000460464|||||processed_transcript|||||||||,intron_variant&non_coding_transcript_variant|||ENSG00000184731|FAM110C|ENST00000461026|||||processed_transcript|||||||||,intron_variant|||ENSG00000184731|FAM110C|ENST00000327669||||-/321|protein_coding|YES|CCDS42645.1|||||||	GT:AD:DP:GQ:PL	0/0:56,0:56:99:0,169,2183	0/1:33,35:68:99:1139,0,1044	0/1:119,117:237:99:3356,0,3283
@@ -228,7 +230,7 @@ zgrep "^##INFO=<ID=CSQ" trio.trim.vep.vcf.gz
 
 ---
 
-### QUESTIONS
+### :question::question:QUESTIONS:question::question:
 
 1. How many variants have a reported "missense_variant"?
 2. How many variants that are greater than quality 30 have a reported "missense_variant"?
@@ -237,21 +239,21 @@ zgrep "^##INFO=<ID=CSQ" trio.trim.vep.vcf.gz
 
 ---
 
-## Variant scores
+### Variant scores
 
 Of course, the impact of the variant may not always tell you the definitive pathogenicity of that variant.
 LOW impact variants may also have a high impact within some systems, so a number of additional metrics have been established to add additional interpretation power to variant annotation.
 These include:
 
-1. GERP
-1. CADD
-2. SIFT
-3. PolyPhen
-4. REVEL
+- GERP
+- CADD
+- SIFT
+- PolyPhen
+- REVEL
 
 [All the additional fields are here](https://m.ensembl.org/info/genome/variation/prediction/protein_function.html)
 
-## CADD
+### CADD
 
 The Combined Annotation Dependent Depletion (CADD) tool scores the predicted deleteriousness of single nucleotide variants and insertion/deletions variants in the human genome by integrating multiple annotations including conservation and functional information into one metric.
 Phred-style CADD raw scores are displayed and variants with higher scores are more likely to be deleterious.
