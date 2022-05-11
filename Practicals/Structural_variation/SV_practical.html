@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SV_practical.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="week-9-practical-2-structural-variations---paul-wang">Week 9 Practical 2: Structural variations - Paul Wang</h1>
+<p>{:.no_toc}</p>
+<ul>
+<li>TOC
+{:toc}</li>
+</ul>
+<h2 id="1-setting-up-data-for-this-class">1. Setting up data for this class</h2>
+<p>Create a working directory for this class and prepare the data</p>
+<pre class="hljs"><code><div><span class="hljs-comment"># create working directory</span>
+mkdir -p ~/wk9_sv
+<span class="hljs-comment"># enter the directory</span>
+<span class="hljs-built_in">cd</span> ~/wk9_sv
+<span class="hljs-comment"># copy the data file from ~/data</span>
+cp ~/data/sv_data.tar.gz ./
+<span class="hljs-comment"># extract the archived data</span>
+tar -xvf sv_data.tar.gz
+
+</div></code></pre>
+<p>You should now see these files in your working directory:</p>
+<pre class="hljs"><code><div>.
+├── manta-1.6.0.centos6_x86_64.tar.bz2
+├── reference.fasta
+├── reference.fasta.fai
+├── sample.R1.fastq.gz
+├── sample.R2.fastq.gz
+├── sorted.bam
+└── sorted.bam.bai
+
+0 directories, 7 files
+
+</div></code></pre>
+<h2 id="2-preparing-data-for-structural-variation-calling">2. Preparing data for structural variation calling</h2>
+<p>The data we are looking at today is sequenced from a Coriell sample (NA12878), which is part of the Genome in a Bottle project, which provides well characterised samples that can be used for benchmarking tools. We are using a very small region of WGS data from this sample, just reads from a 200kb region on chr 3.</p>
+<h3 id="2a-preprocessing-the-data-mapping-and-sorting-reads">2a. Preprocessing the data (mapping and sorting reads)</h3>
+<p>This step is optional, but highly recommended that you go through them.
+However, if it doesn't work,  you can simply use the pre-mapped and sorted data
+(<code>sorted.bam</code>), and go straight to part b), <strong>Visualising the data</strong>.</p>
+<p>First we need to prepare the reference for mapping.</p>
+<pre class="hljs"><code><div>bwa index reference.fasta
+</div></code></pre>
+<p>Then perform the alignment and read sorting:</p>
+<pre class="hljs"><code><div>bwa mem \
+  -t 2 \
+  -R <span class="hljs-string">'@RG\tID:1\tSM:sample'</span> \
+  reference.fasta \
+  sample.R1.fastq.gz \
+  sample.R2.fastq.gz \
+  | samtools sort -@ 2 \
+  --write-index \
+  -o sorted.bam
+</div></code></pre>
+<p>Note that the <code>samtools sort</code> option <code>--write-index</code> creates a .csi index file,
+rather than .bai. If you come across a program that does not support .csi and
+requires .bai instead, you can generate .bai index by:</p>
+<pre class="hljs"><code><div>samtools index sorted.bam
+</div></code></pre>
+<h3 id="2b-visualising-the-data">2b. Visualising the data</h3>
+<p>Following the instructions for Week 3 Practical Part 1, visualise the mapped data by downloading the following files from the VM onto your workstation (via RStudio's file browser):</p>
+<pre class="hljs"><code><div>reference.fasta
+reference.fasta.fai
+sorted.bam
+sorted.bam.csi <span class="hljs-comment"># (or sorted.bam.bai if you have that instead)</span>
+</div></code></pre>
+<p>Load <code>reference.fasta</code> and corresponding index file under <strong>Genome</strong>, and
+load <code>sorted.bam</code> and index under <strong>Tracks</strong>.</p>
+<ol>
+<li>Start from the 3' end, zoom in until you can start seeing aligned reads and coverage track.</li>
+<li>To spot structural variations, it helps if you enable:</li>
+</ol>
+<ul>
+<li>View as pairs</li>
+<li>Color by: pair orientation &amp; insert size (TLEN)</li>
+<li>Show soft clips</li>
+</ul>
+<p>You should be able to see the first SV at around 8,300-8,600bp.
+<img src="images/IGV.png" alt="IGV screenshot "></p>
+<ul>
+<li><em>What type of structural variation is this?</em></li>
+<li><em>Is it heterozygous or homozygous?</em></li>
+<li><em>Can you see the breakpoints? If so, use their co-ordinates and calculate the size of this SV.</em></li>
+</ul>
+<p>Now that you have some idea of what features to look for to spot an SV,
+try to find the next one downstream. To make the search a bit faster,
+zoom out so that the window view is ~25kb.</p>
+<p>(<em>Hint: It's before 60kb</em>)</p>
+<ul>
+<li><em>Answer the same questions as for the previous SV</em></li>
+<li><em>What are the features that you used to spot this SV?</em></li>
+<li><em>What makes it less easy to spot?</em></li>
+</ul>
+<h2 id="3-structural-variation-detection-using-manta">3. Structural variation detection using manta</h2>
+<p>We are now going to use a SV caller to see if we can find any other SVs in this data.</p>
+<p>Manta (https://github.com/Illumina/manta) detects structural variations in paired-end
+sequencing data by looking for breakpoints (split-reads), improper read-pairs, or inserts of usual sizes.</p>
+<p>Manta works best with WGS data. For example, had we used the WES data for this sample
+instead, the previous two SVs likely will not have been detected,
+since they were not near any known exons.</p>
+<p>A pre-compiled version of manta is provided in the data. First you need to uncompress the file:</p>
+<pre class="hljs"><code><div>tar xvf manta-1.6.0.centos6_x86_64.tar.bz2
+</div></code></pre>
+<p>This should have extracted into a directory called <code>manta</code> with 4 sub-directories.</p>
+<pre class="hljs"><code><div>manta/
+├── bin
+│   ├── configManta.py
+│   ├── configManta.py.ini
+│   └── runMantaWorkflowDemo.py
+├── lib
+├── libexec
+└── share
+</div></code></pre>
+<p>Manta execution is a 2-step process, first you need to run <code>configManta.py</code>, which setups the manta pipeline in a specified output directory, and then you can execute the script generated.</p>
+<p>Execute <code>configManta.py</code> with no arguments to see how to use the command:</p>
+<pre class="hljs"><code><div>$ manta/bin/configManta.py
+
+Usage: configManta.py [options]
+
+Version: 1.6.0
+
+This script configures the Manta SV analysis pipeline.
+You must specify a BAM or CRAM file <span class="hljs-keyword">for</span> at least one sample.
+
+Configuration will produce a workflow run script <span class="hljs-built_in">which</span>
+can execute the workflow on a single node or through
+sge and resume any interrupted execution.
+
+Options:
+  --version             show program<span class="hljs-string">'s version number and exit
+  -h, --help            show this help message and exit
+  --config=FILE         provide a configuration file to override defaults in
+                        global config file (/home/paul/Insync/gdrive/work_stuf
+                        f/2022_UA_genomic_applications/final_dataset/class_set
+                        /manta/bin/configManta.py.ini)
+  --allHelp             show all extended/hidden options
+
+(etc...)
+</span></div></code></pre>
+<p><em>Feel free to figure out for yourself how to get it to run this sample!</em></p>
+<p>First step is to execute <code>configManta.py</code>, which will generate manta workflow scripts.</p>
+<pre class="hljs"><code><div>
+manta/bin/configManta.py \
+  --bam sorted.bam \
+  --referenceFasta reference.fasta \
+  --runDir manta_output
+
+</div></code></pre>
+<p>This should then create a sub-directory, <code>manta_output</code>, with the structure:</p>
+<pre class="hljs"><code><div>manta_output/
+├── results
+│   ├── evidence
+│   ├── stats
+│   └── variants
+├── runWorkflow.py
+├── runWorkflow.py.config.pickle
+└── workspace
+</div></code></pre>
+<p>Then execute the <code>runWorkflow.py</code> script within:</p>
+<pre class="hljs"><code><div>manta_output/runWorkflow.py
+</div></code></pre>
+<p>If everything goes well you should see something like this at the end of the standard output:</p>
+<pre class="hljs"><code><div>[2022-05-11T01:36:39.577201Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner] Manta workflow successfully completed.
+[2022-05-11T01:36:39.577201Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner]
+[2022-05-11T01:36:39.577201Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner]  workflow version: 1.6.0
+[2022-05-11T01:36:39.577770Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner]
+[2022-05-11T01:36:39.578122Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner] Workflow successfully completed all tasks
+[2022-05-11T01:36:39.578464Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner] Elapsed time <span class="hljs-keyword">for</span> full workflow: 2 sec
+</div></code></pre>
+<p>Now, if you examine the directory <code>manta_output/results</code> you should see something like:</p>
+<pre class="hljs"><code><div>manta_output/
+├── results
+│   ├── evidence
+│   ├── stats
+│   │   ├── alignmentStatsSummary.txt
+│   │   ├── svCandidateGenerationStats.tsv
+│   │   ├── svCandidateGenerationStats.xml
+│   │   └── svLocusGraphStats.tsv
+│   └── variants
+│       ├── candidateSmallIndels.vcf.gz
+│       ├── candidateSmallIndels.vcf.gz.tbi
+│       ├── candidateSV.vcf.gz
+│       ├── candidateSV.vcf.gz.tbi
+│       ├── diploidSV.vcf.gz
+│       └── diploidSV.vcf.gz.tbi
+
+</div></code></pre>
+<p>The most important file is the <code>diploidSV.vcf.gz</code> file, which contains the
+SV calls made by the caller.</p>
+<p>Download this file and its index (<code>diploidSV.vcf.gz.tbi</code>) and load them into IGV.</p>
+<p>It may be easier for viewing if you drag this track to be on top of the aligned reads track.
+You can do this by dragging the grey bar on the right side of the track.</p>
+<ul>
+<li>
+<p>Zoom out to the full view. As this is an index VCF file, you should be able
+to see all the variants present in the VCF file. How many SVs have been called?</p>
+</li>
+<li>
+<p>The first SV might be hidden or obscured by the track label. You can fix this
+by changing the track name (click on the gear icon to the right, and select
+&quot;Set track name&quot;) to &quot;.&quot;</p>
+</li>
+<li>
+<p>Zoom in to the first SV in the VCF track.</p>
+<ul>
+<li><em>Is this the same SV that you identified visually previously?</em></li>
+<li><em>You should see a red bar and a blue bar. Click on them and see the information that shows up.</em></li>
+</ul>
+</li>
+</ul>
+<p>The red bar shows the information about the variant.</p>
+<p><img src="images/VCF_redbox.png" alt="VCF INFO"></p>
+<p>The blue bar shows the sample specific information about this variant.
+Since we only have one sample in this VCF file, there is only one blue bar.</p>
+<p><img src="images/VCF_bluebox.png" alt="VCF SAMPLE"></p>
+
+</body>
+</html>
