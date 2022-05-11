@@ -56,7 +56,7 @@ Semester 1 2022 - *Provisional Timetable*
 |-----------------------------------------------------------|---------------------|
 | [Assignment 0]()                                          | Bash                |
 | [Assignment 1]()                                          | Genome sequencing     |
-| [Assignment 2]())                                          | Genome assembly|
+| [Assignment 2]()                                          | Genome assembly|
 | [Assignment 3]()                                          | Genome Annotation|
 | [Assignment 4]()                                          | Population Genomics  (No Link)       |
 | [Project]() (PG only)                          | Complete Dataset   |
