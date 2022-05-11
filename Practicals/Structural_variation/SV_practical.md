@@ -1,4 +1,8 @@
 # Week 9 Practical Part 2: Structural variations - Paul Wang
+{:.no_toc}
+
+* TOC
+{:toc}
 
 ## 1. Setting up data for this class
 
