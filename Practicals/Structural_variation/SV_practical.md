@@ -1,4 +1,5 @@
-# Week 9 Practical Part 2: Structural variations - Paul Wang
+# Week 9 Practical 2: Structural variations - Paul Wang
+
 {:.no_toc}
 
 * TOC
