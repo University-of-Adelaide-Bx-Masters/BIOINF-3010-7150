@@ -19,7 +19,7 @@ Semester 1 2022 - *Provisional Timetable*
 | **-**    |            |  |    MID-SEMESTER BREAK                                             |
 | **7**    | 25/4       | **No lecture - Public Holiday** _Lecture in Tuesday prac session ->_ |  **Genome Graphs Lecture - Tuesday  (Yassine)**   [Genome graphs1] (Yassine)                    |
 | **8**    | 2/5        | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave) | [Genome graphs2] (Yassine) [Intro to BLAST] (Dave)            |
-| **9**    | 9/5        | Structural variation and cancer genomics (Paul)  |   [BLAST practical] (Dave) [Structural variants, cancer genomics] (Paul)                       |
+| **9**    | 9/5        | Structural variation and cancer genomics (Paul)  |   [BLAST practical] (Dave) [Structural variation] (Paul)                       |
 | **10**   | 16/5       | Variant calling and high-throughput genotyping (Julien) |  [Clinical genomics1] (Julien)  [Clinical genomics2] (Julien)                   |
 | **11**   | 23/5       | Population genomics (Bastien) | [Population genomics1] (Bastien)  [Population genomics2] (Bastien)              |
 | **12**   | 30/5       | Wrap up lecture (Dave) |  Open Practical Session Tuesday (Dave)  [Open  Prac session - Friday] (Dave)           |
@@ -40,6 +40,7 @@ Semester 1 2022 - *Provisional Timetable*
 [Genome graphs2]: Practicals/Graph_Genomes/prac_part2.md
 [Intro to BLAST]: Practicals/BLAST_practical/BLAST_intro.md
 [BLAST practical]: Practicals/BLAST_practical/BLAST_practical_v2.md
+[Structural variation]:Practicals/Structural variation/SV_practical.md
 [Clinical genomics1]: Practicals/variants_clinical/variant_annotation.md
 [Clinical genomics2]: Practicals/variants_clinical/variant_filtering.md
 [Agricultural genomics]: Practicals/
