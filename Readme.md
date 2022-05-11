@@ -40,7 +40,7 @@ Semester 1 2022 - *Provisional Timetable*
 [Genome graphs2]: Practicals/Graph_Genomes/prac_part2.md
 [Intro to BLAST]: Practicals/BLAST_practical/BLAST_intro.md
 [BLAST practical]: Practicals/BLAST_practical/BLAST_practical_v2.md
-[Structural variation]:Practicals/Structural variation/SV_practical.md
+[Structural variation]:Practicals/Structural_variation/SV_practical.md
 [Clinical genomics1]: Practicals/variants_clinical/variant_annotation.md
 [Clinical genomics2]: Practicals/variants_clinical/variant_filtering.md
 [Agricultural genomics]: Practicals/
