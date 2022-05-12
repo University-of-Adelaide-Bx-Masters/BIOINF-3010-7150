@@ -148,7 +148,9 @@ Execute `configManta.py` with no arguments to see how to use the command:
 
 ```bash
 $ manta/bin/configManta.py
+```
 
+```
 Usage: configManta.py [options]
 
 Version: 1.6.0
