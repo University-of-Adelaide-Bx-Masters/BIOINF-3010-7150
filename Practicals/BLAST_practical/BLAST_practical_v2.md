@@ -31,11 +31,9 @@ To see how difficult it can be to deal with the large numbers of repeats in the 
 
 ### 2.1  Prepare the data
 
-You will then need to index/format the `humanrReps.fa.gz` consensus sequences and `chr15.fa.gz` so that BLASTN can search them. Rembember that `makeblastdb` will not accept `.gz` compressed files. 
+You will then need to index/format the `humanrReps.fa.gz` consensus sequence so that BLASTN can search it. Rembember that `makeblastdb` will not accept `.gz` compressed files. 
 
 ```bash
-makeblastdb -in chr15.fa -dbtype 'nucl' -out chr15
-
 makeblastdb -in humanReps.fa -dbtype 'nucl' -out humrep
 ```
 Now you are ready to use BLAST.
@@ -72,12 +70,14 @@ grep "Homo sapiens" ~/BLAST_practical/results/HumGene_blastx_sprot.txt | less
 blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -task blastn -db ~/BLAST_practical/dbs/humrep -out ~/BLAST_practical/results/gene_blastn_humrep.txt -outfmt 7
 ```
 
-In order to obtain a human repeat sub-sequence from `chr15.fasta` you will need to use `samtools-faidx` https://www.htslib.org/doc/samtools-faidx.html. You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. Do this by inspecting the text output file from above and selecting an interval from a robust (longest or almost longest `alignment length`  with high `bitscore` and low `evalue`) alignment for the most abundant type of repeat in your output. 
+This will identify all the repeat sequence intervals in your gene sequence. 
 
 To determine the most abundant repeat type in your output you can try:
 - just scroll through the output and eyball it
 - use `cut` , `sort` and `uniq` to list all the repeat types
-- use `grep -c` to count some of the repeat types to get an objective assessment of how many insertions there are for every repeat type. *Hint: when using `grep` use the shortest search pattern you can to group repeats of the same type into the count*.
+- use `grep -c` to count some of the repeat types to get an objective assessment of how many insertions there are for every repeat type. *Hint: when using `grep` use the shortest search pattern you can, to group repeats of the same type into the count*.
+
+In order to obtain a human repeat sub-sequence for the most abundant repeat type from `hg38_gene_query.fasta` you will need to use `samtools-faidx` https://www.htslib.org/doc/samtools-faidx.html. You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. Do this by inspecting the text output file from above and selecting an interval from a robust (longest or almost longest `alignment length`  with high `bitscore` and low `evalue`) alignment for the most abundant type of repeat in your output. 
 
 **I have used arbitrary coordinate values 12045-12345 in the example below, you will need to use your own coordinates.**
 
