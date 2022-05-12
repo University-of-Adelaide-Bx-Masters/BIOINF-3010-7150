@@ -22,7 +22,8 @@ tar -xvf sv_data.tar.gz
 ```
 
 You should now see these files in your working directory:
-```bash
+
+```
 .
 ├── manta-1.6.0.centos6_x86_64.tar.bz2
 ├── reference.fasta
@@ -37,7 +38,6 @@ You should now see these files in your working directory:
 ```
 
 ## 2. Preparing data for structural variation calling
-
 
 The data we are looking at today is sequenced from a Coriell sample (NA12878), which is part of the Genome in a Bottle project, which provides well characterised samples that can be used for benchmarking tools. We are using a very small region of WGS data from this sample, just reads from a 200kb region on chr 3.
 
@@ -71,7 +71,7 @@ Note that the `samtools sort` option `--write-index` creates a .csi index file,
 rather than .bai. If you come across a program that does not support .csi and
 requires .bai instead, you can generate .bai index by:
 
-```bash
+```
 samtools index sorted.bam
 ```
 
@@ -79,7 +79,7 @@ samtools index sorted.bam
 
 Following the instructions for Week 3 Practical Part 1, visualise the mapped data by downloading the following files from the VM onto your workstation (via RStudio's file browser):
 
-```bash
+```
 reference.fasta
 reference.fasta.fai
 sorted.bam
@@ -131,7 +131,7 @@ tar xvf manta-1.6.0.centos6_x86_64.tar.bz2
 
 This should have extracted into a directory called `manta` with 4 sub-directories.
 
-```bash
+```
 manta/
 ├── bin
 │   ├── configManta.py
@@ -187,7 +187,7 @@ manta/bin/configManta.py \
 
 This should then create a sub-directory, `manta_output`, with the structure:
 
-```bash
+```
 manta_output/
 ├── results
 │   ├── evidence
@@ -200,13 +200,13 @@ manta_output/
 
 Then execute the `runWorkflow.py` script within:
 
-```bash
+```
 manta_output/runWorkflow.py
 ```
 
 If everything goes well you should see something like this at the end of the standard output:
 
-```bash
+```
 [2022-05-11T01:36:39.577201Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner] Manta workflow successfully completed.
 [2022-05-11T01:36:39.577201Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner]
 [2022-05-11T01:36:39.577201Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner]  workflow version: 1.6.0
@@ -217,7 +217,7 @@ If everything goes well you should see something like this at the end of the sta
 
 Now, if you examine the directory `manta_output/results` you should see something like:
 
-```bash
+```
 manta_output/
 ├── results
 │   ├── evidence
@@ -251,7 +251,9 @@ to see all the variants present in the VCF file. How many SVs have been called?
 by changing the track name (click on the gear icon to the right, and select
   "Set track name") to "."
 
-* Zoom in to the first SV in the VCF track.
+#### SV 1
+
+Zoom in to the first SV in the VCF track (3:8297).
 
   * *Is this the same SV that you identified visually previously?*
   * *You should see a red bar and a blue bar. Click on them and see the information that shows up.*
@@ -264,4 +266,146 @@ The red bar shows the information about the variant.
 The blue bar shows the sample specific information about this variant.
 Since we only have one sample in this VCF file, there is only one blue bar.
 
+This information tells us that the SV is a deletion (**SVTYPE** DEL), and the
+location is 3:8297-8613, and that the deletion size is 316bp. The quality score is
+very high, so it is likely to be a real SV (as opposed to some sort of alignment
+or sequencing artefact.)
+
 ![VCF SAMPLE](images/VCF_bluebox.png)
+
+The data in the blue bar tells us that the SV is a homozygous in this sample.
+
+See [Manta user guide](https://github.com/Illumina/manta/blob/master/docs/userGuide/README.md)
+for description of these fields. The red bar contains VCF INFO fields, while
+the blue bar contains VCF FORMAT fields.
+
+* *Find out the definitions of PR and SR fields from the Manta user guide.*
+* *What do the values PR: (0,49) and SR: (0,37) mean?*
+
+#### SV 2
+
+Now go to the second SV in the VCF file  (3:48966).
+
+* *The QUAL score for this variant is 708. Still very high, but lower than the previous one.
+Can you think of any reason why the score may be lower?*
+
+* *The Genotype for this variant is too long to be displayed properly, but it
+would have said*
+`CACCCTT.........TGATTG|C` *(where ... is some 850+ bases). So what is the
+zygosity of this variant according to Manta?*
+
+#### SV 3-6
+
+To decode the SV event here, it might help if you consider all 4 events together.
+
+* *Zoom out to a 25kb window size and try to fit all 4 events into the window like this:*
+
+![Complex case](images/complex_case.png)
+
+* *From the coverage track, what would be your first guess of what SV occured here?*
+
+Previously the deletion events have read pairs with unusually large insert sizes
+coloured in reddish brown.
+
+* *What are the colours of the read pairs with large inserts?*
+* *What do those colours mean?*
+
+Click on the VCF SV events.
+  *  *What are the SV event types?*
+  *  *What does it mean? (look up in Manta user manual)*
+  *  *Why are they not marked as 'MantaDEL' (i.e. deletions)?*
+
+
+-----
+
+## 4. Interpreting copy number variation data
+
+#### 4a. Background
+
+SNP array data can be used to detect CNV in samples. For each probe, we obtain
+the intensities for the A and B alleles, X and Y. X/Y values of individual locus
+can be quite noisy and not as useful. However, CNV can be inferred from two
+derived values:
+
+* B-allele frequency (BAF), provides the ratio between the two alleles at the locus
+
+    BAF = Y / (X+Y)
+
+* Log-R-Ratio (LRR), is the normalised log intensity, which represents a measurement
+of the total copy number
+
+    LRR = log(X+Y)
+
+
+A diploid region exhibiting no large scale CNV would look like this:
+
+![](images/yau_fig1.jpeg)
+
+(Yau and Holmes, Cytogenet Genome Res 123:307–312, 2008, doi:10.1159/000184722)
+
+Note that as LRR is a log ratio, this means that the actual copy number does not scale linearly with LRR:
+
+| copy number | ratio to diploid | LRR |
+| ----- |  ----- | ----- |
+| 5  | 2.5    | 0.92 |
+| 4  | 2      | 0.69 |
+| 3  | 1.5    | 0.41 |
+| 2  | 1      | 0     |
+| 1  | 0.5    | -0.69 |
+
+This figure then shows what CNVs would look like for copy number = :
+
+* 1 (red): A, B
+* 2 (black): AA, AB, BB
+* 3 (green): AAA, AAB, BBA, BBB
+* 4 (blue): AAAA, AAAB, AABB, ABBB, BBBB
+
+![](images/yau_fig4.jpeg)
+
+(Yau and Holmes, 2008)
+
+However, in practice, you should typically not expect to see a mixture of multiple allele ratios for a given CN.
+For example, if a region has CN=3, you should see either AAAB/ABBB or just AABB, but not both.
+
+In other words, in the BAF plots, you should either see a single central heterozygous band (allele-balanced), or only two split bands equally distanced from 0.5. Three separate bands as shown in the figure above is unlikely to happen.
+
+* *Under what circumstances might you expect to see more than 2 split bands in a BAF plot?*
+
+Panel A in figure above is a useful way to display how many different clusters of CNVs exist in the sample.
+
+![](images/yau_fig5.gif)
+
+(Yau and Holmes, 2008)
+
+
+#### 4b. Interpreting data
+
+This is a set of published SNP array data (*), showing the B-allele frequency (BAF)
+on the top panel, and the Log-R-Ratio (normalised light intensity).
+
+(\*) *Popova et al. Genome Biol 10, R128 (2009)*
+
+
+![SNP CNV data](images/genome_wide.png)
+
+The thin bands at the top and bottom of the BAF panel at 0 and 1 are the homozygous
+REF and ALT loci, respectively.
+
+*Can you identify:*
+
+* *any heterozygous diploid regions? i.e. regions that don't exhibit any CNV*
+
+* *any LOH regions? both copy number change and copy-neutral types.*
+
+
+The corresponding LRR-vs-BAF plot looks like this:
+
+![CNV clusters](images/LRR_vs_BAF.png)
+
+Using the earlier LRR-vs-BAF diagram for reference:
+
+* *Can you label the major clusters?*
+
+* *How and why does this figure look different from the previous diagram?*
+
+* *Can you then use this figure to estimate the tumour purity?*
