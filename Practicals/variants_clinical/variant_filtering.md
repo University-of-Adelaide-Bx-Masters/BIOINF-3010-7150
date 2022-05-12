@@ -1,17 +1,7 @@
 
-# Clinical Genomics & Pedigree Analysis
+## 2. Variant Filtering and Pedigree Analyses
 
-#### Let's start the tool installation first, as it can take a while:
-```bash
-# Update conda
-conda update -n base -c defaults conda
-# Create a python 2 environment and activate it
-conda create --name py27 python=2.7
-conda activate py27
-# Install required tools
-conda install -c bioconda cyvcf2
-pip install gemini
-```
+### Some backgound
 
 High-throughput sequencing is currently used ubiquitously in identifying the cause of a large range of genetic diseases.
 While single gene and well-known Mendelian genetic disorders, such as sickle-cell anemia, Tay–Sachs disease and cystic fibrosis, can be identified with simple diagnostic techniques, whole genome (WGS) and exome (WES/WXS) sequencing can be used to identify and study a wide variety of inherited traits.
@@ -24,11 +14,11 @@ The current clinical workflow works a lot like this:
 
 ![Priest. (2017). _Curr Opin Pediatr_. 29(5): 513–519.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5590671/bin/nihms899674f1.jpg)
 
-In Friday's tutorial, we discussed annotation of identified variants in three samples, and today we will be looking at family inheritance patterns.
+In yesterday's tutorial, we discussed annotation of identified variants in three samples, and today we will be looking at family inheritance patterns.
 As you may have noticed, the three samples sequenced in our data are related, and form a "trio" (mother-father-daughter). 
 Trios and other members of an affected individual's family are often sequenced in clinical genetics, allowing clinicians to establish the inheritance pattern of the trait or identify new _de novo_ mutations that may have arisen independently of the parents.
 
-## This week's tutorial
+### This week's tutorial
 
 This week's tutorial is liberally taken from two tutorials written by Aaron Quinlan & his group at University of Utah.
 
@@ -38,32 +28,39 @@ This week's tutorial is liberally taken from two tutorials written by Aaron Quin
 Both of these tutorials do a really good job at introducing the program `gemini`, which is used quite a bit across clinical genetics studies.
 [Gemini](https://gemini.readthedocs.io/en/latest/) is a database system that can read in VCF information and family/pedigree information, to enable database querying and clinical genetics analyses.
 Information in gemini is stored in database system called SQL.
-SQL (pronounced "ess-que-el") stands for Structured Query Language, and is a popular database system in many industries and enables the store of organised information that can be accessed by queries.
+SQL stands for Structured Query Language, and is a popular database system in many industries and enables the store of organised information that can be accessed by queries.
 It comes in many flavours that you might have heard before, including `MySQL`, `SQLite` and `PostgreSQL`.
 
-## Cohort databases
+Now let's create and activate a conda environment with Gemini installed:
+```bash
+# First go to the working directory we created yesterday:
+cd ~/clinicalGenomics/
+# Here is a command to create a conda environment based on a list of all required packages "geminiEnv.txt"):
+conda create -n geminiEnv --file /home/student/data/Variants/geminiEnv.txt
+conda activate geminiEnv
+# Let's make sure we can now use Gemini:
+gemini -h
+```
+
+### Cohort databases
 
 Lets make some databases!
 Gemini can take the VCF file and sample information in the form of a ped file (short for pedigree).
 The ped file is actually a standard metadata information file that was developed in the [genetics application `PLINK`](http://zzz.bwh.harvard.edu/plink/data.shtml#ped).
 This program is used extensively for genome-wide association studies, and was developed in the era of genotyping arrays rather than WGS approaches. 
 
-Unfortunately the database loading command also adds a lot of annotation information that requires >50GB of data to be used, so instead of running the loading commands below, let's use a pre-generated database
-
+Unfortunately the database loading command also adds a lot of annotation information that requires >50GB of data to be used, so instead of running the loading commands below, let's use a pre-generated database: ___trio.trim.vep.dominant.db___
 
 ```bash
 # Loading VCF files require all the annotation databases
-## Create the gemini db for dominant study
+## Cmd to create the gemini db for dominant study
 #gemini load --cores 4 -v trio.trim.vep.vcf.gz -t VEP \
 #        --skip-gene-tables -p dominant.ped trio.trim.vep.dominant.db
-
-# Download the pre-generated dominant gemini db to your working directory for todays prac
-wget https://universityofadelaide.box.com/shared/static/sz1b6iv6e2no8z57qf7synk0t9ke03lt.db -O "trio.trim.vep.dominant.db"
 ```
 
 We'll use this database for our querying and `autosomal_dominant` analysis.
 
-## Querying a SQL database in Gemini
+### Querying a SQL database in Gemini
 
 Firstly some quick points on SQL and examples on how to use SQL queries. 
 The instructions for extracting data from the database file is relatively straight forward.
@@ -110,14 +107,14 @@ gemini query -q "SELECT name, sex FROM samples WHERE sex IS NOT 2" trio.trim.vep
 Note: Depending on the data type, you may need to surround character info in ''. 
 
 
-### TASKS: Build your query
+#### :question::question:TASK:question::question: - Build your query
 
 Now that we known the query structure and tables that we have in our database, construct some more sophisticated queries.
 1. Extract the chromosome and position of the variants in the database that have a 1000 genome allele frequency in Europeans (aaf_1kg_eur) less than 0.5. How many are there?
 2. Extract all the variants within the genes MAPK12 that have a variant quality > 200. How many are there? How many are also QUAL > 500?
 3. How many variants that were marked as "PASS" quality were concordant 
 
-## Autosomal Dominant disorder
+### Autosomal Dominant disorder
 
 Autosomal dominant disorders are genetic disorders that do not involve the sex chromosomes (those are referred to as "sex-linked") and are passed down through families in a vertical transmission pattern. 
 Incomplete penetrance can occur within the family, meaning that disorder may skip a generation.
@@ -147,7 +144,7 @@ family1     4805       1847         1805         1    2          CEU
 As you can see, all of the relationships between the individuals are recorded in the PED file, including the sex of the individuals and their prevalence of the phenotype.
 You can imagine that when sampling larger families, or even populations, all of the unique inheritance patterns can be recorded here and used to inform the clinical model when it comes to identifying candidate genes or variants for the disorder.
 
-## Sample genotype queries
+### Sample genotype queries
 
 Given that we will be comparing the pattern of inheritance of these variants, its easy to filter variants so that you pick up specific relationships between individuals.
 For example, what if we wanted to identify variants where both 1805 and 4805 have a non-reference allele?
@@ -191,7 +188,7 @@ gemini query -q "SELECT chrom, start, end, ref, alt, gene, impact, (gts).(*) \
 Here you can add quality filters for each of the genotypes. 
 You can look at variant depth and quality in each genotype by using the `gt_depth` and `gt_quals`
 
-## `autosomal_dominant` tool
+### `autosomal_dominant` tool
 
 Gemini already comes with a number of tools that allow you to assess particular types of clinical genetic patterns, including one for autosomal dominant disorders.
 This tool has the known characteristics of this type of genetic disorder hard-coded into the function.
@@ -220,7 +217,7 @@ We want to include the important information like whether the variant is in a ge
 
 From here we can start widdling down our variants based on variant filtering concepts that we learnt earlier in the week.
 
-### TASK: Find candidate genes for Hypobetalipoproteinemia
+#### :question::question:TASK:question::question: - Find candidate genes for Hypobetalipoproteinemia
 
 - Generate a list of the variants that have 'HIGH' and 'MODERATE' impact. How many do you have?
 - Build up some additional filters 
@@ -229,10 +226,7 @@ From here we can start widdling down our variants based on variant filtering con
 - Generate a list of candidate genes based on your data 
 
 
-### EXTRA EXTRA TASK: Recessive example
+#### :question::question:TASK:question::question: - Recessive example
 
-- Do the same exercise with the recessive database
-```bash
-wget https://universityofadelaide.box.com/shared/static/rickfu8x44gqmcvqannrina8z70is2ru.db -O "trio.trim.vep.recessive.db"
-```
-  - What `gemini` functions can be employed to identify recessive variants?
+- Do the same exercise with the recessive database: ___trio.trim.vep.recessive.db___
+- What `gemini` functions can be employed to identify recessive variants?
