@@ -107,12 +107,15 @@ gemini query -q "SELECT name, sex FROM samples WHERE sex IS NOT 2" trio.trim.vep
 Note: Depending on the data type, you may need to surround character info in ''. 
 
 
-#### :question::question:TASK:question::question: - Build your query
-
+---
+___>>> TASK <<<___
+---
+#### Build your query
 Now that we known the query structure and tables that we have in our database, construct some more sophisticated queries.
 1. Extract the chromosome and position of the variants in the database that have a 1000 genome allele frequency in Europeans (aaf_1kg_eur) less than 0.5. How many are there?
 2. Extract all the variants within the genes MAPK12 that have a variant quality > 200. How many are there? How many are also QUAL > 500?
 3. How many variants that were marked as "PASS" quality were concordant 
+---
 
 ### Autosomal Dominant disorder
 
@@ -217,16 +220,23 @@ We want to include the important information like whether the variant is in a ge
 
 From here we can start widdling down our variants based on variant filtering concepts that we learnt earlier in the week.
 
-#### :question::question:TASK:question::question: - Find candidate genes for Hypobetalipoproteinemia
+---
+___>>> TASK <<<___
+---
+#### Find candidate genes for Hypobetalipoproteinemia
 
 - Generate a list of the variants that have 'HIGH' and 'MODERATE' impact. How many do you have?
 - Build up some additional filters 
   - For example, the variant is likely to be rare in the European population, so it might be good to look at allele-frequency's < 0.01 in Europeans.
     - This can be either from gnomAD, ExAC or 1000genomes allele-frequencies (gnomAD generally has the most accurate frequencies)
 - Generate a list of candidate genes based on your data 
+---
 
-
-#### :question::question:TASK:question::question: - Recessive example
+---
+___>>> EXTRA TASK <<<___
+---
+#### Recessive example
 
 - Do the same exercise with the recessive database: ___trio.trim.vep.recessive.db___
 - What `gemini` functions can be employed to identify recessive variants?
+---
