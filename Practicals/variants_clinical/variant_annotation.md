@@ -88,8 +88,8 @@ bcftools view -h trio.trim.vcf.gz
 ```
 
 ---
-
-##### :question::question:QUESTIONS:question::question:
+___>>> QUESTIONS <<<___
+---
 
 1. What was the name of the reference genome file was used to make the VCF file?
 2. What program was used to call variants?
@@ -115,8 +115,8 @@ bcftools filter -mx -sLowQual -e'%QUAL<30' trio.trim.vcf.gz
 ```
 
 ---
-
-##### :question::question:TASK:question::question:
+___>>> TASK <<<___
+---
 
 Variants that are located close to indels can also indicate poor quality calls, so:
 - Use the `bcftools filter` sub-command to tag low quality variants (QUAL<30) that are within 10 base-pairs of an InDel, and count those variants
@@ -134,8 +134,8 @@ This is actually not _technically_ correct anymore, as we have sampled so many g
 There are now databases such as the [genome aggregation database (gnomAD)](https://gnomad.broadinstitute.org/) that samples over 100,000 individuals.
 
 ---
-
-##### :question::question:TASK:question::question:
+___>>> TASK <<<___
+---
 
 - Take a little bit of time to explore gnomAD, as it is an important tool in determining a baseline allele-frequency of every variant.
 It is also helpful in finding potential loss-of-function (pLoF) variants.
@@ -178,8 +178,8 @@ bcftools annotate -c CHROM,FROM,ID,REF,ALT \
 ```
 
 ---
-
-### :question::question:QUESTIONS:question::question:
+___>>> QUESTIONS <<<___
+---
 
 1. Is the variant we explored in gnomAD (rs75115269) present in this VCF?
 2. Can you find the variant rs191680234, get its genomic coordinates, and identify for which individual it is variable?
@@ -229,8 +229,8 @@ zgrep "^##INFO=<ID=CSQ" trio.trim.vep.vcf.gz
 ```
 
 ---
-
-### :question::question:QUESTIONS:question::question:
+___>>> QUESTIONS <<<___
+---
 
 1. How many variants have a reported "missense_variant"?
 2. How many variants that are greater than quality 30 have a reported "missense_variant"?
