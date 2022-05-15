@@ -1,12 +1,12 @@
 # Practicals: Ancient DNA and population genomics
 
 Bastien Llamas \(bastien.llamas@adelaide.edu.au\)
-2021-05-28 and 2021-06-01
+2022-05-24 and 2022-05-27
 
 ---
 The two practicals will be separated into:
-1. Data handling (Friday 2021-05-28)
-2. Population genomics applications (Tuesday 2021-06-01)
+1. Data handling (Tuesday 2022-05-24)
+2. Population genomics applications (Friday 2022-05-27)
 
 Icons are used to highlight sections of the practicals:
 
@@ -15,7 +15,7 @@ Icons are used to highlight sections of the practicals:
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> Questions  
 
 ---
-# Day 1: Data handling (Friday 2021-05-28)
+# Day 1: Data handling (Tuesday 2022-05-24)
 
 ## Practical outcomes
 
