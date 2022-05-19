@@ -109,12 +109,15 @@ Note: Depending on the data type, you may need to surround character info in ''.
 
 ---
 ___>>> TASK <<<___
+
 ---
+
 #### Build your query
 Now that we known the query structure and tables that we have in our database, construct some more sophisticated queries.
 1. Extract the chromosome and position of the variants in the database that have a 1000 genome allele frequency in Europeans (aaf_1kg_eur) less than 0.5. How many are there?
 2. Extract all the variants within the genes MAPK12 that have a variant quality > 200. How many are there? How many are also QUAL > 500?
-3. How many variants that were marked as "PASS" quality were concordant 
+3. How many variants that were marked as "PASS" quality were concordant?
+
 ---
 
 ### Autosomal Dominant disorder
@@ -222,6 +225,7 @@ From here we can start widdling down our variants based on variant filtering con
 
 ---
 ___>>> TASK <<<___
+
 ---
 #### Find candidate genes for Hypobetalipoproteinemia
 
@@ -234,9 +238,12 @@ ___>>> TASK <<<___
 
 ---
 ___>>> EXTRA TASK <<<___
+
 ---
+
 #### Recessive example
 
 - Do the same exercise with the recessive database: ___trio.trim.vep.recessive.db___
 - What `gemini` functions can be employed to identify recessive variants?
+
 ---
