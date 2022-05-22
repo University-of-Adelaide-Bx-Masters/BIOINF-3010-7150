@@ -19,7 +19,7 @@ Icons are used to highlight sections of the practicals:
 
 ## Practical outcomes
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> At the end of today's practical, you will know how to explore contemporary and ancient genomic diversity to infer population history. The practical is loosely based on Friday's lecture about the population history of Indigenous peoples of the Americas, in particular the [Posth *et al.*](https://www.sciencedirect.com/science/article/pii/S0092867418313801) *Cell* paper we published in 2018.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> At the end of today's practical, you will know how to explore contemporary and ancient genomic diversity to infer population history. The practical is loosely based on Monday's lecture about the population history of Indigenous peoples of the Americas, in particular the [Posth *et al.*](https://www.sciencedirect.com/science/article/pii/S0092867418313801) *Cell* paper we published in 2018.
 
 ## Reconstructing the Deep Population History of Central and South America [(Posth *et al.* 2018 Cell)](https://www.sciencedirect.com/science/article/pii/S0092867418313801)
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> For this study, we generated 49 new genome-wide datasets that consist of an enrichment and Illumina high-throughput sequencing of 1.2M SNPs from ancient DNA samples. All sampled individuals are from Central (Belize) and South (Brazil, Peru, Chile, Argentina) American individuals. The skeletal remains are dated between 10,900–700 BP (years before present), with the large majority of remains older than 1,000 BP.
@@ -59,9 +59,9 @@ conda activate variation
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Unarchive the practical data (stored in `~/data/genomics/ancient/`) in your working directory.
 ```bash
-mkdir -p ~/BIOINF_Tuesday
-cd ~/BIOINF_Tuesday
-tar xvzf ~/data/genomics/ancient/practical_tuesday.tar.gz -C .
+mkdir -p ~/BIOINF_Friday
+cd ~/BIOINF_Friday
+tar xvzf ~/data/ancient/tutorial_popgen.tar.gz -C .
 ll
 ```
 
@@ -79,19 +79,14 @@ ll
 
 ## PCA
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We are going to use `SMARTPCA` (as part of the `EIGENSOFT` utilities, see the end of Tuesday's practical) and an implementation of `ADMIXTOOLS` in an `R` package called admixR (it needs `ADMIXTOOLS` to be already installed). OPTIONAL: If any of the programs are not installed, do this:
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We are going to use `SMARTPCA` (as part of the `EIGENSOFT` utilities, see the end of Tuesday's practical) and an implementation of `ADMIXTOOLS` in an `R` package called admixR (it needs `ADMIXTOOLS` to be already installed). These programs are installed in the conda environment `popgen`.
 ```bash
-conda install -c bioconda eigensoft
-conda install -c bioconda admixtools
+# Activate the conda environment `popgen`
+conda activate popgen
+# Make sure to copy the `$PATH` variable to `.Renviron`
 echo "PATH=$PATH" > ~/.Renviron
 ```
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Go to Session > Restart R. OPTIONAL: Install `R` packages if they are not readily available (use the `R` console).
-
-```R
-library(devtools)
-devtools::install_github("bodkan/admixr")
-install.packages("tidyverse")
-```
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Go to Session > Restart R. 
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Build a parameter file named `par.AllAmerica_Ancient.smartpca` that will be one of the inputs for [SMARTPCA](https://github.com/DReichLab/EIG/tree/master/POPGEN). Because ancient data contain a lot of missing data, we are going to force `SMARTPCA` to construct the eigenvectors based on the contemporary populations (listed in [`poplistname`](https://github.com/DReichLab/EIG/tree/master/POPGEN)) and then project the ancient samples onto the PCA ([`lsqproject`](https://github.com/DReichLab/EIG/blob/master/POPGEN/lsqproject.pdf)).  
 
@@ -115,12 +110,14 @@ smartpca -p par.AllAmerica_Ancient.smartpca
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create plots.
 
 ```R
-library(stringr)
-library(ggplot2)
+#OPTIONAL: Install packages if they are not readily available
+#install.packages("tidyverse")
+#install.packages("cowplot")
+library(tidyverse)
 library(cowplot)
 
 # Set your working directory
-setwd("~/BIOINF_Tuesday")
+setwd("~/BIOINF_Friday")
 
 # data for scree plot
 adat.scree <- read.table("AllAmerica_Ancient.smartpca_results.eval", header = FALSE)
@@ -189,6 +186,10 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # height ratio between
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Load the libraries needed to run `admixr` (use the `R` console) and run *F*3 statistics on a subset of populations.
 
 ```R
+#OPTIONAL: Install packages if they are not readily available
+#library(devtools)
+#devtools::install_github("bodkan/admixr")
+#install.packages("tidyverse")
 library(admixr)
 library(tidyverse)
 
