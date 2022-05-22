@@ -35,8 +35,8 @@ Icons are used to highlight sections of the practicals:
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We will use a VCF file of human chromosome 22 from the 1000 Genomes Project (1kGP) that we will save into a working directory in your home directory:
 ```bash
 # Create working directory
-mkdir ~/BIOINF_Friday
-cd ~/BIOINF_Friday
+mkdir ~/BIOINF_Tuesday
+cd ~/BIOINF_Tuesday
 ```
 ```bash
 # Download compressed VCF file and its index from the 1kGP public FTP site (VCF file size: 214453750 bytes)
@@ -44,14 +44,17 @@ curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase
 curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi	> 1kGP_chr22.vcf.gz.tbi
 ```
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Although you could use your own scripts to parse VCF files and analyse variant calls, several tools have already been developed for your convenience. In particular, [`BCFtools`](http://samtools.github.io/bcftools/bcftools.html) is a set of useful utilities to manipulate variant calls in VCF files. Install it easily with the conda package management system.  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Although you could use your own scripts to parse VCF files and analyse variant calls, several tools have already been developed for your convenience. In particular, [`BCFtools`](http://samtools.github.io/bcftools/bcftools.html) is a set of useful utilities to manipulate variant calls in VCF files. Install it easily with the conda package management system, along with other programs we will need during the two population genomics practicals.  
 
 ```bash
-# Activate a conda environment that contains other software we will use today
-conda activate variation
-# Install bcftools (if not already installed)
+# add conda channels
+conda config --add channels defaults
 conda config --add channels bioconda
-conda install -c bioconda bcftools
+conda config --add channels conda-forge
+# create a conda environment called `popgen` and install the software `bcftools`, `plink`, `eigensoft`, and `admixtools` 
+conda create -n popgen eigensoft admixtools bcftools plink
+# Activate the `popgen` environment
+conda activate popgen
 ```
 
 #### VCF meta-information and header lines
@@ -292,7 +295,7 @@ plink \
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
 
 >- 19) In terms of file size, what do you notice when you look at the `.bed`, `.bim` and `.fam` files before and after LD pruning?  
-- 20) How do you explain the changes, or lack thereof?  
+>- 20) How do you explain the changes, or lack thereof?  
 
 ---
 
@@ -315,10 +318,14 @@ plink \
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `PLINK` PCA has generated two outputs with suffixes `.eigenvec` (the PC coordinates for each sample) and `.eigenval` (all the eigenvalues). Go to the `R` console and create screeplots and PCA plots.  
 
 ```R
-library(tidyr)
-library(ggplot2)
+# OPTIONAL: Install R packages
+#install.packages("tidyverse")
+#install.packages("cowplot")
+library(tidyverse)
 library(cowplot)
 
+# Set the working directory
+setwd("~/BIOINF_Tuesday")
 # Non-LD-pruned data for scree plot
 adat.scree <- read.table("1kGP_chr22.pca_results.eigenval", header = FALSE)
 # Add a column with row number (only needed to be able to do a bar plot)
@@ -475,10 +482,14 @@ smartpca -p par.1kGP_chr22.ldpruned
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create PCA plots.
 
 ```R
-library(tidyr)
-library(ggplot2)
+# OPTIONAL: Install R packages
+#install.packages("tidyverse")
+#install.packages("cowplot")
+library(tidyverse)
 library(cowplot)
 
+# Set the working directory
+setwd("~/BIOINF_Tuesday")
 #Non-LD-pruned data for scree plot  
 adat.scree <- read.table("1kGP_chr22.smartpca_results.eval", header = FALSE)  
 #Add a column with row number (only needed to be able to do a bar plot)  
