@@ -231,11 +231,11 @@ time blastp -query ~/BLAST_practical/queries/multi-protein_query.fa  -word_size 
 ```  
 
 ```bash
- time blastp -query ~/BLAST_practical/queries/multi-protein_query.fa  -word_size 7 -threshold 21 -db ~BLAST_practical/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/BLAST_practical/results/W7T21multi.txt
+ time blastp -query ~/BLAST_practical/queries/multi-protein_query.fa  -word_size 7 -threshold 21 -db ~/BLAST_practical/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/BLAST_practical/results/W7T21multi.txt
 ```
 
 ```bash
- time blastp -query ~/BLAST_practical/queries/multi-protein_query.fa  -word_size 7 -threshold 11 -db ~BLAST_practical/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/BLAST_practical/results/W7T11multi.txt
+ time blastp -query ~/BLAST_practical/queries/multi-protein_query.fa  -word_size 7 -threshold 11 -db ~/BLAST_practical/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/BLAST_practical/results/W7T11multi.txt
 ```
 
 ```bash
