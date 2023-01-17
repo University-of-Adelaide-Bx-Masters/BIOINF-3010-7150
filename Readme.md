@@ -62,8 +62,8 @@ Semester 1 2023 - *Provisional Timetable*
 | [Project]() (PG only)                                     | Complete Dataset    |
 
 - Each assignment is worth 20% of the final mark for Undergraduates.  
-- Each assignment is worth 16% of the final mark for Masters students.  
-- Major Project (Masters students only) is worth 20% of the final mark.  
+- Each assignment is worth 12% of the final mark for Masters students.  
+- Major Project (Masters students only) is worth 40% of the final mark.  
 
 ### Major Project (Post Grad only)
 
