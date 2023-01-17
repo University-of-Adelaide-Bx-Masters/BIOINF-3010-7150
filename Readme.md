@@ -57,8 +57,8 @@ Semester 1 2023 - *Provisional Timetable*
 | [Assignment 0]()                                          | Bash                |
 | [Assignment 1]()                                          | Genome sequencing   |
 | [Assignment 2]()                                          | Genome assembly     |
-| [Assignment 3]()                                          | Genome Annotation   |
-| [Assignment 4]()                                          | Population Genomics |
+| [Assignment 3]()                                          | Genome graphs and SV|
+| [Assignment 4]()                                          | Clinical and Population Genomics |
 | [Project]() (PG only)                                     | Complete Dataset    |
 
 - Each assignment is worth 20% of the final mark for Undergraduates.  
