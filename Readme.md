@@ -55,11 +55,11 @@ Semester 1 2023 - *Provisional Timetable*
 | **Assignment**                                            | **Subject**         |
 |-----------------------------------------------------------|---------------------|
 | [Assignment 0]()                                          | Bash                |
-| [Assignment 1]()                                          | Genome sequencing     |
-| [Assignment 2]()                                          | Genome assembly|
-| [Assignment 3]()                                          | Genome Annotation|
-| [Assignment 4]()                                          | Population Genomics  (No Link)       |
-| [Project]() (PG only)                           | Complete Dataset   |
+| [Assignment 1]()                                          | Genome sequencing   |
+| [Assignment 2]()                                          | Genome assembly     |
+| [Assignment 3]()                                          | Genome Annotation   |
+| [Assignment 4]()                                          | Population Genomics |
+| [Project]() (PG only)                                     | Complete Dataset    |
 
 Each assignment is worth 20% of the final mark for Undergraduates.
 Each assignment is worth 16% of the final mark for Masters students.
