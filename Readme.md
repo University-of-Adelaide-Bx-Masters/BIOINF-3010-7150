@@ -59,11 +59,15 @@ Semester 1 2023 - *Provisional Timetable*
 | [Assignment 2]()                                          | Genome assembly|
 | [Assignment 3]()                                          | Genome Annotation|
 | [Assignment 4]()                                          | Population Genomics  (No Link)       |
-| [Project]() (PG only)                          | Complete Dataset   |
+| [Project]() (PG only)                           | Complete Dataset   |
+
+Each assignment is worth 20% of the final mark for Undergraduates.
+Each assignment is worth 16% of the final mark for Masters students.
+Major Project (Masters students only) is worth 20% of the final mark.
 
 ### Major Project (Post Grad only)
 
-In this course, the following next-generation sequencing (NGS) datasets/protocols will be examined in detail:
+The following next-generation sequencing (NGS) datasets/protocols may be available for the major project:
 
 - Whole genome sequencing/Resequencing
 - Whole genome assembly
@@ -74,7 +78,7 @@ In this course, the following next-generation sequencing (NGS) datasets/protocol
 
 Each of these NGS approaches uses similar programs and analysis approaches, such as quality control (quality and sequencing adapter trimming), genome alignment, and downstream visualisation and statistical methods.
 For the project, you will take a published (or otherwise obtained) dataset and complete all the analysis tasks (from raw data to final results) during the course.
-You have the freedom to choose any dataset you would like. You will prepare a final report that will be due at the end of the semester.
+You have the freedom to choose any dataset you would like from the scientific literature, but you need to select and get approval for your dataset by the end of week 6. You will prepare a final report that will be due at the end of the semester.
 The report should be prepared using RStudio as an Rmd document including all code needed to perform the analysis, and will include the standard components of a scientific report:
 
 - Introduction (background on the study and identification of the research hypothesis)
@@ -95,7 +99,7 @@ The Rmd document and a compiled knitted html will form the submission; marks wil
 
 #### Major Project Data
 
-Look [here](./Assignments/Major_Project/major_project.md) for major project data. 
+Look [here](./Assignments/Major_Project/major_project.md) for an example of major project data. 
 
 ### Assessment Checklist
 
