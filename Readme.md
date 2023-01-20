@@ -17,11 +17,11 @@ Semester 1 2023 - *Provisional Timetable*
 | **5**    | 27/3       | Short read assembly; approaches and issues (Dave)  |  [SARS-CoV-2 Short Read Assembly] (Dave) [Short and long read alignment] (Anna) (Anna)         |
 | **6**    | 3/4        | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (Anna)  | [E. coli K-12 Hybrid Genome Assembly]  **Friday no practical -public holiday**                         |
 | **-**    |            |  |    MID-SEMESTER BREAK                                             |
-| **7**    | 24/4       | _De novo_ assembly genome size estimate (k-mers), coverage. (Chelsea)  | **Tuesday no practical - public holiday**   [Genome Assembly I] (Chelsea)         |
+| **7**    | 24/4       | _De novo_ assembly genome size estimate (k-mers), coverage. (Chelsea?)  | **Tuesday no practical - public holiday**   [Genome Assembly I] (Chelsea?)         |
 | **8**    | 1/5        | Genome Graphs (Chelsea?)  | [Genome Assembly II] (Chelsea?) [Genome graphs1] (Chelsea?)           |
 | **9**    | 8/5        | Structural variation and cancer genomics (Paul)  |  [Genome graphs2] (Chelsea?) [Structural variation] (Paul)      |
 | **10**   | 15/5       | Variant calling and high-throughput genotyping (Julien) |  [Clinical genomics1] (Julien)  [Clinical genomics2] (Julien)         |
-| **11**   | 22/5       | Population genomics (Bastien) | [Population genomics1] (Bastien)  [Population genomics2] (Bastien)              |
+| **11**   | 22/5       | Population genomics (Yassine?) | [Population genomics1] (Yassine?)  [Population genomics2] (Yassine?)              |
 | **12**   | 29/5       | Wrap up lecture (Dave) |  Open Practical Session Tuesday (Dave)  [Open  Prac session - Friday] (Dave)           |
 | **13**   | 5/6        |   **Monday public holiday**         |   TBD        |
 
