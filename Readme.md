@@ -50,7 +50,7 @@ Semester 1 2023 - *Provisional Timetable*
 
 ## Assessment
 
-### Assessment Tasks
+### Assessment Tasks (This section for information only, links are disabled. Links to assessment items are availabe on MyUni)
 
 | **Assignment**                                            | **Subject**         |
 |-----------------------------------------------------------|---------------------|
