@@ -1,4 +1,4 @@
-# Major Project (15%)
+# Major Project (40% [10% project selection] + [30% project assessment])
 
 In this course, the following next-generation sequencing (NGS) datasets/protocols are described in detail:
 
@@ -15,7 +15,7 @@ Each of these NGS approaches uses similar programs and analysis approaches, such
 |References                 |5%   |
 |Analysis scripts           |30%  |
 
-**You have the freedom to choose any dataset from any research article you would like**, however you need to let Dave know beforehand.
+**You have the freedom to choose any dataset from any research article you would like**, however you must get approval beforehand.
 
 If you cannot find a suitable dataset, we have provided the following datasets:
 
