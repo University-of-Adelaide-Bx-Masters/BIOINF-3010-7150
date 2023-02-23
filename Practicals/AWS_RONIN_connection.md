@@ -8,7 +8,9 @@ Accessing your cloud compute resource is like having your very own server.
 
 1. Open your favourite internet browser. We recommend Firefox, but Edge/Chrome are also acceptable. Safari has not been tested.
 2. Enter the following address (`https://rstudio-ubuntu.uoa.cloud:4200`) in the address bar of your browser.
-3. You should see this login screen ![AWS RONIN shell in a box](./Bash_Practicals/images/shell_in_a_box.png)
+3. You should see this login screen //
+
+ ![AWS RONIN shell in a box](./Bash_Practicals/images/shell_in_a_box.png)
 
 4. Login with your UoA id number and password.
 
