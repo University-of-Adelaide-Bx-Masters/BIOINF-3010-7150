@@ -50,4 +50,6 @@ You can access your VM:
 - When connected directly to the University WiFi Network
 - When connected from another network using the [University of Adelaide VPN](https://www.adelaide.edu.au/technology/your-services/network-services/remote-access-via-virtual-private-network-vpn)
 
+Practice how to [disconnect from your VM](AWS_RONIN_disconnect.md) and then re-connect and go back to the practical instructions. 
+
 [Back](./Bash_Practicals/1_IntroBash.md)
