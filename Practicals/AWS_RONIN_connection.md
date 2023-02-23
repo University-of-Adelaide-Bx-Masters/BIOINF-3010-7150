@@ -10,15 +10,15 @@ Accessing your cloud compute resource is like having your very own server.
 2. Enter the following address (`https://rstudio-ubuntu.uoa.cloud:4200`) in the address bar of your browser.
 3. You should see this login screen //
 
- ![AWS RONIN shell in a box](./Bash_Practicals/images/shell_in_a_box.png)
+    ![AWS RONIN shell in a box](./Bash_Practicals/images/shell_in_a_box.png)
 
 4. Login with your UoA id number and password.
 
-Now you should see the following: 
+    Now you should see the following: 
 
-![Rstudio_pwd_from_shell](./Bash_Practicals/images/RStudio_server_spawn.png)
+    ![Rstudio_pwd_from_shell](./Bash_Practicals/images/RStudio_server_spawn.png)
 
-Once the Rstudio server has been launched (this may take a couple of minutes) you should see the following message in the browser: 
+    Once the Rstudio server has been launched (this may take a couple of minutes) you should see the following message in the browser: 
 
     ```
     Welcome to rstudio-ubuntu.uoa.cloud
@@ -33,22 +33,22 @@ Once the Rstudio server has been launched (this may take a couple of minutes) yo
 
     password: (a 20 character password for your Rstudio login)
     ```
-__Make sure you copy the password before proceeding__
+    __Make sure you copy the password before proceeding__
 
 5. Open a new browser tab as instructed above and type in the URL given above (`http://rstudio-ubuntu.uoa.cloud:8001`)*For this step it is essential that you use `http` and NOT `https`*
 
-you should see the following login screen. 
+    you should see the following login screen. 
 
-![Rstudio_login_screen](./Bash_Practicals/images/Rstudio_AWS_login.png)
+    ![Rstudio_login_screen](./Bash_Practicals/images/Rstudio_AWS_login.png)
 
 6. Use your UoA id (a1234567) and paste the password that you copied in the password box. __You have two minutes to complete this__ if you don't complete in time, you have to start over. 
 
-You now have access to your cloud compute resource (VM). 
+    You now have access to your cloud compute resource (VM). 
 
-- Every time you log in to your VM you will be given a new one time password that you have to paste into the Rstudio login panel.
-- If you leave Rstudio idle for too long the VM will shut down. This is because we pay by the minute for access to this resource. As long as you have jobs running or do not leave the terminal idle for more than an hour your VM will not automatically shut down. 
+    - Every time you log in to your VM you will be given a new one time password that you have to paste into the Rstudio login panel.
+    - If you leave Rstudio idle for too long the VM will shut down. This is because we pay by the minute for access to this resource. As long as you have jobs running or do not leave the terminal idle for more than an hour your VM will not automatically shut down. 
 
-Importantly, because of the onetime password you will be the only person to be able to access your VM as the system has been set up to allow you to use one VM at a time.
+    Importantly, because of the onetime password you will be the only person to be able to access your VM as the system has been set up to allow you to use one VM at a time.
 
 You can access your VM:
 
