@@ -28,19 +28,6 @@ Accessing your cloud compute resource is like having your very own server.
 
     ![Rstudio_credentials_from_shell](./Bash_Practicals/images/shell_in_a_box_Rstudio_credentials.png)
 
-    ```
-    Welcome to rstudio-ubuntu.uoa.cloud
-
-    You can now access Rstudio by opening a new browser and type
-
-    http://rstudio-ubuntu.uoa.cloud:8001
-
-    Here are the credentials for this session : !
-
-    username: a1234567 (your id here)
-
-    password: (a 20 character password for your Rstudio login)
-    ```
     __Make sure you copy the password before proceeding__
 
 5. Open a new browser tab as instructed above and type in the URL given above (`http://rstudio-ubuntu.uoa.cloud:8001`)*For this step it is essential that you use `http` and NOT `https`*
