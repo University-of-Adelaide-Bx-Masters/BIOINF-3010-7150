@@ -16,6 +16,14 @@ When you are done working on your VM and need to disconnect you first need to lo
 
 4. type `exit` at the prompt.
 
+5.  You will prompted to remove the Rstudio session
+    
+    ```
+    Do you want to remove Rstudio session as well? [yY/nN]
+    
+    ```
+    -type `y`.
+    
     You should see this:
 
     ![AWS_Ronin_disconnect](./Bash_Practicals/images/shell_in_a_box_disconnected.png)
