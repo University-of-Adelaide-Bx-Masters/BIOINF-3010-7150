@@ -12,7 +12,7 @@ When you are done working on your VM and need to disconnect you first need to lo
 
 3. You can then close the browser tab for RStudio.
 
-    - Once you closed the RStudio tab, you can logout from the VM:
+    - Once you have closed the RStudio tab, you can logout from the VM in the login tab:
 
 4. type `exit` at the prompt.
 
@@ -20,12 +20,13 @@ When you are done working on your VM and need to disconnect you first need to lo
     
     ```
     Do you want to remove Rstudio session as well? [yY/nN]
-    
     ```
     -type `y`.
-    
+
     You should see this:
 
     ![AWS_Ronin_disconnect](./Bash_Practicals/images/shell_in_a_box_disconnected.png)
 
-5. Close the tab or exit the browser and you are done.
+6. Close the tab or exit the browser and you are done.
+
+If you realise at this point that you forgot to do something and want to log back in, just push the __Connect__ button.
