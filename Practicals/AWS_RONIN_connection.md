@@ -20,19 +20,19 @@ Now you should see the following:
 
 Once the Rstudio server has been launched (this may take a couple of minutes) you should see the following message in the browser: 
 
-```bash
-Welcome to rstudio-ubuntu.uoa.cloud
+    ```
+    Welcome to rstudio-ubuntu.uoa.cloud
 
-You can now access Rstudio by opening a new browser and type
+    ou can now access Rstudio by opening a new browser and type
 
-http://rstudio-ubuntu.uoa.cloud:8001
+    http://rstudio-ubuntu.uoa.cloud:8001
 
-Here are the credentials for this session : !
+    Here are the credentials for this session : !
 
-username: a1234567 (your id here)
+    username: a1234567 (your id here)
 
-password: (a 20 character password for your Rstudio login)
-```
+    password: (a 20 character password for your Rstudio login)
+    ```
 __Make sure you copy the password before proceeding__
 
 5. Open a new browser tab as instructed above and type in the URL given above (`http://rstudio-ubuntu.uoa.cloud:8001`)*For this step it is essential that you use `http` and NOT `https`*
