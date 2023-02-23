@@ -31,4 +31,4 @@ When you are done working on your VM and need to disconnect you first need to lo
 
 If you realise at this point that you forgot to do something and want to log back in, just push the __Connect__ button.
 
-[Back to connection instructions](./Bash_Practicals/Bash_Practicals/AWS_RONIN_connection.md)
+[Back to connection instructions](./Bash_Practicals/AWS_RONIN_connection.md)
