@@ -18,9 +18,6 @@ Accessing your cloud compute resource is like having your very own server.
     
     ![AWS_RONIN_shell_log_in_OK](./Bash_Practicals/images/shell_in_a_box_Rstudio_login_prompt.png)
 
-    ```
-    Would you like to start up a Rstudio session?[yY/nN]
-    ```
     Type `y` or `Y` at the prompt.
 
     Now you should see the following: 
