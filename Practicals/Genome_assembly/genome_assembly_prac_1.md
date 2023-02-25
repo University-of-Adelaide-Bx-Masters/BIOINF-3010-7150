@@ -1,4 +1,4 @@
-# Week 6 Practical Part 1: **Genome Assembly** 
+# Week 7 Practical Part 1: **Genome Assembly** 
 ## By Chelsea Matthews 
 
 Today we will be looking at *de novo* assembly with more of a focus on larger, more complex genomes.  

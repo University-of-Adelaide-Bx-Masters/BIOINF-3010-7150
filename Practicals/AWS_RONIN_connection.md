@@ -1,4 +1,4 @@
-# Connecting to your Coud Compute Environment
+# Connecting to your Cloud Compute Environment
 
 You will have each been given access to cloud compute resources which we access using the IP address below.
 All cloud computing accounts are private but are identical and we will use these for the entire practical series. 

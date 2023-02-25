@@ -1,5 +1,5 @@
 
-# Clinical Genomics Practicals - Julien Soubrier
+# Clinical Genomics Practicals - Week 10 - Julien Soubrier
 
 Practicals for clinical genomics are split into two tutorials:
 

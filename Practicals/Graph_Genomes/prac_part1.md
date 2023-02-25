@@ -1,4 +1,4 @@
-# BIOINF 3010 & 7150 – Graph Genomes Practicum
+# BIOINF 3010 & 7150 – Week 8: Graph Genomes Practical
 
 ### Learning objectives
 

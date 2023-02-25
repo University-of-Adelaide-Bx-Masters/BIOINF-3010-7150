@@ -1,4 +1,4 @@
-# Introduction to BLAST - 6 May 2022 - Dave Adelson
+# Introduction to BLAST - Week 4 practical - Dave Adelson
 
 We should really run a full course just on BLAST, but here we just show you how to use it for common scenarios.
 {:.no_toc}

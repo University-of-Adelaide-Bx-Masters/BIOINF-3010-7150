@@ -1,4 +1,4 @@
-# Week 5 Practical Part 1: Short and Long Read Alignment
+# Week 5 Practical Part 2: Short and Long Read Alignment
 ## By Nathan Watson-Haigh, updated/adapted by Dave Adelson
 {:.no_toc}
 

@@ -1,3 +1,5 @@
+# Week 9 Practical - Genome Graphs
+
 ### Getting (re)started
 
 Double check if the directories (~/data/graph_genomes) exist (persists):

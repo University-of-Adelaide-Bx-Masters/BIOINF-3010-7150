@@ -1,12 +1,12 @@
-# Practicals: Ancient DNA and population genomics
+# Week 11 Practicals: Ancient DNA and population genomics - Part 1
 
 Bastien Llamas \(bastien.llamas@adelaide.edu.au\)
-2022-05-24 and 2022-05-27
+2023-05-23 and 2023-05-26
 
 ---
 The two practicals will be separated into:
-1. Data handling (Tuesday 2022-05-24)
-2. Population genomics applications (Friday 2022-05-27)
+1. Data handling (Tuesday 2023-05-23)
+2. Population genomics applications (Friday 2023-05-26)
 
 Icons are used to highlight sections of the practicals:
 

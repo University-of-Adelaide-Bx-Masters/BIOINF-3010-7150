@@ -1,5 +1,4 @@
-
-## 2. Variant Filtering and Pedigree Analyses
+# Clinical Genomics - Week 10: Part 2. Variant Filtering and Pedigree Analyses
 
 ### Some backgound
 
