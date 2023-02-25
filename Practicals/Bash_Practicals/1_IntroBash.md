@@ -97,10 +97,10 @@ Now we have setup our VM, the basic aims of the following sessions are:
 Once you're in the `Terminal` section of `RStudio`, you will notice some text describing your computer of the form
 
 ```
-(base) student@bioinf-3010-2022-xx:~/Project_0$
+a1234567@ip-10-255-0-115:/shared/a1234567/Project_0$
 ```
 
-The first section of this describes your username (`student`) and the machine `@bioinf-3010-2022-xx`.
+The first section of this describes your username (`a1234567`) and the machine `@ip-10-255-0-115`.
 The end of the machine identifier is marked with a colon (`:`).
 
 After the colon, the string (`~/Project_0`) represents your current directory, whilst the dollar sign (`$`) indicates the end of this path and the beginning of where you will type commands.
@@ -121,23 +121,23 @@ The command `pwd` is what we use to **p**rint the current (i.e. **w**orking) **d
 
 
 ```
-/home/student/Project_0
+/shared/a1234567/Project_0
 ```
 
 Check with your neighbour to see if you get the same thing.
 If not, see if you can figure out why.
 
-At the beginning of this section we mentioned that `~/Project_0` represented your current directory, but now our machine is telling us that our directory is `/home/student/Project_0`.
+At the beginning of this section we mentioned that `~/Project_0` represented your current directory, but now our machine is telling us that our directory is `/shared/a1234567/Project_0`.
 This raises an important and very useful point.
 In `bash` the `~` symbol is a shortcut for the home directory of the current user.
-If Dave was logged in, this would be `/home/Dave` whilst if Anna was logged in this would be `/home/Anna`.
-As we are all logged on as `student`, this now stands for `/home/student`.
+If Dave was logged in, this would be `/shared/Dave` whilst if Anna was logged in this would be `/shared/Anna`.
+As we are all logged on as `aXXXXXXX`, this now stands for `/shared/a1234567`.
 
-Importantly every user with an account on a machine will have their own home directory of the format `/home/username1`, `/home/username2` etc..
-Notice that they will all live in the directory `/home` which is actually the parent directory that all users will have a home directory in, as we've just tried to explain.
+Importantly every user with an account on one of our virtual machines will have their own home directory of the format `/shared/a1234567`, `/shared/a1234568` etc..
+Notice that they will all live in the directory `/shared` which is actually the parent directory that all users on our system will have a home directory in, as we've just tried to explain.
 This can be confusing for many people, so hopefully we'll clear this up in the next section or two.
 
-In the above, the `/home` directory itself began with a slash, i.e. `/`.
+In the above, the `/shared` directory itself began with a slash, i.e. `/`.
 On a unix-based system (i.e. MacOS and Linux), the `/` directory is defined to be the root directory of the file system.
 Windows users would be more familiar with seeing something similar, the `C:\` directory as the root of the main hard drive, although there are fundamental but largely uninteresting differences between these systems.
 Note also that whilst Windows uses the **backslash** (`\`) to separate parts of a directory path, a Linux-based system uses the **forward slash** (`/`), or more commonly just referred to simply as "slash", marking another but very important difference between the two.
@@ -168,7 +168,7 @@ If we now enter
 ```
 cd ..
 ```
-a couple more times we should be in the root directory of the file system and we will see `/ $` at the end of our prompt.
+a couple more times and we should be in the root directory of the file system and we will see `/ $` at the end of our prompt.
 Try this and print the working directory again (`pwd`).
 The output should be the root directory given as `/`.
 
@@ -195,7 +195,7 @@ In contrast, a **relative path** can begin with either the current directory (in
 A subdirectory `foo` of the current directory could thus be specified as `./foo`, whilst a subdirectory of the next higher directory would be specified by `../foo`.
 If the path does not have a `./` or `../` prefix, the current directory is used, so `foo` is the same as `./foo`.
 
-Another common absolute path is the one mentioned right at the start of the session, specified with `~`, which stands for your home directory `/home/student`, which also starts with a `/`.
+Another common absolute path is the one mentioned right at the start of the session, specified with `~`, which stands for your home directory `/shared/a1234567`, which also starts with a `/`.
 
 We can also move through multiple directories in one command by separating them with the slash `/`.
 For example, we could also get to the root directory from our home directory by typing
@@ -270,7 +270,7 @@ cd
 cd ..
 ```
 
-Now to get back to your home directory (`/home/student`) start typing `cd s` followed by the <kbd>Tab</kbd> key.
+Now to get back to your home directory (`/shared/a1234567`) start typing `cd a` followed by the <kbd>Tab</kbd> key.
 This should auto-complete for you and will save you making any errors.
 This also makes navigating your computer system very fast once you get the hang of it.
 
@@ -316,7 +316,7 @@ ls /
 ```
 
 Here you can see a whole raft of directories which contain the vital information for the computer's operating system.
-Among them should be the `/home` directory which is one level above your own home directory, and where the home directories for all users are located on a Linux system.
+Among them should be the `/shared` directory which is one level above your own home directory, and where the home directories for all users are located on our Linux system. Note that our system is a special case and most Linux systems have user home directories in `/home`, not `/shared`.
 
 Have a look inside your Project_0 directory from somewhere else.
 Tab auto-completion may help you a little.
@@ -369,13 +369,13 @@ Please make sure you can tell the difference between the characters `l` (lower-c
 ls -l
 ```
 
-The above will give one or more lines of output, and one of the first lines should be something similar to:
+The above will give one or more lines of output, and one of the lines should be something similar to:
 
-`drwxrwxr-x 2 student student 4096 Aug 12 hh:mm test`
+`drwxrwxr-x 2 a1071750 a1071750       4096 Feb 23 09:40 Project_0`
 
 where `hh:mm` is the time of file/directory creation.
 
-The letter `d` at the beginning of the initial string of codes `drwxr-xr-x` indicates that this is a directory.
+The letter `d` at the beginning of the initial string of codes `drwxrwxrwx` indicates that this is a directory.
 These letters are known as flags which identify key attributes about each file or directory, and beyond the first flag (`d`) they appear in strict triplets.
 The first entry shows the file type and for most common files this entry will be `-`, whereas for a directory we will commonly see `d`.
 
@@ -383,7 +383,7 @@ Beyond this first position, the triplet of values `rwx` simply refer to who is a
 These three triplets refer to 1) the file's owner, 2) the group of users that the owner belongs to and 3) all users, and will only contain the values "r" (read), "w" (write), "x" (execute) or "-" (not enabled).
 These are very helpful attributes for data security, protection against malicious software, and accidental file deletions.
 
-The entries `student student` respectively refer to who is the owner of the directory (or file) and to which group of users the owner belongs.
+The entries `a1234567 a1234567` respectively refer to who is the owner of the directory (or file) and to which group of users the owner belongs.
 Again, this information won't be particularly relevant to us today, but this type of information is used to control who can read and write to a file or directory.
 Finally, the value `4096` is the size of the directory structure in bytes, whilst the date and time refer to when the directory was created.
 
