@@ -40,44 +40,22 @@ Managing your data and code intelligently is a considerable challenge in bioinfo
 
 ## Software Environment
 
-For the practicals, we will use anaconda (`conda`) software environments to provide you with convienient access to the software you need. We have installed anaconda for you already, so all that you need to do is use the `conda` command. You can find information about `conda` [here](https://docs.conda.io/projects/conda/en/latest/user-guide/index.html). 
+For the practicals, we have used an anaconda (`conda`) software environment to provide access to some software. 
 
-For today's practical, you need to install the required software packages in the `base` conda environment:
-
-```bash
-conda install -c bioconda/label/main fastp
-conda install -c bioconda fastqc trimmomatic
-```
-This will install the three software tools (`fastqc`, `trimmomatic` and `fastp`) and their dependencies that you will need for this practical. 
-
-When you do this you will see something like this:
+For today's practical, you need to activate the `base` conda environment:
 
 ```bash
-(base) student@bioinf-3010-2022-1:~/Project_1$ conda install -c bioconda/label/main fastp
-Collecting package metadata (current_repodata.json): done
-Solving environment: done
-
-## Package Plan ##
-
-  environment location: /home/student/anaconda3
-
-  added / updated specs:
-    - fastp
-
-
-The following NEW packages will be INSTALLED:
-
-  fastp              bioconda/label/main/linux-64::fastp-0.20.1-h2e03b76_1
-
-
-Proceed ([y]/n)? y
-
-Preparing transaction: done
-Verifying transaction: done
-Executing transaction: done
+source activate bioinf
 ```
 
-You will need to type `y` to proceed with the installation.
+This will activate the three software tools (`fastqc`, `trimmomatic` and `fastp`) that you will need for this practical. 
+
+When you do this, your prompt will change and you will see something like this:
+
+```bash
+(base) a1234567@ip-10-255-0-115:/shared/a1234567$
+```
+the `(base)` prefix lets you know you are in the `base` conda environment, with access to the packages installed for that environment. Don't worry if this seems confusing, just be aware that if we instruct you to use `conda` packages in future practicals that you must use `sourc activate bioinf` to be able to access those applications/programs.
 
 # Read Quality Control
 
