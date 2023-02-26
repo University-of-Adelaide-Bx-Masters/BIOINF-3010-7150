@@ -1,4 +1,5 @@
 # Week 2 Practical
+
 {:.no_toc}
 
 * TOC
@@ -26,10 +27,11 @@ cd ~/Project_1/
 ```
 
 ### Questions
+
 {:.no_toc}
 
- - *What did the command line argument `--parents` do?*
- - *What was the effect of using `?` in the filename during the `cp` command?*
+* *What did the command line argument `--parents` do?*
+* *What was the effect of using `?` in the filename during the `cp` command?*
 
 You will now find yourself in this directory you have created.
 If you look at the bottom right pane of your RStudio session you will see `Project_1` appeared when you executed `mkdir ~/Project_1`.
@@ -40,21 +42,22 @@ Managing your data and code intelligently is a considerable challenge in bioinfo
 
 ## Software Environment
 
-For the practicals, we have used an anaconda (`conda`) software environment to provide access to some software. 
+For the practicals, we have used an anaconda (`conda`) software environment to provide access to some software.
 
 For today's practical, you need to activate the `base` conda environment:
 
 ```bash
-source activate bioinf
+a1234567@ip-10-255-0-115:/shared/a1234567$ source activate bioinf
 ```
 
-This will activate the three software tools (`fastqc`, `trimmomatic` and `fastp`) that you will need for this practical. 
+This will activate the three software tools (`fastqc`, `trimmomatic` and `fastp`) that you will need for this practical.
 
 When you do this, your prompt will change and you will see something like this:
 
 ```bash
 (base) a1234567@ip-10-255-0-115:/shared/a1234567$
 ```
+
 the `(base)` prefix lets you know you are in the `base` conda environment, with access to the packages installed for that environment. Don't worry if this seems confusing, just be aware that if we instruct you to use `conda` packages in future practicals that you must use `sourc activate bioinf` to be able to access those applications/programs.
 
 # Read Quality Control
@@ -130,9 +133,9 @@ The first read in a pair is often refered to as the "R1" while the second read i
 
 Paired-end reads provide:
 
- * More bases from the insert compared to a single-end read - up 2x as many!
- * The expected distance between the reads of a pair provide additional constraints around where the read pair can/should align to a genome - the reads from a pair must align within ~300-400 bp of each other.
- * The reads must align to the genome with the correct relative orientation. For paired-end reads this is often refered to as: forward-reverse (fr), innies or simply &#8594;&#8592;
+* More bases from the insert compared to a single-end read - up 2x as many!
+* The expected distance between the reads of a pair provide additional constraints around where the read pair can/should align to a genome - the reads from a pair must align within ~300-400 bp of each other.
+* The reads must align to the genome with the correct relative orientation. For paired-end reads this is often refered to as: forward-reverse (fr), innies or simply &#8594;&#8592;
 
 ## FASTQ Files
 
@@ -149,9 +152,10 @@ gunzip \
 ```
 
 ### Question
+
 {:.no_toc}
 
- - *What do you think `gunzip` is doing here?*
+* *What do you think `gunzip` is doing here?*
 
 You should see something like the following.
 Here we have 2 reads in FASTQ format, each occupying 4 lines, where the lines represent:
@@ -179,7 +183,7 @@ To encode the quality scores as a single character, the scores are mapped to the
 
 ![ASCII table](images/Standard-ASCII-Table_large.jpg)
 
-https://www.commfront.com/pages/ascii-chart
+<https://www.commfront.com/pages/ascii-chart>
 
 You will see that the first 33 characters (decimal values of 0-32) are all non-printable or white-space (think space, tab, backspace, bell etc).
 The first printable character is `!` and this has the decimal value of `33`.
@@ -212,7 +216,6 @@ This is more easily seen in the following table:
 | 30          | `?`                        | 10<sup>-3</sup>                    | 99.9%                 |
 | 40          | `I`                        | 10<sup>-4</sup>                    | 99.99%                |
 
-
 ## Running FastQC
 
 Run FastQC across the two files, timing how long it takes to complete:
@@ -241,29 +244,33 @@ By default, FastQC outputs a `zip` file and an `html` file alongside each FASTQ 
 In the "Files" pane, navigate to the `~/Project_1/data` directory and click each of the `html` filenames in turn, selecting "View in Web Browser" as you go.
 
 ### Questions
+
 {:.no_toc}
 
 Using the FastQC Reports answer the following questions:
 
- - *How many reads are in each of the two FASTQ files?*
- - *How many read pairs are there?*
- - *How many reads in total across both files?*
- - *How many Mbp of sequence information is there across both files?*
- - *Coverage (x or fold) is a measure of how many times you would expect each base in the genome to be coverage by an aligned base after aligning all the reads. It is simply calculated as the total bases in your reads divided by the genome size. Given the genome of E. coli K-12 is ~4.6 Mbp in size, how many fold coverage do we have?*
+* *How many reads are in each of the two FASTQ files?*
+* *How many read pairs are there?*
+* *How many reads in total across both files?*
+* *How many Mbp of sequence information is there across both files?*
+* *Coverage (x or fold) is a measure of how many times you would expect each base in the genome to be coverage by an aligned base after aligning all the reads. It is simply calculated as the total bases in your reads divided by the genome size. Given the genome of E. coli K-12 is ~4.6 Mbp in size, how many fold coverage do we have?*
 
 ### Per Base Sequence Quality
+
 {:.no_toc}
 
 Click on the `Per base sequence quality` hyper-link on the left of the page & you will see a boxplot of the QC score distributions for every position in the read.
 These are the Phred scores we discussed earlier, and this plot is usually the first one that bioinformaticians will look at for making informed decisions about the overall quality of the data and settings for later stages of the analysis.
 
 #### Questions
+
 {:.no_toc}
 
- - *What do you notice about the quality scores as you move from the 5' to the 3' end of the reads?*
- - *Do you think we might need to trim reads with poor quality 3' ends?*
+* *What do you notice about the quality scores as you move from the 5' to the 3' end of the reads?*
+* *Do you think we might need to trim reads with poor quality 3' ends?*
 
 ### Per Base Sequence Content
+
 {:.no_toc}
 
 During the preparation of the sequencing library, the genome is randomly fragmented.
@@ -274,17 +281,20 @@ It is also relatively common to see a drift towards G towards the end of a read.
 This is because most modern Illumina sequencing is performed on a "2-colour" system and G is the absence of both colours.
 
 #### Questions
+
 {:.no_toc}
 
- - *What do you think the GC content of E. coli K-19 is?*
+* *What do you think the GC content of E. coli K-19 is?*
 
 ### Overrepresented Sequences
+
 {:.no_toc}
 
 Here we can see any sequence which are more abundant than would be expected.
 Sometimes you will see sequences here that match the adapters used in the library prep.
 
 ### Adapter Content
+
 {:.no_toc}
 
 For whole genome shotgut sequencing library preps we expect to see little adapter content in the reads.
@@ -292,9 +302,10 @@ If there is a significant up-turn in adapter content towards the 3' end, this ma
 If this is significant enough, it is worth asking the sequencing service provider to redo the library prep and sequencing.
 
 #### Questions
+
 {:.no_toc}
 
- - *Do you think it will be necessary to look for and remove adapter sequences from the reads?*
+* *Do you think it will be necessary to look for and remove adapter sequences from the reads?*
 
 ## Adapter and Quality Trimming Reads
 
@@ -305,7 +316,7 @@ Low quality stretches of reads might contain too many sequencing errors and stop
 If we have a large volume of data, the fact that a small proportion of reads contain some adapter or have low quality regions doesn't have a significant effect when aligning reads to a genome.
 Those reads will just not align, but we have plenty more where they came from!
 If you find yourself performing excessive quality or adapter trimming, the data is probably poor and you should have it resequenced or you have insufficient coverage and are trying to scrape-the-barrel to save every last read.
-However, if you are planning to perform de novo genome assembly from the reads, then it is important to remove such regions as they can dramatically increase computational requirements. 
+However, if you are planning to perform de novo genome assembly from the reads, then it is important to remove such regions as they can dramatically increase computational requirements.
 
 There are many tools for performing quality and adapter trimming.
 We are going to investigate the use of 2 tools: trimmomatic and fastp.
@@ -315,9 +326,9 @@ We are going to investigate the use of 2 tools: trimmomatic and fastp.
 Below is a basic trimmomatic command for processing paired-end data.
 Modify the command to:
 
- * Use 1 core/thread to compare to the default, which will use all cores available (2).
- * Increase the quality value threshold, at which 3' quality trimming is performed, to 20
- * Include a minimum length filter of 75 bp (hint look for `MINLEN` in the [manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf).
+* Use 1 core/thread to compare to the default, which will use all cores available (2).
+* Increase the quality value threshold, at which 3' quality trimming is performed, to 20
+* Include a minimum length filter of 75 bp (hint look for `MINLEN` in the [manual](http://www.usadellab.org/cms/uploads/supplementary/Trimmomatic/TrimmomaticManual_V0.32.pdf).
 
 ```bash
 # Trimmomatic requires any output directories to exist before running
@@ -336,15 +347,16 @@ Are they specified using a single hyphen (e.g. `-t`), two hyphens (e.g. `--threa
 Are the values separated with a space (e.g. `-t 2`), and equal sign (e.g. `-t=2`), no space at all (e.g. `-t2`), a colon (e.g. `t:2`) or something else?
 
 There are some general guidlines, but ultimately it is up to the developer of the tool as to how they design/write their software.
-The best thing to do is to read the manual and the help page to understand how it wants these thing specified. 
+The best thing to do is to read the manual and the help page to understand how it wants these thing specified.
 [http://www.usadellab.org/cms/?page=trimmomatic#](http://www.usadellab.org/cms/?page=trimmomatic#)
 
 #### Questions
+
 {:.no_toc}
 
- - *By allowing trimmomatic to use it's default of all possible cores (2 CPUs/cores in our case), how much quicker does trimmomatic finish?*
- - *Does it matter what order the trimming steps are specified? Try specifying `MINLEN` before `ILLUMINACLIP` and then at the end. What happend and why?*
- - *How many read pairs survived all the trimming and length filters?*
+* *By allowing trimmomatic to use it's default of all possible cores (2 CPUs/cores in our case), how much quicker does trimmomatic finish?*
+* *Does it matter what order the trimming steps are specified? Try specifying `MINLEN` before `ILLUMINACLIP` and then at the end. What happend and why?*
+* *How many read pairs survived all the trimming and length filters?*
 
 ### fastp
 
@@ -365,10 +377,11 @@ time fastp \
 ```
 
 #### Questions
+
 {:.no_toc}
 
- - *How much faster is `fastp` than `trimmomatic`?*
- - *Do they perform comparably as each other in terms of the numbers of sequences passing the trimming/filtering?*
+* *How much faster is `fastp` than `trimmomatic`?*
+* *Do they perform comparably as each other in terms of the numbers of sequences passing the trimming/filtering?*
 
 ## Post-Trimming FastQC
 
@@ -382,9 +395,9 @@ fastqc --threads 2 \
 
 Take a look at the various FastQC HTML report files and compare pre and post trimming plots for:
 
- * Per base sequence quality
- * Overrepresented sequences
- * Adapter Content
+* Per base sequence quality
+* Overrepresented sequences
+* Adapter Content
 
 Generally, `fastp` performs comparably to `trimmomatic` but is faster. Do you think `fastp` has performed better for this dataset than `trimmomatic`?
 `fastp` is able to deal better with 2-colour Illumina data and the corresponding poly-G "issue" observed at the 3' end of reads.
