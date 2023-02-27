@@ -40,10 +40,10 @@ Accessing your cloud compute resource is like having your very own server.
 
     You now have access to your cloud compute resource (VM). 
 
-    - Every time you log in to your VM you will be given a new one time password that you have to paste into the Rstudio login panel.
-    - If you leave Rstudio idle for too long the VM will shut down. This is because we pay by the minute for access to this resource. As long as you have jobs running or do not leave the terminal idle for more than an hour your VM will not automatically shut down. 
+    - Every time you log in to your VM you will be given a new one-time password that you have to paste into the Rstudio login panel.
+    - RStudio session automatically shut down after 3 hours, if this happens and you are still working, log in again, you can resume where you left off. This is because we pay by the minute for access to this resource. Please remember to log out of RStudio and disconnect (see below) when you are done so that we don't pay for compute resources that are not being used. 
 
-    Importantly, because of the onetime password you will be the only person to be able to access your VM as the system has been set up to allow you to use one VM at a time.
+    Importantly, because of the one-time password you will be the only person to be able to access your VM as the system has been set up to allow you to use one VM at a time.
 
 You can access your VM:
 
