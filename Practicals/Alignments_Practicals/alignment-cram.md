@@ -103,7 +103,7 @@ To view a SAM, CRAM or BAM file, you can use the [program `samtools`](http://www
 `samtools` is a very common tool in Bioinformatics and we will be using it frequently in this course.
 
 
-Lets quickly view our file using the `samtools view` subcommand, which is similar to the command-line tool `cat` in which the file is read to our screen line by line. Make sure you are in your `SAM_practical` directory.
+Lets quickly view our file using the `samtools view` subcommand, which is similar to the command-line tool `cat` in which the file is read to our screen line by line. Make sure you are in your `Project_2` directory.
 
 ```bash
 samtools view ./data/SRR3096662_Aligned.out.sort.bam
