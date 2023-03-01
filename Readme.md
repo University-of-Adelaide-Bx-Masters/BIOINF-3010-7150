@@ -12,8 +12,8 @@ Semester 1 2023 - *Provisional Timetable*
 |----------|------------|---------------------------------------------------|---------------------------------------------------|
 | **1**    | 27/2       | Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (Dave) | [Introduction to Bash 1] (Dave)   [Introduction to Bash 2] (Dave)                  |
 | **2**    | 6/3        | Resequencing (Exome/WGS)     (Dave)                    |[Read Quality Control] (Dave)[Read Quality Control contd] |
-| **3**    | 13/3       | **No lecture - Public Holiday**  |[SARS-CoV-2 Resequencing] (Dave)  [Intro to BLAST] (Dave)       |
-| **4**    | 20/3       | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave)  |[BLAST practical] (Dave) [SAMTools and alignments] (Dave)          |
+| **3**    | 13/3       | **No lecture - Public Holiday**  | [SAMTools and alignments] (Dave)   [SARS-CoV-2 Resequencing] (Dave)      |
+| **4**    | 20/3       | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave)  |[Intro to BLAST] (Dave)     [BLAST practical] (Dave)          |
 | **5**    | 27/3       | Short read assembly; approaches and issues (Dave)  |  [SARS-CoV-2 Short Read Assembly] (Dave) [Short and long read alignment]  (Anna)         |
 | **6**    | 3/4        | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (Anna)  | [E. coli K-12 Hybrid Genome Assembly] (Anna)  **Friday no practical -public holiday**                         |
 | **-**    |            |  |    MID-SEMESTER BREAK                                             |
