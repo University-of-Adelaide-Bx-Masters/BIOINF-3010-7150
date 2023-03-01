@@ -1,6 +1,6 @@
-# Introduction to BLAST - Week 4 practical - Dave Adelson
+# Introduction to BLAST - Week 3 practical 2 - Dave Adelson
 
-We should really run a full course just on BLAST, but here we just show you how to use it for common scenarios.
+We should really run a full course just on BLAST, but here we just show you how to use it for some common scenarios.
 {:.no_toc}
 
 * TOC
@@ -47,20 +47,11 @@ BLAST algorithm steps:
 
 ## 3. Having a BLAST
 
-This practical aims to familiarise you with the use of NCBI BLAST as a tool for annotation. You will use your VMs for this. Your first task will be to install BLAST and download the databases you will require. 
+This practical aims to familiarise you with the use of NCBI BLAST as a tool for annotation. You will use your VMs for this. Your first task will be to retrieve the databases you will require. 
 
 ### 3.1 Install NCBI BLAST
 
 Open a terminal and at the bash command line prompt type the following to create a new `conda` environment for `blast`. 
-
-```bash
-conda create --name blast
-conda activate blast
-conda install -c bioconda blast
-```
-This will install NCBI BLAST and all its dependencies.
-
-Once you have installed NCBI BLAST you will need to set up a project directory with the data for the practical.
 
 ### 3.2 The data and project directory
 
@@ -81,7 +72,7 @@ Once you have created these directories copy the `hg38.fa.gz`, `hg38_reduced.fa.
 
 BLAST searches a special database of nucleotide sequences that have been broken into `kmers/words` for faster searching (it uses a [hash table](https://en.wikipedia.org/wiki/Hash_table)). It finds matching words in the database and then extends the matches to create a local alignment. You will need to format the BLAST databases that you will use.
 
-You will need to decompress the hg 38.fa uniprot_sprot.fasta files:
+You will need to decompress the `hg 38.fa.gz`, `hg38_reduced.fa.gz` and `uniprot_sprot.fasta.gz` files:
 
 ```bash
 cd ~/BLAST_practical/dbs
@@ -128,7 +119,7 @@ For BLASTX:
 blastx -help
 ```
 
-Try these to see what the allowed syntax, flags and parameters are.  You will probably want to pipe this to `less`.
+Try these to see what the allowed syntax, flags and parameters are.  You will probably want to pipe the output to `less`.
 
 For detailed documentation for all things BLAST see [here](https://www.ncbi.nlm.nih.gov/books/NBK1762/) and for ***detailed command line options and flags*** see [here](https://www.ncbi.nlm.nih.gov/books/NBK279684/#appendices.Options_for_the_commandline_a)
 

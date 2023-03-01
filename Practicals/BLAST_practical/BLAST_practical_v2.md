@@ -1,5 +1,5 @@
 
-# BLAST Practical - 10 May 2022 - Dave Adelson
+# BLAST Practical - 21 March 2023 - Dave Adelson
 {:.no_toc}
 
 * TOC
@@ -77,11 +77,11 @@ To determine the most abundant repeat type in your output you can try:
 - use `cut` , `sort` and `uniq` to list all the repeat types
 - use `grep -c` to count some of the repeat types to get an objective assessment of how many insertions there are for every repeat type. *Hint: when using `grep` use the shortest search pattern you can, to group repeats of the same type into the count*.
 
-In order to obtain a human repeat sub-sequence for the most abundant repeat type from `hg38_gene_query.fasta` you will need to use `samtools-faidx` https://www.htslib.org/doc/samtools-faidx.html. You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. Do this by inspecting the text output file from above and selecting an interval from a robust (longest or almost longest `alignment length`  with high `bitscore` and low `evalue`) alignment for the most abundant type of repeat in your output. 
+In order to obtain a human repeat sub-sequence for the most abundant repeat type from `hg38_gene_query.fasta` you will need to use [samtools-faidx](https://www.htslib.org/doc/samtools-faidx.html). You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. Do this by inspecting the text output file from above and selecting an interval from a robust (longest or almost longest `alignment length`  with high `bitscore` and low `evalue`) alignment for the most abundant type of repeat in your output. 
 
 **I have used arbitrary coordinate values 12045-12345 in the example below, you will need to use your own coordinates.**
 
-`samtools` should be already installed on your VMs and you should be able use it from within the `conda blast` environment to extract the subsequence you want from the genome. 
+`samtools` should be already installed on your VMs and you should be able use it to extract the subsequence you want from the genome. We will cover `sam`/`bam` file formats and the use of `samtools` more extensively in the next practical. For now we are using this just retrieve a sequence from the database that matched our query. 
 
 ```bash
 
@@ -105,7 +105,7 @@ head -n5 hg38_repeats.txt
 ```
 This gives you an estimate of the number of insertions of that repeat/transposon type in the genome.
 
-You can get the sum of the values for `alignment length` to determine the exact number of base pairs contributed by this repeat to the genome. *Hint: you can use `awk` with something like this:*
+You can get the sum of the values for `alignment length` to determine the exact number of base pairs contributed by this repeat to the genome. *Hint: you can use [awk](https://www.gnu.org/software/gawk/manual/gawk.html) with this syntax:* `awk` is a very useful program that allows you to select particular records in a file and perform operations on them. 
 
 ```bash
 awk '{sum+=$n} END {print sum}' [input file]
