@@ -33,7 +33,7 @@ It comes in many flavours that you might have heard before, including `MySQL`, `
 Now let's create and activate a conda environment with Gemini installed:
 ```bash
 # First go to the working directory we created yesterday:
-cd ~/clinicalGenomics/
+cd ~/Project_11/
 # Here is a command to create a conda environment based on a list of all required packages "geminiEnv.txt"):
 conda create -n geminiEnv --file /home/student/data/Variants/geminiEnv.txt
 conda activate geminiEnv

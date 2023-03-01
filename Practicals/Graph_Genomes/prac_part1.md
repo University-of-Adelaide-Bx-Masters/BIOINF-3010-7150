@@ -1,4 +1,4 @@
-# BIOINF 3010 & 7150 – Week 8: Graph Genomes Practical
+# BIOINF 3010 & 7150 – Week 8 session 2: Graph Genomes Practical
 
 ### Learning objectives
 
@@ -29,8 +29,8 @@ To test if things are working smoothly, you can run:
 
 In this exercise, you will use small toy examples from the `test` directory. So make sure you have checked out vg:
 
-    mkdir -p ~/Project_8
-    cd ~/Project_8
+    mkdir -p ~/Project_9
+    cd ~/Project_9
     git clone https://github.com/vgteam/vg.git
 
 Now create a directory to work on for this tutorial:

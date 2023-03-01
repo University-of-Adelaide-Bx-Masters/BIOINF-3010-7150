@@ -24,8 +24,8 @@ To make and enter the directory that you will be working in, run the following c
 
 ```bash
 # Setup project working directory
-mkdir --parents ~/Project_2/data/
-cd ~/Project_2/
+mkdir --parents ~/Project_3/data/
+cd ~/Project_3/
 ```
 ## Software packages
 
@@ -84,10 +84,10 @@ We have also provided access to a subsample (~100x coverage) of the above data s
 
 ```bash
 # Make the directory for the Illumina PE reads
-mkdir --parents ~/Project_2/data/illumina_pe/
+mkdir --parents ~/Project_3/data/illumina_pe/
 
 # Get the Illumina data for the SRR11140748 sample
-cp ~/data/SARS-CoV-2_Resequencing/SRR11140748_?_100x.fastq.gz ~/Project_2/data/illumina_pe/
+cp ~/data/SARS-CoV-2_Resequencing/SRR11140748_?_100x.fastq.gz ~/Project_3/data/illumina_pe/
 ```
 
 #### Question
@@ -124,7 +124,7 @@ Once you are happy the reads are of good quality, lets see how much data we have
 
 ```bash
 pigz --decompress --to-stdout --processes 2 \
-  ~/Project_2/data/illumina_pe/SRR11140748_?_100x.fastq.gz \
+  ~/Project_3/data/illumina_pe/SRR11140748_?_100x.fastq.gz \
 | sed -n '2~4p' \
 | awk 'BEGIN{OFS="\t"}{z+=length($0); y+=1}END{print z,y,z/y}'
 ```
@@ -167,13 +167,13 @@ Index the reference genome:
 
 ```bash
 # Make the directory for the reference genome
-mkdir --parents ~/Project_2/data/reference/
+mkdir --parents ~/Project_3/data/reference/
 
 # Get the SARS-CoV-2 reference genome
-cp ~/data/SARS-CoV-2_Resequencing/COVID-19.fasta.gz ~/Project_2/data/reference/
+cp ~/data/SARS-CoV-2_Resequencing/COVID-19.fasta.gz ~/Project_3/data/reference/
 
 # Index the reference genome for use with BWA
-bwa index ~/Project_2/data/reference/COVID-19.fasta.gz
+bwa index ~/Project_3/data/reference/COVID-19.fasta.gz
 ```
 
 #### Questions
@@ -187,13 +187,13 @@ Align the Illumina PE reads to the reference genome:
 
 ```bash
 # Create an output directory ahead of time
-mkdir --parents ~/Project_2/resequencing/
+mkdir --parents ~/Project_3/resequencing/
 
 # Align reads
 time bwa mem \
-  ~/Project_2/data/reference/COVID-19.fasta.gz \
-  ~/Project_2/data/illumina_pe/SRR11140748_1_100x.fastq.gz \
-  ~/Project_2/data/illumina_pe/SRR11140748_2_100x.fastq.gz \
+  ~/Project_3/data/reference/COVID-19.fasta.gz \
+  ~/Project_3/data/illumina_pe/SRR11140748_1_100x.fastq.gz \
+  ~/Project_3/data/illumina_pe/SRR11140748_2_100x.fastq.gz \
 > resequencing/SRR11140748_illumina.sam
 
 # Coordinate sort SAM file, and output to BAM
@@ -220,11 +220,11 @@ This ensures IGV can quickly load the reference sequence and corresponding read 
 # IGV-web requires an uncompressed reference sequence 
 # and corresponding index file
 gunzip \
-  < ~/Project_2/data/reference/COVID-19.fasta.gz \
-  > ~/Project_2/data/reference/COVID-19.fasta
+  < ~/Project_3/data/reference/COVID-19.fasta.gz \
+  > ~/Project_3/data/reference/COVID-19.fasta
 
 # Generate index of the FASTA-formatted genome file
-samtools faidx ~/Project_2/data/reference/COVID-19.fasta
+samtools faidx ~/Project_3/data/reference/COVID-19.fasta
 
 # Index the BAM file
 samtools index resequencing/SRR11140748_illumina.bam
@@ -234,10 +234,10 @@ Download the following files to your local computer using RStudio's File browser
 Simply select 1 file at a time by checking the checkbox and click "More" >> "Export...".
 Click the "Download" button and save it somewhere obvious.
 
- * `~/Project_2/data/reference/COVID-19.fasta`
- * `~/Project_2/data/reference/COVID-19.fasta.fai`
- * `~/Project_2/resequencing/SRR11140748_illumina.bam`
- * `~/Project_2/resequencing/SRR11140748_illumina.bam.bai`
+ * `~/Project_3/data/reference/COVID-19.fasta`
+ * `~/Project_3/data/reference/COVID-19.fasta.fai`
+ * `~/Project_3/resequencing/SRR11140748_illumina.bam`
+ * `~/Project_3/resequencing/SRR11140748_illumina.bam.bai`
 
 Visit, [IGV-web](https://igv.org/app/) and load the genome from a `Local File ...` by selecting both the `COVID-19.fasta` and `COVID-19.fasta.fai` files.
 Once the reference genome is loaded, load a "Track" from a `Local File ...` by selecting both the `SRR11140748_illumina.bam` and `SRR11140748_illumina.bam.bai` files.
@@ -258,19 +258,19 @@ Lets align the long reads to the reference genome.
 ```bash
 # Index the reference genome for minimap2
 minimap2 \
-  -d ~/Project_2/data/reference/COVID-19.fasta.gz.mmi \
-  ~/Project_2/data/reference/COVID-19.fasta.gz
+  -d ~/Project_3/data/reference/COVID-19.fasta.gz.mmi \
+  ~/Project_3/data/reference/COVID-19.fasta.gz
 
 # Get the Nanopore reads
-mkdir -p ~/Project_2/data/nanopore/
-cp ~/data/SARS-CoV-2_Resequencing/SRR11140749_1_100x.fastq.gz ~/Project_2/data/nanopore/
+mkdir -p ~/Project_3/data/nanopore/
+cp ~/data/SARS-CoV-2_Resequencing/SRR11140749_1_100x.fastq.gz ~/Project_3/data/nanopore/
 
 # Align the reads
 time minimap2 \
   -ax map-ont \
   -t 2 \
-  ~/Project_2/data/reference/COVID-19.fasta.gz.mmi \
-  ~/Project_2/data/nanopore/SRR11140749_1_100x.fastq.gz \
+  ~/Project_3/data/reference/COVID-19.fasta.gz.mmi \
+  ~/Project_3/data/nanopore/SRR11140749_1_100x.fastq.gz \
 | samtools sort --threads 2 -o resequencing/SRR11140749_nanopore.bam
 
 # Index the BAM file

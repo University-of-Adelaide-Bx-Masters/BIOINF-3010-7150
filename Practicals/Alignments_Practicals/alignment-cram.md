@@ -74,14 +74,14 @@ To otain the files:
 cd
 
 #make practical directories
-mkdir -p ./SAM_practical/data
+mkdir -p ./Project_2/data
 
 #copy data to todays's practical directory
-cp ./data/SAM_prac/* ./SAM_practical/data/
+cp ./data/SAM_prac/* ./Project_2/data/
 
 
 #decompress files
-tar -xvf SRR3096662.tar.gz
+tar -xvf ./data/SRR3096662.tar.gz
 ```
 
 This may take 2-3 minutes to finish the file extraction.

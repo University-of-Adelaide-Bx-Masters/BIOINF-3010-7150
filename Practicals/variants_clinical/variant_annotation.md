@@ -44,8 +44,8 @@ As our VCF file already has annotations attached, let's start by stripping off t
 
 ```bash
 # First let's make a working directory and copy the data over
-mkdir -p ~/clinicalGenomics && cd $_
-cp /home/student/data/Variants/*  ~/clinicalGenomics/
+mkdir -p ~/Project_11 && cd $_
+cp ~/data/Variants/*  ~/Project_11/
 
 # Then make a standalone conda environment and install BCFtools through bioconda
 conda create --name bcftoolsEnv

@@ -1,4 +1,4 @@
-# Week 9 Practical 2: Structural variations - Paul Wang
+# Week 9 Practical session 2: Structural variations - Paul Wang
 
 {:.no_toc}
 
@@ -11,9 +11,9 @@ Create a working directory for this class and prepare the data
 
 ```bash
 # create working directory
-mkdir -p ~/wk9_sv
+mkdir -p ~/Project_10_sv
 # enter the directory
-cd ~/wk9_sv
+cd ~/Project_10_sv
 # copy the data file from ~/data
 cp ~/data/sv_data.tar.gz ./
 # extract the archived data

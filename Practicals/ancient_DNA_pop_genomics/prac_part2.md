@@ -59,8 +59,8 @@ conda activate variation
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Unarchive the practical data (stored in `~/data/genomics/ancient/`) in your working directory.
 ```bash
-mkdir -p ~/BIOINF_Friday
-cd ~/BIOINF_Friday
+mkdir -p ~/Project_12_2
+cd ~/Project_12_2
 tar xvzf ~/data/ancient/tutorial_popgen.tar.gz -C .
 ll
 ```
@@ -117,7 +117,7 @@ library(tidyverse)
 library(cowplot)
 
 # Set your working directory
-setwd("~/BIOINF_Friday")
+setwd("~/Project_12_2")
 
 # data for scree plot
 adat.scree <- read.table("AllAmerica_Ancient.smartpca_results.eval", header = FALSE)

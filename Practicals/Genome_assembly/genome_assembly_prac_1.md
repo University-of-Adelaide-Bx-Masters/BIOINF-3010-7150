@@ -1,4 +1,4 @@
-# Week 7 Practical Part 1: **Genome Assembly** 
+# Week 8 Practical: **Genome Assembly** 
 ## By Chelsea Matthews 
 
 Today we will be looking at *de novo* assembly with more of a focus on larger, more complex genomes.  
@@ -21,14 +21,14 @@ This is a personal preference but I find that it makes it easier to navigate as 
 For this practical we will use a numbering system so that you can see if you like it. 
 
 ```bash
-mkdir --parents ~/Project_6/0_data/
-cd ~/Project_6/
+mkdir --parents ~/Project_8/0_data/
+cd ~/Project_8/
 ```
 
 We will be using PacBio CLR reads for our assembly today. Copy the appropriate data from the `/data` directory to your local folder.
 
 ```
-cp ../data/project_6/c_hepaticus.fastq ./0_data/
+cp ../data/Project_8/c_hepaticus.fastq ./0_data/
 ```
 
 ## 2. Quick look at the input data
@@ -78,7 +78,7 @@ The Canu usage instructions should be printed to the screen.
 Now let's run the Canu assembly. 
 
 ```bash
-# first move back into the Project_6 home directory
+# first move back into the Project_8 home directory
 cd ..
 
 # run canu assembly

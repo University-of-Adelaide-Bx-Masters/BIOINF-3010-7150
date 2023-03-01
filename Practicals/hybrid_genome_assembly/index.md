@@ -23,8 +23,8 @@ To make and enter the directory that you will be working in, run the following c
 
 ```bash
 # Setup project working directory
-mkdir --parents ~/Project_5/data/
-cd ~/Project_5/
+mkdir --parents ~/Project_7/data/
+cd ~/Project_7/
 
 ```
 

@@ -35,8 +35,8 @@ Icons are used to highlight sections of the practicals:
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We will use a VCF file of human chromosome 22 from the 1000 Genomes Project (1kGP) that we will save into a working directory in your home directory:
 ```bash
 # Create working directory
-mkdir ~/BIOINF_Tuesday
-cd ~/BIOINF_Tuesday
+mkdir ~/Project_12_1
+cd ~/Project_12_1
 ```
 ```bash
 # Download compressed VCF file and its index from the 1kGP public FTP site (VCF file size: 214453750 bytes)
@@ -325,7 +325,7 @@ library(tidyverse)
 library(cowplot)
 
 # Set the working directory
-setwd("~/BIOINF_Tuesday")
+setwd("~/Project_12_1")
 # Non-LD-pruned data for scree plot
 adat.scree <- read.table("1kGP_chr22.pca_results.eigenval", header = FALSE)
 # Add a column with row number (only needed to be able to do a bar plot)
@@ -489,7 +489,7 @@ library(tidyverse)
 library(cowplot)
 
 # Set the working directory
-setwd("~/BIOINF_Tuesday")
+setwd("~/Project_12_1")
 #Non-LD-pruned data for scree plot  
 adat.scree <- read.table("1kGP_chr22.smartpca_results.eval", header = FALSE)  
 #Add a column with row number (only needed to be able to do a bar plot)  

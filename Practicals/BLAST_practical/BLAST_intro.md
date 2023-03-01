@@ -62,11 +62,11 @@ See the `README_BLAST.txt` file for descriptions of the data files.
 Make sure you create a working directory, along  with useful sub-directories for the practical. 
 
 ```bash
-mkdir -p ~/BLAST_practical/dbs
-mkdir -p ~/BLAST_practical/queries
-mkdir -p ~/BLAST_practical/results
+mkdir -p ~/Project_4/dbs
+mkdir -p ~/Project_4/queries
+mkdir -p ~/Project_4/results
 ```
-Once you have created these directories copy the `hg38.fa.gz`, `hg38_reduced.fa.gz`, `humanReps.fa.gz` and `uniprot_sprot.fasta.gz` to `~/BLAST_practical/dbs`. Copy the remaining files to `~/BLAST_practical/queries`.
+Once you have created these directories copy the `hg38.fa.gz`, `hg38_reduced.fa.gz`, `humanReps.fa.gz` and `uniprot_sprot.fasta.gz` to `~/Project_4/dbs`. Copy the remaining files to `~/Project_4/queries`.
 
 ### 3.3 Prepare the BLAST databases
 
@@ -75,7 +75,7 @@ BLAST searches a special database of nucleotide sequences that have been broken 
 You will need to decompress the `hg 38.fa.gz`, `hg38_reduced.fa.gz` and `uniprot_sprot.fasta.gz` files:
 
 ```bash
-cd ~/BLAST_practical/dbs
+cd ~/Project_4/dbs
 unpigz -p 2 uniprot_sprot.fasta.gz
 unpigz -p 2 hg38.fa.gz
 unpigz -p 2 hg38_reduced.fa.gz
@@ -91,7 +91,7 @@ In this example your input file is a nucleotide sequence file `reference.fa` so 
 You will use the following command.  
 
 ```bash
-makeblastdb -in ~/BLAST_practical/dbs/uniprot_sprot.fasta -dbtype 'prot' -parse_seqids -out ~/BLAST_practical/dbs/sprot
+makeblastdb -in ~/Project_4/dbs/uniprot_sprot.fasta -dbtype 'prot' -parse_seqids -out ~/Project_4/dbs/sprot
 ```
 
 This will generate six files that BLAST uses.
@@ -99,9 +99,9 @@ This will generate six files that BLAST uses.
 You will then need to index/format the human hg38 chromosome sequences so that BLAST can search them.
 
 ```bash
-makeblastdb -in ~/BLAST_practical/dbs/hg38.fa -dbtype 'nucl' -parse_seqids -out ~/BLAST_practical/dbs/hg38
+makeblastdb -in ~/Project_4/dbs/hg38.fa -dbtype 'nucl' -parse_seqids -out ~/Project_4/dbs/hg38
 
-makeblastdb -in ~/BLAST_practical/dbs/hg38_reduced.fa -dbtype 'nucl' -parse_seqids -out ~/BLAST_practical/dbs/hg38_reduced
+makeblastdb -in ~/Project_4/dbs/hg38_reduced.fa -dbtype 'nucl' -parse_seqids -out ~/Project_4/dbs/hg38_reduced
 ```
 Now you are ready to familiarise yourself with command line BLAST. *Once you make the blast dbs you can delete the original fasta files and recover some disk space*
 
@@ -182,13 +182,13 @@ You can try the following
 > A "vanilla" BLAST command line that give the basic text output from BLAST
 
 ```bash
-blastp -query ~/BLAST_practical/queries/Q967Q8.fasta -task blastp -db ~/BLAST_practical/dbs/sprot
+blastp -query ~/Project_4/queries/Q967Q8.fasta -task blastp -db ~/Project_4/dbs/sprot
 ```
 
 > A command line that specifies a set of custom columns to report
 
 ```bash
-blastp -query ~/BLAST_practical/queries/Q967Q8.fasta -task blastp -db ~/BLAST_practical/dbs/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+blastp -query ~/Project_4/queries/Q967Q8.fasta -task blastp -db ~/Project_4/dbs/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
 ```
 
 These will of course just dump everything to `stdout` but you know how to cope with that.
@@ -196,7 +196,7 @@ These will of course just dump everything to `stdout` but you know how to cope w
 > A command line that writes output to a file and specifies the number of threads to run and limits output to 50 targets. 
 
 ```bash
-blastx -query ~/BLAST_practical/queries/hg38_gene_query.fasta -task blastx -db ~/BLAST_practical/dbs/sprot -num_threads 2 -max_target_seqs 50 -out ~/BLAST_practical/results/humgene_blastx_sprot.txt -outfmt 7 
+blastx -query ~/Project_4/queries/hg38_gene_query.fasta -task blastx -db ~/Project_4/dbs/sprot -num_threads 2 -max_target_seqs 50 -out ~/Project_4/results/humgene_blastx_sprot.txt -outfmt 7 
 ```
 Call your output file whatever you like, as long as it makes sense to you. 
 
@@ -207,34 +207,34 @@ Once BLASTX has completed you can look at your output using "head", "less", "mor
 ### 4.1 You can test the effect of `-word_size` on output and speed:
 
 ```bash
-time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 28 -db ~/BLAST_practical/dbs/hg38_reduced -outfmt 7 -out ~/BLAST_practical/results/W28.txt
+time blastn -query ~/Project_4/queries/hg38_gene_query.fasta -word_size 28 -db ~/Project_4/dbs/hg38_reduced -outfmt 7 -out ~/Project_4/results/W28.txt
 ```
 
 ```bash
-time blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -word_size 11 -db ~/BLAST_practical/dbs/hg38_reduced -outfmt 7 -out ~/BLAST_practical/results/W11.txt
+time blastn -query ~/Project_4/queries/hg38_gene_query.fasta -word_size 11 -db ~/Project_4/dbs/hg38_reduced -outfmt 7 -out ~/Project_4/results/W11.txt
 ```
 This will take some time.
 
 ### 4.2 You can test the effect of T `-threshold`
 
 ```bash
-time blastp -query ~/BLAST_practical/queries/multi-protein_query.fa  -word_size 2 -threshold 21 -db ~/BLAST_practical/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/BLAST_practical/results/W2T21multi.txt
+time blastp -query ~/Project_4/queries/multi-protein_query.fa  -word_size 2 -threshold 21 -db ~/Project_4/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/Project_4/results/W2T21multi.txt
 ```  
 
 ```bash
- time blastp -query ~/BLAST_practical/queries/multi-protein_query.fa  -word_size 7 -threshold 21 -db ~/BLAST_practical/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/BLAST_practical/results/W7T21multi.txt
+ time blastp -query ~/Project_4/queries/multi-protein_query.fa  -word_size 7 -threshold 21 -db ~/Project_4/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/Project_4/results/W7T21multi.txt
 ```
 
 ```bash
- time blastp -query ~/BLAST_practical/queries/multi-protein_query.fa  -word_size 7 -threshold 11 -db ~/BLAST_practical/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/BLAST_practical/results/W7T11multi.txt
+ time blastp -query ~/Project_4/queries/multi-protein_query.fa  -word_size 7 -threshold 11 -db ~/Project_4/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/Project_4/results/W7T11multi.txt
 ```
 
 ```bash
-time blastp -query ~/BLAST_practical/queries/Q967Q8.fasta -num_threads 2 -threshold 21 -db ~/BLAST_practical/dbs/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+time blastp -query ~/Project_4/queries/Q967Q8.fasta -num_threads 2 -threshold 21 -db ~/Project_4/dbs/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
 ```
 
 ```bash
-time blastp -query ~/BLAST_practical/queries/Q967Q8.fasta -num_threads 2 -threshold 11 -db ~/BLAST_practical/dbs/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+time blastp -query ~/Project_4/queries/Q967Q8.fasta -num_threads 2 -threshold 11 -db ~/Project_4/dbs/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
 ```
 
 ### 4.3 You can play with parameter combinations and with search types

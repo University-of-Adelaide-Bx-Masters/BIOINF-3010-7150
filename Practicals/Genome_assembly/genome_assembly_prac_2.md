@@ -1,4 +1,4 @@
-# Week 8 Practical: Assembly Quality Assessment
+# Week 8 Practical session 1: Assembly Quality Assessment
 ## By Chelsea Matthews
 
 This practical will continue on from Week 6 Practical 1. 

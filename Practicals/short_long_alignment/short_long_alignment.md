@@ -22,27 +22,27 @@ To make and enter the directory that you will be working in, run the following c
 
 ```bash
 # Setup project working directory
-mkdir --parents ~/Project_4/data/
-cd ~/Project_4/
+mkdir --parents ~/Project_6/data/
+cd ~/Project_6/
 ```
 
 ## Get the Data
 
 ```bash
 # Make the directory for the reference genome
-mkdir --parents ~/Project_4/data/reference/
+mkdir --parents ~/Project_6/data/reference/
 
 # Make subdirectories for the various data sets
-mkdir --parents ~/Project_4/data/{illumina_pe,pacbio}/
+mkdir --parents ~/Project_6/data/{illumina_pe,pacbio}/
 
 # Get the data
 #####
 # RefSeq E. coli K-12 substr. MG1655
-cp ~/data/S_LR_Alignment/NC_000913.3.fasta.gz ~/Project_4/data/reference/
+cp ~/data/S_LR_Alignment/NC_000913.3.fasta.gz ~/Project_6/data/reference/
 # Illumina PE
-cp --link ~/data/S_LR_Alignment/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz ~/Project_4/data/illumina_pe/
+cp --link ~/data/S_LR_Alignment/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz ~/Project_6/data/illumina_pe/
 # PacBio
-cp --link ~/data/S_LR_Alignment/lima.bc1106--bc1106_40x.subreadset.fastq.gz ~/Project_4/data/pacbio/
+cp --link ~/data/S_LR_Alignment/lima.bc1106--bc1106_40x.subreadset.fastq.gz ~/Project_6/data/pacbio/
 
 ```
 
