@@ -49,9 +49,13 @@ BLAST algorithm steps:
 
 This practical aims to familiarise you with the use of NCBI BLAST as a tool for annotation. You will use your VMs for this. Your first task will be to retrieve the databases you will require. 
 
-### 3.1 Install NCBI BLAST
+### 3.1 Activate NCBI BLAST environment
 
-Open a terminal and at the bash command line prompt type the following to create a new `conda` environment for `blast`. 
+Open a terminal and at the bash command line prompt type the following to activate the `conda` environment for `blast`. 
+
+```
+source activate bioinf
+```
 
 ### 3.2 The data and project directory
 
