@@ -1,4 +1,4 @@
-# Week 4 Practical Part 1: Alignment QC practical
+# Week 3 Practical Part 1: SAMtools and lignments practical
 ## By Jimmy Breen, updated/adapted by Dave Adelson
 {:.no_toc}
 
@@ -65,17 +65,22 @@ The CRAM file that we will be using today is an alignment produced from the alig
 You can download the reference genome sequence and gene annotation from this version at [GENCODE](https://www.gencodegenes.org/human/release_19.html).
 The sample itself is taken from the Chorionic Villus of a human placenta as part of the Rhode Island Child Health Study (RICHS), which enrolled a total of 899 mother/infant pairs at Woman and Infant’s Hospital of Rhode Island (Providence, RI, USA).
 This particular placenta was taken from the placenta of a healthy female that was born >37 weeks gestational age (a full term).
-Full public information of this sample is available at the [NCBI Short Read Archive (SRA)](https://www.ncbi.nlm.nih.gov/sra/SRX1526833[accn]).
+Full public information of this sample is available at the [NCBI Short Read Archive (SRA)](https://www.ncbi.nlm.nih.gov/sra/SRX1526833[accn]). 
 
-We would normally instruct you to download the data on your own, but due to file sizes we have already downloaded the data as one file is quite big. 
-
-Because of file sizes, we have already set up `~/alignment_prac` in your home directory and it contains a gzipped `tar` archive. 
-To extract the files:
+You will find the data in `~/data/SAM_prac` in your home directory . 
+To otain the files: 
 
 ```bash
-#change directory to ~./alignment_prac
-cd ./aligment_prac
+cd
 
+#make practical directories
+mkdir -p ./SAM_practical/data
+
+#copy data to todays's practical directory
+cp ./data/SAM_prac/* ./SAM_practical/data/
+
+
+#decompress files
 tar -xvf SRR3096662.tar.gz
 ```
 
@@ -98,10 +103,10 @@ To view a SAM, CRAM or BAM file, you can use the [program `samtools`](http://www
 `samtools` is a very common tool in Bioinformatics and we will be using it frequently in this course.
 
 
-Lets quickly view our file using the `samtools view` subcommand, which is similar to the command-line tool `cat` in which the file is read to our screen line by line.
+Lets quickly view our file using the `samtools view` subcommand, which is similar to the command-line tool `cat` in which the file is read to our screen line by line. Make sure you are in your `SAM_practical` directory.
 
 ```bash
-samtools view SRR3096662_Aligned.out.sort.bam
+samtools view ./data/SRR3096662_Aligned.out.sort.bam
 ```
 
 As you can probably see, there is a lot of data flashing on your screen.
@@ -111,7 +116,7 @@ What you just saw was the alignment information for each read in the `SRR3096662
 Lets use the pipe (`|`) and `head` command to just give us the first five lines of the file so we can start to make sense of the file format.
 
 ```text
-samtools view SRR3096662_Aligned.out.sort.bam | head -n5
+samtools view ./data/SRR3096662_Aligned.out.sort.bam | head -n5
 
 SRR3096662.22171880	163	1	11680	3	125M	=	11681	126	CTGGAGATTCTTATTAGTGATTTGGGCTTGGGCCTGGCCATGTGTATTTTTTTAAATTTCCACTGATGATTTTGCTGCATGGCCGGTGTTGAGAATGACTGCGCAAATTTGCCGGATTTCCTTTG	BBBBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFFFFFFFFFFFFFFFFFFFFBF<FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFFFF	NH:i:2	HI:i:1	AS:i:244	nM:i:2	MD:Z:28G96	NM:i:1	RG:Z:SRR3096662
 SRR3096662.22171880	83	1	11681	3	125M	=	11680	-126	TGGAGATTCTTATTAGTGATTTGGGCTTGGGCCTGGCCATGTGTATTTTTTTAAATTTCCACTGATGATTTTGCTGCATGGCCGGTGTTGAGAATGACTGCGCAAATTTGCCGGATTTCCTTTGC	FFF<FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF<FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBFFFFFFFFFFFFFFBBBB	NH:i:2	HI:i:1	AS:i:244	nM:i:2	MD:Z:27G97	NM:i:1	RG:Z:SRR3096662
@@ -152,7 +157,7 @@ We can do this easily with the `samtools stats` subcommand, which summarises a l
 If we extract just the lines starting with "SN" (Summary Numbers), we will get some basic numbers
 
 ```bash
-samtools stats SRR3096662_Aligned.out.sort.bam | grep ^SN | cut -f 2-
+samtools stats ./data/SRR3096662_Aligned.out.sort.bam | grep ^SN | cut -f 2-
 ```
 
 This command will take a while to run, because it summarises all the reference sequences within the CRAM file.
@@ -165,7 +170,7 @@ The `samtools view` command actually hides this from you by default, but it cont
 To see this info we need to add the `-h` flag.
 
 ```bash
-samtools view -h SRR3096662_Aligned.out.sort.bam | less 
+samtools view -h ./data/SRR3096662_Aligned.out.sort.bam | less 
 ```
 
 You should see something like this:
@@ -187,11 +192,11 @@ You should see something like this:
 ### Questions
 
 Using the [SAM standard specification](http://samtools.github.io/hts-specs/SAMv1.pdf) and the outputs of the commands shown above, answer the following questions:
-1. Which reference sequence/chromosome did the first read `SRR3096662.22171880` align to and what position did it align to?
-2. The first two lines of the file contains reads with the same ID (i.e. the first field of the first two lines are `SRR3096662.22171880`). What is a possible reason for this?
-3. What is the read group ID for the sample?
-4. What alignment program did we originally use to align the FASTQ data to the reference genome?
-5. How many mapped reads are contained in our CRAM file and what is the average fragment length?
+1. *Which reference sequence/chromosome did the first read `SRR3096662.22171880` align to and what position did it align to?*
+2. *The first two lines of the file contains reads with the same ID (i.e. the first field of the first two lines are `SRR3096662.22171880`). What is a possible reason for this?*
+3. *What is the read group ID for the sample?*
+4. *What alignment program did we originally use to align the FASTQ data to the reference genome?*
+5. *How many mapped reads are contained in our CRAM file and what is the average fragment length?*
 
 
 ## Filtering an alignment file
@@ -205,7 +210,7 @@ There is a tonne of other information, so please check out the additional links 
 Let's run `head` on one of our alignments files again, this time without the header information at the top.
 
 ```bash
-samtools view SRR3096662_Aligned.out.sort.bam | head 
+samtools view ./data/SRR3096662_Aligned.out.sort.bam | head 
 ```
 
 The 5th field contains the `MAPQ` score which indicates how well the read aligned, and how unique each alignment is.
@@ -247,14 +252,14 @@ For example, in ancient DNA, where DNA fragments are short and therefore likely 
 Lets view the first few alignments that are greater than MAQ30:
 
 ```bash
-samtools view -q 30 SRR3096662_Aligned.out.sort.bam | head 
+samtools view -q 30 ./data/SRR3096662_Aligned.out.sort.bam | head 
 ```
 
 As you can see, the first lines have now changed considerably and we only see alignments with >30 quality values.
 You can actually go further in filtering mapping quality, and produce a new CRAM file which only contains your high quality alignments.
 
 ```bash
-samtools view -h -B -q 30 SRR3096662_Aligned.out.sort.bam -o SRR3096662_Aligned.filtered.bam
+samtools view -h -B -q 30 ./data/SRR3096662_Aligned.out.sort.bam -o SRR3096662_Aligned.filtered.bam
 ```
 
 The additional flags used above are:
@@ -288,19 +293,19 @@ If we were to identify reads that mapped to the reverse strand, we can use the S
 Then we can use the `-f` parameter to filter our BAM file to only include those reads.
 
 ```bash
-samtools view -f 16 SRR3096662_Aligned.out.sort.bam | head
+samtools view -f 16 ./data/SRR3096662_Aligned.out.sort.bam | head
 ```
 
 You can also do the exact opposite, i.e. identify all reads that are not on the reverse strand, by using the `-F` parameter.
 
 ```bash
-samtools view -F 16 SRR3096662_Aligned.out.sort.bam | head
+samtools view -F 16 ./data/SRR3096662_Aligned.out.sort.bam | head
 ```
 
 Going through a lot of these SAM flags one by one would be fairly tedious, so `samtools` has a subcommand called `flagstat` which counts the number of reads in specific flags.
 
 ```bash
-samtools flagstat SRR3096662_Aligned.out.sort.bam
+samtools flagstat ./data/SRR3096662_Aligned.out.sort.bam
 ```
 
 ## Assessment of alignment rate and multi-mapping
@@ -324,7 +329,7 @@ So each read has a _primary_ alignment (i.e. region which the read aligned to wh
 Lets take one of the reads from our CRAM file and see whether it is found multiple times
 
 ```bash
-samtools view  SRR3096662_Aligned.out.sort.bam  | grep "^SRR3096662.14934677"
+samtools view  ./data/SRR3096662_Aligned.out.sort.bam  | grep "^SRR3096662.14934677"
 ```
 
 ```
@@ -354,9 +359,9 @@ alignments of a read starting with 1.
 
 Using both `samtools` and other unix tools, identify:
 
-1. Using the BAM file "SRR3096662_Aligned.out.sort.bam", how many reads differ between `-F 16` and `-f 16`?
-2. The number of alignments found on Chromosome 1?
-3. How many aligned reads had a MAPQ greater than 10?
+1. *Using the BAM file "SRR3096662_Aligned.out.sort.bam", how many reads differ between `-F 16` and `-f 16`?*
+2. *The number of alignments found on Chromosome 1?*
+3. *How many aligned reads had a MAPQ greater than 10?*
 
 ## To deduplicate or not to deduplicate? That is the question!
 
@@ -381,41 +386,30 @@ The answer is:
 
 Generally for RNA sequencing or ChIP-seq experiments, we will run both raw and duplicate reads through the same pipeline to compare the results to make sure our duplicates are not effecting our final outcome.
 
-**For today however, we are going to skip calling duplicates,** but you can use either use `samtools` or `picard` tools to remove them, such as the code below:
-
-```bash
-# Remove duplicates the samtools way
-samtools rmdup [SORTED BAM] [SORTED RMDUP BAM]
-
-# Install picard
-conda install -c bioconda picard
-
-# Remove duplicates the picard way (which uses Java)
-picard MarkDuplicates I=[SORTED BAM] O=[SORTED RMDUP BAM] M=dups.metrics.txt REMOVE_DUPLICATES=true
-```
+**For today however, we are going to skip calling duplicates,** but you can use either use `samtools` or `picard` tools to remove them.
 
 ## What does coverage look like?
 
 One of the most fundamental aspects of genomics applications is visualising what an alignment looks like.
 The stacks of reads that align to certain positions on the genome, or what Bioinformatician's call "pile-ups", are a very important quality control aspect of the sequencing process. 
 By viewing the alignments and visalising the "coverage" of specific areas of the reference, you are able to diagnose events that happened during data processing.
-Each genomics application, whether it be Whole Genome Shotgun (WGS) sequencing, RNA sequencing, or targeted approaches such as ChIP-seq or Exome sequencing, has a characteristic alignment pattern.
+Each genomics application, whether it be Whole Genome Shotgun (WGS) sequencing, RNA sequencing, or targeted approaches such as ChIP-seq or Exome sequencing, has a characteristic alignment pattern.  
 
 For example, lets look at some coverage figures taken from recent publications or websites that display the coverage for that particular genomics application:
 
-1. RNA-seq 
+ 1. RNA-seq 
 
 ![Lahrens _et al_ 2014 _Genome Biology_](https://www.researchgate.net/profile/Michael_Black7/publication/263548295/figure/fig3/AS:268210452824079@1440957763982/Sources-of-bias-in-RNA-seq-coverage-A-RNA-seq-coverage-plots-for-IVT-transcript.png)
 
-2. WGS
+ 2. WGS
 
 ![IGV-web SRR11140748 Illumina](images/SRR11140748-illumina.png)
 
-3. Exome sequencing
+ 3. Exome sequencing
 
 ![Andrea Telatin figshare presentation "Target Enrichment with NGS: Cardiomyopathy as a case study - BMR Genomics"](https://image.slidesharecdn.com/bmrtetargetenrichmentcmpdcardiomyopathy-141017132029-conversion-gate01/95/target-enrichment-with-ngs-cardiomyopathy-as-a-case-study-bmr-genomics-27-638.jpg)
 
-4. ChIP-seq
+ 4. ChIP-seq
 
 ![Park 2009 _Nature Reviews Genetics_](https://bloggenohub.files.wordpress.com/2014/11/chip-seq-peaks.jpg)
 
@@ -429,14 +423,14 @@ For example, lets look at some coverage figures taken from recent publications o
 
 To round off the tutorial, lets have a look at our file using a genome browser.
 Generally the easiest way to view a alignment file from a model organism such as human or mouse it to use a program such as [IGV](https://software.broadinstitute.org/software/igv/) or [UCSC Genome Browser](https://genome.ucsc.edu/), which also contain a number of handy utilities to look at genes and regulatory features.
-However because of the restraits of our VMs, today we're going to use one of the most basic alignment viewers that is included in `samtools`.
+However because of the constraints of our VMs, today we're going to use one of the most basic alignment viewers that is included in `samtools`.
 I generally use this alot for a quick look, and it can be a really handy way of initially visualising reads.
 
 Using the reference sequence that was included in the data downloaded today, lets use the `samtools tview` subcommand: (for this to work, we need to have a decompressed reference genome)
 
-```bash
-pigz -d GRCh37.p13.genome.fa.gz
-samtools tview SRR3096662_Aligned.out.sort.cram --reference GRCh37.p13.genome.fa
+```bash 
+pigz -d ./data/GRCh37.p13.genome.fa.gz
+samtools tview ./data/SRR3096662_Aligned.out.sort.cram --reference ./data/GRCh37.p13.genome.fa
 ```
 
 Looks like nothing now, but the first part of the chromosome should not have any coverage at all. 
@@ -447,4 +441,4 @@ This means chromosome 19 and position "49538826".
 Spend some time looking across this gene and see what features you can make out.
 For example, do you see any occasions where a nucleotide is different from the reference?
 
-To save space once you are done with practical, you should delete `SRR3096662_Aligned.out.sort.sam` and `SRR3096662.tar.gz`. 
+## To save space once you are done with practical, you should delete `SRR3096662_Aligned.out.sort.sam` and `SRR3096662.tar.gz`. 
