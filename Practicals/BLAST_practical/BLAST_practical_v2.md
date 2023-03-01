@@ -1,5 +1,5 @@
 
-# BLAST Practical - 21 March 2023 - Dave Adelson
+# BLAST Practical - Week 4 Practical 2 - Dave Adelson
 {:.no_toc}
 
 * TOC

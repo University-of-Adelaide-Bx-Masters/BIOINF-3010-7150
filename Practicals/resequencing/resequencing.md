@@ -1,4 +1,4 @@
-# Week 3 Practical Part 1: SARS-CoV-2 Resequencing
+# Week 3 Practical Part 2: SARS-CoV-2 Resequencing
 ## By Nathan Watson-Haigh, updated/adapted by Dave Adelson
 {:.no_toc}
 
@@ -29,11 +29,13 @@ cd ~/Project_2/
 ```
 ## Software packages
 
-Install `bwa` and `minimap2` using `conda`. You do not need to install `samtools` as it is already installed for you. 
+You will use `bwa` and `minimap2` today. minimap2 uses the `conda`  environment which you need to activate with the following command. 
 
-```bash
-conda install -c bioconda bwa minimap2
 ```
+source activate bioinf
+```
+
+You do not need to install `samtools` as it is already installed for you. 
 
 ## Data
 
@@ -76,7 +78,7 @@ Here is a table of information linking to the orginal source of the data:
 | vero76       | [SRR11140749](https://sra-download.ncbi.nlm.nih.gov/traces/sra53/SRR/010879/SRR11140749)     |   10,170 |
 | swab         | [SRR11140751](https://sra-download.ncbi.nlm.nih.gov/traces/sra52/SRR/010879/SRR11140751)     |      792 |
 
-We have also provided access to a subsample (~100x) of the above data sets to facilitate a more timely analysis and improve data visualisation responsiveness.
+We have also provided access to a subsample (~100x coverage) of the above data sets to facilitate a more timely analysis and improve data visualisation responsiveness.
 
 ## Get the Data
 
@@ -87,6 +89,10 @@ mkdir --parents ~/Project_2/data/illumina_pe/
 # Get the Illumina data for the SRR11140748 sample
 cp ~/data/SARS-CoV-2_Resequencing/SRR11140748_?_100x.fastq.gz ~/Project_2/data/illumina_pe/
 ```
+
+#### Question
+
+ - *What do you think tje `?` is doing in the above command?* 
 
 # Genome Resequencing
 
@@ -106,9 +112,9 @@ Using what you learned last week, run FastQC across the raw data for the `SRR111
 
 ### Questions
 
- * What sort of quality based trimming is required?
- * Are any adapter sequences detected?
- * What are the read lengths?
+ * *What sort of quality based trimming is required?*
+ * *Are any adapter sequences detected?*
+ * *What are the read lengths*?
 
 ## Quality and Adapter Trimming
 
