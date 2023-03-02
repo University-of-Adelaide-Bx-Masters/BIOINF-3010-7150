@@ -157,7 +157,7 @@ gunzip GCF_000182855.2_ASM18285v1_genomic.gff.gz
 ```
 
 This file is in `gff` format, which is very commonly used.
-The first 5 lines of this file is what we refer to as a *header*, which contains important information about how the file was generated in a standardised format.
+The first 9 lines of this file is what we refer to as a *header*, which contains important information about how the file was generated in a standardised format.
 Many file formats have these structures at the beginning, but for our purposes today we don't need to use any of this information so we can move on.
 Have a look at the beginning of the file just to see what it looks like. 
 
