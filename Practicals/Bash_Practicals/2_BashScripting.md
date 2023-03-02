@@ -599,6 +599,7 @@ for f in ${FILES};
 ```
 
 #### Task
-{:.no_toc}
+
 Save this as a script in the `Practical_0` folder called `lineCount.sh`.
 **Add comments** where you think you need them to make sure you understand what's happening.
+{:.no_toc}
