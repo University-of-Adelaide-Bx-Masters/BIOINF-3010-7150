@@ -10,7 +10,7 @@ When you are done working on your VM and need to disconnect you first need to lo
 
     ![Rstudio_ended](./Bash_Practicals/images/RStudio_ended.png)
 
-3. You can then close the browser tab for RStudio.
+3. You can then close the browser tab for RStudio. **DO NOT close the tab without pushing the off button first!**
 
     - Once you have closed the RStudio tab, you can logout from the VM in the login tab:
 
