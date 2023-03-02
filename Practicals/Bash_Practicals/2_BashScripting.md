@@ -479,7 +479,7 @@ ls -lh *.sh
 
 You should see output similar to this:
 ```
--rw-rw-r-- 1 biotech7005 biotech7005  247 Aug  14 14:48 wellDone.sh
+-rw-rw-r-- 1 a1234567 a1234567 0 Mar  2 20:39 welldone.sh
 ```
 
 - Note how the first entry is a dash (`-`) indicating this is a file.
