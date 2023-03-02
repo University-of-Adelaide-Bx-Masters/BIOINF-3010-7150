@@ -677,6 +677,6 @@ Repeat a few of the above commands using `egrep` instead of `grep -E`.
 
 Capturing text is something you may want to do, however these operations in `bash` are beyond the scope of this course.
 To perform this we usually use the Stream EDitor `sed` and this will be covered in part 2 of this practical.
-For those who are interested, there is a tutorial available at http://www.grymoire.com/Unix/Sed.html.
+For those who are interested, there is a tutorial available at http://www.grymoire.com/Unix/Sed.html. 
 
-
+A useful website to test your regular expressions is available at https://regex101.com/ . This can be very handy. 
