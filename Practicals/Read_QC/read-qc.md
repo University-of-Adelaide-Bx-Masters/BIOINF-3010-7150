@@ -58,7 +58,7 @@ When you do this, your prompt will change and you will see something like this:
 (base) a1234567@ip-10-255-0-115:/shared/a1234567$
 ```
 
-the `(base)` prefix lets you know you are in the `base` conda environment, with access to the packages installed for that environment. Don't worry if this seems confusing, just be aware that if we instruct you to use `conda` packages in future practicals that you must use `sourc activate bioinf` to be able to access those applications/programs.
+the `(base)` prefix lets you know you are in the `base` conda environment, with access to the packages installed for that environment. Don't worry if this seems confusing, just be aware that if we instruct you to use `conda` packages in future practicals that you must use `source activate bioinf` to be able to access those applications/programs.
 
 # Read Quality Control
 
@@ -355,7 +355,7 @@ The best thing to do is to read the manual and the help page to understand how i
 {:.no_toc}
 
 * *By allowing trimmomatic to use it's default of all possible cores (2 CPUs/cores in our case), how much quicker does trimmomatic finish?*
-* *Does it matter what order the trimming steps are specified? Try specifying `MINLEN` before `ILLUMINACLIP` and then at the end. What happend and why?*
+* *Does it matter what order the trimming steps are specified? Try specifying `MINLEN` before `ILLUMINACLIP` and then at the end. What happened and why?*
 * *How many read pairs survived all the trimming and length filters?*
 
 ### fastp
