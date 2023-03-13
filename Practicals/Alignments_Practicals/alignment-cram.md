@@ -428,8 +428,11 @@ I generally use this alot for a quick look, and it can be a really handy way of 
 Using the reference sequence that was included in the data downloaded today, lets use the `samtools tview` subcommand: (for this to work, we need to have a decompressed reference genome)
 
 ```bash
+#We use pigz to decompress rather than gunzip as it uses all available cores
 pigz -d ./data/GRCh37.p13.genome.fa.gz
+#Need to make the index for the bam file
 samtools index ./data/SRR3096662_Aligned.out.sort.bam
+#initiate tview
 samtools tview ./data/SRR3096662_Aligned.out.sort.bam --reference ./data/GRCh37.p13.genome.fa
 ```
 
