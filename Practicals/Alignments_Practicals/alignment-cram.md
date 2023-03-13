@@ -429,7 +429,8 @@ Using the reference sequence that was included in the data downloaded today, let
 
 ```bash
 pigz -d ./data/GRCh37.p13.genome.fa.gz
-samtools tview ./data/SRR3096662_Aligned.out.sort.cram --reference ./data/GRCh37.p13.genome.fa
+samtools index ./data/SRR3096662_Aligned.out.sort.bam
+samtools tview ./data/SRR3096662_Aligned.out.sort.bam --reference ./data/GRCh37.p13.genome.fa
 ```
 
 Looks like nothing now, but the first part of the chromosome should not have any coverage at all.
@@ -439,5 +440,6 @@ This means chromosome 19 and position "49538826".
 
 Spend some time looking across this gene and see what features you can make out.
 For example, do you see any occasions where a nucleotide is different from the reference?
+When you are done, type "q" to quit the `tview` tool.
 
 ## To save space once you are done with practical, you should delete `SRR3096662_Aligned.out.sort.sam` and `SRR3096662.tar.gz`
