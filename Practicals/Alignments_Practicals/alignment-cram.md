@@ -161,7 +161,7 @@ samtools stats ./data/SRR3096662_Aligned.out.sort.bam | grep ^SN | cut -f 2-
 ```
 
 This command will take a while to run, because it summarises all the reference sequences within the CRAM file.
-When it finishes, you will see all the summarised information from the file, including aligned reads, how many sequences are found in the header etc
+When it finishes, you will see all the summarised information from the file, including aligned reads, how many sequences are found in the header etc...
 
 ## Headers
 
@@ -196,14 +196,14 @@ Using the [SAM standard specification](http://samtools.github.io/hts-specs/SAMv1
 2. *The first two lines of the file contains reads with the same ID (i.e. the first field of the first two lines are `SRR3096662.22171880`). What is a possible reason for this?*
 3. *What is the read group ID for the sample?*
 4. *What alignment program did we originally use to align the FASTQ data to the reference genome?*
-5. *How many mapped reads are contained in our CRAM file and what is the average fragment length?*
+5. *How many mapped reads are contained in our BAM file and what is the average fragment length?*
 
 
 ## Filtering an alignment file
 
 The information contained in the CRAM file is very comprehensive and so its often preferrable to filter the original BAM file to only include the relevant information.
 The alignment algorithm used to create the CRAM file will calculate a lot of quality values that can used for filtering, and today we'll look at two specific quality control values that can be use; Mapping quality (MAQ) and SAM flags.
-There is a tonne of other information, so please check out the additional links that ive included for more info into things like CIGAR strings.
+There is a tonne of other information, so please check out the additional links that I have included for more info into things like CIGAR strings.
 
 ## Mapping Quality (MAPQ)
 
@@ -221,7 +221,7 @@ On sequencing machines, a Phred score is a measure of the probability of error f
 In fact, if you look in the second last field (11th) you will see the ASCII-33 Phred base quality scores. 
 On the latest sequencing machines that produce FASTQ files (Illumina 1.8+), these scores go from 0 - 41.
 The table below defines the error profile of Phred Quality scores as you go higher on the scale.
-The higher the score the smaller the probability that you've sequenced a error. 
+The higher the score the smaller the probability that you've sequenced an error. 
 
 Table: Phred quality scores are logarithmically linked to error probabilities
 
@@ -270,7 +270,7 @@ The additional flags used above are:
 
 SAM flags are found in the second field of the BAM file and are quite useful pieces of information, however they can be difficult at first look.
 Flags can indicate a lot of information that can be used to filter the CRAM file, much like you did with mapping quality.
-Head to http://broadinstitute.github.io/picard/explain-flags.html to see a helpful description of each flag.
+Head to [explain-flags](http://broadinstitute.github.io/picard/explain-flags.html) to see a helpful description of each flag.
 
 | # | Decimal | Description of read                      |
 |---|---------|------------------------------------------|
