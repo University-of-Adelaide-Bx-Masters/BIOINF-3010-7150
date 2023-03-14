@@ -69,7 +69,7 @@ This particular placenta was taken from the placenta of a healthy female that wa
 Full public information of this sample is available at the [NCBI Short Read Archive (SRA)](https://www.ncbi.nlm.nih.gov/sra/SRX1526833[accn]).
 
 You will find the data in `~/data/SAM_prac` in your home directory .
-To otain the files:
+To obtain the files:
 
 ```bash
 cd
@@ -92,11 +92,11 @@ This may take 2-3 minutes to finish the file extraction.
 As mentioned above, the size differences between SAM, BAM and CRAM files can be surprising.
 From today's CRAM file, the converted SAM and BAM files are much larger in size.
 
-31G     SRR3096662_Aligned.out.sort.sam \
-2.6G    SRR3096662_Aligned.out.sort.bam \
+37G     SRR3096662_Aligned.out.sort.sam \
+~3G    SRR3096662_Aligned.out.sort.bam \
 1.56G   SRR3096662_Aligned.out.sort.cram
 
-A 33GB SAM file can be compressed into a 2.8GB BAM file and 1.5GB CRAM file!
+A 37GB SAM file can be compressed into a 2.8GB BAM file and 1.5GB CRAM file! Today's practical includes a BAM and CRAM file, but not the SAM file in order to save time copying/accessing data.
 
 ## Viewing alignments
 
@@ -445,4 +445,4 @@ Spend some time looking across this gene and see what features you can make out.
 For example, do you see any occasions where a nucleotide is different from the reference?
 When you are done, type "q" to quit the `tview` tool.
 
-## To save space once you are done with practical, you should delete `SRR3096662_Aligned.out.sort.sam` and `SRR3096662.tar.gz`
+## To save space once you are done with practical, you should delete `SRR3096662_Aligned.out.sort.cram`, `GRCh37.p13.genome.fa.gz` and `SRR3096662.tar.gz`
