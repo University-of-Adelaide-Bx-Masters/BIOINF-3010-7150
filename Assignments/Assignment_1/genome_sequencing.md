@@ -20,4 +20,4 @@
  * How many scaffolds were generated?
  * Compare each assembly to the Reference genome using MUMmer and plot the `.delta` file using R or Assemblytics. Include these in your submission.
 
- **For shell script submissions, each should be in separate `.sh` file and uploaded as part of your assignment.**
+ **For shell script submissions, each should be in a separate `.sh` file and uploaded as part of your assignment.**
