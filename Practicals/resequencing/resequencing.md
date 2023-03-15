@@ -29,17 +29,15 @@ cd ~/Project_3/
 ```
 ## Software packages
 
-You will use `bwa` and `minimap2` today. minimap2 uses the `conda`  environment which you need to activate with the following command. 
+You will use `samtools`, `bwa` and `minimap2` today. minimap2 uses the `conda`  environment which you need to activate with the following command. 
 
 ```
 source activate bioinf
 ```
 
-You do not need to install `samtools` as it is already installed for you. 
-
 ## Data
 
-For the next couple of weeks we're going to be using some very topical data, SARS-CoV-2 data, the virus causing COVID-19.
+For the next couple of weeks we're going to be using SARS-CoV-2 data, the virus causing COVID-19.
 We will be looking at this data in different ways, providing insights into how bioinformaticians analyses these types of data.
 
 ### RefSeq Genome Assembly
