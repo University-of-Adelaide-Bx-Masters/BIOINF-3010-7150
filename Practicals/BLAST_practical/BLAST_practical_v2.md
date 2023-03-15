@@ -33,9 +33,14 @@ To see how difficult it can be to deal with the large numbers of repeats in the 
 
 You will then need to index/format the `humanrReps.fa.gz` consensus sequence so that BLASTN can search it. Rembember that `makeblastdb` will not accept `.gz` compressed files. 
 
-```bash
-makeblastdb -in humanReps.fa -dbtype 'nucl' -out humrep
+#### Activate NCBI BLAST environment
+
+Open a terminal and at the bash command line prompt type the following to activate the `conda` environment for `blast`. 
+
 ```
+source activate bioinf
+```
+
 Now you are ready to use BLAST.
 
 ### 2.2 Alignments to Swissprot proteins
@@ -64,7 +69,7 @@ There will be quite a few hits. You can reduce them to a manageable level by par
 grep "Homo sapiens" ~/BLAST_practical/results/HumGene_blastx_sprot.txt | less
 ```
 
-#### 2.3 Alignments to human repeat consensus sequences
+### 2.3 Alignments to human repeat consensus sequences
 
 ```bash
 blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -task blastn -db ~/BLAST_practical/dbs/humrep -out ~/BLAST_practical/results/gene_blastn_humrep.txt -outfmt 7
