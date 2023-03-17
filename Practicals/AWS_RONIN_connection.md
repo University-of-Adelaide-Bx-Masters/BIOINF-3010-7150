@@ -15,12 +15,19 @@ Accessing your cloud compute resource is like having your very own server.
 4. Login with your UoA id number and the password you have been assigned.
 
     You should see this if login is successful:
+
+    ![AWS_RONIN_shell_in_a_box_prompt](./Bash_Practicals/images/shell_in_a_box_prompt.png)
+
+    **Enter `rstudio` at the prompt (it should look like this)**
+
+    ![AWS_RONIN_shell_in_a_box_rstudio](./Bash_Practicals/images/shell_in_a_box_prompt_rstudio.png)
+
     
     ![AWS_RONIN_shell_log_in_OK](./Bash_Practicals/images/shell_in_a_box_Rstudio_login_prompt.png)
 
-    Type `y` or `Y` at the prompt.
+    **Type `y` or `Y` at the prompt.**
 
-    Now you should see the following: 
+    **Now you should see the following:** 
 
     ![Rstudio_login_from_shell](./Bash_Practicals/images/shell_in_a_box_running.png)
 
