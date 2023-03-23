@@ -86,7 +86,7 @@ In order to obtain a human repeat sub-sequence for the most abundant repeat type
 
 **I have used arbitrary coordinate values 12045-12345 in the example below, you will need to use your own coordinates.**
 
-`samtools` should be already installed on your VMs and you should be able use it to extract the subsequence you want from the genome. We will cover `sam`/`bam` file formats and the use of `samtools` more extensively in the next practical. For now we are using this just retrieve a sequence from the database that matched our query. 
+`samtools` should be already installed on your VMs and you should be able use it to extract the subsequence you want from the genome. Remember we covered `sam`/`bam` file formats and the use of `samtools` more extensively in an earlier practical. For now we are using this just retrieve a sequence from the database that matched our query. 
 
 ```bash
 
