@@ -54,8 +54,8 @@ blastn -query [file.fasta] -task [blastn] -db [database file]  -outfmt [0 throug
 - I suggest using outfmt 7 and 17, 7 gives you a tab delimited file, 17 gives you a .sam file. 
 
 ```bash
-blastx -query ~/BLAST_practical/queries/hg38_gene_query.fasta -db ~/BLAST_practical/dbs/sprot \
--num_threads 2 -out ~/BLAST_practical/results/HumGene_blastx_sprot.txt \
+blastx -query ~/Project_4/queries/hg38_gene_query.fasta -db ~/Project_4/dbs/sprot \
+-num_threads 2 -out ~/Project_4/results/HumGene_blastx_sprot.txt \
 -outfmt "7 delim= qaccver qlen sallgi sallacc stitle slen pident length \
 mismatch gapopen qstart qend sstart send evalue bitscore"
 ```
@@ -66,13 +66,13 @@ Once BLASTX has completed you can look at your output using "head", "less", "mor
 There will be quite a few hits. You can reduce them to a manageable level by parsing the output to find only the alignments with human proteins.
 
 ```bash
-grep "Homo sapiens" ~/BLAST_practical/results/HumGene_blastx_sprot.txt | less
+grep "Homo sapiens" ~/Project_4/results/HumGene_blastx_sprot.txt | less
 ```
 
 ### 2.3 Alignments to human repeat consensus sequences
 
 ```bash
-blastn -query ~/BLAST_practical/queries/hg38_gene_query.fasta -task blastn -db ~/BLAST_practical/dbs/humrep -out ~/BLAST_practical/results/gene_blastn_humrep.txt -outfmt 7
+blastn -query ~/Project_4/queries/hg38_gene_query.fasta -task blastn -db ~/Project_4/dbs/humrep -out ~/Project_4/results/gene_blastn_humrep.txt -outfmt 7
 ```
 
 This will identify all the repeat sequence intervals in your gene sequence. 
@@ -90,7 +90,7 @@ In order to obtain a human repeat sub-sequence for the most abundant repeat type
 
 ```bash
 
-samtools faidx ~/BLAST_practical/queries/hg38_gene_query.fasta hg38:12045-12345 > ~/BLAST_practical/queries/hg38_12045-12345.fasta
+samtools faidx ~/Project_4/queries/hg38_gene_query.fasta hg38:12045-12345 > ~/Project_4/queries/hg38_12045-12345.fasta
 ```
 
 #### 2.4 Alignment of your human repeat sub-sequence to the human genome
@@ -99,7 +99,7 @@ This may take a while to run, so be patient. Remember to activate the `blast` en
 
 ```bash
 
-blastn -query ~/BLAST_practical/queries/hg38_12045_13345.fasta -task blastn -db ~/BLAST_practical/dbs/hg38 -num_threads 2 -out ~/BLAST_practical/results/hg38_repeats.txt -outfmt 7
+blastn -query ~/Project_4/queries/hg38_12045_13345.fasta -task blastn -db ~/Project_4/dbs/hg38 -num_threads 2 -out ~/Project_4/results/hg38_repeats.txt -outfmt 7
 ```
 
 The output will be very large, so do not open with the text editor. You can see how many hits you have by using:
