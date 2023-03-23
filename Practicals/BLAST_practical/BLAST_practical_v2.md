@@ -45,7 +45,7 @@ Now you are ready to use BLAST.
 
 ### 2.2 Alignments to Swissprot proteins
 
-Reminder: general syntax for BLAST searches is as follows:\
+Reminder: general syntax for BLAST searches is as follows:  
 
 ```bash
 blastn -query [file.fasta] -task [blastn] -db [database file]  -outfmt [0 through 17] -out [outputfile]
@@ -84,9 +84,11 @@ To determine the most abundant repeat type in your output you can try:
 - use `cut` , `sort` and `uniq` to list all the repeat types
 - use `grep -c` to count some of the repeat types to get an objective assessment of how many insertions there are for every repeat type. *Hint: when using `grep` use the shortest search pattern you can, to group repeats of the same type into the count*.
 
-In order to obtain a human repeat sub-sequence for the most abundant repeat type from `hg38_gene_query.fasta` you will need to use [samtools-faidx](https://www.htslib.org/doc/samtools-faidx.html). \\ 
-You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. \\
-Do this by inspecting the text output file from above and selecting an interval from a robust (*longest or almost longest `alignment length`  with high `bitscore` and low `evalue`*) alignment for the most abundant type of repeat in your output. 
+In order to obtain a human repeat sub-sequence for the most abundant repeat type from `hg38_gene_query.fasta` you will need to use [samtools-faidx](https://www.htslib.org/doc/samtools-faidx.html). 
+
+- You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. 
+
+- Do this by inspecting the text output file from above and selecting an interval from a robust (*longest or almost longest `alignment length`  with high `bitscore` and low `evalue`*) alignment for the most abundant type of repeat in your output. 
 
 **I have used arbitrary coordinate values 12045-12345 in the example below, you will need to use your own coordinates.**
 
