@@ -71,6 +71,8 @@ grep "Homo sapiens" ~/Project_4/results/HumGene_blastx_sprot.txt | less
 
 ### 2.3 Alignments to human repeat consensus sequences
 
+You will need to make a `BLAST` index for the `~/dbs/humanReps.fa` file before carrying out the next search. Look at the instructions for the previous practical to figure out how to do this. 
+
 ```bash
 blastn -query ~/Project_4/queries/hg38_gene_query.fasta -task blastn -db ~/Project_4/dbs/humrep -out ~/Project_4/results/gene_blastn_humrep.txt -outfmt 7
 ```
@@ -78,7 +80,7 @@ blastn -query ~/Project_4/queries/hg38_gene_query.fasta -task blastn -db ~/Proje
 This will identify all the repeat sequence intervals in your gene sequence. 
 
 To determine the most abundant repeat type in your output you can try:
-- just scroll through the output and eyball it
+- just scroll through the output and eyeball it
 - use `cut` , `sort` and `uniq` to list all the repeat types
 - use `grep -c` to count some of the repeat types to get an objective assessment of how many insertions there are for every repeat type. *Hint: when using `grep` use the shortest search pattern you can, to group repeats of the same type into the count*.
 
