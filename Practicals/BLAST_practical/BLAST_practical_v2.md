@@ -31,7 +31,7 @@ To see how difficult it can be to deal with the large numbers of repeats in the 
 
 ### 2.1  Prepare the data
 
-You will then need to index/format the `humanrReps.fa.gz` consensus sequence so that BLASTN can search it. Rembember that `makeblastdb` will not accept `.gz` compressed files. 
+You will then need to index/format the `humanrReps.fa.gz` consensus sequence so that BLASTN can search it. Rebember that `makeblastdb` will not accept `.gz` compressed files. 
 
 #### Activate NCBI BLAST environment
 
