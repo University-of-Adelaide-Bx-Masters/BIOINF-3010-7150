@@ -22,8 +22,8 @@ To make and enter the directory that you will be working in, run the following c
 
 ```bash
 # Setup project working directory
-mkdir --parents ~/Project_5/data/
-cd ~/Project_5/
+mkdir --parents ~/Project_6/data/
+cd ~/Project_6/
 
 ```
 
@@ -31,23 +31,23 @@ cd ~/Project_5/
 
 ```bash
 # Make the directory for the reference genome
-mkdir --parents ~/Project_5/data/reference/
+mkdir --parents ~/Project_6/data/reference/
 
 # Get the SARS-CoV-2 reference genome
 
-cp ~/data/SARS-CoV-2_Resequencing/COVID-19.fasta.gz ~/Project_5/data/reference/
+cp ~/data/SARS-CoV-2_Resequencing/COVID-19.fasta.gz ~/Project_6/data/reference/
 
 # Make the directory for the Illumina PE reads
-mkdir --parents ~/Project_5/data/illumina_pe/
+mkdir --parents ~/Project_6/data/illumina_pe/
 
 # Get the subsampled Illumina PE data
-cp ~/data/SARS-CoV-2_Resequencing/SRR111407{44,46,48,50}_?_*x.fastq.gz ~/Project_5/data/illumina_pe/
+cp ~/data/SARS-CoV-2_Resequencing/SRR111407{44,46,48,50}_?_*x.fastq.gz ~/Project_6/data/illumina_pe/
 
 # Make the directory for scripts
-mkdir --parents ~/Project_5/data/scripts/
+mkdir --parents ~/Project_6/data/scripts/
 
 # Get the scripts
-cp ~/data/SARS-CoV-2_Resequencing/plot_delta.R ~/Project_5/data/scripts/
+cp ~/data/SARS-CoV-2_Resequencing/plot_delta.R ~/Project_6/data/scripts/
 ```
 
 Lets see what files and directories we have under our current working directory:
@@ -116,10 +116,10 @@ We have made data files available for `10x`, `20x`, `40x`, `80x` and `100x` cove
 ```bash
 time spades.py \
   --threads 2 \
-  -o ~/Project_5/de_novo_illumina/SRR11140748_10x_PE \
-  -1 ~/Project_5/data/illumina_pe/SRR11140748_1_10x.fastq.gz \
-  -2 ~/Project_5/data/illumina_pe/SRR11140748_2_10x.fastq.gz \
-| tee ~/Project_5/de_novo_illumina/SRR11140748_10x_PE.log
+  -o ~/Project_6/de_novo_illumina/SRR11140748_10x_PE \
+  -1 ~/Project_6/data/illumina_pe/SRR11140748_1_10x.fastq.gz \
+  -2 ~/Project_6/data/illumina_pe/SRR11140748_2_10x.fastq.gz \
+| tee ~/Project_6/de_novo_illumina/SRR11140748_10x_PE.log
 ```
 ## Questions
 
@@ -134,17 +134,17 @@ Compare the assembly to the SARS-CoV-2 RefSeq assembly using [MUMmer](http://mum
 
 # Decompress the reference genome for MUMmer
 pigz -dcp2 \
-  < ~/Project_5/data/reference/COVID-19.fasta.gz \
-  > ~/Project_5/data/reference/COVID-19.fasta
+  < ~/Project_6/data/reference/COVID-19.fasta.gz \
+  > ~/Project_6/data/reference/COVID-19.fasta
 
 # Run nucmer from MUMmer package
 nucmer \
   -maxmatch \
   -minmatch 100 \
   -mincluster 500 \
-  -prefix ~/Project_5/de_novo_illumina/SRR11140748_10x_PE \
-  ~/Project_5/data/reference/COVID-19.fasta \
-  ~/Project_5/de_novo_illumina/SRR11140748_10x_PE/contigs.fasta
+  -prefix ~/Project_6/de_novo_illumina/SRR11140748_10x_PE \
+  ~/Project_6/data/reference/COVID-19.fasta \
+  ~/Project_6/de_novo_illumina/SRR11140748_10x_PE/contigs.fasta
 ```
 
 This will generate a `.delta` file which describes the alignments between your assembled contig(s) and the reference sequence(s).
@@ -160,11 +160,11 @@ We have provided an R script for this purpose, which can be executed as follows:
 
 ```bash
 Rscript --vanilla \
-  ~/Project_5/data/scripts/plot_delta.R \
-  ~/Project_5/de_novo_illumina/SRR11140748_10x_PE.delta
+  ~/Project_6/data/scripts/plot_delta.R \
+  ~/Project_6/de_novo_illumina/SRR11140748_10x_PE.delta
 ```
 
-This will create a PDF file called `~/Project_5/de_novo_illumina/SRR11140748_10x_PE.delta.pdf`
+This will create a PDF file called `~/Project_6/de_novo_illumina/SRR11140748_10x_PE.delta.pdf`
 
 ### Questions
 
@@ -185,10 +185,10 @@ k=11
 time spades.py \
   --threads 2 \
   -k ${k} \
-  -o ~/Project_5/de_novo_illumina/SRR11140748_10x_PE-k${k} \
-  -1 ~/Project_5/data/illumina_pe/SRR11140748_1_10x.fastq.gz \
-  -2 ~/Project_5/data/illumina_pe/SRR11140748_2_10x.fastq.gz \
-| tee ~/Project_5/de_novo_illumina/SRR11140748_10x_PE-k${k}.log
+  -o ~/Project_6/de_novo_illumina/SRR11140748_10x_PE-k${k} \
+  -1 ~/Project_6/data/illumina_pe/SRR11140748_1_10x.fastq.gz \
+  -2 ~/Project_6/data/illumina_pe/SRR11140748_2_10x.fastq.gz \
+| tee ~/Project_6/de_novo_illumina/SRR11140748_10x_PE-k${k}.log
 ```
 
 Next, lets look at an assembly produced with a long k-mer of length of 127:
@@ -199,10 +199,10 @@ k=127
 time spades.py \
   --threads 2 \
   -k ${k} \
-  -o ~/Project_5/de_novo_illumina/SRR11140748_10x_PE-k${k} \
-  -1 ~/Project_5/data/illumina_pe/SRR11140748_1_10x.fastq.gz \
-  -2 ~/Project_5/data/illumina_pe/SRR11140748_2_10x.fastq.gz \
-| tee ~/Project_5/de_novo_illumina/SRR11140748_10x_PE-k${k}.log
+  -o ~/Project_6/de_novo_illumina/SRR11140748_10x_PE-k${k} \
+  -1 ~/Project_6/data/illumina_pe/SRR11140748_1_10x.fastq.gz \
+  -2 ~/Project_6/data/illumina_pe/SRR11140748_2_10x.fastq.gz \
+| tee ~/Project_6/de_novo_illumina/SRR11140748_10x_PE-k${k}.log
 ```
 
 Now modify the above commands to produce another 2 assemblies but using the `100x` coverage data.

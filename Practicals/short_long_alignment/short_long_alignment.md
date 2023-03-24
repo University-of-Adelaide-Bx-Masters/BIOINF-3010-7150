@@ -1,5 +1,5 @@
-# Week 5 Practical Part 2: Short and Long Read Alignment
-## By Nathan Watson-Haigh, updated/adapted by Dave Adelson
+# Week 5 Practical: Short and Long Read Alignment
+## By Nathan Watson-Haigh, updated/adapted by Dave Adelson and Anna Sheppard
 {:.no_toc}
 
 * TOC
@@ -22,34 +22,35 @@ To make and enter the directory that you will be working in, run the following c
 
 ```bash
 # Setup project working directory
-mkdir --parents ~/Project_6/data/
-cd ~/Project_6/
+mkdir --parents ~/Project_5/data/
+cd ~/Project_5/
 ```
 
 ## Get the Data
 
 ```bash
 # Make the directory for the reference genome
-mkdir --parents ~/Project_6/data/reference/
+mkdir --parents ~/Project_5/data/reference/
 
 # Make subdirectories for the various data sets
-mkdir --parents ~/Project_6/data/{illumina_pe,pacbio}/
+mkdir --parents ~/Project_5/data/{illumina_pe,pacbio}/
 
 # Get the data
 #####
 # RefSeq E. coli K-12 substr. MG1655
-cp ~/data/S_LR_Alignment/NC_000913.3.fasta.gz ~/Project_6/data/reference/
+cp ~/data/Short_and_long_read_alignment/NC_000913.3.fasta.gz ~/Project_5/data/reference/
 # Illumina PE
-cp --link ~/data/S_LR_Alignment/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz ~/Project_6/data/illumina_pe/
+cp ~/data/Short_and_long_read_alignment/36_ACGCACCT-GGTGAAGG_L002_R?_001_40x.fastq.gz ~/Project_5/data/illumina_pe/
 # PacBio
-cp --link ~/data/S_LR_Alignment/lima.bc1106--bc1106_40x.subreadset.fastq.gz ~/Project_6/data/pacbio/
+cp ~/data/Short_and_long_read_alignment/lima.bc1106--bc1106_40x.subreadset.fastq.gz ~/Project_5/data/pacbio/
 
 ```
 
-### Questions
-
- - *What does the `--link` argument to `cp` do? Hint: Use the `man` page and google to work it out.*
- - *Why might using `--link` be useful with genomics data files?*
+## Software packages
+In order to use `minimap2`, you will need to load the appropriate conda environment:
+```bash
+source activate bioinf
+```
 
 # QC
 
@@ -68,7 +69,7 @@ fastqc \
 
 ## Read Trimming and Filtering
 
-If you deem it necessary to quality trim, adapter trim or length filter your raw reads then look back at last week's code and use either Trimmomatic or fastp to perform the trimming/filtering.
+If you deem it necessary to quality trim, adapter trim or length filter your raw reads then look back at your previous code and use either Trimmomatic or fastp to perform the trimming/filtering.
 
 # Illumina Read Mapping
 
@@ -131,15 +132,17 @@ time minimap2 \
 As with the last practical we will use [IGV-web](https://igv.org/app/) to visualise the `.bam` files. 
 
 Decompress the E. coli K-12 genome and index it with `samtools faidx`
+
 Index the `.bam` files with `samtools index`
 
 Download the reference, the `.bam` files and the index files to your computer.
 
-load the E. coli K-12 reference and index and the `.bam` files and index files as in the previous practical on [IGV-web](https://igv.org/app/).
+As in the previous IGV-web practical, load the E. coli K-12 reference (`.fasta`), the reference index (`.fasta.fai`), the two `.bam` files and two `.bam.bai` index files.
 
 What do you make of these regions:
 
  * `NC_000913.3:276291-294244`
+ * `NC_000913.3:378,388-379,018`
  * `NC_000913.3:4295777-4296810`
 
 **Optional exercise**
