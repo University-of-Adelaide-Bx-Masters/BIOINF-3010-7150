@@ -1,8 +1,6 @@
 # Week 6 Practical: Hybrid Genome Assembly
 {:.no_toc}
-NC_000913.3:4,533,722-4,554,201
-NC_000913.3:375,245-395,724
-NC_000913.3:378,500-378,750
+
 * TOC
 {:toc}
 
@@ -37,13 +35,13 @@ mkdir --parents data/{reference,scripts,illumina_pe,pacbio}/
 # Get the data
 #####
 # RefSeq E. coli K-12 substr. MG1655
-cp ~/data/S_LR_Alignment/NC_000913.3.fasta.gz data/reference/
+cp ~/data/Short_and_long_read_alignment/NC_000913.3.fasta.gz data/reference/
 # Illumina PE
-cp --link ~/data/S_LR_Alignment/36_ACGCACCT-GGTGAAGG_L002_R?_001_*x.fastq.gz data/illumina_pe/
+cp ~/data/Short_and_long_read_alignment/36_ACGCACCT-GGTGAAGG_L002_R?_001_*x.fastq.gz data/illumina_pe/
 # PacBio
-cp --link ~/data/S_LR_Alignment/lima.bc1106--bc1106_*x.subreadset.fastq.gz data/pacbio/
+cp ~/data/Short_and_long_read_alignment/lima.bc1106--bc1106_*x.subreadset.fastq.gz data/pacbio/
 # R script
-cp --link ~/data/SARS-CoV-2_Resequencing/plot_delta.R data/scripts/
+cp ~/data/SARS-CoV-2_Resequencing/plot_delta.R data/scripts/
 ```
 
 # Hybrid Genome Assembly
