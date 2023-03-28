@@ -55,13 +55,10 @@ Lets see what files and directories we have under our current working directory:
 ```bash
 tree
 ```
-## Install software using conda
+## Today's software
 
 Today we will use `spades` a deBruijn graph based assembler and `mummer` a suffix tree based fast whole genome aligner.
 
-```bash
-conda install -c bioconda spades mummer
-```
 
 ### Questions
 
@@ -69,7 +66,7 @@ conda install -c bioconda spades mummer
 
 ## Data
 
-We're going to be using some very topical data, SARS-CoV-2 data, the virus causing COVID-19.
+We're going to be using some topical data, SARS-CoV-2 data, the virus causing COVID-19.
 We will be looking at this data in different ways, providing insights into how bioinformaticians analyse these types of data.
 
 ### RefSeq Genome Assembly
