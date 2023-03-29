@@ -172,7 +172,7 @@ This will create a PDF file called `~/Project_6/de_novo_illumina/SRR11140748_10x
 # Explore k-mer Length Effects
 
 SPAdes uses several k-mer lengths during the assembly process to produce a de Bruijn graph for each k-mer length and then combines the information to produce a final assembly.
-Using what you learned above about exploring assemblies, lets look at how an assembly is affected by our choice of k-mer length.
+Using what you learned above about exploring assemblies, lets look at how an assembly is affected by our choice of k-mer length. You may need to alter the `mummer` `minCluster` value to produce a valid `.delta` file. 
 
 First, lets look at an assembly produced with a single short k-mer of length of 11:
 
