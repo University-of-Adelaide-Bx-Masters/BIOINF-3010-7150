@@ -8,7 +8,7 @@ Although the genome of E. intestinalis is very small (~2.5 Mb), it has 11 chroms
 
 ## Data
 
-You are provided with 8 fastq files containing sequencing reads using different sequencing platforms. These fastq files can be found in `2_assignment/raw_data` folder, and are including:
+You are provided with 8 fastq files containing sequencing reads using different sequencing platforms. These fastq files can be found in `~/data/assignment2/raw_data` folder, and are including:
 
 | File(s)                                    | Platform | Coverage | Description                                            |
 |--------------------------------------------|----------|----------|--------------------------------------------------------|
@@ -26,9 +26,9 @@ The illumina dataset will be used to do genome survey analysis (genome size esti
 
 You are also provided with the E. intestinalis reference (taken from [here](https://www.ncbi.nlm.nih.gov/data-hub/genome/GCA_024399295.1/) if you want to have a look). 
 
-It is in the `/data/assignment2/DB` directory and is called `GCA_024399295.1_ASM2439929v1_genomic.fna`. 
+It is in the `~/data/assignment2/DB` directory and is called `GCA_024399295.1_ASM2439929v1_genomic.fna`. 
 
-In addition to the sequencing files, you will be also given two scripts which will be used to do sequence/genome statistics and genome survey analysis. These two scritps are stored in the folder of "2_assignment/bin", and are including:
+In addition to the sequencing files, you will be also given two scripts which will be used to do sequence/genome statistics and genome survey analysis. These two scripts can be found in folder `~/data/assignment2/bin`, and are including:
 
 | Script       | Description                                 | Link                                               |
 |----------------|---------------------------------------------|----------------------------------------------------|
@@ -50,7 +50,7 @@ Just try to justify your predictions based on the information you've collected a
 
 ### Part 2
 
-**2.1** Use `jellyfish` and `genomescope.R` to perform genome survey analysis. What is the estimated genome size? Provide the generated figure showing the fitted model for k-mer distribution (Hint: plot.png in your genomescope output foloder). *- 4 marks*
+**2.1** Use `jellyfish` and `genomescope.R` to perform genome survey analysis. What is the estimated genome size? Provide the generated figure showing the fitted model for k-mer distribution (Hint: plot.png in your genomescope output folder). *- 4 marks*
 
 ### Part 3
 
