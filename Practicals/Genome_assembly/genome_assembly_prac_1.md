@@ -1,5 +1,5 @@
-# Week 8 Practical: **Genome Assembly** 
-## By Chelsea Matthews 
+# Week 7 Practical: **Genome Assembly** 
+*By Zhipeng Qu and Chelsea Matthews* 
 
 Today we will be looking at *de novo* assembly with more of a focus on larger, more complex genomes.  
 
@@ -7,94 +7,239 @@ Today we will be looking at *de novo* assembly with more of a focus on larger, m
 
 As with previous weeks' practicals, you will be using RStudio to interact with your VM.
 
-While the focus of this section of the coursework is on the assembly of large complex genomes, it's not feasible for us to actually assemble a large complex genome because, frankly, our VM's are too small and sitting around for hours waiting for an assembly to finish is boring. 
-So, we'll be assembling a small genome (Campylobacter hepaticus) from PacBio reads.  
-Even though the Campylobacter hepaticus genome is fairly small, it will still take ~10-15 minutes for the assembly to run so we'll get it going straight away. 
+While the focus of this section of the coursework is on the assembly of large complex genomes, it's not feasible for us to actually assemble a large complex genome (i.e. human genome) because, frankly, our VM's are too small and sitting around for hours waiting for an assembly to finish is boring (You can check the benchmark for the computational cost using Flye from [here](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#-flye-benchmarks)). 
+So, we'll be assembling one of the small eukaryotic genomes, fission yeast (*Schizosaccharomyces pombe*), using Long Reads (LR) from nanopore and pacbio sequencing.   
+Even though the fission yeast genome is fairly small (~15 Mb with 3 chromosomes), but it's still more complicated than the prokaryotic organisms. It will still take ~20 minutes for the assembly to run even we just use 5x genome coverage. 
 
-## 1. Set up
+## Dataset
+
+Due to limitation of computating resources in our VM, we will use subsets of raw sequencing reads. The original sequencing dataset is very big, you can access it from this [link](https://www.ncbi.nlm.nih.gov/sra?term=SRP352919). Here are some useful genome informations about fission yeast:
+
+- Reference genome: ASM294v2
+- Number of chromosomes: 3 nucleus chromosomes
+- Genome size (reference): 12,591,251 bp
+- Ploidy: Haploid
+
+## Tools/packages
+
+Tools/packages used in this Prac:
+
+| Too/Package    | Version      | URL                                                        |
+|----------------|--------------|------------------------------------------------------------|
+| fastQC         | v0.11.9      | https://www.bioinformatics.babraham.ac.uk/projects/fastqc/ |
+| assembly-stats | v1.0.1       | https://github.com/sanger-pathogens/assembly-stats         |
+| jellyfish      | v2.2.10      | https://github.com/gmarcais/Jellyfish                      |
+| genomescope    | v1           | https://github.com/schatzlab/genomescope                   |
+| flye           | v2.8.1-b1676 | https://github.com/fenderglass/Flye                        |
+| QUAST          | V5.2.0       | https://github.com/ablab/quast                             |
+| BUSCO          | v5.4.4       | https://busco.ezlab.org/                                   |
+
+## Running time estimation (based on teaching VM)
+
+| Step              | Tool/Package        | Estimated run time  |
+|-------------------|---------------------|---------------------|
+| QC                | fastqc              | < 1 min             |
+| QC                | assembly-stat       | < 1 min             |
+| genome survey     | jellyfish           | < 5 mins            |
+| genome survey     | genomescope         | < 1 min             |
+| genome assembly   | flye + nanopore_5x  | ~20 mins            |
+| genome assembly   | flye + pacbio_5x    | ~20 mins (optional) |
+| genome assembly   | flye + nanopore_10x | ~30 mins (optional) |
+| genome assembly   | flye + pacbio_10x   | ~30 mins (optional) |
+| genome assessment | QUAST               | < 5 min             |
+| genome assessment | BUSCO               | ~10-20 mins (each)  |
+
+The following table shows the estimated run time on VM for the different processes:
+
+## What you will learn in this Prac
+
+- Practice bash commands you have learned
+- Practice QC for illumina data you have learned
+- Learn how to do de novo genome assembly using Flye with long reads
+- Learn how to assess your genome assembly quality using QUAST and BUSCO
+
+# Let's start!
+
+There are 4 different major steps (5 parts actually) in this Prac.  Please follow the instructions __in order__, because some commands will rely on the results from previous commands. Feel free to talk to tutors/instructors if you have a problem/question. 
+
+## Part 1. Set up and project preparation
+
+### 1.1 Prepare folder structure
 
 Planning your directory structure from the beginning makes your work easier to follow for both yourself and others. 
-The following directory structure is recommended for this practical. 
-Note that I've used a numbered prefix for the `0_data` directory. 
-I like to number directories within the project directory in the order in which they are created. 
-This is a personal preference but I find that it makes it easier to navigate as I can remember the order I did things in but not always the specific directory name. 
-For this practical we will use a numbering system so that you can see if you like it. 
+
+I put initial input data into a `data` folder, and output files from different processing stages into separate folders in a `results` folder. If there are databases involved, I also create a `DB` folder. I store all scripts in a separate `scripts` folder (we won't use this folder in this Prac). I also use a numbered prefix such as `01_raw_data` to label different folders. All of these naming rules are just personal preference, and feel free to build your own project folder structure rules, and keep it consistent for your different projects in future.
+
+The following is the folder structure for this genome assembly project:
+
+```
+./prac_genome_assembly/
+├── 01_bin
+├── 02_DB
+├── 03_raw_data
+├── 04_results
+│   ├── 01_QC
+│   ├── 02_genome_survey
+│   ├── 03_genome_assembly
+│   └── 04_genome_assessment
+└── 05_scripts
+```
+
+We can use following commands to build this folder structure:
 
 ```bash
-mkdir --parents ~/Project_8/0_data/
-cd ~/Project_8/
+cd ~/
+mkdir prac_genome_assembly
+cd prac_genome_assembly
+mkdir 01_bin 02_DB 03_raw_data 04_results 05_scripts
+cd 04_results
+mkdir 01_QC 02_genome_survey 03_genome_assembly 04_genome_assessment
 ```
 
-We will be using PacBio CLR reads for our assembly today. Copy the appropriate data from the `/data` directory to your local folder.
-
+If you want to check your folder structure:
+```bash
+cd ~/
+tree ./prac_genome_assembly
 ```
-cp ../data/Project_8/c_hepaticus.fastq ./0_data/
+
+### 1.2 Input data and additional tools
+We will be using raw sequencing data from different sequencing platforms in this Prac. These fastq files can be found in `~/data/prac_genome_assembly/01_raw_data` folder, and are including:
+
+| File(s)                                    | Platform | Coverage | Description                                                |
+|--------------------------------------------|----------|----------|------------------------------------------------------------|
+| illumina_SR_20x_1.fq, illumina_SR_20x_2.fq | Illumina | ~20x     | Paried-end (PE150) short reads from Illumina MGISEQ-2000RS |
+| nanopore_LR_5x.fq                          | Nanopore | ~5x      | Long reads from Nanopore PromethION                        |
+| nanopore_LR_10x.fq                         | Nanopore | ~10x     | Long reads from Nanopore PromethION                        |
+| pacbio_LR_5x.fq                            | PacBio   | ~5x      | Long reads from PacBio_SMRT Sequel                         |
+| pacbio_LR_10x.fq                           | PacBio   | ~10x     | Long reads from PacBio_SMRT Sequel                         |
+
+The original dataset can be found [here](https://www.ncbi.nlm.nih.gov/sra?term=SRP352919).
+
+We will use the paired-end illumina short reads to do genome survey analysis (estimate the genome size), and use the other four Long Reads (LR) files to do genome assembly separately.
+
+The reference genome is also provided, and you can find it in folder `~/data/prac_genome_assembly/02_DB`.
+
+Next we can copy the corresponding input files into our corresponding project folders:
+
+```bash
+cd ~/prac_genome_assembly/02_DB
+cp ~/data/prac_genome_assembly/02_DB/* ./
+cd ~/prac_genome_assembly/03_raw_data
+cp ~/data/prac_genome_assembly/03_raw_data/*.fq ./
+```
+Because `assembly-stats` and `genomescope` are not globally installed in VM, we need to maually put them somewhere we know.
+
+```bash
+cd ~/prac_genome_assembly/01_bin
+cp ~/data/prac_genome_assembly/01_bin/* ./
 ```
 
-## 2. Quick look at the input data
+Now all the setup work is done. Let's move to part 2.
 
-Today we are assembling a Campylobacter hepaticus genome from PacBio CLRs (Continuous Long Reads) using Canu.
-See [this video](https://www.youtube.com/watch?v=_lD8JyAbwEo) for a quick summary/review of how PacBio sequencing works. 
+## Part 2, QC on input data
 
-Campylobacter is a bacteria and is one of the most common causes of baterial gastroenteritis in humans.
-It was selected for the practical because of its small size (~1.5Mbp) to reduce computation time.
+In this part, we will be using `fastQC` to check the sequencing quality of illumina reads, and using `assembly-stats` to acquire some statistics about the long reads. 
 
-Let's have a look at the raw data using FastQC.
-If you can't remember how to use FastQC, run `fastqc -h` to see the help menu. 
+### 2.1 QC for illumina reads
 
-You'll notice when you look at the .html report that these reads don't have any quality scores associated with them.
-This is expected as quality scores don't really make sense due to the way that PacBio CLRs are created.
+Let's have a look at the short reads (illumina reads) using `fastQC` first
+
+Before we start the actual analysis, we need to activate the `conda` environment so that we can use packages/tools that are only installed in specific environments (It's always a good idea to check what `conda` environment you are in before you do following analyses). Before you activate the specific `conda` environment, your prompt in terminal should look like this `(base) axxxxxxx@ip-10-255-x-xx`, which indicates that you are under the `base` environment. To activate `bioinf` environment, you can run:
+
+```bash
+conda activate bioinf
+```
+
+After you `activate` this `bioinf` environment, you terminal prompt should be changed to `(bioinf) axxxxxxx@ip-10-255-x-xx`, which indicates that now you are in the `bioinf` environment.
+
+Then we can run `fastqc` to check the quality of the short reads:
+
+```bash
+cd ~/prac_genome_assembly/04_results/01_QC
+fastqc ~/prac_genome_assembly/03_raw_data/illumina_SR_10x_1.fq ~/prac_genome_assembly/03_raw_data/illumina_SR_10x_2.fq -o ./ -t 2
+```
 
 * *How many sequences are there in the dataset?*
-* *What are the minimum and maximum read lengths in the dataset?* 
+* *How good the illumina reads are?* 
 
-FastQC doesn't tell us the average read length or the total number of bases in our dataset so we will calculate this ourselves. 
-
-The command below will count the total number of basepairs in the fastq file. 
-
-```
-cat c_hepaticus.fastq | paste - - - - | cut -f 2 | tr -d '\n' | wc -c
-```
-
-* *What is the average read length?*
-* *Assuming that our genome is approximately 1.5Mbp long, what coverage do these reads give us? Remember that Coverage = (total number of bases in reads)/genome size*
-* *Do you think this is sufficient to generate a good assembly? Why or why not?*
-
-While you might be used to trimming reads before you use them for assembly or alignment, Canu (our assembler) includes both a correction and trimming step. 
-Therefore, trimming is unnecessary in this case.  
-
-## 3. Assemble!
-
-Dave has very kindly installed Canu on our VM's for us. 
-
-Do a test run to see if it works using the following:
-
-```
-canu
-```
-
-The Canu usage instructions should be printed to the screen. 
-
-Now let's run the Canu assembly. 
+### 2.2 Long reads
+We will be using `assembly-stats` to get some statistics for the long reads.
 
 ```bash
-# first move back into the Project_8 home directory
-cd ..
-
-# run canu assembly
-canu -p c_hepaticus -d 1_canu_assembly genomeSize=1.5m corThreads=2 -pacbio 0_data/c_hepaticus.fastq
+cd ~/prac_genome_assembly/04_results/01_QC
+~/prac_genome_assembly/01_bin/assembly-stats ~/prac_genome_assembly/03_raw_data/nanopore_LR_5x.fq
+~/prac_genome_assembly/01_bin/assembly-stats ~/prac_genome_assembly/03_raw_data/pacbio_LR_5x.fq
+~/prac_genome_assembly/01_bin/assembly-stats ~/prac_genome_assembly/03_raw_data/nanopore_LR_10x.fq
+~/prac_genome_assembly/01_bin/assembly-stats ~/prac_genome_assembly/03_raw_data/pacbio_LR_10x.fq
 ```
 
-It should take between 10 and 15 minutes for the assembly to complete.   
+* *Which dataset has the largest average read length?*
+* *Which dataset has the longest individual read?*
+* *Assuming that our genome is approximately 15 Mb long, what coverage do these reads give us? Remember that Coverage = (total number of bases in reads)/genome size*
+* *Do you think this is sufficient to generate a good assembly? Why or why not?*
 
-## 4. While we wait ...  Resources for genome assembly
+## Part 3, genome survery analysis (genome size estimation)
+When we start a whole genome sequencing project for a new species, we normally need to collect some genomics information before we do the de novo genome assembly, such as we need to know how big the genome is. In the lecture, we had learned that we can use lab-based flow cytometry to estimate the genome size, and we can also use short reads (illumina reads) to do this computationally. In this part, we will learn how to estimate the genome size using short reads.
+
+### 3.1 get k-mer distribution
+The first step of genome size estimation is to get the k-mer distribution using the available short reads. We can use `jellyfish` to do this.
+
+```bash
+cd ~/prac_genome_assembly/04_results/02_genome_survey
+
+jellyfish count -C -m 21 -s 4G -o illumina_SR_20x.21mer_out \
+    ~/prac_genome_assembly/03_raw_data/illumina_SR_20x_1.fq \
+    ~/prac_genome_assembly/03_raw_data/illumina_SR_20x_2.fq
+
+jellyfish histo -o illumina_SR_20x.21mer_out.histo illumina_SR_20x.21mer_out
+
+```
+
+`jellyfish` will break short reads into fixed length short sequences, which we call them k-mers (we use 21-mer in this project). The size of k-mers should be large enough allowing the k-mer to map uniquely to the genome (a concept used in designing primer/oligo length for PCR). However, too large k-mers leads to overuse of computational resources. `21` is normally a good start. In the `jellyfish count` command, `-C` means we count k-mers at both strands, `-s 4G` is used to control the memory usage, and `-m 21` means we will count 21-mers. After we count k-mers, we use `jellyfish histo` to get the frequency of k-mers with a certain copy number.
+
+### 3.2 genome survey analysis using genomescope
+After we get the `histo` file from the `jellyfish` run, we can use that to do genome survey with `genomescope`. `genomescope` is a R script, we can run it with following command:
+
+```bash
+cd ~/prac_genome_assembly/04_results/02_genome_survey
+
+Rscript ~/parc_genome_assembly/01_bin/genomescope.R illumina_SR_20x.21mer_out.histo 21 150 illumina_SR_20x.21mer
+```
+
+In the command, `21` means we are using 21-mer, `150` is the short reads length, and `illumina_SR_20x.21mer` will be the output folder. We can check the k-mer distribution by checking the file `plot.png`, which is normally located in the output folder `illumina_SR_20x.21mer`
+
+
+## Part 4, genome assembly 
+
+### 4.1 assembly using Flye
+Okey! Now we can do the de novo genome assembly. There are tons of assemblers to do de novo genome assembly. Some popular ones are `canu`, `Flye`, `smartdenovo`, `wtdbg`, etc. In this prac, we will be using `Flye`.
+
+Do a test run to see if it works using the following (make sure you are under the `bioinf` conda environment):
+
+```
+flye
+```
+
+The Flye usage instructions should be printed to the screen. 
+
+Now let's using the flye to do assembly on the `nanopore_LR_5x` dataset. 
+
+```bash
+cd ~/prac_genome_assembly/04_results/03_genome_assembly
+
+flye --nano-raw ~/prac_genome_assembly/03_raw_data/nanopore_LR_5x.fq --out-dir nanopore_LR_5x --threads 2
+```
+
+It should take ~20 minutes for the assembly to complete.   
+
+### 4.2. While we wait ...  Resources for genome assembly
 
 Larger, more complex genomes contain high percentages of repeats. Assembling these repeats accurately with short reads is not effective. Long reads that are able to span these repeat regions result in much better assemblies. There are many long read assembly tools available including the following: 
 
-* Canu (which we are using today)
+* Canu 
 * Flye
 * NextDenovo
-* Wtdbg2 (pronounced "redbean" - I don't understand this either)
+* Wtdbg2 
 * Raven
 * Falcon
 * Shasta
@@ -106,118 +251,61 @@ When we are assembling a small genome, memory (RAM) and CPU (compute threads/cor
 While we can still do this to some degree for larger genomes, resource allocations and limitations in High Performance Computing (HPC) environments mean that some tools may not be suitable for our particular dataset (we may not be able to run the assembly to completion due to time or resource limitations) and we need to more carefully consider the parameters we use for the assembly so that we don't need to re-run it unnecessarily. 
 Even without considering the cost of wasted resources (and this can be measured in dollars where we are using a service like Amazon Web Service (AWS)), re-running these assemblies can take a long time. 
 
-A number of tools have been designed to enable us to assemble larger genomes where resources are limited and Canu is one of these tools.
-Read the [Canu Quick Start](https://canu.readthedocs.io/en/latest/quick-start.html#quickstart) summary to see what kind of features Canu has. 
-
 One of the difficulties with assembling larger genomes is working out what resources a tool will require and deciding whether it will be suited to assembling your genome of interest within the resources available to you. 
-Have a look at the [Canu FAQ](https://canu.readthedocs.io/en/latest/faq.html) and see what it says about the resources required (specifically CPU hours and memory) for bacterial and mammalian assemblies (it's the first question in the FAQ) and answer the following questions:
+The authors of Flye did some benchmarks on computational resources required when assembling genomes from different species with different input data. You can check this from this [link](https://github.com/fenderglass/Flye#flye-benchmarks). Check following questions after you have a look at the table.
 
 * *How many CPU hours (approximately) are required to assemble a bacteria?*
 * *How many CPU hours (approximately) are required to assemble a mammal with high raw-read coverage?*
 * *How many CPU hours (approximately) are required to assemble a mammal from HiFi reads?*
-* *Why is the number of CPU hours and memory requirement lower for a HiFi assembly compared with a a non-HiFi read assembly?*
+* *Why is the number of CPU hours and memory requirement lower for a HiFi assembly compared with a non-HiFi read assembly?*
 * *If you had access to a single node with 48 compute threads and sufficient memory, how long (in hours) would it take to assemble a "well-behaved large genome"?* 
 * *How long would this same assembly take on your local VM (assuming memory was not a limitation) with two compute threads?*
 
-You can see now why we aren't assembling a larger genome. 
+You can see now why we aren't assembling a larger genome (i.e. human genome) using our VM. 
 
-## 5. Canu
+### 4.3 Looking at the assembly report
 
-As it says above, Canu has been designed to run where resources are somewhat limited. 
-It does this by breaking the assembly process down into many steps (hundreds when the genome is very large) and submitting each small job separately to the scheduler. 
-While it may submit hundreds of small separate jobs, Canu effectively runs in three steps.
+Flye will generate 5 folders, which store output files from 5 stages of Flye, and some important individual files. These includes:
 
-They are: 
+- params.json: the parameters that Flye used for this run
+- assembly_graph.{gv|gfa}: Final repeat graph. The edges of repeat graph represent genomic sequence, and nodes define the junctions. You can get more info about the repeat graph from [here](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#-repeat-graph) 
+- *assembly.fasta*: This is the final assembly. Contains contigs and possibly scaffolds.
+- assembly_info.txt: Extra information about contigs.
+- flye.log: Log report showing all running info and summary of final assembly.
 
-1. Correction - Increases the accuracy of bases in all reads
-2. Trimming - Remove low quality bases and discard suspicious sequences (for example, the PacBio Adapter if PacBio reads are used)
-3. Assembly - Reads are ordered based on their overlaps to create contigs and produce the final consensus sequences - this step implements the OLC algorithm
-
-Look through the [Canu documentation](https://canu.readthedocs.io/en/latest/tutorial.html) to answer the following questions:
-
-* *What do the following options used in our Canu assembly command mean?*
-
--p 
-
--d 
-
-genomeSize
-
-corThreads
-
--pacbio
-
-* *What is the "correctedErrorRate" default parameter for PacBio reads?*
-* *Why is this parameter higher for Nanopore reads than for PacBio reads?*
-* *Given that we have only approximately 16x coverage of reads for the C. hepaticus genome, is this correctedErrorRate still appropriate? If not, what should it be adjusted to and why?* 
-* *What is the default minimum read length (minReadLength)? Hint - you may need to look in a different section of the Canu documentation.*
-
-## 6. Looking at the assembly report
-
-Canu should have finished running by now so let's have a look at the summary report generated. 
+You can check the log report using following commands:
 
 ```
-cd 1_canu_assembly 
+cd prac_genome_assembly/04_results/03_genome_assembly/nanopore_LR_5x
+ls 
 
-ls
-# The actual assembly is the c_hepaticus.contigs.fasta
-#You can have a look around the assembly directory to see what Canu has done. It's actually pretty well organised.
-
-less c_hepaticus.report
+less flye.log
 ```
+Type `G` to go to the end of the file, and you will see a brief summary about the assembly.
 
-The report should begin with a heading that says [CORRECTION/READS]. Remember that read correction is the first step in the Canu workflow.
-Take a look through this first section and answer the following questions. 
-
-* *How many reads did Canu find in the raw data?*
-* *What depth of coverage does that equate to?*
-* *Why is the number of reads different to the number of reads in the input .fastq file?*
-
-After correction, Canu trims the data (feel free to have a look through this part of the report too) and then the final step - unitigging - starts. 
-
-Scroll down to the UNITIGGING section. Unitigging is the assembly stage and a unitig can be thought of as a high-confidence contig. 
-
-* *How many reads make it through to the unitigging step?*
 * *How many contigs does the final assembly have?*
 * *How long is the final assembly and how does this compare with the estimated size of the genome?*
 
 When you are finished, exit out of the report with `q`. 
 
-We can also verify the assembly size and number of contigs using the command line.  
+### 4.4 assembly using other datasets
 
-Let's count the number of contigs in our assembly. 
+You can do the genome assembly for the other three LR datasets:
 
-Remember that this is a fasta file and so every contig will first have a description line that begins with the `>` character. 
-To count the contigs, we will count the number of lines that begin with this character.
- 
-```
-grep "^>" c_hepaticus.contigs.fasta | wc -l
-```
+```bash
+cd ~/prac_genome_assembly/04_results/03_genome_assembly
 
-Let's count the total number of basepairs in our assembly as well. 
+flye --pacbio-raw ~/prac_genome_assembly/03_raw_data/pacbio_LR_5x.fq --out-dir pacbio_LR_5x --threads 2
+flye --nano-raw ~/prac_genome_assembly/03_raw_data/nanopore_LR_10x.fq --out-dir nanopore_LR_10x --threads 2
+flye --pacbio-raw ~/prac_genome_assembly/03_raw_data/pacbio_LR_10x.fq --out-dir pacbio_LR_10x --threads 2
 
 ```
-grep -v "^>" c_hepaticus.contigs.fasta | wc | awk '{print $3-$1}'
-```
 
-We will have a closer look at the assembly quality in the next practical. 
+Each of these will take 20-30 mins. I encourage you to run these jobs before the next session, and go through the reports (flye.log) to get ideas about the different assemblies, and we will look into them in more details in the next session.
 
-## 7. Another Canu assembly
+### 4.5 Additional information - diploid assembly
 
-Re-do your Canu assembly with the same options as before but add in an adjustment of the correctedErrorRate parameter to the value that you suggested in Part 5. 
-
-```
-canu -p c_hepaticus -d 1_canu_adjusted_assembly genomeSize=1.5m corThreads=2 correctedErrorRate=0.055 -pacbio 0_data/c_hepaticus.fastq
-```
-
-The output directory should be 1_canu_adjusted_assembly. 
-Leave the other options the same. 
-
-We will use this assembly in the next practical. 
-
-## 8. Diploid assembly
-
-C. hepaticus is a small haploid genome which means that it is fairly straightforward nowadays to assemble. 
+The fission yeast is a small haploid genome which means that it is fairly straightforward nowadays to assemble. 
 What is more challenging are larger diploid and polyploid genomes.
 
 * *Can you think of a few reasons why diploid or polyploid genomes are more difficult to assemble than haploid genomes? Relate these reasons back to the OLC algorithm if you can.*
@@ -228,6 +316,3 @@ Have a look at the paper below (mainly the first figure) to understand how this 
 
 [Haplotype-Resolved Cattle Genomes Provide Insights Into Structural Variation and Adaptation](https://www.biorxiv.org/content/10.1101/720797v3.full)
 
-* *Briefly summarise in your own words how trio binning works in Canu.*
-
-I know that today's practical wasn't very visual but we'll have more to look at in the second part of the prac. 
