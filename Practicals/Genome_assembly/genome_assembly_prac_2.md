@@ -48,7 +48,7 @@ We will assess the quality of these four assembled genomes using QUAST and BUSCO
 **Important**: Before you run `quast`, remember to check your conda environment, if you are not in `bioinf` environment, run:
 
 ```bash
-conda activate bioinf
+source activate bioinf
 ```
 
 #### 1) run QUAST without reference
@@ -139,8 +139,7 @@ Have a good look through the new information and try to understand it.
 **Important**: BUSCO is installed in `busco` conda environment in VM. You need to activate this environment before we run the BUSCO commands. If you just finished `quast`, you should be in `bioinf` environment, you can run following commands to switch to `busco` conda environment:
 
 ```bash
-conda deactivate
-conda activate busco
+source activate busco
 ```
 
 BUSCO is a tool that helps us measure how well we have assembled the gene space of an assembly. 

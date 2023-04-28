@@ -144,10 +144,10 @@ In this part, we will be using `fastQC` to check the sequencing quality of illum
 
 Let's have a look at the short reads (illumina reads) using `fastQC` first
 
-Before we start the actual analysis, we need to activate the `conda` environment so that we can use packages/tools that are only installed in specific environments (It's always a good idea to check what `conda` environment you are in before you do following analyses). Before you activate the specific `conda` environment, your prompt in terminal should look like this `(base) axxxxxxx@ip-xx-xxx-x-xx`, which indicates that you are under the `base` environment. To activate `bioinf` environment, you can run:
+Before we start the actual analysis, we need to activate the `conda` environment so that we can use packages/tools that are only installed in specific environments (It's always a good idea to check what `conda` environment you are in before you do following analyses). To activate `bioinf` environment, you can run:
 
 ```bash
-conda activate bioinf
+source activate bioinf
 ```
 
 After you `activate` this `bioinf` environment, your terminal prompt should be changed to `(bioinf) axxxxxxx@ip-xx-xxx-x-xx`, which indicates that now you are in the `bioinf` environment.
