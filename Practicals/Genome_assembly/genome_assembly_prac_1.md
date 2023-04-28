@@ -156,7 +156,7 @@ Then we can run `fastqc` to check the quality of the short reads:
 
 ```bash
 cd ~/prac_genome_assembly/04_results/01_QC
-fastqc ~/prac_genome_assembly/03_raw_data/illumina_SR_10x_1.fq ~/prac_genome_assembly/03_raw_data/illumina_SR_10x_2.fq -o ./ -t 2
+fastqc ~/prac_genome_assembly/03_raw_data/illumina_SR_20x_1.fq ~/prac_genome_assembly/03_raw_data/illumina_SR_20x_2.fq -o ./ -t 2
 ```
 
 * *How many sequences are there in the dataset?*
