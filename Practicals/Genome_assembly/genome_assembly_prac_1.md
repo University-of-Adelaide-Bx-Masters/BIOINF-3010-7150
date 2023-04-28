@@ -127,7 +127,7 @@ cp ~/data/prac_genome_assembly/02_DB/* ./
 cd ~/prac_genome_assembly/03_raw_data
 cp ~/data/prac_genome_assembly/03_raw_data/*.fq ./
 ```
-Because `assembly-stats` and `genomescope` are not globally installed in VM, we need to maually put them somewhere we know.
+Because `assembly-stats` and `genomescope` are not globally installed in VM, we need to maually put them somewhere we know. You can find these two scripts in folder `~/data/prac_genome_assembly/01_bin/`, and we will put them in the `01_bin` folder of our project.
 
 ```bash
 cd ~/prac_genome_assembly/01_bin
@@ -144,13 +144,13 @@ In this part, we will be using `fastQC` to check the sequencing quality of illum
 
 Let's have a look at the short reads (illumina reads) using `fastQC` first
 
-Before we start the actual analysis, we need to activate the `conda` environment so that we can use packages/tools that are only installed in specific environments (It's always a good idea to check what `conda` environment you are in before you do following analyses). Before you activate the specific `conda` environment, your prompt in terminal should look like this `(base) axxxxxxx@ip-10-255-x-xx`, which indicates that you are under the `base` environment. To activate `bioinf` environment, you can run:
+Before we start the actual analysis, we need to activate the `conda` environment so that we can use packages/tools that are only installed in specific environments (It's always a good idea to check what `conda` environment you are in before you do following analyses). Before you activate the specific `conda` environment, your prompt in terminal should look like this `(base) axxxxxxx@ip-xx-xxx-x-xx`, which indicates that you are under the `base` environment. To activate `bioinf` environment, you can run:
 
 ```bash
 conda activate bioinf
 ```
 
-After you `activate` this `bioinf` environment, you terminal prompt should be changed to `(bioinf) axxxxxxx@ip-10-255-x-xx`, which indicates that now you are in the `bioinf` environment.
+After you `activate` this `bioinf` environment, your terminal prompt should be changed to `(bioinf) axxxxxxx@ip-xx-xxx-x-xx`, which indicates that now you are in the `bioinf` environment.
 
 Then we can run `fastqc` to check the quality of the short reads:
 
@@ -195,7 +195,7 @@ jellyfish histo -o illumina_SR_20x.21mer_out.histo illumina_SR_20x.21mer_out
 
 ```
 
-`jellyfish` will break short reads into fixed length short sequences, which we call them k-mers (we use 21-mer in this project). The size of k-mers should be large enough allowing the k-mer to map uniquely to the genome (a concept used in designing primer/oligo length for PCR). However, too large k-mers leads to overuse of computational resources. `21` is normally a good start. In the `jellyfish count` command, `-C` means we count k-mers at both strands, `-s 4G` is used to control the memory usage, and `-m 21` means we will count 21-mers. After we count k-mers, we use `jellyfish histo` to get the frequency of k-mers with a certain copy number.
+`jellyfish` will break short reads into fixed length short sequences, which we call them [k-mers](https://en.wikipedia.org/wiki/K-mer) (we use 21-mer in this project). The size of k-mers should be large enough allowing the k-mer to map uniquely to the genome (a concept used in designing primer/oligo length for PCR). However, too large k-mers leads to overuse of computational resources. `21` is normally a good start. In the `jellyfish count` command, `-C` means we count k-mers at both strands, `-s 4G` is used to control the memory usage, and `-m 21` means we will count 21-mers. After we count k-mers, we use `jellyfish histo` to get the frequency of k-mers with certain copy numbers.
 
 ### 3.2 genome survey analysis using genomescope
 After we get the `histo` file from the `jellyfish` run, we can use that to do genome survey with `genomescope`. `genomescope` is a R script, we can run it with following command:
@@ -203,7 +203,7 @@ After we get the `histo` file from the `jellyfish` run, we can use that to do ge
 ```bash
 cd ~/prac_genome_assembly/04_results/02_genome_survey
 
-Rscript ~/parc_genome_assembly/01_bin/genomescope.R illumina_SR_20x.21mer_out.histo 21 150 illumina_SR_20x.21mer
+Rscript ~/prac_genome_assembly/01_bin/genomescope.R illumina_SR_20x.21mer_out.histo 21 150 illumina_SR_20x.21mer
 ```
 
 In the command, `21` means we are using 21-mer, `150` is the short reads length, and `illumina_SR_20x.21mer` will be the output folder. We can check the k-mer distribution by checking the file `plot.png`, which is normally located in the output folder `illumina_SR_20x.21mer`
@@ -268,8 +268,8 @@ You can see now why we aren't assembling a larger genome (i.e. human genome) usi
 Flye will generate 5 folders, which store output files from 5 stages of Flye, and some important individual files. These includes:
 
 - params.json: the parameters that Flye used for this run
-- assembly_graph.{gv|gfa}: Final repeat graph. The edges of repeat graph represent genomic sequence, and nodes define the junctions. You can get more info about the repeat graph from [here](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#-repeat-graph) 
-- *assembly.fasta*: This is the final assembly. Contains contigs and possibly scaffolds.
+- assembly_graph.{gv or gfa}: Final repeat graph. The edges of repeat graph represent genomic sequence, and nodes define the junctions. You can get more info about the repeat graph from [here](https://github.com/fenderglass/Flye/blob/flye/docs/USAGE.md#-repeat-graph) 
+- **assembly.fasta**: This is the final assembly. Contains contigs and possibly scaffolds.
 - assembly_info.txt: Extra information about contigs.
 - flye.log: Log report showing all running info and summary of final assembly.
 
