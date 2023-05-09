@@ -280,13 +280,9 @@ Would you expect this value to be higher or lower if the graph contained only th
 
 **Q3.3** Genotype the frayfeather sample.
 
-Which variants are present in frayfeather? Using the provided table (genotype_phenotype.txt) describing the phenotypes associated with each variant, describe frayfeathers susceptibility to the following diseases/conditions.
-
-- beak-rot
-- wing-strain
-- flying induced asthma
-- ingrown talons
-- feather loss
+Which variants are present in frayfeather?
+Using the provided table (genotype_phenotype.txt) describing the phenotypes associated with each variant, list frayfeather's phenotypic characteristics based on the variant calling results.
+Note that you should have 9 items in your list.
 
 [4 marks]
 
