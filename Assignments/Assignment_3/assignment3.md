@@ -254,8 +254,11 @@ Visualise the graph using `vg view -dunp graph.vg | dot -Tpdf -o pdf_filename` a
 [2 marks]
 
 **Q2.3**	Describe how each of the three paths (path_one, path_two, and path_three) through the graph vary from the reference sequence.
-You may reference the node numbers from the graph you visualised to do this and should consider using terms such as "deletion", "insertion", "inversion" in your explanation. 
-Remember that a deletion is where a haplotype does not have a sequence at a particular location that is present in the reference sequence at that location.
+You may reference the node numbers from the graph you visualised to do this and should consider using terms such as "deletion", "insertion" and "inversion" in your explanation.
+If a variant doesn't seem to fit into one of these categories, call it a complex variant and describe what is happening. 
+
+Remember that the variants should be described in terms of what the reference sequence looks like 
+For example, a deletion is where a haplotype does not have a sequence at a particular location that is present in the reference sequence at that location.
 
 
 [3 marks] 
