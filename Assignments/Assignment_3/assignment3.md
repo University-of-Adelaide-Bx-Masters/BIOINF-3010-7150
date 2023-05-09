@@ -216,7 +216,7 @@ This question uses the same data for both parts. In `/data/assignment3/Q2` you s
 mappable_region.fasta
 compound_mono_allele.bam
 compound_mono_allele.bam.bai
-agraph.vg
+structuralvariants.vg
 ```
 
 Download these files. Launch IGV. 
@@ -238,8 +238,12 @@ Show the steps and reasonings for your answers. Include diagrams if you think it
 
 ### Question 2 Part 2: Graph genome (8 marks)
 
-**Q2.1** You have been provided with a file called `agraph.vg` in the assignment data folder that contains a graph constructed from the reference sequence you used for the first part of this question.
-This graph has three paths through it representing three different haplotypes.
+**Q2.1** You have been provided with a file called `structuralvariants.vg` in the assignment data folder that contains a graph constructed from the reference sequence you used for the first part of this question.
+In addition to the path representing the reference sequence, there are an additional three paths through the graph representing three different haplotypes.
+
+When you visualise this graph, keep in mind that this graph models structural variants which are much larger than the small variants we have been looking at in the practicals.
+The principle is the same except that the nodes are larger.
+Also note that, for ease of visualisation, the nodes in this graph are very large.
 
 Visualise the graph using `vg view -dunp graph.vg | dot -Tpdf -o pdf_filename` and provide a screenshot of your visualisation.
 
@@ -249,26 +253,34 @@ Visualise the graph using `vg view -dunp graph.vg | dot -Tpdf -o pdf_filename` a
 
 [2 marks]
 
-**Q2.3**	Describe how each of the three paths (A, B, and C) through the graph are similar and different to the reference sequence.
-You may reference the node numbers from the graph you visualised to do this.
+**Q2.3**	Describe how each of the three paths (path_one, path_two, and path_three) through the graph vary from the reference sequence.
+You may reference the node numbers from the graph you visualised to do this and should consider using terms such as "deletion", "insertion", "inversion" in your explanation. 
+Remember that a deletion is where a haplotype does not have a sequence at a particular location that is present in the reference sequence at that location.
+
 
 [3 marks] 
 
-**Q2.4**	One of these paths represents the structural variation you saw in Question 2 Part 1. Which one is it? 
+**Q2.4**	One of these paths represents the haplotype of the sample you saw in Question 2 Part 1.
+This haplotype contains the structural variation that you identified.
+Which path is it? 
 
 [1 mark]
 
 ## Question 3 (12 marks)
 
+
 You have been provided with a reference sequence `hippogryph.fasta` and the most common variants found in the hippogryph population in `hippogryph.vcf`.
 
-Your task is to genotype a newly sequenced sample (frayfeather) to determine whether it is susceptible to a range of hippogryph diseases.
+If you don't know what a hippogryph is, it's a mythical creature with the body of a horse and the head and wings of an eagle. 
+
+Your task is to genotype a newly sequenced sample (frayfeather) which will help to understand more about the phenotypic characteristics of frayfeather. 
 Details of the observed links between genotype and phenotype can be found in the genotype_phenotype.txt file.
+Note that the phenotype associated with both the reference (REF) allele and the alternate (ALT) allele are described. 
 
 **Q3.1** Construct a pan-genome graph from this data using the reference sequence and the .vcf.
 When constructing this graph, keep in mind that we will be using it for genotyping.
-Visualise the graph in a format of your choice and provide a screenshot.
-You should also include the code that you used to create this visualisation.
+Visualise this graph in a format of your choice and screenshot the first part of the graph up to and including the first variant.
+Any visual form is acceptable but you should also include the code that you used to create this visualisation.
 
 [3 marks]
 
@@ -280,9 +292,13 @@ Would you expect this value to be higher or lower if the graph contained only th
 
 **Q3.3** Genotype the frayfeather sample.
 
-Which variants are present in frayfeather?
-Using the provided table (genotype_phenotype.txt) describing the phenotypes associated with each variant, list frayfeather's phenotypic characteristics based on the variant calling results.
-Note that you should have 9 items in your list.
+For which variants does frayfeather have the alternate allele?
+Provide the variant ID for these variants from column 3 of the vcf.
+
+Using the provided table (genotype_phenotype.txt) describing the phenotypes associated with each variant (for both the REF and ALT allele), list frayfeather's phenotypic characteristics associated with variants v1, v2, v3, and v4 (found in the ID column).
+Note that the hippogryph has a haploid genome.
+
+Comment on whether or not you think frayfeather would be a good choice for a long flight.
 
 [4 marks]
 
