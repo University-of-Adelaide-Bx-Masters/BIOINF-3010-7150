@@ -96,7 +96,7 @@ b) ***Normalise the sample read counts such that the total read counts for each 
 
 If you plot the normalised data, you should see something like:
 
-![Normalised read counts ](Q1p2_normalised.png)
+![Normalised read counts ](./../../images/Q1p2_normalised.png)
 
 **[Figure 1b: Normalised sample chromosome read counts]**
 
@@ -112,7 +112,8 @@ This should be the expected diploid normalised coverage depth for each chromosom
 
 Now if you plot the output, you should see something like:
 
-![Estimated ploidy](Q1p2_ploidy_estimates.png)
+![Estimated ploidy](./../../images/Q1p2_ploidy_estimates.png)
+
 **[Figure 1c: Estimated sample chromosome ploidy]**
 
 
@@ -142,7 +143,8 @@ A quick way to adjust for this is to perform the normalisation by excluding chro
 
 Plotting the adjusted ploidy estimates now should give you something like:
 
-![Estimated ploidy](Q1p2_ploidy_estimates_adj.png)
+![Estimated ploidy](./../../images/Q1p2_ploidy_estimates_adj.png)
+
 **[Figure 1d: Adjusted sample chromosome ploidy estimates]**
 
 ### Question 1 Part 3: Copy Number Variations (7 marks)
@@ -203,10 +205,10 @@ b) In the directory `/data/assignment3/Q1/` you will see also a number of BAM fi
 1. Generate a BED file with 1 MB intervals covering the entire genome.
 2. Use `bedtools multicov` to generate read counts data
 3. [OPTIONAL] perform read counts normalisation as per Part 2.
-4. Report CNV calls in samples. 
+4. Report CNV calls in samples.
 
 
-## Question 2 (12 marks)
+## Question 2 (13 marks)
 
 This question uses the same data for both parts. In `/data/assignment3/Q2` you should find these files:
 
@@ -214,6 +216,7 @@ This question uses the same data for both parts. In `/data/assignment3/Q2` you s
 mappable_region.fasta
 compound_mono_allele.bam
 compound_mono_allele.bam.bai
+agraph.vg
 ```
 
 Download these files. Launch IGV. 
@@ -235,7 +238,9 @@ Show the steps and reasonings for your answers. Include diagrams if you think it
 
 ### Question 2 Part 2: Graph genome (8 marks)
 
-**2.1** You have been provided with a file called `agraph.vg` in the assignment data folder that contains a graph constructed from the reference sequence you used for the first part of this question as well as three paths representing three different haplotypes.
+**2.1** You have been provided with a file called `agraph.vg` in the assignment data folder that contains a graph constructed from the reference sequence you used for the first part of this question.
+This graph has three paths through it representing three different haplotypes.
+
 Visualise the graph using `vg view -dunp graph.vg | dot -Tpdf -o <[output.pdf]` and provide a screenshot of your visualisation. 
 
 [2 marks]
