@@ -238,23 +238,23 @@ Show the steps and reasonings for your answers. Include diagrams if you think it
 
 ### Question 2 Part 2: Graph genome (8 marks)
 
-**2.1** You have been provided with a file called `agraph.vg` in the assignment data folder that contains a graph constructed from the reference sequence you used for the first part of this question.
+**Q2.1** You have been provided with a file called `agraph.vg` in the assignment data folder that contains a graph constructed from the reference sequence you used for the first part of this question.
 This graph has three paths through it representing three different haplotypes.
 
-Visualise the graph using `vg view -dunp graph.vg | dot -Tpdf -o <[output.pdf]` and provide a screenshot of your visualisation. 
+Visualise the graph using `vg view -dunp graph.vg | dot -Tpdf -o pdf_filename` and provide a screenshot of your visualisation.
 
 [2 marks]
 
-**2.2**	What do each of the four parameters provided to vg view do? 
+**Q2.2**	What do each of the four parameters provided to vg view do?
 
 [2 marks]
 
-**2.3**	Describe how each of the three paths (A, B, and C) through the graph are similar and different to the reference sequence. 
-You may reference the node numbers from the graph you visualised to do this. 
+**Q2.3**	Describe how each of the three paths (A, B, and C) through the graph are similar and different to the reference sequence.
+You may reference the node numbers from the graph you visualised to do this.
 
 [3 marks] 
 
-**2.4**	One of these paths represents the structural variation you saw in Question 2 Part 1. Which one is it? 
+**Q2.4**	One of these paths represents the structural variation you saw in Question 2 Part 1. Which one is it? 
 
 [1 mark]
 
@@ -265,20 +265,21 @@ You have been provided with a reference sequence `hippogryph.fasta` and the most
 Your task is to genotype a newly sequenced sample (frayfeather) to determine whether it is susceptible to a range of hippogryph diseases.
 Details of the observed links between genotype and phenotype can be found in the genotype_phenotype.txt file.
 
-**3.1** Construct a pan-genome graph from this data using the reference sequence and the .vcf.
+**Q3.1** Construct a pan-genome graph from this data using the reference sequence and the .vcf.
 When constructing this graph, keep in mind that we will be using it for genotyping.
 Visualise the graph in a format of your choice and provide a screenshot.
 You should also include the code that you used to create this visualisation.
 
 [3 marks]
 
-**3.2** Align the provided reads in `frayfeather.reads` to the graph. 
+**Q3.2** Align the provided reads in `frayfeather.reads` to the graph. 
 Report your alignment command and the average read mapping identity using `jq .identity`.
 Would you expect this value to be higher or lower if the graph contained only the **least** common variants found in the hippogryph population. 
 
 [2 marks]
 
-**3.3** Genotype the frayfeather sample.
+**Q3.3** Genotype the frayfeather sample.
+
 Which variants are present in frayfeather? Using the provided table (genotype_phenotype.txt) describing the phenotypes associated with each variant, describe frayfeathers susceptibility to the following diseases/conditions.
 
 - beak-rot
@@ -289,11 +290,11 @@ Which variants are present in frayfeather? Using the provided table (genotype_ph
 
 [4 marks]
 
-**3.5** Conceptual - How can using a pan-genome graph reduce reference bias?
+**Q3.5** Conceptual - How can using a pan-genome graph reduce reference bias?
 
 [2 mark]
 
-**3.6** Conceptual - In transcriptomics experiments, we align reads generated from RNA to a reference genome and determine the read depth for each gene in the reference.
+**Q3.6** Conceptual - In transcriptomics experiments, we align reads generated from RNA to a reference genome and determine the read depth for each gene in the reference.
 Greater read depth for a gene is equated with higher levels of expression than a gene with lower read depth. 
 In this way, we can make an estimate of relative gene expression. 
 This system relies on the assumption that reads are aligning equally well to all genes. 
