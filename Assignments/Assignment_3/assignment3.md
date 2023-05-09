@@ -78,7 +78,8 @@ chrom	AneuploidySamples00	AneuploidySamples01	AneuploidySamples02	AneuploidySamp
 
 If you plot the raw read counts for each sample, it should look something like this:
 
-![Unnormalised read counts ](Q1p2_unnormalised.png)
+![Unnormalised read counts ](./../../images/Q1p2_unnormalised.png)
+
 **[Figure 1a: unnormalised sample chromosome read counts]**
 
 While there is probably enough information already to make educated guesses about the aneuploidies present in the samples, if we want to be certain, we need to normalise the samples first.
