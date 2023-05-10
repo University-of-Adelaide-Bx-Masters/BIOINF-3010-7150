@@ -1,5 +1,8 @@
 # Clinical Genomics - Week 10: Part 2. Variant Filtering and Pedigree Analyses
+{:.no_toc}
 
+* TOC
+{:toc}
 ### Some backgound
 
 High-throughput sequencing is currently used ubiquitously in identifying the cause of a large range of genetic diseases.
