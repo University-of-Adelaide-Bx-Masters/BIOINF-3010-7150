@@ -43,18 +43,25 @@ https://samtools.github.io/bcftools/bcftools.html
 As our VCF file already has annotations attached, let's start by stripping off that information so we can start the process at the start (and hopefully learn a few things along the way!).
 
 ```bash
-# First let's make a working directory and copy the data over
-mkdir -p ~/Project_11 && cd $_
-cp ~/data/Variants/*  ~/Project_11/
+### First let's make a working directory and copy the data over
+mkdir -p ~/clinical_genomics && cd $_
+cp /shared/data/clinical_genomics/*  ~/clinical_genomics/
 
-# Then make a standalone conda environment and install BCFtools through bioconda
-conda create --name bcftoolsEnv
-conda activate bcftoolsEnv
-conda install -c bioconda bcftools
+### Then activate a standalone conda environment that contains BCFtools
+source activate bioinf
 
-# Finally, use BCFtools to remove fields but keep GT (genotypes)
+### Use BCFtools to remove fields but keep GT (genotypes)
 bcftools annotate -x FILTER,INFO,^FORMAT/GT trio.trim.vep.vcf.gz -Oz -o trio.trim.vcf.gz
+
+### Finally, let's index it
+# NOTE: In order to subset or retrieve data from a tab-delimited file (or any other delimited file for that matter), it is helpful to use an index. File indexes are like phone-books (if you can remember a time when people used phone books!) which are sorted alpha-numerically to make it easy to find a name/phone number.
+# A file index, commonly created by the program [`tabix`](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3042176/), can be created on most standard bioinformatics files (BED, VCF etc).
+# It is good practice to create an index every time you make a new VCF file, as most tasks require it to work. A number of variant toolkit's (`gatk`, `picard`, `sambamb`, etc...) will often create an index automatically for you. You can either use the `tabix` program using the VCF prefix (`tabix -p vcf`) or use the `bcftools` sub-command `bcftools index`
+bcftools index -t trio.trim.vcf.gz
 ```
+**NOTE:** If you get an _[E::hts_idx_push] Unsorted positions on sequence #1_ error on the index command, you can quickly sort the file again using the `bcftools sort` command and reindexing.
+
+List the files in the directory and see what is produced.
 
 
 ### Quick primer on VCF files and genotypes
@@ -126,12 +133,12 @@ Variants that are located close to indels can also indicate poor quality calls, 
 ### Adding a variant ID
 
 As you can probably imagine, each variant within the current reference genome has been extensively studied through the continual sampling of patients and individuals from around the world.
-Due to this, each variant that is found within an individual sequenced over the last ~10 years has been given an rsId in the [NCBI dbSNP database](https://www.ncbi.nlm.nih.gov/snp/).
-These rsIds are helpful because it gives you an extensive list of information about each particular variant.
+Due to this, each new variant identified is given an rsId in the [NCBI dbSNP database](https://www.ncbi.nlm.nih.gov/snp/).
+These rsIds are helpful because it provides an extensive list of information about each particular variant.
 
 This is actually not _technically_ correct anymore, as we have sampled so many genomes recently that the rsId numbers couldn't keep up!
 
-There are now databases such as the [genome aggregation database (gnomAD)](https://gnomad.broadinstitute.org/) that samples over 100,000 individuals.
+There are now databases such as the [genome aggregation database (gnomAD)](https://gnomad.broadinstitute.org/) that samples over 100,000 individuals (>75,000 whole genomes for gnomAD v3.1).
 
 ---
 ___>>> TASK <<<___
@@ -146,32 +153,15 @@ It is also helpful in finding potential loss-of-function (pLoF) variants.
 
 ---
 
-OK, back to annotating Ids.
-If we have a database of known Id, we can easily compare to the VCF file and add text to the ID field in the VCF (3rd field after CHROM and POS).
+OK, back to annotating IDs.
+If we have a database of known IDs, we can easily compare to the VCF file and add text to the ID field in the VCF (3rd field after CHROM and POS).
 For this we can use any type of tab-delimited file, but for this week I have provided the dbSNP reference VCF which is perfect for this task.
 
-**NOTE:** In order to subset or retrieve data from a tab-delimited file (or any other delimited file for that matter), it is helpful to use an index.
-File indexes are like phone-books (if you can remember a time when people used phone books!) which are sorted alpha-numerically to make it easy to find a name/phone number.
-A file index, commonly created by the program [`tabix`](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3042176/), can be created on most standard bioinformatics files (BED, VCF etc).
-Before running this annotation task, we need to also index both the database (_i.e.,_ our hg19.dbSNP.vcf.gz file) and the query (our VCF file that we want to add IDs to).
-It is also good practice to create an index every time you make a new VCF file, as most tasks require it to work.
-A number of variant toolkit's (`gatk`, `picard`, `sambamb`, etc...) will often create an index automatically for you.
-You can either use the `tabix` program using the VCF prefix (`tabix -p vcf`) or use the `bcftools` sub-command `bcftools index`
-
 ```bash
-# Index our files
+### First, let's index this dbSNP reference VCF
 bcftools index -t hg19.dbSNP.vcf.gz
-bcftools index -t trio.trim.vcf.gz
-```
 
-**NOTE:** If you get an _[E::hts_idx_push] Unsorted positions on sequence #1_ error on the index command, you can quickly sort the file again using the `bcftools sort` command and reindexing.
-
-List the files in the directory and see what is produced.
-
-Now we can add rsIDs using the `bcftools annotation` sub-command and output a new files with our IDs attached.
-
-```bash
-# Add Ids
+### Now we can add rsIDs using the `bcftools annotation` sub-command and output a new files with our IDs attached
 bcftools annotate -c CHROM,FROM,ID,REF,ALT \
     -a hg19.dbSNP.vcf.gz \
     -Oz -o trio.trim.dbSNP.vcf.gz trio.trim.vcf.gz
@@ -216,7 +206,7 @@ bcftools view -H trio.trim.vep.vcf.gz | head
 ...
 ```
 
-My eyes (glaven!).
+My eyes!
 So.....much......text......
 As you can see, there is a mass of information in the INFO field, all of which starts with a consequence tag (CSQ=).
 This field has a lot of information separated by pipes (|) and it is also possible to get multiple annotations per variant.
@@ -232,7 +222,7 @@ zgrep "^##INFO=<ID=CSQ" trio.trim.vep.vcf.gz
 ___>>> QUESTIONS <<<___
 ---
 
-1. How many variants have a reported "missense_variant"?
+1. How many variants have a reported "missense_variant"? (TIP: Have a look at the --include parameter in the bcftools view manual section)
 2. How many variants that are greater than quality 30 have a reported "missense_variant"?
 3. How many variants are annotated to have gained a stop codon?
 4. Can you find the variant we looked at before (rs191680234) and tell what type of variant it is and if it passes QC
