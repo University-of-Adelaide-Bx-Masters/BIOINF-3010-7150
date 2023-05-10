@@ -1,5 +1,9 @@
 # Week 7 Practical: **Genome Assembly** 
 *By Zhipeng Qu and Chelsea Matthews* 
+{:.no_toc}
+
+* TOC
+{:toc}
 
 Today we will be looking at *de novo* assembly with more of a focus on larger, more complex genomes.  
 
