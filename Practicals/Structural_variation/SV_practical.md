@@ -1,142 +1,125 @@
-# Week 9 Practical session 2: Structural variations - Paul Wang
+# Week 9 Practical Part 2: Structural variations
 
 {:.no_toc}
 
 * TOC
 {:toc}
 
+
 ## 1. Setting up data for this class
+---
 
 Create a working directory for this class and prepare the data
 
 ```bash
 # create working directory
-mkdir -p ~/Project_10_sv
+mkdir -p ~/wk9_sv
 # enter the directory
-cd ~/Project_10_sv
+cd ~/wk9_sv
 # copy the data file from ~/data
-cp ~/data/sv_data.tar.gz ./
-# extract the archived data
-tar -xvf sv_data.tar.gz
+cp ~/data/structural_variation/* ./
 
 ```
 
-You should now see these files in your working directory:
-
+You should now see these files in your working directory (`~/wk9_sv`):
 ```
 .
+|   ...(Data for Part 2)
+├── 10kbdel_diploid.bam
+├── 10kbdel_diploid.bam.bai
+├── 10kb_duplication_diploid.bam
+├── 10kb_duplication_diploid.bam.bai
+├── 10kb_inversion_diploid.bam
+├── 10kb_inversion_diploid.bam.bai
+├── balanced_translocation.bam
+├── balanced_translocation.bam.bai
+├── compound_mono_allele.bam
+├── compound_mono_allele.bam.bai
 ├── manta-1.6.0.centos6_x86_64.tar.bz2
+├── mappable_region.fasta
+├── mappable_region.fasta.fai
+|
+|   ...(Data for Part 3)
 ├── reference.fasta
 ├── reference.fasta.fai
-├── sample.R1.fastq.gz
-├── sample.R2.fastq.gz
 ├── sorted.bam
 └── sorted.bam.bai
 
-0 directories, 7 files
-
+0 directories, 17 files
 ```
 
-## 2. Preparing data for structural variation calling
 
-The data we are looking at today is sequenced from a Coriell sample (NA12878), which is part of the Genome in a Bottle project, which provides well characterised samples that can be used for benchmarking tools. We are using a very small region of WGS data from this sample, just reads from a 200kb region on chr 3.
+---
 
-### 2a. Preprocessing the data (mapping and sorting reads)
+## 2. Examples of structural variations
+---
 
-This step is optional, but highly recommended that you go through them.
-However, if it doesn't work,  you can simply use the pre-mapped and sorted data
-(`sorted.bam`), and go straight to part b), **Visualising the data**.
+The examples in this section are artificially generated read data for illustrating specific types of structural variations.
 
-First we need to prepare the reference for mapping.
+They are mapped to the reference file named `mappable_region.fasta`. 
 
-```bash
-bwa index reference.fasta
-```
 
-Then perform the alignment and read sorting:
+### 2a. Visualising the data (SV: Deletion)
 
-```bash
-bwa mem \
-  -t 2 \
-  -R '@RG\tID:1\tSM:sample' \
-  reference.fasta \
-  sample.R1.fastq.gz \
-  sample.R2.fastq.gz \
-  | samtools sort -@ 2 \
-  --write-index \
-  -o sorted.bam
-```
+Download the FASTSA and bam files (and their index files) onto your workstation (via RStudio's file browser). Use stand-alone IGV or go to `https://igv.org/app/` on a browser.
 
-Note that the `samtools sort` option `--write-index` creates a .csi index file,
-rather than .bai. If you come across a program that does not support .csi and
-requires .bai instead, you can generate .bai index by:
+(These instructions are for IGV web-app.)
 
-```
-samtools index sorted.bam
-```
+Load `mappable_region.fasta` and corresponding index file under **Genome**, and load `10kbdel_diploid.bam` and index under **Tracks**. 
 
-### 2b. Visualising the data
-
-Following the instructions for Week 3 Practical Part 1, visualise the mapped data by downloading the following files from the VM onto your workstation (via RStudio's file browser):
-
-```
-reference.fasta
-reference.fasta.fai
-sorted.bam
-sorted.bam.csi # (or sorted.bam.bai if you have that instead)
-```
-
-Load `reference.fasta` and corresponding index file under **Genome**, and
-load `sorted.bam` and index under **Tracks**.
+As the filename suggests, you should see a 10kb deletion.
 
 1. Start from the 3' end, zoom in until you can start seeing aligned reads and coverage track.
-2. To spot structural variations, it helps if you enable:
-  * View as pairs
-  * Color by: pair orientation & insert size (TLEN)
-  * Show soft clips
 
-You should be able to see the first SV at around 8,300-8,600bp.
-![IGV screenshot ](images/IGV.png)
+2. Use these settings to help detect the 10kb deletion:
+  * "Set track height": increase track height to 600 or higher (default is 300 pixels)
+  * "Color by": select "pair orientation & insert size (TLEN)"
+  * "Show soft clips"
+  * "View as pairs"
 
-* *What type of structural variation is this?*
-* *Is it heterozygous or homozygous?*
-* *Can you see the breakpoints? If so, use their co-ordinates and calculate the size of this SV.*
+You should be able to see the upstream breakpoint at 10,000bp.
 
-Now that you have some idea of what features to look for to spot an SV,
-try to find the next one downstream. To make the search a bit faster,
-zoom out so that the window view is ~25kb.
+![IGV screenshot ](images/IGV_del_upstream.png)
 
-(*Hint: It's before 60kb*)
+Features that indicate the presence of a breakpoint and a deletion:
 
-* *Answer the same questions as for the previous SV*
-* *What are the features that you used to spot this SV?*
-* *What makes it less easy to spot?*
+1. Sharp drop in the coverage track 
 
-## 3. Structural variation detection using manta
+2. Presence of many soft-clipped reads at the same location (the breakpoint) and have the same sequence.
 
-We are now going to use a SV caller to see if we can find any other SVs in this data.
+3. Highlighted (red) read pairs indicating fragments of unusually large size.
 
-Manta (https://github.com/Illumina/manta) detects structural variations in paired-end
-sequencing data by looking for breakpoints (split-reads), improper read-pairs, or inserts of usual sizes.
+Now look for the other end of the deletion. You can do:
 
-Manta works best with WGS data. For example, had we used the WES data for this sample
-instead, the previous two SVs likely will not have been detected,
-since they were not near any known exons.
+1. Keep scrolling left until you see a matching breakpoint.
+
+2. Zoom out (you may need to increase "Visibility Window" in the Settings) until you can see the entire deletion.
+
+3. Right-click on one of the highlighted fragments and select "View mate in split screen".
+
+
+### 2b. SV detection using manta
+
+You now have some idea how to spot a structural variant. However this can be quite tedious to do manually with large genome and many samples, so we are now going to use a SV caller to help us perform this process faster.
+
+Manta (https://github.com/Illumina/manta) detects structural variations in paired-end NGS data by looking for breakpoints (split-reads), improper read-pairs, or inserts of usual sizes.
+
+Manta works best with WGS data, because it relies in large part on being able to detect the breakpoints, which is often missed in captured data (such as WES and smaller panels). However, it is still able to detect SVs by read-pair orientations and insert sizes in those data.
 
 A pre-compiled version of manta is provided in the data. First you need to uncompress the file:
 
 ```bash
-tar xvf manta-1.6.0.centos6_x86_64.tar.bz2
+$ tar xvf manta-1.6.0.centos6_x86_64.tar.bz2
 ```
 
-This should have extracted into a directory called `manta` with 4 sub-directories.
+This should have extracted into a directory called `manta-1.6.0.centos6_x86_64` with 4 sub-directories.
 
 ```
-manta/
+manta-1.6.0.centos6_x86_64/
 ├── bin
-│   ├── configManta.py
-│   ├── configManta.py.ini
-│   └── runMantaWorkflowDemo.py
+│   ├── configManta.py
+│   ├── configManta.py.ini
+│   └── runMantaWorkflowDemo.py
 ├── lib
 ├── libexec
 └── share
@@ -146,11 +129,9 @@ Manta execution is a 2-step process, first you need to run `configManta.py`, whi
 
 Execute `configManta.py` with no arguments to see how to use the command:
 
-```bash
-$ manta/bin/configManta.py
 ```
+$ ~/wk9_sv/manta-1.6.0.centos6_x86_64/bin/configManta.py
 
-```
 Usage: configManta.py [options]
 
 Version: 1.6.0
@@ -174,27 +155,33 @@ Options:
 (etc...)
 ```
 
-*Feel free to figure out for yourself how to get it to run this sample!*
+First step is to execute `configManta.py`, which will generate manta workflow scripts. You may find it easier to use the executables if you add the manta `bin/` directory in your `PATH` variable. 
 
-First step is to execute `configManta.py`, which will generate manta workflow scripts.
+
+
 
 ```bash
 
-manta/bin/configManta.py \
-  --bam sorted.bam \
-  --referenceFasta reference.fasta \
-  --runDir manta_output
+$ configManta.py \
+  --bam 10kbdel_diploid.bam \
+  --referenceFasta mappable_region.fasta \
+  --runDir 10kb_del 
+
+Successfully created workflow run script.
+To execute the workflow, run the following script and set appropriate options:
+
+/shared/a1652490/wk9_sv/10kb_del/runWorkflow.py
 
 ```
 
-This should then create a sub-directory, `manta_output`, with the structure:
+This should then create a sub-directory, `10kb_del`, with the structure:
 
 ```
-manta_output/
+10kb_del/
 ├── results
-│   ├── evidence
-│   ├── stats
-│   └── variants
+│   ├── evidence
+│   ├── stats
+│   └── variants
 ├── runWorkflow.py
 ├── runWorkflow.py.config.pickle
 └── workspace
@@ -203,11 +190,10 @@ manta_output/
 Then execute the `runWorkflow.py` script within:
 
 ```
-manta_output/runWorkflow.py
+10kb_del/runWorkflow.py
 ```
 
 If everything goes well you should see something like this at the end of the standard output:
-
 ```
 [2022-05-11T01:36:39.577201Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner] Manta workflow successfully completed.
 [2022-05-11T01:36:39.577201Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner]
@@ -217,25 +203,24 @@ If everything goes well you should see something like this at the end of the sta
 [2022-05-11T01:36:39.578464Z] [bioinf-3010-2022-5] [218022_1] [WorkflowRunner] Elapsed time for full workflow: 2 sec
 ```
 
-Now, if you examine the directory `manta_output/results` you should see something like:
+Now, if you examine the directory `10kb_del/results` you should see something like:
 
 ```
-manta_output/
+.
 ├── results
-│   ├── evidence
-│   ├── stats
-│   │   ├── alignmentStatsSummary.txt
-│   │   ├── svCandidateGenerationStats.tsv
-│   │   ├── svCandidateGenerationStats.xml
-│   │   └── svLocusGraphStats.tsv
-│   └── variants
-│       ├── candidateSmallIndels.vcf.gz
-│       ├── candidateSmallIndels.vcf.gz.tbi
-│       ├── candidateSV.vcf.gz
-│       ├── candidateSV.vcf.gz.tbi
-│       ├── diploidSV.vcf.gz
-│       └── diploidSV.vcf.gz.tbi
-
+│   ├── evidence
+│   ├── stats
+│   │   ├── alignmentStatsSummary.txt
+│   │   ├── svCandidateGenerationStats.tsv
+│   │   ├── svCandidateGenerationStats.xml
+│   │   └── svLocusGraphStats.tsv
+│   └── variants
+│       ├── candidateSmallIndels.vcf.gz
+│       ├── candidateSmallIndels.vcf.gz.tbi
+│       ├── candidateSV.vcf.gz
+│       ├── candidateSV.vcf.gz.tbi
+│       ├── diploidSV.vcf.gz
+│       └── diploidSV.vcf.gz.tbi
 ```
 
 The most important file is the `diploidSV.vcf.gz` file, which contains the
@@ -246,83 +231,50 @@ Download this file and its index (`diploidSV.vcf.gz.tbi`) and load them into IGV
 It may be easier for viewing if you drag this track to be on top of the aligned reads track.
 You can do this by dragging the grey bar on the right side of the track.
 
-* Zoom out to the full view. As this is an index VCF file, you should be able
-to see all the variants present in the VCF file. How many SVs have been called?
+![IGV screenshot ](images/IGV_del_manta.png)
 
-* The first SV might be hidden or obscured by the track label. You can fix this
-by changing the track name (click on the gear icon to the right, and select
-  "Set track name") to "."
-
-#### SV 1
-
-Zoom in to the first SV in the VCF track (3:8297).
-
-  * *Is this the same SV that you identified visually previously?*
-  * *You should see a red bar and a blue bar. Click on them and see the information that shows up.*
-
-The red bar shows the information about the variant.
-
-![VCF INFO](images/VCF_redbox.png)
+Click on the darker blue bar on top. This provides the information about the location, size and type of the structural variant which has been identified by manta.
 
 
-The blue bar shows the sample specific information about this variant.
-Since we only have one sample in this VCF file, there is only one blue bar.
 
-This information tells us that the SV is a deletion (**SVTYPE** DEL), and the
-location is 3:8297-8613, and that the deletion size is 316bp. The quality score is
-very high, so it is likely to be a real SV (as opposed to some sort of alignment
-or sequencing artefact.)
 
-![VCF SAMPLE](images/VCF_bluebox.png)
+### 2c. Other types of SV
 
-The data in the blue bar tells us that the SV is a homozygous in this sample.
+Repeat the above processes (visual examination and SV-calling using manta) with:
 
-See [Manta user guide](https://github.com/Illumina/manta/blob/master/docs/userGuide/README.md)
-for description of these fields. The red bar contains VCF INFO fields, while
-the blue bar contains VCF FORMAT fields.
+* `10kb_duplication_diploid.bam`
 
-* *Find out the definitions of PR and SR fields from the Manta user guide.*
-* *What do the values PR: (0,49) and SR: (0,37) mean?*
+* `10kb_inversion_diploid.bam`
 
-#### SV 2
+* `balanced_translocation.bam`
 
-Now go to the second SV in the VCF file  (3:48966).
+Familiarise yourself with these examples. You'll need to understand them to be able to solve the assignment questions.
 
-* *The QUAL score for this variant is 708. Still very high, but lower than the previous one.
-Can you think of any reason why the score may be lower?*
 
-* *The Genotype for this variant is too long to be displayed properly, but it
-would have said*
-`CACCCTT.........TGATTG|C` *(where ... is some 850+ bases). So what is the
-zygosity of this variant according to Manta?*
+---
 
-#### SV 3-6
+## 3. SVs in Coriell sample NA12878
 
-To decode the SV event here, it might help if you consider all 4 events together.
+---
 
-* *Zoom out to a 25kb window size and try to fit all 4 events into the window like this:*
+This is an optional exercise. Try it if you wish to test what you have learnt above on an actual biological sample.
 
-![Complex case](images/complex_case.png)
+The data for this part is sequenced from a Coriell sample (NA12878) from the Genome in a Bottle project, which provides well characterised samples that can be used for benchmarking tools. We are using a very small region of WGS data from this sample, just reads from a 200kb region on chr 3. The read data (`sorted.bam`) have been remapped to the truncated chr3 region (`reference.fasta`). 
 
-* *From the coverage track, what would be your first guess of what SV occured here?*
+**Exercises:**
 
-Previously the deletion events have read pairs with unusually large insert sizes
-coloured in reddish brown.
-
-* *What are the colours of the read pairs with large inserts?*
-* *What do those colours mean?*
-
-Click on the VCF SV events.
-  *  *What are the SV event types?*
-  *  *What does it mean? (look up in Manta user manual)*
-  *  *Why are they not marked as 'MantaDEL' (i.e. deletions)?*
+* *Load the bam file and the reference file to IGV.*
+* *How many SVs can you identify visually? Write down as many as you can see.*
+* *Run manta on this data. Does the manta output match the results of your visual inspection?*
 
 
 -----
 
 ## 4. Interpreting copy number variation data
 
-#### 4a. Background
+-----
+
+### 4a. Background
 
 SNP array data can be used to detect CNV in samples. For each probe, we obtain
 the intensities for the A and B alleles, X and Y. X/Y values of individual locus
@@ -380,7 +332,9 @@ Panel A in figure above is a useful way to display how many different clusters o
 (Yau and Holmes, 2008)
 
 
-#### 4b. Interpreting data
+
+
+### 4b. Interpreting data
 
 This is a set of published SNP array data (*), showing the B-allele frequency (BAF)
 on the top panel, and the Log-R-Ratio (normalised light intensity).
