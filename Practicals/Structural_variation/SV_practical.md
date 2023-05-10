@@ -170,7 +170,7 @@ $ configManta.py \
 Successfully created workflow run script.
 To execute the workflow, run the following script and set appropriate options:
 
-/shared/a1652490/wk9_sv/10kb_del/runWorkflow.py
+~/wk9_sv/10kb_del/runWorkflow.py
 
 ```
 
