@@ -13,7 +13,7 @@ The current clinical workflow works a lot like this:
 
 ![Priest. (2017). _Curr Opin Pediatr_. 29(5): 513–519.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5590671/bin/nihms899674f1.jpg)
 
-In yesterday's tutorial, we discussed annotation of identified variants in three samples, and today we will be looking at family inheritance patterns.
+In the previous tutorial, we discussed annotation of identified variants in three samples, and today we will be looking at family inheritance patterns.
 As you may have noticed, the three samples sequenced in our data are related, and form a "trio" (mother-father-daughter). 
 Trios and other members of an affected individual's family are often sequenced in clinical genetics, allowing clinicians to establish the inheritance pattern of the trait or identify new _de novo_ mutations that may have arisen independently of the parents.
 
@@ -33,10 +33,9 @@ It comes in many flavours that you might have heard before, including `MySQL`, `
 Now let's create and activate a conda environment with Gemini installed:
 ```bash
 # First go to the working directory we created yesterday:
-cd ~/Project_11/
-# Here is a command to create a conda environment based on a list of all required packages "geminiEnv.txt"):
-conda create -n geminiEnv --file /home/student/data/Variants/geminiEnv.txt
-conda activate geminiEnv
+cd ~/clinical_genomics
+# Activate a conda environment with Gemini installed:
+source activate geminiEnv
 # Let's make sure we can now use Gemini:
 gemini -h
 ```
@@ -113,7 +112,7 @@ ___>>> TASK <<<___
 
 #### Build your query
 Now that we known the query structure and tables that we have in our database, construct some more sophisticated queries.
-1. Extract the chromosome and position of the variants in the database that have a 1000 genome allele frequency in Europeans (aaf_1kg_eur) less than 0.5. How many are there?
+1. Extract the chromosome and position of all variants in the database ("FROM variants") that have a 1000 genome allele frequency in Europeans (aaf_1kg_eur) less than 0.5. How many are there?
 2. Extract all the variants within the genes MAPK12 that have a variant quality > 200. How many are there? How many are also QUAL > 500?
 3. How many variants that were marked as "PASS" quality were concordant?
 
@@ -228,11 +227,11 @@ ___>>> TASK <<<___
 ---
 #### Find candidate genes for Hypobetalipoproteinemia
 
-- Generate a list of the variants that have 'HIGH' and 'MODERATE' impact. How many do you have?
-- Build up some additional filters 
+1. Generate a list of the variants that have 'HIGH' and 'MODERATE' impact. How many do you have?
+2. Build up some additional filters 
   - For example, the variant is likely to be rare in the European population, so it might be good to look at allele-frequency's < 0.01 in Europeans.
     - This can be either from gnomAD, ExAC or 1000genomes allele-frequencies (gnomAD generally has the most accurate frequencies)
-- Generate a list of candidate genes based on your data 
+3. Generate a list of candidate genes based on your data 
 ---
 
 ---
@@ -242,7 +241,7 @@ ___>>> EXTRA TASK <<<___
 
 #### Recessive example
 
-- Do the same exercise with the recessive database: ___trio.trim.vep.recessive.db___
-- What `gemini` functions can be employed to identify recessive variants?
+1. Do the same exercise with the recessive database: ___trio.trim.vep.recessive.db___
+2. What `gemini` functions can be employed to identify recessive variants?
 
 ---
