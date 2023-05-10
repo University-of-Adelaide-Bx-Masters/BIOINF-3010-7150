@@ -1,6 +1,8 @@
 
 # Clinical Genomics Practicals - Week 10 - Julien Soubrier
+{:.no_toc}
 
+* TOC {:toc}
 Practicals for clinical genomics are split into two tutorials:
 
 1. Variant Annotation (Tuesday)
