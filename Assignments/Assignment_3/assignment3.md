@@ -42,10 +42,8 @@ From `idxstat` documentation (http://www.htslib.org/doc/samtools-idxstats.html) 
 
 * reference sequence name (chrom name)
 * sequence length
-* \# mapped read-segments 
-* \# unmapped read-segments 
-
-&nbsp;
+* mapped read-segments 
+* unmapped read-segments 
 
 Write a BASH script to generate a TSV table that contains the per-chromosome read counts for each sample. The table only needs to include chromosomes 1-22 and X. The output should look like:
 
