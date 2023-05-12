@@ -65,9 +65,11 @@ chrom	AneuploidySamples00	AneuploidySamples01	AneuploidySamples02	AneuploidySamp
 .
 ```
 
-***Save the output as `A3Q1.read_counts.tsv`.***
+**Submit:**
 
-***Include the script in your submission as `A3Q1.read_counts_script.sh`***
+* *The script you created to generate the results table. Save as `Q1p1.read_counts_script.sh`. This script, when placed in the same directory as the BAM files and executed, should generate the output table.*
+
+* *The output data as `Q1p1.read_counts.tsv`*
 
 
 ### Question 1 Part 2: Aneuploidy (5 marks)
