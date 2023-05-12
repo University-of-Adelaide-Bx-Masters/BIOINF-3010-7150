@@ -74,6 +74,8 @@ chrom	AneuploidySamples00	AneuploidySamples01	AneuploidySamples02	AneuploidySamp
 
 ### Question 1 Part 2: Aneuploidy (5 marks)
 
+---
+
 (You can do the following using whatever software you like, e.g. Python, R or MS Excel).
 
 If you plot the raw read counts for each sample, it should look something like this:
@@ -157,6 +159,8 @@ Plotting the adjusted ploidy estimates now should give you something like:
 
 
 ### Question 1 Part 3: Copy Number Variations (7 marks)
+
+---
 
 a) Rather than using the script in Part 1, you can generate the same coverage data (read counts per chromosome per sample) with a single command using `bedtools multicov`. 
 
