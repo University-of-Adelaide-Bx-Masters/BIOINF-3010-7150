@@ -147,6 +147,15 @@ Plotting the adjusted ploidy estimates now should give you something like:
 
 **[Figure 1d: Adjusted sample chromosome ploidy estimates]**
 
+**Submit:**
+
+* *Calculations for normalisation steps. If using Python or R, submit the appropriate script with comments annotating each step. If using a spreadsheet program, submit worksheet in Excel format.*
+
+* *Final adjusted sample chromosome ploidy estimates in table form (CSV, TSV or Excel.)*
+
+* *List of aneuploidy events in samples*
+
+
 ### Question 1 Part 3: Copy Number Variations (7 marks)
 
 a) Rather than using the script in Part 1, you can generate the same coverage data (read counts per chromosome per sample) with a single command using `bedtools multicov`. 
