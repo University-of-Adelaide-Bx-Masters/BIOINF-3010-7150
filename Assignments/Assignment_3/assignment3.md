@@ -151,11 +151,13 @@ Plotting the adjusted ploidy estimates now should give you something like:
 
 **Submit:**
 
-* *Calculations for normalisation steps. If using Python or R, submit the appropriate script with comments annotating each step. If using a spreadsheet program, submit worksheet in Excel format.*
+* submit files with prefix Q1p2
 
-* *Final adjusted sample chromosome ploidy estimates in table form (CSV, TSV or Excel.)*
+* *Calculations for normalisation steps. If using Python or R, submit the appropriate script with comments annotating each step. If using a spreadsheet program, submit worksheet in Excel format.* (`Q1p2.working.*`)
 
-* *List of aneuploidy events in samples*
+* *Final adjusted sample chromosome ploidy estimates in table form (CSV, TSV or Excel.)* (`Q1p2.ploidy_estimates.*`)
+
+* *List of aneuploidy events in samples* (`Q1p2.aneuploidy_events.txt`)
 
 
 ### Question 1 Part 3: Copy Number Variations (7 marks)
