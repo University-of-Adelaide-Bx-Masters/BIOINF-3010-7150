@@ -17,7 +17,7 @@ The current clinical workflow works a lot like this:
 ![Priest. (2017). _Curr Opin Pediatr_. 29(5): 513–519.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5590671/bin/nihms899674f1.jpg)
 
 In the previous tutorial, we discussed annotation of identified variants in three samples, and today we will be looking at family inheritance patterns.
-As you may have noticed, the three samples sequenced in our data are related, and form a "trio" (mother-father-daughter). 
+As you may have noticed, the three samples sequenced in our data are related, and form a "trio" (mother-father-son). 
 Trios and other members of an affected individual's family are often sequenced in clinical genetics, allowing clinicians to establish the inheritance pattern of the trait or identify new _de novo_ mutations that may have arisen independently of the parents.
 
 ### This week's tutorial
