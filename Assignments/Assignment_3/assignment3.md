@@ -122,7 +122,7 @@ Now if you plot the output, you should see something like:
 ***List the aneuploidy events.***
 
 
-d) In the figure above (Fig. 1c), you can see that there are several points (e.g. `AneuploidySample04` chr5, `AneuploidySample02` chr14) that appear to be outliers but the ploidy estimates do not reach a full allele gain.
+d) In the figure above (Fig. 1c), you can see that there are several points (e.g. `AneuploidySample04` chr8, `AneuploidySample02` chr14) that appear to be outliers but the ploidy estimates do not reach a full allele gain.
 
 While it is possible to have mosaicism with aneuploidies (i.e. mixture of normal and aneuplodic cells) which can account for fractional gains and losses, in this case, these are actually just normalisation artefacts.
 
