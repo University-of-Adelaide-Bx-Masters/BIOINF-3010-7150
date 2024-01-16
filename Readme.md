@@ -10,20 +10,20 @@ Semester 1 2023 - *Provisional Timetable*
 
 | **Week** | **Monday** | **Lecture**                                       | **Practical**                                     |
 |----------|------------|---------------------------------------------------|---------------------------------------------------|
-| **1**    | 27/2       | Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (Dave) | [Introduction to Bash 1] (Dave)   [Introduction to Bash 2] (Dave)                  |
-| **2**    | 6/3        | Resequencing (Exome/WGS)     (Dave)                    |[Read Quality Control] (Dave)[Read Quality Control contd] |
-| **3**    | 13/3       | **No lecture - Public Holiday**  | [SAMTools and alignments] (Dave)   [SARS-CoV-2 Resequencing] (Dave)      |
-| **4**    | 20/3       | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave)  |[Intro to BLAST] (Dave)     [BLAST practical] (Dave)          |
-| **5**    | 27/3       | Short read assembly; approaches and issues (Dave)  | [Short and long read alignment]  (Anna)   [SARS-CoV-2 Short Read Assembly] (Dave)     |
-| **6**    | 3/4        | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (Anna)  | [E. coli K-12 Hybrid Genome Assembly] (Anna)  **Friday no practical -public holiday**                         |
-| **-**    |            |  |    MID-SEMESTER BREAK                                             |
-| **7**    | 24/4       | _De novo_ assembly genome size estimate (k-mers), coverage. (Zhipeng)  | **Tuesday no practical - public holiday**   [Genome Assembly I] (Zhipeng)         |
-| **8**    | 1/5        | Genome Graphs (Chelsea)  | [Genome Assembly II] (Zhipeng) [Genome graphs1] (Chelsea)           |
-| **9**    | 8/5        | Structural variation and cancer genomics (Paul)  |  [Genome graphs2] (Chelsea) [Structural variation] (Paul)      |
-| **10**   | 15/5       | Variant calling and high-throughput genotyping (Julien) |  [Clinical genomics1] (Julien)  [Clinical genomics2] (Julien)         |
-| **11**   | 22/5       | Population genomics (Yassine) | [Population genomics1] (Yassine)  [Population genomics2] (Yassine)              |
-| **12**   | 29/5       | Wrap up lecture (Dave) |  Open Prac session for PG major projects only  Tuesday (Dave)  Open Prac session for PG major projects only  - Friday (Dave)           |
-| **13**   | 5/6        |   **Monday public holiday**         |   TBD        |
+| **1**    | 26/2       | Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (Dave) | [Introduction to Bash 1] (Dave)   [Introduction to Bash 2] (Dave)                  |
+| **2**    | 4/3        | Resequencing (Exome/WGS)     (Dave)                    |[Read Quality Control] (Dave)[Read Quality Control contd] |
+| **3**    | 11/3       | **No lecture - Public Holiday**  | [SAMTools and alignments] (Dave)   [SARS-CoV-2 Resequencing] (Dave)      |
+| **4**    | 18/3       | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave)  |[Intro to BLAST] (Dave)     [BLAST practical] (Dave)          |
+| **5**    | 25/3       | Short read assembly; approaches and issues (Dave)  | [Short and long read alignment]  (Anna)   [SARS-CoV-2 Short Read Assembly] (Dave)     |
+| **6**    | 1/4        | **No lecture - Public Holiday** Lecture during first hour of Wednesday prac session  | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles lecture (Anna) - Major Project information (Wed) [E. coli K-12 Hybrid Genome Assembly] (Anna, Thurs)     |
+| **-**    |            |  |    **MID-SEMESTER BREAK**                                             |
+| **7**    | 22/4       | _De novo_ assembly genome size estimate (k-mers), coverage. (Zhipeng)  |    [Genome Assembly I] (Zhipeng) **Thursday no practical - public holiday**        |
+| **8**    | 29/4        | Genome Graphs (Chelsea)  | [Genome Assembly II] (Zhipeng) [Genome graphs1] (Chelsea)           |
+| **9**    | 6/5        | Structural variation and cancer genomics (Paul)  |  [Genome graphs2] (Chelsea) [Structural variation] (Paul)      |
+| **10**   | 13/5       | Variant calling and high-throughput genotyping (Julien) |  [Clinical genomics1] (Julien)  [Clinical genomics2] (Julien)         |
+| **11**   | 20/5       | Population genomics (Yassine) | [Population genomics1] (Yassine)  [Population genomics2] (Yassine)              |
+| **12**   | 27/5       | Wrap up lecture (Dave) |  Open Prac session for PG major projects only  Tuesday (Dave)  Open Prac session for PG major projects only  - Friday (Dave)           |
+| **13**   | 3/6        |   TBD        |   TBD        |
 
 [Introduction to Bash 1]: Practicals/Bash_Practicals/1_IntroBash.md
 [Introduction to Bash 2]: Practicals/Bash_Practicals/2_BashScripting.md
