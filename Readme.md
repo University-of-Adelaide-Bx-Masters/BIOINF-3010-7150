@@ -33,7 +33,7 @@ Practical 01: Wednesday 9am-11am, Ingkarni Wardlii 218
 - 28 Feb --- 29 May
 
 Practical 02: Thursday 9am-11am, Ingkarni Wardlii 218
--29 Feb --- 30 May
+- 29 Feb --- 30 May
 
 ### Lecture and Practical Timetable
 
