@@ -6,11 +6,11 @@
 
 Semester 1 2024 - *Provisional Timetable*
 
-Coordinator:
+### Coordinator:
 
 - Dave Adelson
 
-Instructors:
+#### Instructors:
 
 - Dave Adelson
 - Anna Sheppard
@@ -20,12 +20,12 @@ Instructors:
 - Julien Soubrier
 - Yassine Souilmi
 
-**Course contact** Dave Adelson
+#### Course contact Dave Adelson
 - email: david.adelson@adelaide.edu.au
 - Phone: 08 8313 7555
 - Office: Molecular Life Sciences Rm 2.10
 
-**Contact hours**
+#### Contact hours
 Lectures: Monday 9am, Napier LG28
 - 26 Feb --- 27 May
 
