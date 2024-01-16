@@ -29,7 +29,7 @@ Instructors:
 Lectures: Monday 9am, Napier LG28
 - 26 Feb --- 27 May
 
-Practical 01: Wednesday 9am-11am, Ingkarni Wardlii 218
+Practical 01: Wednesday 9am-11am, Ingkarni Wardlii 218  
 - 28 Feb --- 29 May
 
 Practical 02: Thursday 9am-11am, Ingkarni Wardlii 218
