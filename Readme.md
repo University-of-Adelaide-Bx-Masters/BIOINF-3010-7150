@@ -6,6 +6,35 @@
 
 Semester 1 2024 - *Provisional Timetable*
 
+Coordinator:
+
+- Dave Adelson
+
+Instructors:
+
+- Dave Adelson
+- Anna Sheppard
+- Zhipeng Qu
+- Chelsea Matthews
+- Paul Wang
+- Julien Soubrier
+- Yassine Souilmi
+
+**Course contact** Dave Adelson
+- email: david.adelson@adelaide.edu.au
+- Phone: 08 8313 7555
+- Office: Molecular Life Sciences Rm 2.10
+
+**Contact hours**
+Lectures: Monday 9am, Napier LG28
+- 26 Feb --- 27 May
+
+Practical 01: Wednesday 9am-11am, Ingkarni Wardlii 218
+- 28 Feb --- 29 May
+
+Practical 02: Thursday 9am-11am, Ingkarni Wardlii 218
+-29 Feb --- 30 May
+
 ### Lecture and Practical Timetable
 
 | **Week** | **Monday** | **Lecture**                                       | **Practical**                                     |
