@@ -1,4 +1,4 @@
-# Week 9 Practical Part 2: Structural variations
+# Structural Variation Practical
 
 {:.no_toc}
 

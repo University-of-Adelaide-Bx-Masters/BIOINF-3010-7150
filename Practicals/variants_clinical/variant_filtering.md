@@ -1,4 +1,4 @@
-# Clinical Genomics - Week 10: Part 2. Variant Filtering and Pedigree Analyses
+# Clinical Genomics Practical: Part 2 Variant Filtering and Pedigree Analyses -Julien Soubrier
 {:.no_toc}
 
 * TOC

@@ -1,5 +1,5 @@
 
-## Graph Genomes Week 9 - Practical 2
+## Graph Genomes Practical: Part 2
 
 ## Chelsea Matthews - modified from Yassine Souilmi
 

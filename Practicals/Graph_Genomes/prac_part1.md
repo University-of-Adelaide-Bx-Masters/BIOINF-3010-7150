@@ -1,6 +1,6 @@
 # BIOINF 3010 & 7150⋅
 
-## Graph Genomes Week 8 Practical 1
+## Graph Genomes Practical: Part 1
 
 ## Chelsea Matthews
 

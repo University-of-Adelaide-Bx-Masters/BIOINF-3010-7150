@@ -1,4 +1,4 @@
-# Week 6 Practical: Hybrid Genome Assembly
+# Hybrid Genome Assembly Practical
 {:.no_toc}
 
 * TOC

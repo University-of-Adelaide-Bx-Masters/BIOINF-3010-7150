@@ -1,5 +1,5 @@
 
-# BLAST Practical - Week 4 Practical 2 - Dave Adelson
+# BLAST Practical: Part 2 - Dave Adelson
 {:.no_toc}
 
 * TOC

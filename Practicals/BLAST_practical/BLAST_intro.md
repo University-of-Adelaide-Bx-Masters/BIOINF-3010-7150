@@ -1,4 +1,4 @@
-# Introduction to BLAST - Week 4 practical 1 - Dave Adelson
+# Introduction to BLAST practical: Part 1 - Dave Adelson
 
 We should really run a full course just on BLAST, but here we just show you how to use it for some common scenarios.
 {:.no_toc}

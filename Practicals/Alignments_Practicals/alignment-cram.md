@@ -1,4 +1,4 @@
-# Week 3 Practical Part 1: SAMtools and alignments practical
+# SAMtools and alignments practical : Part 1
 
 ## By Jimmy Breen, updated/adapted by Dave Adelson
 

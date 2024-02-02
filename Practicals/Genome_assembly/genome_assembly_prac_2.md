@@ -1,4 +1,4 @@
-# Week 7 Practical: **genome assembly - continued** 
+# Genome Assembly Practical: Part 2 
 *By Zhipeng Qu and Chelsea Matthews*
 
 This practical will continue on from the first session of Practical genome assembly. 

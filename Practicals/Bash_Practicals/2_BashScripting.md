@@ -1,4 +1,4 @@
-# Week 1 Practicals
+# Bash practical: Part 2
 {:.no_toc}
 
 * TOC

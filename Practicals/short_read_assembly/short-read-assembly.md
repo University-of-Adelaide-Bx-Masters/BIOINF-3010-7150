@@ -1,4 +1,4 @@
-# Week 5 Practical: SARS-CoV-2 Short Read Assembly
+# SARS-CoV-2 Short Read Assembly Practical
 ## By Nathan Watson-Haigh, updated/adapted by Dave Adelson
 {:.no_toc}
 

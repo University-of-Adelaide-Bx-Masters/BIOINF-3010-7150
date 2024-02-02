@@ -1,4 +1,4 @@
-# Week 5 Practical: Short and Long Read Alignment
+# Short and Long Read Alignment Practical
 ## By Nathan Watson-Haigh, updated/adapted by Dave Adelson and Anna Sheppard
 {:.no_toc}
 

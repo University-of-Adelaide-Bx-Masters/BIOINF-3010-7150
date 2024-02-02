@@ -1,4 +1,4 @@
-# Week 7 Practical: **Genome Assembly** 
+# Genome Assembly Practical: Part 1
 *By Zhipeng Qu and Chelsea Matthews* 
 {:.no_toc}
 

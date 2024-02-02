@@ -1,14 +1,9 @@
 
-# Clinical Genomics Practicals - Week 10 - Julien Soubrier
+# Clinical Genomics Practical: Part 1 Variant Annotation - Julien Soubrier
 {:.no_toc}
 
 * TOC
 {:toc}
-
-Practicals for clinical genomics are split into two tutorials:
-
-1. Variant Annotation (Tuesday)
-2. Variant Filtering and Pedigree Analyses (Friday)
 
 ## Some backgound on Clinical Genomics
 

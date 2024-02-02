@@ -1,4 +1,4 @@
-# Week 2 Practical
+# Read Quality Control Practical
 
 {:.no_toc}
 
