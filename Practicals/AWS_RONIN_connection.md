@@ -7,7 +7,7 @@ Accessing your cloud compute resource is like having your very own server.
 **Follow all instructions here very, very carefully**
 
 1. Open your favourite internet browser. We recommend Firefox, but Edge/Chrome are also acceptable. Safari has not been tested.
-2. Enter the following address (`https://rstudio-ubuntu.uoa.cloud:4200`) in the address bar of your browser.
+2. Enter the following address (`http://rstudio-ubuntu.uoa.cloud:4200`) in the address bar of your browser. *It is important that you use `http` and **NOT** `https`.*
 3. You should see this login screen  
 
     ![AWS RONIN shell in a box](./Bash_Practicals/images/shell_in_a_box.png)
@@ -45,6 +45,8 @@ Accessing your cloud compute resource is like having your very own server.
 
 6. Use your UoA id (a1234567) and paste the password that you copied in the password box. __You have two minutes to complete this__ if you don't complete in time, you have to start over. 
 
+   Note that you may experience problems with copy/paste of the password. If you do, make sure you paste as `plain text`, if that does not work, copy the password to a plain text document, re-copy it from there and try again. 
+   
     You now have access to your cloud compute resource (VM). 
 
     - Every time you log in to your VM you will be given a new one-time password that you have to paste into the Rstudio login panel.
