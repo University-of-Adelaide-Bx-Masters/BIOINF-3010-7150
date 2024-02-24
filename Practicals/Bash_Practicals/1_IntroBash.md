@@ -11,7 +11,7 @@
 The practicals that you will be participating in will make use of cloud compute resources that are provided by The University as a [virtual machine](https://en.wikipedia.org/wiki/System_virtual_machine) (VM).
 The VM is essentially a program that is running on a server but which behaves as though it is an individual separate computer.
 You will be able to log in to the VM and interact with the programs that it has installed.
-The VMs provided each have 2 CPU cores, 16GB of system memory and 80GB of hard disk space.
+The VMs provided each have 2 CPU cores, 16GB of system memory and a lot of shared hard disk space. That said, I encourage you to keep your stored files to a sensible minimum. Delete old data that you have moved from `./data` to your directory as it can be moved back if needed. 
 They are yours to use for the semester, but they are also yours to look after.
 The University runs these VMs on AWS RONIN (Amazon Web Services) and pays by the minute for `cpu` time and for the storage. Because of this, we have implemented auto shutdown of VMs if they remain idle for too long (idle means no jobs running or no user input).
 
