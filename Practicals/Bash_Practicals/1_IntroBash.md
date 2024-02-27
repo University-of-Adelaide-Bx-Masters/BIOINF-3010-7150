@@ -558,7 +558,7 @@ As well as entering the command `man` before the name of a command you need help
 Note the convention of a single hyphen which indicates an individual letter will follow, or a double-hyphen which indicates that a word will follow.
 Unfortunately the methods can vary a little from command to command, so if one method doesn't get you the manual, just try one of the others.
 
-Sometimes it can take a little bit of looking to find something and it's important to be realise we won't break the computer or accidentally launch a nuclear bomb when we look around.
+Sometimes it can take a little bit of looking to find something and it's important to realise we won't break the computer or accidentally launch a nuclear bomb when we look around.
 It's very much like picking up a piece of paper to see what's under it.
 If you don't find something at first, just keep looking and you'll find it eventually.
 
