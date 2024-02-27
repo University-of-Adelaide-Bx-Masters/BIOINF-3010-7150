@@ -155,6 +155,51 @@ cd ..
 
 The string `..` means *one directory above* (the parent directory), whilst a single dot represents the current directory.
 
+#### Directory structure as a tree  
+
+This what the directory structure of the `root` level directory looks like, where the `.` represents `/`. 
+
+```
+.
+├── Anaconda3-2022.10-Linux-x86_64.sh
+├── apps
+├── bin -> usr/bin
+├── boot
+├── dev
+├── environment -> .singularity.d/env/90-environment.sh
+├── etc
+├── home
+├── init
+├── lib -> usr/lib
+├── lib32 -> usr/lib32
+├── lib64 -> usr/lib64
+├── libexec
+├── libssl1.1_1.1.0g-2ubuntu4_amd64.deb
+├── libx32 -> usr/libx32
+├── media
+├── mnt
+├── opt
+├── proc
+├── rocker_scripts
+├── root
+├── run
+├── sbin -> usr/sbin
+├── shared
+├── singularity -> .singularity.d/runscript
+├── srv
+├── sys
+├── tmp
+├── usr
+└── var
+```
+
+This is what the structure of my home directory **/shared/a12345657/** looks like, where the`.` represents `/shared/a1234567/`  
+
+![home directory tree](./images/VM_home_dir_tree.png)
+
+Your home directory may differ slightly from mine.
+
+
 #### Question
 {:.no_toc}
 
@@ -229,50 +274,6 @@ pwd
 ```
 
 This is where we started the session.
-
-#### Directory structure as a tree  
-
-This what the directory structure of the `root` level directory looks like, where the `.` represents `/`. 
-
-```
-.
-├── Anaconda3-2022.10-Linux-x86_64.sh
-├── apps
-├── bin -> usr/bin
-├── boot
-├── dev
-├── environment -> .singularity.d/env/90-environment.sh
-├── etc
-├── home
-├── init
-├── lib -> usr/lib
-├── lib32 -> usr/lib32
-├── lib64 -> usr/lib64
-├── libexec
-├── libssl1.1_1.1.0g-2ubuntu4_amd64.deb
-├── libx32 -> usr/libx32
-├── media
-├── mnt
-├── opt
-├── proc
-├── rocker_scripts
-├── root
-├── run
-├── sbin -> usr/sbin
-├── shared
-├── singularity -> .singularity.d/runscript
-├── srv
-├── sys
-├── tmp
-├── usr
-└── var
-```
-
-This is what the structure of my home directory **/shared/a12345657/** looks like, where the`.` represents `/shared/a1234567/`  
-
-![home directory tree](./images/VM_home_dir_tree.png)
-
-Your home directory may differ slightly from mine.
 
 
 #### Tab auto-completion
