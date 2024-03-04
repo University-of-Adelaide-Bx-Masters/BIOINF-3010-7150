@@ -55,7 +55,7 @@ This will activate the three software tools (`fastqc`, `trimmomatic` and `fastp`
 When you do this, your prompt will change and you will see something like this:
 
 ```bash
-(base) a1234567@ip-10-255-0-115:/shared/a1234567$
+(bioinf) a1234567@ip-10-255-0-115:/shared/a1234567$
 ```
 
 the `(base)` prefix lets you know you are in the `base` conda environment, with access to the packages installed for that environment. Don't worry if this seems confusing, just be aware that if we instruct you to use `conda` packages in future practicals that you must use `source activate bioinf` to be able to access those applications/programs.
