@@ -7,7 +7,7 @@ Accessing your cloud compute resource is like having your very own server.
 **Follow all instructions here very, very carefully**
 
 1. Open your favourite internet browser. We recommend Firefox, but Edge/Chrome are also acceptable. Safari has not been tested.
-2. Enter the following address (`https://rstudio-ubuntu.uoa.cloud:4200`) in the address bar of your browser. You can ignore any warning about this being insecure. *You need to use `https` and **NOT** `http`.*
+2. Enter your login node address (`https://rstudio-ubuntuN.uoa.cloud:4200`) , where N is your login node number, in the address bar of your browser. You can ignore any warning about this being insecure. *You need to use `https` and **NOT** `http`.*
 3. You should see this login screen  
 
     ![AWS RONIN shell in a box](./Bash_Practicals/images/shell_in_a_box.png)
@@ -37,7 +37,7 @@ Accessing your cloud compute resource is like having your very own server.
 
     __Make sure you copy the password before proceeding__
 
-5. Open a new browser tab as instructed above and type in the URL given above (`http://rstudio-ubuntu.uoa.cloud:8001`) *for this step it is essential that you **use `http` and NOT `https`**
+5. Open a new browser tab as instructed above and type in the URL given to you earlier, for example, (`http://rstudio-ubuntu.uoa.cloud:8001`) *for this step it is essential that you **use `http` and NOT `https`**
 
     you should see the following login screen. 
 
@@ -57,7 +57,7 @@ Accessing your cloud compute resource is like having your very own server.
 You can access your VM:
 
 - When connected directly to the University WiFi Network
-- When connected from another network using the [University of Adelaide VPN](https://www.adelaide.edu.au/technology/your-services/network-services/remote-access-via-virtual-private-network-vpn)
+- When connected from another network using the [University of Adelaide VPN](https://www.adelaide.edu.au/technology/your-services/network-services/remote-access-via-virtual-private-network-vpn). NOTE: any issues you have with connection via VPN need to be resolved by ITDS, as we have no control over the VPN client config or your access to VPN. 
 
 Practice how to [disconnect from your VM](AWS_RONIN_disconnect.md) and then re-connect and go back to the practical instructions. 
 
