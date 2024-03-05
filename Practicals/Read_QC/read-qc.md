@@ -49,6 +49,16 @@ For today's practical, you need to activate the `base` conda environment:
 ```bash
 a1234567@ip-10-255-0-115:/shared/a1234567$ source activate bioinf
 ```
+If this command fails and gives you an error message do the following:
+
+```bash
+echo -e "envs_dirs:\n- /apps/conda3/singularity/envs" > ~/.condarc
+```
+You can now rerun 
+
+```bash
+source activate bioinf
+```
 
 This will activate the three software tools (`fastqc`, `trimmomatic` and `fastp`) that you will need for this practical.
 
