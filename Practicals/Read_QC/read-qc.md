@@ -88,7 +88,7 @@ During the bridge-amplification stage, millions of clusters are created on the f
 Each cluster comprises of 1,000-2,000 identical copies of the same template.
 During the process of sequencing, the polymerases attached each of the thousands of copies in a cluster "advance" one base at a time.
 At the start (5' end) all the polymerases are in perfect sync; generating a bright, clean, consistant light signal for detecting which base was incorporated.
-However, as time progresses, some polymerases fall behind while some race infront.
+However, as time/number of cycles progresses, some polymerases fall behind while some race in front.
 The polymerases gradually get further and further out of phase with each other.
 This leads to dimmer and less clear signals for detection, and thus lower quality base-calls.
 
