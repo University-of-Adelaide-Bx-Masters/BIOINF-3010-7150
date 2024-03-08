@@ -280,7 +280,7 @@ Flye will generate 5 folders, which store output files from 5 stages of Flye, an
 You can check the log report using following commands:
 
 ```
-cd prac_genome_assembly/04_results/03_genome_assembly/nanopore_LR_5x
+cd ~/prac_genome_assembly/04_results/03_genome_assembly/nanopore_LR_5x
 ls 
 
 less flye.log
