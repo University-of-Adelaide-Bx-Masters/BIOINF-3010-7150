@@ -384,7 +384,7 @@ The answer is:
 
 > ## Evaluate with and without
 
-Generally for RNA sequencing or ChIP-seq experiments, we will run both raw and duplicate reads through the same pipeline to compare the results to make sure our duplicates are not effecting our final outcome.
+Generally for RNA sequencing or ChIP-seq experiments, we will run both raw and de-duplicated reads through the same pipeline to compare the results to make sure our duplicates are not effecting our final outcome.
 
 **For today however, we are going to skip calling duplicates,** but you can use either use `samtools` or `picard` tools to remove them.
 
