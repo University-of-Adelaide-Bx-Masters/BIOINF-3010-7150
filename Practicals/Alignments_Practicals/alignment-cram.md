@@ -82,14 +82,15 @@ cp ./data/SAM_prac/* ./Project_2/data/
 
 cd ~/Project_2/data
 
-#decompress files
+#decompress files (this may take 2-3 minutes)
 tar -xvf SRR3096662.tar.gz
 
 #have a look at what the result of the previous command is
 ls -lrth
-```
 
-Note: it may take 2-3 minutes to finish the file extraction.
+cd ../Project_2
+
+```
 
 ## File sizes
 
