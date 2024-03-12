@@ -80,13 +80,16 @@ mkdir -p ./Project_2/data
 #copy data to todays's practical directory
 cp ./data/SAM_prac/* ./Project_2/data/
 
-cd ~/Project_2
+cd ~/Project_2/data
 
 #decompress files
-tar -xvf ./data/SRR3096662.tar.gz
+tar -xvf SRR3096662.tar.gz
+
+#have a look at what the result of the previous command is
+ls -lrth
 ```
 
-This may take 2-3 minutes to finish the file extraction.
+Note: it may take 2-3 minutes to finish the file extraction.
 
 ## File sizes
 
