@@ -91,7 +91,7 @@ This may take 2-3 minutes to finish the file extraction.
 ## File sizes
 
 As mentioned above, the size differences between SAM, BAM and CRAM files can be surprising.
-From today's CRAM file, the converted SAM and BAM files are much larger in size.
+From today's CRAM file, the converted SAM and BAM files are much larger in size. While we have not included the original SAM file as it is very large, here is a comparison of the file sizes, including the human readable `.sam` file. 
 
 37G     SRR3096662_Aligned.out.sort.sam \
 ~3G    SRR3096662_Aligned.out.sort.bam \
