@@ -178,7 +178,7 @@ To see this info we need to add the `-h` flag.
 samtools view -h ./data/SRR3096662_Aligned.out.sort.bam | less 
 ```
 
-You should see something like this:
+Page through the output and you should see something like this:
 
 ```text
 @HD VN:1.4 SO:coordinate
