@@ -254,6 +254,9 @@ Long reads have the potential for spanning "repeat" regions, untangling the mess
 Lets align the long reads to the reference genome.
 
 ```bash
+# Activate the bioinf conda environment for minimap2
+source activate bioinf
+
 # Index the reference genome for minimap2
 minimap2 \
   -d ~/Project_3/data/reference/COVID-19.fasta.gz.mmi \
