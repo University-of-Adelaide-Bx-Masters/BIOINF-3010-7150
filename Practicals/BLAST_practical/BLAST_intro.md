@@ -186,7 +186,7 @@ Note that when using output formats >4 some options for choosing the number and 
 
 You can try the following 
 
-> A "vanilla" BLAST command line that give the basic text output from BLAST
+> A "vanilla" BLAST command line that give the basic text output from BLAST, using `blastp` for a protein query to protein db.
 
 ```bash
 blastp -query ~/Project_4/queries/Q967Q8.fasta -task blastp -db ~/Project_4/dbs/sprot
@@ -200,7 +200,7 @@ blastp -query ~/Project_4/queries/Q967Q8.fasta -task blastp -db ~/Project_4/dbs/
 
 These will of course just dump everything to `stdout` but you know how to cope with that.
 
-> A command line that writes output to a file and specifies the number of threads to run and limits output to 50 targets. 
+> A command line that writes output to a file and specifies the number of threads to run and limits output to 50 targets.  For a `blastx` command that uses a nucleotide query against protein db.
 
 ```bash
 blastx -query ~/Project_4/queries/hg38_gene_query.fasta -task blastx -db ~/Project_4/dbs/sprot -num_threads 2 -max_target_seqs 50 -out ~/Project_4/results/humgene_blastx_sprot.txt -outfmt 7 
@@ -211,7 +211,7 @@ Once BLASTX has completed you can look at your output using "head", "less", "mor
 
 ## 4. Effects of changing parameters 
 
-### 4.1 You can test the effect of `-word_size` on output and speed:
+### 4.1 You can test the effect of `-word_size` on output and speed for `blastn`:
 
 ```bash
 time blastn -query ~/Project_4/queries/hg38_gene_query.fasta -word_size 28 -db ~/Project_4/dbs/hg38_reduced -outfmt 7 -out ~/Project_4/results/W28.txt
@@ -220,21 +220,27 @@ time blastn -query ~/Project_4/queries/hg38_gene_query.fasta -word_size 28 -db ~
 ```bash
 time blastn -query ~/Project_4/queries/hg38_gene_query.fasta -word_size 11 -db ~/Project_4/dbs/hg38_reduced -outfmt 7 -out ~/Project_4/results/W11.txt
 ```
-This will take some time.
+Be patient, this will take some time (around 8 minutes). While you are waiting, take some time to think about why this is taking so much longer.
 
-### 4.2 You can test the effect of T `-threshold`
+### 4.2 You can test the effect of T `-threshold` (this is only for `blastp`) in conjunction with `-word_size`.
+
+- First set T=21 and `-word_size` = 2, we will reduce the wait time by using `-num_threads`=2 .
 
 ```bash
 time blastp -query ~/Project_4/queries/multi-protein_query.fa  -word_size 2 -threshold 21 -db ~/Project_4/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/Project_4/results/W2T21multi.txt
 ```  
+- Now increase `-word_size`to 7
 
 ```bash
  time blastp -query ~/Project_4/queries/multi-protein_query.fa  -word_size 7 -threshold 21 -db ~/Project_4/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/Project_4/results/W7T21multi.txt
 ```
+- keep `-word_size` = 7 and lower T to 11
 
 ```bash
  time blastp -query ~/Project_4/queries/multi-protein_query.fa  -word_size 7 -threshold 11 -db ~/Project_4/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/Project_4/results/W7T11multi.txt
 ```
+
+- Now use a single protein query instead of multi-protein query 
 
 ```bash
 time blastp -query ~/Project_4/queries/Q967Q8.fasta -num_threads 2 -threshold 21 -db ~/Project_4/dbs/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
@@ -243,6 +249,7 @@ time blastp -query ~/Project_4/queries/Q967Q8.fasta -num_threads 2 -threshold 21
 ```bash
 time blastp -query ~/Project_4/queries/Q967Q8.fasta -num_threads 2 -threshold 11 -db ~/Project_4/dbs/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
 ```
+- What happened? Is parameter choice important? Why?
 
 ### 4.3 You can play with parameter combinations and with search types
 
