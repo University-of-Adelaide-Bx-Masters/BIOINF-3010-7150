@@ -84,9 +84,6 @@ unpigz -p 2 uniprot_sprot.fasta.gz
 unpigz -p 2 hg38.fa.gz
 unpigz -p 2 hg38_reduced.fa.gz
 ```
-
-- Can you think of a way to decompress these files using one command line instead of thre?
-
 Once you have done this, you will need to index/format these files so that BLAST can search them.
 
 The syntax for `makeblastdb` is as follows:
@@ -98,7 +95,7 @@ In this example your input file is a nucleotide sequence file `reference.fa` so 
 You will use the following command.  
 
 ```bash
-makeblastdb -in ~/Project_4/db/uniprot_sprot.fasta -dbtype 'prot' -parse_seqids -out ~/Project_4/db/sprot
+makeblastdb -in ~/Project_4/dbs/uniprot_sprot.fasta -dbtype 'prot' -parse_seqids -out ~/Project_4/dbs/sprot
 ```
 
 This will generate six files that BLAST uses.
@@ -106,9 +103,9 @@ This will generate six files that BLAST uses.
 You will then need to index/format the human hg38 chromosome sequences so that BLAST can search them.
 
 ```bash
-makeblastdb -in ~/Project_4/db/hg38.fa -dbtype 'nucl' -parse_seqids -out ~/Project_4/db/hg38
+makeblastdb -in ~/Project_4/dbs/hg38.fa -dbtype 'nucl' -parse_seqids -out ~/Project_4/dbs/hg38
 
-makeblastdb -in ~/Project_4/db/hg38_reduced.fa -dbtype 'nucl' -parse_seqids -out ~/Project_4/db/hg38_reduced
+makeblastdb -in ~/Project_4/dbs/hg38_reduced.fa -dbtype 'nucl' -parse_seqids -out ~/Project_4/dbs/hg38_reduced
 ```
 Now you are ready to familiarise yourself with command line BLAST. *Once you make the blast dbs you can delete the original fasta files and recover some disk space*
 
@@ -189,13 +186,13 @@ You can try the following
 > A "vanilla" BLAST command line that give the basic text output from BLAST
 
 ```bash
-blastp -query ~/Project_4/queries/Q967Q8.fasta -task blastp -db ~/Project_4/db/sprot
+blastp -query ~/Project_4/queries/Q967Q8.fasta -task blastp -db ~/Project_4/dbs/sprot
 ```
 
 > A command line that specifies a set of custom columns to report
 
 ```bash
-blastp -query ~/Project_4/queries/Q967Q8.fasta -task blastp -db ~/Project_4/db/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+blastp -query ~/Project_4/queries/Q967Q8.fasta -task blastp -db ~/Project_4/dbs/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
 ```
 
 These will of course just dump everything to `stdout` but you know how to cope with that.
@@ -203,7 +200,7 @@ These will of course just dump everything to `stdout` but you know how to cope w
 > A command line that writes output to a file and specifies the number of threads to run and limits output to 50 targets. 
 
 ```bash
-blastx -query ~/Project_4/queries/hg38_gene_query.fasta -task blastx -db ~/Project_4/db/sprot -num_threads 2 -max_target_seqs 50 -out ~/Project_4/results/humgene_blastx_sprot.txt -outfmt 7 
+blastx -query ~/Project_4/queries/hg38_gene_query.fasta -task blastx -db ~/Project_4/dbs/sprot -num_threads 2 -max_target_seqs 50 -out ~/Project_4/results/humgene_blastx_sprot.txt -outfmt 7 
 ```
 Call your output file whatever you like, as long as it makes sense to you. 
 
@@ -214,34 +211,34 @@ Once BLASTX has completed you can look at your output using "head", "less", "mor
 ### 4.1 You can test the effect of `-word_size` on output and speed:
 
 ```bash
-time blastn -query ~/Project_4/queries/hg38_gene_query.fasta -word_size 28 -db ~/Project_4/db/hg38_reduced -outfmt 7 -out ~/Project_4/results/W28.txt
+time blastn -query ~/Project_4/queries/hg38_gene_query.fasta -word_size 28 -db ~/Project_4/dbs/hg38_reduced -outfmt 7 -out ~/Project_4/results/W28.txt
 ```
 
 ```bash
-time blastn -query ~/Project_4/queries/hg38_gene_query.fasta -word_size 11 -db ~/Project_4/db/hg38_reduced -outfmt 7 -out ~/Project_4/results/W11.txt
+time blastn -query ~/Project_4/queries/hg38_gene_query.fasta -word_size 11 -db ~/Project_4/dbs/hg38_reduced -outfmt 7 -out ~/Project_4/results/W11.txt
 ```
 This will take some time.
 
 ### 4.2 You can test the effect of T `-threshold`
 
 ```bash
-time blastp -query ~/Project_4/queries/multi-protein_query.fa  -word_size 2 -threshold 21 -db ~/Project_4/db/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/Project_4/results/W2T21multi.txt
+time blastp -query ~/Project_4/queries/multi-protein_query.fa  -word_size 2 -threshold 21 -db ~/Project_4/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/Project_4/results/W2T21multi.txt
 ```  
 
 ```bash
- time blastp -query ~/Project_4/queries/multi-protein_query.fa  -word_size 7 -threshold 21 -db ~/Project_4/db/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/Project_4/results/W7T21multi.txt
+ time blastp -query ~/Project_4/queries/multi-protein_query.fa  -word_size 7 -threshold 21 -db ~/Project_4/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/Project_4/results/W7T21multi.txt
 ```
 
 ```bash
- time blastp -query ~/Project_4/queries/multi-protein_query.fa  -word_size 7 -threshold 11 -db ~/Project_4/db/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/Project_4/results/W7T11multi.txt
+ time blastp -query ~/Project_4/queries/multi-protein_query.fa  -word_size 7 -threshold 11 -db ~/Project_4/dbs/sprot -num_threads 2 -outfmt 7 -max_target_seqs 1 -out ~/Project_4/results/W7T11multi.txt
 ```
 
 ```bash
-time blastp -query ~/Project_4/queries/Q967Q8.fasta -num_threads 2 -threshold 21 -db ~/Project_4/db/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+time blastp -query ~/Project_4/queries/Q967Q8.fasta -num_threads 2 -threshold 21 -db ~/Project_4/dbs/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
 ```
 
 ```bash
-time blastp -query ~/Project_4/queries/Q967Q8.fasta -num_threads 2 -threshold 11 -db ~/Project_4/db/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
+time blastp -query ~/Project_4/queries/Q967Q8.fasta -num_threads 2 -threshold 11 -db ~/Project_4/dbs/sprot -outfmt "7 delim=  qaccver qlen sallgi sallacc slen pident length mismatch gapopen qstart qend sstart send evalue bitscore"
 ```
 
 ### 4.3 You can play with parameter combinations and with search types
