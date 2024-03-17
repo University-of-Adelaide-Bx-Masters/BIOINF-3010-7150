@@ -70,7 +70,7 @@ mkdir -p ~/Project_4/dbs
 mkdir -p ~/Project_4/queries
 mkdir -p ~/Project_4/results
 ```
-Once you have created these directories copy the `hg38.fa.gz`, `hg38_reduced.fa.gz`, `humanReps.fa.gz` and `uniprot_sprot.fasta.gz` to `~/Project_4/dbs`. Copy the remaining files to `~/Project_4/queries`.
+Once you have created these directories copy the `hg38.fa.gz`, `hg38_reduced.fa.gz`, `humanReps.fa.gz` and `uniprot_sprot.fasta.gz` to `~/Project_4/db`. Copy the remaining files to `~/Project_4/queries`.
 
 ### 3.3 Prepare the BLAST databases
 
