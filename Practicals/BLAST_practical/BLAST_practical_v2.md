@@ -15,7 +15,7 @@ To find repeats in the human gene sequence we have provided, you will use BLASTN
 
 To see how difficult it can be to deal with the large numbers of repeats in the genome you will extract one repeat interval identified in your repeat BLAST output using Samtools and you will use that repeat sequence to search the human genome for alignments using BLASTN. 
 
-### Questions:
+### Questions you should answer after following the instructions below:
 
 - Identify the protein coding gene present in your query sequence. 
 
@@ -50,6 +50,7 @@ Reminder: general syntax for BLAST searches is as follows:
 ```bash
 blastn -query [file.fasta] -task [blastn] -db [database file]  -outfmt [0 through 17] -out [outputfile]
 ```
+For the next step you will use BLASTX, not BLASTN so that you can query the protein database using a nucleotide (gene) query. The gene query is the full sequence of a gene from the human genome. 
 
 - I suggest using outfmt 7 and 17, 7 gives you a tab delimited file, 17 gives you a .sam file. 
 
@@ -88,9 +89,9 @@ In order to obtain a human repeat sub-sequence for the most abundant repeat type
 
 - You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. 
 
-- Do this by inspecting the text output file from above and selecting an interval from a robust (*longest or almost longest `alignment length`  with high `bitscore` and low `evalue`*) alignment for the most abundant type of repeat in your output. 
+- Identify the coordinates of the repeat interval you want to retrieve by inspecting the text output file from the above `blastn` search and select an interval from a robust (*longest or almost longest `alignment length`  with high `bitscore` and low `evalue`*) alignment **for the most abundant type of repeat** in your output. 
 
-**I have used arbitrary coordinate values 12045-12345 in the example below, you will need to use your own coordinates.**
+**I have used arbitrary coordinate values 12045-12345 in the example below, you will need to use the coordinates you selected.**
 
 `samtools` should be already installed on your VMs and you should be able use it to extract the subsequence you want from the genome. Remember we covered `sam`/`bam` file formats and the use of `samtools` more extensively in an earlier practical. For now we are using this just retrieve a sequence from the database that matched our query. 
 
@@ -99,7 +100,7 @@ In order to obtain a human repeat sub-sequence for the most abundant repeat type
 samtools faidx ~/Project_4/queries/hg38_gene_query.fasta hg38:12045-12345 > ~/Project_4/queries/hg38_12045-12345.fasta
 ```
 
-#### 2.4 Alignment of your human repeat sub-sequence to the human genome
+### 2.4 Alignment of your human repeat sub-sequence to the human genome
 
 This may take a while to run, so be patient.  
 
@@ -123,4 +124,6 @@ awk '{sum+=$n} END {print sum}' [input file]
 ```
 Where `n` is the column number in your input file you want to sum.
 
+Now you should be able to answer all the questions posed at the beginning of section 2. 
 
+**In Assignment 1, question 13 requires you to understand and be able to identify a repeat sequence.** Make sure you understand all the steps you have carried out in sections 2.3 and 2.4. 
