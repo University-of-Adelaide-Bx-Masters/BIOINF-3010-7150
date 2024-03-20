@@ -126,4 +126,4 @@ Where `n` is the column number in your input file you want to sum.
 
 Now you should be able to answer all the questions posed at the beginning of section 2. 
 
-**In Assignment 1, question 13 requires you to understand and be able to identify a repeat sequence.** Make sure you understand all the steps you have carried out in sections 2.3 and 2.4. 
+**In Assignment 1, question 13 requires you to be able to identify a repeat sequence.** Make sure you understand all the steps you have carried out in sections 2.3 and 2.4. 
