@@ -66,6 +66,7 @@ fastqc \
 
  - *What is the minimum read length present in the Illumina data? Hint: Look at the FastQC reports.*
  - *What do you think of the "Per base sequence content" plot in the FastQC reports?*
+ - *Some pre-processing of this data has already been performed. Can you determine what this may have been?*
 
 ## Read Trimming and Filtering
 
@@ -142,7 +143,6 @@ As in the previous IGV-web practical, load the E. coli K-12 reference (`.fasta`)
 What do you make of these regions:
 
  * `NC_000913.3:276291-294244`
- * `NC_000913.3:378,388-379,018`
  * `NC_000913.3:4295777-4296810`
 
 **Optional exercise**
