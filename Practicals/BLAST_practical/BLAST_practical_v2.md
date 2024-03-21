@@ -78,14 +78,26 @@ You will need to make a `BLAST` index for the `~/dbs/humanReps.fa` file before c
 blastn -query ~/Project_4/queries/hg38_gene_query.fasta -task blastn -db ~/Project_4/dbs/humrep -out ~/Project_4/results/gene_blastn_humrep.txt -outfmt 7
 ```
 
-This will identify all the repeat sequence intervals in your gene sequence. 
+This will identify all the repeat sequence intervals in your gene sequence. The repeat names (subject column in your output) are the names for sub-families or sub-sub-families of repeats. For an example, see below for some examples of names from the LINE L1 family, where the repeat names include the L1 family as the prefix, followed by a specific sub-family identifier. 
 
-To determine the most abundant repeat type in your output you can try:
+```
+L1ME_ORF2
+L1PBA1_5
+L1M7_5end
+L1MA9_5
+L1ME4A
+L1PA12
+L1PA13
+L1MD1_5
+
+```
+
+To determine the most abundant **repeat family** in your output you can try:
 - just scroll through the output and eyeball it
-- use `cut` , `sort` and `uniq` to list all the repeat types
-- use `grep -c` to count some of the repeat types to get an objective assessment of how many insertions there are for every repeat type. *Hint: when using `grep` use the shortest search pattern you can, to group repeats of the same type into the count*.
+- use `cut` , `sort` and `uniq` to list all the repeat names
+- use `grep -c` to count some of the repeat names to get an objective assessment of how many insertions there are for every repeat family. *Hint: when using `grep` use the shortest search pattern you can, to group repeats of the same family into the count*.
 
-In order to obtain a human repeat sub-sequence for the most abundant repeat type from `hg38_gene_query.fasta` you will need to use [samtools-faidx](https://www.htslib.org/doc/samtools-faidx.html). 
+In order to obtain a human repeat sub-sequence for the most abundant repeat family from `hg38_gene_query.fasta` you will need to use [samtools-faidx](https://www.htslib.org/doc/samtools-faidx.html). 
 
 - You will need to identify the coordinates of the repeat interval that you will use to retrieve the sequence. 
 
