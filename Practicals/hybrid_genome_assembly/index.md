@@ -82,8 +82,7 @@ Visualise one of your good assemblies in IGV or IGV-web and look to see if you c
 Have a look at the following regions:
 
 * `NC_000913.3:4,533,722-4,554,201`
-* `NC_000913.3:375,245-395,724`
-* `NC_000913.3:378,500-378,750`
+* `NC_000913.3:378,123-379,127`
 
 Also, take another look at the regions we explored in the last practical:
 
