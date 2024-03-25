@@ -1,5 +1,5 @@
 # SARS-CoV-2 Short Read Assembly Practical
-## By Nathan Watson-Haigh, updated/adapted by Dave Adelson
+## By Nathan Watson-Haigh, updated/adapted by Dave Adelson (2024)
 {:.no_toc}
 
 * TOC
