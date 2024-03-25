@@ -53,7 +53,7 @@ cp ~/data/SARS-CoV-2_Resequencing/plot_delta.R ~/Project_6/data/scripts/
 Lets see what files and directories we have under our current working directory:
 
 ```bash
-tree
+ls -lrthR
 ```
 ## Today's software
 
