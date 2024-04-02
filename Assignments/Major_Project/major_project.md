@@ -41,7 +41,7 @@ You will also be provided with the genome sequence of the reference S288c strain
 
 *[Reference Prac, `Genome Assembly I` and `Genome Assembly II`]* 
 
-Use the knowledge that you have learned in Prac `Genome Assembly I` and `Genome Assembly` to *de novo* assemble the reference genome of your designated strain. Assess your assembly quality  (If you want to run QUAST with reference, you can use the provided S288c genome as reference). 
+Use the knowledge that you have learned in Prac `Genome Assembly I` and `Genome Assembly II` to *de novo* assemble the reference genome of your designated strain. Assess your assembly quality  (If you want to run QUAST with reference, you can use the provided S288c genome as reference). 
 
 ### Step 2, variant calling
 
