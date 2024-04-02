@@ -128,7 +128,7 @@ The Rmd document and a compiled knitted html will form the submission; marks wil
 
 #### Major Project Data
 
-Look [here](./Assignments/Major_Project/major_project.md) for an example of major project data. 
+Look [here](./Assignments/Major_Project/major_project.md) if you want to use provided datasets. 
 
 ### Assessment Checklist
 
