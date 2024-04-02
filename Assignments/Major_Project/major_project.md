@@ -31,7 +31,7 @@ In this major project, you will *de novo* assemble the genome of a strain of Bre
 | ERR1938686_1.fastq.gz, ERR1938686_2.fastq.gz       | Illumina MiSeq      | PE150         | Variant calling         | ~/data/major_project_2024/01_raw_data/02_NGS/          |
 | Illumina_R1.10x.fastq.gz, Illumina_R2.10x.fastq.gz | Illumina MiSeq      | PE150         | Genome graphs mapping   | ~/data/major_project_2024/01_raw_data/02_NGS/          |
 
-*[Important] Each student will be provided with a uniqe Nanopore sequencing dataset from a unique strain of *S. cerevisiae* for *de novo* genome assembly. You can find your unique input dataset in the folder named with your "student a number" in `~/data/major_project_2024/01_raw_data/01_TGS/`. Please double-check that you do copy/use your **correct** unique dataset before you proceed with any further analysis.*
+*[Important] Each student will be provided with a uniqe Nanopore sequencing dataset from a unique strain of _S. cerevisiae_ for _de novo_ genome assembly. You can find your unique input dataset in the folder named with your "student a number" in `~/data/major_project_2024/01_raw_data/01_TGS/`. Please double-check that you do copy/use your **correct** unique dataset before you proceed with any further analysis.*
 
 You will also be provided with the genome sequence of the reference S288c strain in the folder of `~/data/major_project_2024/02_databases/` for comparison with your *de novo* assembled genome.
 
