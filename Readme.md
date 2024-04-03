@@ -88,7 +88,7 @@ Practical 02: Thursday 9am-11am, Ingkarni Wardlii 218
 | [Assignment 2]()                                          | Genome assembly     |
 | [Assignment 3]()                                          | Genome graphs and SV|
 | [Assignment 4]()                                          | Clinical and Population Genomics |
-| [Project]() (PG only)                                     | Complete Dataset    |
+| [Project](./Assignments/Major_Project/major_project.md) (PG only)                                     | Complete Dataset    |
 
 - Each assignment is worth 20% of the final mark for Undergraduates.  
 - Each assignment is worth 12% of the final mark for Masters students.  
