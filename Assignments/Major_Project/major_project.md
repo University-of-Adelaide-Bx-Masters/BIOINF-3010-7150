@@ -45,7 +45,7 @@ Use the knowledge that you have learned in Prac `Genome Assembly I` and `Genome 
 
 ### Step 2, variant calling
 
-*[Reference Prac, `Read Quality Control`, `SAMTools and alignments`, and `Genome Assembly II`]* 
+*[Reference Prac, `Read Quality Control`, `SAMTools and alignments`, `Short and Long Read Alignment`, and `Genome Assembly II`]* 
 
 You will use the assembled genome of your designated strain from step 1 as reference, and call variants using the Illumina sequencing reads from two other strains (ERR1938683 for strain S288C, and ERR1938686 for strain SK1). Please refer to Prac `Read Quality Control` and `SAMTools and alignments` for how to check the quality of Illumina sequencing reads and how to align the Illumina short reads to a genome. Then you can use `bcftools` to call variants for these other two strains based on your designated strain reference genome (see Prac `Genome Assembly II` for how to call variants). Report the summary of called variants.
 
