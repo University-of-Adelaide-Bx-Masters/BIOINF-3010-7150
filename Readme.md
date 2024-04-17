@@ -51,7 +51,7 @@ Practical 02: Thursday 9am-11am, Ingkarni Wardlii 218
 | **9**    | 6/5        | Structural variation and cancer genomics (Paul)  |  [Genome graphs2] (Chelsea) [Structural variation] (Paul)      |
 | **10**   | 13/5       | Variant calling and high-throughput genotyping (Julien) |  [Clinical genomics1] (Julien)  [Clinical genomics2] (Julien)         |
 | **11**   | 20/5       | Population genomics (Yassine) | [Population genomics1] (Yassine)  [Population genomics2] (Yassine)              |
-| **12**   | 27/5       | Wrap up lecture (Dave) |  Open Prac session for PG major projects only  Tuesday (Dave)  Open Prac session for PG major projects only  - Friday (Dave)           |
+| **12**   | 27/5       | Wrap up lecture (Dave) |  Open Prac session for PG major projects only  Wednesday (Dave)  Open Prac session for PG major projects only  - Thursday (Dave)           |
 | **13**   | 3/6        |   TBD        |   TBD        |
 
 [Introduction to Bash 1]: Practicals/Bash_Practicals/1_IntroBash.md
