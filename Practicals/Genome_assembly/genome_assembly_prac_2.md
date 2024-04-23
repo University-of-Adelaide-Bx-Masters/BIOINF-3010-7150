@@ -268,3 +268,103 @@ Navigate to it and open the png.
 
 * *Based on the BUSCO results, and excluding the reference assembly, which assembly do you think looks the best?*
 
+### 5.4. A quick example showing the application of the assembled genome: variant calling
+
+With the denovo assembled genome, there are a few different genomics analysis that we can do, such as identifing genes/proteins that of our interests, comparing with another genome, or detecting variants between our assembled genome and other individuals of the same species (such as different strains of S. pombe). Next we will use above assembled genome to detect variants based on sequencing from two other strains of *S. pombe*.
+
+First, we will need to align the DNA sequencing reads (Illumina) from two other strains to the assembled genome (we will be using assembled genome with 10x pacbio reads in this example). This will be a good chance for you to practice what you have learned in previous Pracs [`Read Quality Control`](https://university-of-adelaide-bx-masters.github.io/BIOINF-3010-7150/Practicals/Read_QC/read-qc.html) and [`Short and Long Read Alignment`](https://university-of-adelaide-bx-masters.github.io/BIOINF-3010-7150/Practicals/short_long_alignment/short_long_alignment.html).
+
+
+You can copy the DNA sequencing reads for the other two strains using following commands.
+```
+cd ~/prac_genome_assembly/03_raw_data
+cp ~/data/prac_genome_assembly/03_raw_data/SRR*.fastq.gz ./
+```
+
+And then, we need to do QC for these raw sequencing reads, and also remove adaptor and low-quality sequences.
+```
+source activate bioinf
+
+mkdir ~/prac_genome_assembly/04_results/05_variant_calling
+
+cd ~/prac_genome_assembly/04_results/05_variant_calling
+
+# QC of raw reads
+fastqc -o ~/prac_genome_assembly/04_results/05_variant_calling \
+  ~/prac_genome_assembly/03_raw_data/SRR26143067_R1.100x.fastq.gz \
+  ~/prac_genome_assembly/03_raw_data/SRR26143067_R2.100x.fastq.gz \
+  ~/prac_genome_assembly/03_raw_data/SRR26143068_R1.100x.fastq.gz \
+  ~/prac_genome_assembly/03_raw_data/SRR26143068_R2.100x.fastq.gz
+
+trimmomatic PE ~/prac_genome_assembly/03_raw_data/SRR26143067_R1.100x.fastq.gz \
+  ~/prac_genome_assembly/03_raw_data/SRR26143067_R2.100x.fastq.gz \
+  SRR26143067_R1.100x.clean.fastq.gz SRR26143067_R1.100x.orphans.fastq.gz \
+  SRR26143067_R2.100x.clean.fastq.gz SRR26143067_R2.100x.orphans.fastq.gz \
+  ILLUMINACLIP:${CONDA_PREFIX}/share/trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:3:true \
+  SLIDINGWINDOW:4:10
+
+trimmomatic PE ~/prac_genome_assembly/03_raw_data/SRR26143068_R1.100x.fastq.gz \
+  ~/prac_genome_assembly/03_raw_data/SRR26143068_R2.100x.fastq.gz \
+  SRR26143068_R1.100x.clean.fastq.gz SRR26143068_R1.100x.orphans.fastq.gz \
+  SRR26143068_R2.100x.clean.fastq.gz SRR26143068_R2.100x.orphans.fastq.gz \
+  ILLUMINACLIP:${CONDA_PREFIX}/share/trimmomatic/adapters/TruSeq3-PE.fa:2:30:10:3:true \
+  SLIDINGWINDOW:4:10
+
+fastqc *.clean.fastq.gz
+```
+
+We will be using BWA to map these DNA sequencing reads to our assembled genome.
+```
+cd ~/prac_genome_assembly/04_results/05_variant_calling
+
+# genome mapping using BWA
+bwa index ~/prac_genome_assembly/04_results/03_genome_assembly/pacbio_LR_10x/assembly.fasta
+
+bwa mem ~/prac_genome_assembly/04_results/03_genome_assembly/pacbio_LR_10x/assembly.fasta \
+  SRR26143067_R1.100x.clean.fastq.gz SRR26143067_R2.100x.clean.fastq.gz \
+  | samtools view -F 4 -u \
+  | samtools sort \
+  -o SRR26143067.bam \
+  /dev/stdin
+
+bwa mem ~/prac_genome_assembly/04_results/03_genome_assembly/pacbio_LR_10x/assembly.fasta \
+  SRR26143068_R1.100x.clean.fastq.gz SRR26143068_R2.100x.clean.fastq.gz \
+  | samtools view -F 4 -u \
+  | samtools sort \
+  -o SRR26143068.bam \
+  /dev/stdin
+``` 
+
+Then we can use [`bcftools`](https://samtools.github.io/bcftools/howtos/index.html) to call variants. You will learn more about variants and VCF format files in following lectures and Pracs.
+
+```
+cd ~/prac_genome_assembly/04_results/05_variant_calling
+
+bcftools mpileup -f ~/prac_genome_assembly/04_results/03_genome_assembly/pacbio_LR_10x/assembly.fasta \
+    SRR26143067.bam \
+    SRR26143068.bam |
+    bcftools call -mv |
+    bcftools view -O z -o variants.vcf.gz  
+```
+We can get some statistics about the detected variants using `bcftools stats`.
+
+```
+cd ~/prac_genome_assembly/04_results/05_variant_calling
+
+bcftools stats variants.vcf.gz >variants.summary.txt
+
+```
+
+We can also filter the variants based on different criteria. For example, we can keep variants with supporting read depth more than 100 (`DP > 100`) and quality score higher than 100 (`QUAL > 100`) (**Note: This is just a toy example showing you how to do variant filtering, and you will need to choose your filtering criteria carefully when you are doing a real-world project.** Please refer to the [documentation](https://samtools.github.io/bcftools/howtos/filtering.html) to get more information about variant fitlering). 
+
+```
+cd ~/prac_genome_assembly/04_results/05_variant_calling
+
+bcftools filter -i 'DP>100 && QUAL>100' variants.vcf.gz \
+    -O z -o variants.filtered.vcf.gz  
+    
+bcftools stats variants.filtered.vcf.gz >variants.filtered.summary.txt
+```
+
+After we get the filtered variants, we can do some additional analysis based on these variants, for example, we can use `vg` to build genome graph, which you will learn in next lecture/pracs.
+
