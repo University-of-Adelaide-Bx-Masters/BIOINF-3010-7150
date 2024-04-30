@@ -134,7 +134,7 @@ Have a good look through the new information and try to understand it.
 
 * *When interpreting the [misassemblies](https://quast.sourceforge.net/docs/manual.html#sec3.1.2) and mismatches sections in the QUAST report, what do you think we might need to keep in mind?*
 
-## 5.3 BUSCO (Benchmarking Universal Single Copy Orthologs)
+### 5.3 BUSCO (Benchmarking Universal Single Copy Orthologs)
 
 **Important**: BUSCO is installed in `busco` conda environment in VM. You need to activate this environment before we run the BUSCO commands. If you just finished `quast`, you should be in `bioinf` environment, you can run following commands to switch to `busco` conda environment:
 
