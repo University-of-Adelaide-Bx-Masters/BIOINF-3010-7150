@@ -308,7 +308,7 @@ vg view hla.vg > hla.gfa
 
 Bandage image hla.gfa hla.png
 vg view -dp hla.vg | dot -Tpdf -o hla.pdf
-vg viz -x hla.xg -i hla.svg
+vg viz -x hla.xg -o hla.svg
 ```
 
 Are all of these visualisation methods a good/convenient way to look at this graph? 
