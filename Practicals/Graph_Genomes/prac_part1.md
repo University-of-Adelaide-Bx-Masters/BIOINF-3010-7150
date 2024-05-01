@@ -2,9 +2,9 @@
 
 ## Graph Genomes Practical: Part 1
 
-## Chelsea Matthews
+##### _By Chelsea Matthews - Adapted from Yassine Souilmi_
 
-### 1. Background
+# 1. Background
 
 Many bioinformatics analyses begin by aligning reads to a linear reference genome and you've done this in earlier practicals. 
 Reads are aligned to the reference based on the similarity of their sequence to the reference sequence.
@@ -24,7 +24,7 @@ Bioinformatics methods where we align reads to a linear reference genome (like t
 The methods and software for building and using genome graphs are still under development.
 For these reasons, linear reference genomes are currently far more commonly used than graph-based approaches but this may change in the near future.
 
-### Loading Packages
+## Part 1: Variant Graphs
 
 First you will need to load the required tools.
 
@@ -48,7 +48,7 @@ Bandage --help
 dot --help #dot is part of the graphviz package
 ```
 
-## Getting Data
+### Get the data
 
 Make directories and copy the data over:
 
@@ -66,7 +66,7 @@ You should have the following two files in `~/GraphGenomes/variant`.
 - tiny.fa
 - tiny.vcf.gz
 
-## Have a look at the data
+### Have a look at the data
 
 We have two files. The first, `tiny.fa`, is the reference sequence. 
 Take a look at it. 
@@ -102,7 +102,7 @@ cat tiny.vcf
 
 That's all we need to build our pan-genome! 
 
-## Build a graph of just the reference sequence
+### Build a graph with just the reference sequence
 
 To build the graph, use the following command:
 
@@ -139,7 +139,7 @@ vg view -dp ref.vg | dot -Tpdf -o ref_dot.pdf
 It's a graph, but not a very exciting or useful one. 
 Before we continue looking at visualisation options, let's build a graph with some variation in it. 
 
-## Build a graph that's actually useful
+### Build a graph that's actually useful
 
 Build a variation graph using the command below and then have a look at it in GFA format.
 
@@ -151,6 +151,8 @@ vg view tiny.vg > tiny.gfa
 Have a look at the `tiny.gfa` file. 
 
 - How many nodes, edges, and paths does this graph have?
+
+## Part 2: Visualisation
 
 We have a number of options when it comes to visualisation. 
 
@@ -164,7 +166,7 @@ vg view -dp tiny.vg | dot -Tpdf -o tiny_dot.pdf
 
 - What do the `-d`, `-p`, `-S`, and `-n` options do in the `vg view` command? 
 
-#### Option 2 - Bandage
+### Option 2 - Bandage
 
 !["Bandage graph"](../../images/tiny_bandage.png)
 
@@ -195,7 +197,8 @@ vg index -x tiny.xg tiny.vg
 vg viz -x tiny.xg -o tiny_viz.svg
 ```
 
-## Align reads to the graph
+## Part 3: Align reads to the graph
+
 Now we've built a graph and looked at it but we haven't done anything with it yet. 
 
 It would be useful if we could align reads to the graphs as this is often a first step in a bioinformatics analysis.
@@ -271,7 +274,7 @@ Note that this path information doesn't include the quality of the mapping, it j
 Next practical we'll look at doing more with our read alignments (calling variants, embedding variants back into the graph). 
 
 
-## Multiple Sequence Alignment graph
+## Part 4:  Multiple Sequence Alignment graph
 
 As well as the method we used above (a reference genome and a vcf), we can also build graphs using Multiple Sequence Alignment. 
 This method is often used when we have a number of high quality haplotype-resolved assemblies available.
