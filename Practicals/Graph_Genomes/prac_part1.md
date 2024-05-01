@@ -321,8 +321,22 @@ Try to do/answer the following:
 - Visualise your graph however you want.
 - What is the major difference between each of the three samples compared with the `pink_pepper` reference. There should be one sequence with a duplication, one with a deletion, and one with an insertion. There are also other small differences between the sequences but these are not the focus. 
 - Change the colour of your Bandage plot (this is entirely for fun, it's not essential)
-- Align the supplied reads to your graph and try to work out which sample they most likely came from. 
+- Align the supplied reads to your graph and try to work out which sample they most likely came from.
+
+##### Hints/Handy tips
+
+To visualise just a small part of the graph, we can subset the graph using `vg find`.
+The `-n 349` refers to the node number you're interested in and the `-c 10` is node context, the number of nodes either side of your node of interest that will be included. 
+
+```
+vg find -n 349 -x in.xg -c 10 | vg view -dp - | dot -Tpdf -o out.pdf
+```
+
+You can do the same thing using Bandage without directly subsetting the graph.
+The `--nodes` parameter is the number of the node you're interested in and the `--distance` parameter is the number of nodes each side to include. 
 
 
-
+```
+Bandage image in.gfa out.png --scope aroundnodes --nodes 349 --distance 10
+```
 
