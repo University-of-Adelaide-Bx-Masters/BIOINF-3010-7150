@@ -57,7 +57,7 @@ cd ~
 mkdir -p GraphGenomes/{variant,msa,mygraph}
 cp /shared/data/Graph_Genomes/prac1/tiny* ~/GraphGenomes/variant/.
 cp /shared/data/Graph_Genomes/prac1/HLA_haplotypes.fa ~/GraphGenomes/msa/.
-cp /shared/data/Graph_Genomes/prac1/mystery* ~/GraphGenomes/mygraph/.
+cp /shared/data/Graph_Genomes/prac1/{mystery.fq,cannabis.fasta} ~/GraphGenomes/mygraph/.
 cd ~/GraphGenomes/variant
 ```
 
@@ -315,7 +315,7 @@ Are all of these visualisation methods a good/convenient way to look at this gra
 
 ## Your Turn! 
 
-Build a multiple sequence alignment graph from the dataset in the `~/GraphGenomes/mygraph` directory. 
+Build a multiple sequence alignment graph from the cannabis.fasta dataset in the `~/GraphGenomes/mygraph` directory. 
 Consider the first sequence in the fasta file the reference sequence.
 
 Try to do/answer the following: 
