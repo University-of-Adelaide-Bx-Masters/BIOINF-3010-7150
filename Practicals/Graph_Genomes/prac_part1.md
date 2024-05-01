@@ -1,6 +1,4 @@
-# BIOINF 3010 & 7150
-
-## Graph Genomes Practical: Part 1
+# Graph Genomes Practical: Part 1
 
 ##### _By Chelsea Matthews - Adapted from Yassine Souilmi_
 
@@ -185,7 +183,7 @@ Bandage image tiny.gfa tiny_bandage.png
 
 !["tiny.svg"](../../images/tiny.svg.png)
 
-`vg viz`￼￼ produces a linear layout of a graph that scales well between small and larger graphs without losing path information.
+`vg viz` produces a linear layout of a graph that scales well between small and larger graphs without losing path information.
 Unfortunately, it doesn't seem possible to view .svg files from within our R-studio machines.
 To get around this, you will need to download the .svg fle to your local machine.
 
@@ -213,7 +211,7 @@ We already have the xg index so we'll make the gcsa index next.
 vg index -g tiny.gcsa -k 16 tiny.vg
 ```
 
-We don't have any reads for our data so we'll use vg to simulate some using ￼￼`vg sim￼￼` as below. 
+We don't have any reads for our data so we'll use vg to simulate some using `vg sim` as below. 
 
 ```
 cd ~/GraphGenomes/variant
@@ -242,7 +240,7 @@ vg map --fastq reads/sim_reads.fq -x tiny.xg -g tiny.gcsa > tiny.gam
 ```
 
 Let's re-visualise to see the alignments. 
-Notice that the ￼￼`vg view`￼￼ command below uses the ￼￼`-S￼￼` option to simplify the dot output.
+Notice that the `vg view` command below uses the `-S` option to simplify the dot output.
 
 ```
 vg view -dS tiny.vg -A tiny.gam | dot -Tpdf -o alignment.pdf
@@ -252,7 +250,7 @@ vg view -dS tiny.vg -A tiny.gam | dot -Tpdf -o alignment.pdf
 
 - What do you think the different colours of the nodes indicate?
 
-Feel free to try it without the ￼￼`-S￼￼` option as well as any other parameter combos you like to see the difference. 
+Feel free to try it without the ￼￼`-S` option as well as any other parameter combos you like to see the difference. 
 
 Looking at the reads of a graph can be quite overwhelming when you've got a lot of alignments and so it can sometimes help your visualisation to add these alignments back into the graph as paths, in the same way as we have the reference path.
 
