@@ -216,7 +216,7 @@ vg index -g tiny.gcsa -k 16 tiny.vg
 We don't have any reads for our data so we'll use vg to simulate some using ￼￼`vg sim￼￼` as below. 
 
 ```
-cd ~/GraphGenomes/tiny
+cd ~/GraphGenomes/variant
 mkdir reads
 
 # generate three reads and then have a look at them
