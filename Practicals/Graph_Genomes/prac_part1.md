@@ -179,6 +179,10 @@ vg view tiny.vg > tiny.gfa
 Bandage image tiny.gfa tiny_bandage.png
 ```
 
+**Note:** Your Bandage graph will come out slightly differently each time you run it and sometimes will have loops that don't actually represent variation.
+You can tell this by the way the nodes continue through the intersection point and no edges are displayed.   
+Feel free to re-run bandage to get a plot that you like. 
+
 #### Option 3 - vg viz
 
 !["tiny.svg"](../../images/tiny.svg.png)
