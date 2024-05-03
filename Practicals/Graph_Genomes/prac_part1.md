@@ -348,11 +348,12 @@ Bandage image in.gfa out.png --scope aroundnodes --nodes 349 --distance 10
 
 The provided `cannabis.fasta` file contains 4 sequences all taken from the same region of the cannabis genome.
 
+```
 >pink_pepper
 >finola
 >pineapple_bubba_kush
 >cannatonic
-
+```
 
 Build a genome graph from a multiple sequence alignment of these four sequences, index the graph, and then visualise the graph.
  
@@ -420,7 +421,7 @@ vg map --fastq mystery.fq -x cannabis.xg -g cannabis.gcsa > mystery.gam
 vg view -dpS cannabis.vg -A mystery.gam | dot -Tpdf -o alignments.pdf
 ```
 
-!["Alignment visualisation"](../../images/cannabis_alignments_dot.png)
+!["Alignment visualisation"](../../images/canabis_alignments_dot.png)
 
 If we go to the locations of the structural variants, we can see which structural variant they support. 
 We will start with the deletion and insertion because the long length of the duplication compared with the short length of the reads means that it will be difficult, if not impossible to interpret (if we had long reads this would be much easier). 
@@ -440,7 +441,7 @@ This is not the only way, and perhaps not even the best way, to explore these re
 You could also add read alignments to the graph as paths with `vg augment` and/or subset the graph with `vg find` to zoom in on a small part of the graph. 
 You could try `vg viz` to look at these augmented paths or use graphviz `dot` with the same or  different parameters. 
 
-The code below augments the graph with read alignments as paths and visualises 
+The code below augments the graph with read alignments as paths and visualises in case you're interested in trying.
 
 ```
 # first add the alignments to the graph as paths.
