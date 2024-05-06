@@ -180,7 +180,8 @@ Bandage image tiny.gfa tiny_bandage.png
 ```
 
 **Note:** Your Bandage graph will come out slightly differently each time you run it and sometimes will have loops that don't actually represent variation.
-You can tell this by the way the nodes continue through the intersection point and no edges are displayed.   
+You can tell this by the way the nodes continue through the intersection point and no edges are displayed.
+You can see an example of this in the bandage plot figure shown in Part 4.  
 Feel free to re-run bandage to get a plot that you like. 
 
 #### Option 3 - vg viz
@@ -312,6 +313,11 @@ Bandage image hla.gfa hla.png
 vg view -dp hla.vg | dot -Tpdf -o hla.pdf
 vg viz -x hla.xg -o hla.svg
 ```
+
+Your bandage plot should look something like the plot below. Note that this plot has a loop that doesn't indicate genomic variation.
+Rather, the loop inside of the dashed square is just a result of the random way that bandage visualises the graph. 
+
+!["Bandage plot of hla multiple sequence alignment graph"](../../images/bandage_loop.png)
 
 Are all of these visualisation methods a good/convenient way to look at this graph? 
 
