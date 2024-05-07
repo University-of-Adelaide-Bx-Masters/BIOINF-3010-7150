@@ -11,7 +11,7 @@
 
 3. Have a basic understanding of genotyping.
 
-### Introduction
+## Introduction
 
 One of the main goals for graph pan-genomes is to be able to use them as an alternative to a linear reference genome.
 In order to do this, we need to be able to align reads to them.
@@ -20,9 +20,6 @@ Today, we'll be aligning reads to a much larger graph and comparing the read ali
 This will hopefully show how read alignment rates are improved by aligning to a graph with some natural variation from the population built in.
 This improvement is due to the way that different paths through the graph represent different possible genomic sequences and so a graph is more likely to contain a genomic sequence that is more similar to the newly sequenced sample than a linear reference genome.⋅
 
-Note: The :muscle: emoji indicates that there's a task that is essential for the practical that I have not provided the code for.
-You will need to use the help pages and the first practical to work out these snippets but it shouldn't be too difficult.
-We will also work through these questions together in the practical session.
 
 ### Getting (re)started
 
@@ -38,10 +35,10 @@ The tools we'll need today include:
 vg
 bcftools
 jq -h
-dot
+dot --help
 ```
 
-You're already familiar with vg and dot from the first practical. 
+You're already familiar with `vg` and `dot` from the first practical. 
 You may have used `bcftools` before but if not, it's a tool that is designed for use in variant calling pipelines.
 It allows us to manipulate VCF (variant call format) files which is what we'll use it for today. 
 And finally, `jq`.
@@ -54,211 +51,82 @@ Copy all of the files from `data/graph_genomes/prac2/` into a new directory for 
 `cd` into that directory.
 
 ```
-mkdir graph_2
-cp data/graph_genomes/prac2/* graph_2/.
-cd graph_2
+cd ~
+mkdir -p GraphGenomes/prac2/{yeti,cannabis,1000genomes}
+cp /shared/data/Graph_Genomes/prac2/{z.*,README.md} ~/GraphGenomes/prac2/1000genomes/.
+cp /shared/data/Graph_Genomes/prac2/{yeti*,nylamo*} ~/GraphGenomes/prac2/yeti/.
+cp /shared/data/Graph_Genomes/prac1/cannabis.fasta ~/GraphGenomes/prac2/cannabis/.
+cd ~/GraphGenomes/prac2
 ```
 
-Check that you have the following files:
-
-- z.fa
-- z.fa.fai
-- z.vcf.gz
-- z.vcf.gz.tbi
-- README.md
-- yeti.fa
-- yeti.vcf
-- nylamo.reads
-
-The README.md just gives a brief summary of the `z` data.
-
-### Working with larger graphs
-
-The z files contain 1Mbp of 1000 Genomes data for chr20:1000000-2000000.
-As for the tiny example, let's' build one linear graph that only contains the reference sequence and one graph that additionally encodes the known sequence variation.
-The reference sequence is contained in `z.fa`, and the variation is contained in `z.vcf.gz`.
-
-Using the examples from the first prac and the `vg construct` help menu, do the following: 
-
-:muscle: Build a reference-only graph named `ref.vg`.
-
-:muscle: Build the same graph but with variation included named `z.vg`.
-
-Default parameters are fine.
-Look at the previous examples to figure out the command or use the `vg construct` help menu.
-
-You might be tempted to visualize these graphs (and of course you are welcome to try), but they are sufficiently big already that your machine might run out of memory and crash.
-
-In a nutshell, mapping reads to a graph is done in two stages: first, seed hits are identified and then a sequence-to-graph alignment is performed for each individual read.
-Seed finding hence allows vg to spot candidate regions in the graph to which a given read can map potentially map to.
-To this end, we need an index.
-In fact, vg needs two different representations of a graph for read mapping XG (a succinct representation of the graph) and GCSA (a k-mer based index).
-To create these representations, we use `vg index` as follows.
+You should get the following by running `tree` from the `GraphGenomes/prac2` diretory. 
 
 ```
-vg index -x z.xg z.vg
-vg index -g z.gcsa -k 16 z.vg
+.
+├── 1000genomes
+│   ├── README.md
+│   ├── z.fa
+│   ├── z.fa.fai
+│   ├── z.vcf.gz
+│   └── z.vcf.gz.tbi
+├── cannabis
+│   └── cannabis.fasta
+└── yeti
+    ├── nylamo.fq
+    ├── yeti.fa
+    └── yeti.vcf
 ```
 
-Passing option `-k 16` tells vg to use a k-mer size of *16k*.
-The best choice of *k* will depend on your graph and will lead to different trade-offs of sensitivity and runtime during read mapping.
+### Part 1: Genotyping and Variant Discovery - Yeti dataset
 
-As mentioned above, the whole graph is unwieldy to visualize.
-But thanks to the XG representation, we can now quickly **find** individual pieces of the graph.
-Let's extract the vicinity of the node with ID 2401 and create a PDF.
+Let's explore how we can use read alignment against a graph to genotype a newly sequenced sample.
 
-```
-vg find -n 2401 -x z.xg -c 10 | vg view -dp - | dot -Tpdf -o 2401c10.pdf
-```
-
-2401c10.pdf![image](https://user-images.githubusercontent.com/1767457/116373399-74790080-a84c-11eb-8f77-95d57aa2beb2.png)
-
-The option `-c 10` tells `vg find` to include a context of 10 nodes in either direction around node 2401.
-
-Next, we want to map some reads to the graph, just like we did in the first practical. 
-Again, we will use vg to simulate these reads.
-
-```
-vg sim -x z.xg -l 100 -n 1000 -e 0.01 -i 0.005 -a > z.sim
-```
-
-This generates 1000 (`-n`) reads of length (`-l`) with a substitution error rate of 1% (`-e`) and an indel error rate of 0.5% (`-i`).
-Adding `-a` instructs `vg sim` to output the true alignment paths in GAM format rather than just the plain sequences.
-Map can work on raw sequences (`-s` for a single sequence or `-r` for a text file with each sequence on a new line), FASTQ (`-f`), or FASTA (`-f` for two-line format and `-F` for a reference sequence where each sequence is over multiple lines).
-
-We are now ready to map the simulated read to the graph.
-
-For evaluation purposes, vg has the capability to compare the newly created read alignments to true paths of each reads used during simulation.
-
-```
-vg map -x z.xg -g z.gcsa -G z.sim --compare -j
-```
-
-This outputs the comparison between mapped and and true locations in JSON format but it's way too much for us to go through manually.
-
-:question: have a look at just the first entry using the `head -n 1` command. Can you understand any of it?
-
-We can process ths information with `jq`, `awk`, and `sed` to get a summary of alignment correctness.
-We can use this quickly check if our alignment process is doing what we expect on the variation graph we're working on.
-For instance, we could set alignment parameters that cause problems for our alignment and then observe this using the `--compare` feature of the mapper.
-
-Let's summarise the alignment accuracy for the mapping we just did.
-
-```
-vg map -x z.xg -g z.gcsa -G z.sim --compare -j | jq .correct | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
-```
-
-:question: Can you work out what the `jq .correct` part is doing? 
-
-:question: What is the `sed` part doing?
-
-:question: What is the `awk` part doing? 
-
-In contrast, if we were to set a very high minimum match length we would throw away a lot of the information we need to make good mappings, resulting in a low correctness metric:
-
-```
-vg map -k 51 -x z.xg -g z.gcsa -G z.sim --compare -j | jq .correct | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
-```
-
-It is essential to understand that our alignment process works against the graph which we have constructed.
-This pattern allows us to quickly understand if the particular graph and configuration of the mapper produce sensible results at least given a simulated alignment set.
-Note that the alignment comparison will break down if we simulate from different graphs, as it depends on the coordinate system of the given graph.
-
-### Exploring the benefits of graphs for read mapping
-
-Let's now use the reads that we simulated above to compare alignment rates between a linear reference and a graph.
-
-:question: What do you think the 1000 reads we simulated above actually represent?
-
-We've already built the graph that represents the linear reference (`ref.vg`).
-We now need to build a graph with a subset of variants from the z.vcf to replicate what it would be like to align reads from a number of new samples to a pan-genome graph.
-
-To do this, we will filter the `z.vcf.gz` file by allele frequency (a common way to select which variation we will include in a pan-genome). 
-We will 
-We will be building the graph containing only variants that are present in more than 20% of the population.
-Variants that appear in less than 20% of the population will be excluded.
-
-You can make a VCF with a minimum allele fequency with the command below noting that AF stands for allele frequency:
-
-```
-bcftools filter -i 'AF > 0.2' z.vcf.gz > 0.2_af_filtered.vcf
-```
-
-:question: How many variants were present in the original z.vcf.gz?
-
-:question: How many variants are there in the 0.2_af_filtered.vcf?
-
-:muscle: Build a new graph using `vg construct` from the reference sequence and the filtered vcf called filtered.vg.
-
-:muscle: Create .xg and .gcsa indexes for `filtered.vg` and `ref.vg`.
-
-We will now map the simulated reads to both of our graphs and compare the mapping identity.
-Earlier when we compared mapping alignment accuracy, we were mapping reads to the graph they were generated from and we knew were they were supposed to align (thanks to the -a option).
-
-We don't have a "truth set" for the alignment of these reads to either the ref.vg or filtered.vg graphs because they didn't originage from either of these graphs.
-Therefore, when we filter using `jq`, we will use `.identity` instead of `.correct`. 
-
-```
-vg map -x filtered.xg -g filtered.gcsa -G z.sim --compare -j | jq .identity | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
-
-vg map -x ref.xg -g ref.gcsa -G z.sim --compare -j | jq .identity | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
-```
-
-:question: Which graph has higher read mapping identity?
-
-:question: Do you think that the difference in mapping identity rate is worth the effort of building a graph?
-
-:muscle: Align these reads to the z.vg graph (the graph they were generated from) using the `jq .identity` parameter and compare this number with the numbers above.
-
-:question: Why isn't the alignment identity you just generated equal to 1? How could we make it equal 1?
-
-Let's also look at the sizes of the graphs and indexes.
-
-```
-ls -sh *.vg
-ls -sh *.gcsa*
-```
-
-:question: How do these file sizes seem to scale with the minimum allele frequency cutoff compared with the full variant set?
-
-:question: Given that the .gcsa index is a k-mer index that is used for read alignment, how might the addition of a single variant to the graph alter the number of k-mers in the graph?
-
-:question: If we were looking at a population with a large amount of sequence variation, would it make sense to build a graph that contained as much of this variation as possible? What are the possible outcomes of this approach? What would our index look like?
-
-### Genotyping
-
-We will now explore how we can use read alignment against a graph from a newly sequenced sample for genotyping.
 Genotyping is where we identify the specific genomic makeup of a sample.
-In this case, we will use a graph constructed from known variants and we will identify which of these variants a new sample has. 
+In this case, we will use a graph constructed from known variants found within a particualr population and we will identify which of these variants a newly sequenced sample has. 
 This process is used for a range of applications. 
 For example, genetic screening. 
 If we know of the specific variants that cause certain diseases, we can use genotyping to determine whether a person/organism will have those diseases or not.
 
-You have been provided with another reference sequence (yeti.fa) and a vcf (yeti.vcf).
-There are also reads in a file called `nylamo.reads`.
-Nylamo is a yeti sample that we will be genotyping. 
+You have been provided with a yeti reference sequence `yeti.fa` and a vcf - `yeti.vcf`.
+The vcf contains variants called from a number of different types of yeti's and so should hopefully represent a good range of the natural genomic variation within the yeti population. 
+There are also reads in a file called `nylamo.fq`.
+Nylamo is the yeti sample that we will be genotyping. 
 
-:muscle: build a graph called yeti.vg from the two `yeti` files but include the -a option in your `vg construct` command. 
+First, we build a variant graph from the reference genome and the vcf. 
+Note that unlike in prac 1, we must include the `-a` option in our `vg construct` call. 
 
-:question: What does the -a option do?
+```
+cd ~/GraphGenomes/prac2/yeti
+vg construct -r yeti.fa -v yeti.vcf -a > yeti.vg
+```
 
-Index this graph as below:
+- Can you tell what the `-a` option does?
+
+Index this graph as below and then have a quick look at it.
+Again note that the xg indexing command is slightly different.  
 
 ```
 vg index -x yeti.xg -L yeti.vg
 vg index -g yeti.gcsa -k 16 yeti.vg
+
+vg view -dpn yeti.vg | dot -Tpdf -o img_yeti_dot.pdf
+vg view yeti.vg > yeti.gfa
+Bandage image yeti.gfa img_yeti_bandage.png
 ```
 
-Align the reads in nylamo.reads to the graph.
+Align the reads in `nylamo.fq` to the graph and then filter these alignments to remove secondary alignments and ambiguous read mappings. 
 
 ```
-vg map -T nylamo.reads -x yeti.xg -g yeti.gcsa > nylamo.gam
+vg map --fastq nylamo.fq -x yeti.xg -g yeti.gcsa > nylamo.gam
+vg filter nylamo.gam -r 0.90 -fu -m 1 -q 15 -D 999 -x yeti.xg > nylamo_filtered.gam
 ```
 
-Now, we will use `vg pack` to determine read support for the graph
+- What parameters are we using to filter our reads?
+
+Now, we will now use `vg pack` to determine read support for the graph.
 
 ```
-vg pack -x yeti.xg -g nylamo.gam -o nylamo.pack
+vg pack -x yeti.xg -g nylamo_filtered.gam -o nylamo.pack
 ```
 
 And finally, we will genotype the sample. 
@@ -272,11 +140,211 @@ Open the output file so that you can have a look at it.
 The genotype of the sample is found at the start of the final column.
 For example, 0/0 means that the sample was homozygous for the reference allele.
 1/1 indicates that the sample is homozygous for the alternative allele.
-1/0 would mean that the sample was heterozygous with one copy of the reference allele and one copy of the alternate allele.
-We won't hve any of these entries though because the yeti genome is a haploid.
+1/0 means that the sample was heterozygous with one copy of the reference allele and one copy of the alternate allele.
 
-:question: Which variants are present in the nylamo sample? Which variants are not?
+#### Questions:
 
-:question: Can you find the quality scores and read depth for each variant call?
+- Which variants are present in the nylamo sample? Which variants are not?
+- Can you find the quality scores and read depth for each variant call?
 
-Thanks!
+## Part2: Infer variants from an MSA graph - Cannabis dataset
+
+In the last practical we constructed a graph using the multiple sequence alignment technique for 4 different cannabis sequences from the same region of the genome and looked at the differences in their structure using visualisation techniques. 
+We will now use this same graph but will call variants from the graph programmatically. 
+
+Let's build the graph again. 
+
+Move into the `cannabis` directory, construct the graph, and index it (we only need the xg index).  
+
+```
+cd ~/GraphGenomes/prac2/cannabis
+vg msga -f cannabis.fasta -t 2 -k 16 --base pink_pepper | vg mod -U 10 - | vg mod -c -X 256 - > cannabis.vg
+vg index -x cannabis.xg cannabis.vg
+```
+
+Now use `vg deconstruct` to generate a VCF using the pink_pepper sequence as the reference. 
+Notice how `deconstruct` is the opposite to `construct`?      
+We use the `vg construct` command to build a graph with a reference and a set of variants, and we use the `vg deconstruct` command to extract variants from a graph.
+
+```
+vg deconstruct cannabis.xg -e -p "pink_pepper" > variants.vcf
+```
+
+Let's have a look at the resulting file. 
+
+```
+less variants.vcf
+```
+
+Unfortunately the vcf's produced by vg don't give us the type of variant or its length but I think we can work it out. 
+
+- What are the positions of the three structural variants we looked for last time (duplication, insertion, and deletion)?
+
+This method is obviously much easier than manually looking through a graph to work out how each sample varies from the reference and can be used at much larger scales than we have just seen. 
+
+## Part 3: Investigating factors impacting read alignment to graphs
+
+Let's move on to the 1000 Genomes data. 
+
+```
+cd ~/GraphGenomes/prac2/1000genomes
+```
+
+The z files contain 1Mbp of 1000 Genomes data for chr20:1000000-2000000.
+The reference sequence is contained in `z.fa`, and the variation is contained in `z.vcf.gz`.
+
+## Background and Setup
+
+The goal of this section is for you to investigate how read alignment rates change with one of two conditions but before you split off to investigate on your own, we will go through the setup and the questions. 
+
+
+As in the first practical, we will build two graphs - one with just the reference sequence and one with variation obtained from the 1000 Genomes project. 
+- Build a reference-only graph named `ref.vg`
+- Build the same graph but with variation included named `z.vg`
+
+```
+vg construct -r z.fa -m 32 > ref.vg
+vg construct -r z.fa -v z.vcf.gz -m 32 > z.vg
+```
+
+You might be tempted to visualize these graphs (and of course you are welcome to try), but they are sufficiently big already that your machine might run out of memory and crash.
+
+Now index your graphs. 
+
+In a nutshell, mapping reads to a graph is done in two stages: first, seed hits are identified and then a sequence-to-graph alignment is performed for each individual read.
+Seed finding hence allows vg to spot candidate regions in the graph to which a given read can map potentially map to.
+
+```
+vg index -x z.xg z.vg
+vg index -g z.gcsa z.vg
+vg index -x ref.xg ref.vg
+vg index -g ref.gcsa ref.vg
+
+```
+
+We will now simulate some reads from our graph.
+The `-a` parameter tells vg to output the read as well as information describing exactly where that read came from in the graph and hence, exactly where it should align to the graph when we map our reads. 
+Keep in mind that this information is only relevant if we are mapping reads back to the exact same graph they were generated from. 
+This information will be needed if you choose _Option 1_ but _Option 2_ also requires simulated reads and this format is fine so we can make them together. 
+
+```
+vg sim -x z.xg -l 100 -n 1000 -e 0.01 -i 0.005 -a > z.sim
+```
+
+- What do these reads actually represent?
+
+Now let's map these reads to our graph and find out how the alignment went. 
+Map using the command below and then take a look at the `aln_sum.json`
+The -j parameter outputs a JSON file describing how each read mapped to the graph and how this compares with its true location.
+
+```
+vg map -x z.xg -g z.gcsa -G z.sim --compare -j | head -n 1 
+```
+
+The above command should have printed a chunk of text to your terminal that describes how just one of your reads aligned to the graph.  
+
+- Can you understand it?
+
+As you can see, there's way too much information for us to go through manually.
+
+We can process ths information with `jq`, `awk`, and `sed` to get a summary of alignment correctness.
+We can use this to quickly check if our alignment process is doing what we expect on the variation graph we're working on.
+For instance, we might have set alignment parameters that cause problems for our alignment which we could observe using the `--compare` feature of the mapper.
+
+Let's summarise the alignment correctness for the mapping we just did but keep in mind that your results will be slightly different from mine because we all have a slightly different set of reads and also, the alignments may come out in a different order over multiple runs. 
+
+```
+vg map -x z.xg -g z.gcsa -G z.sim --compare -j | jq .correct | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
+```
+
+#### Questions:
+
+- What is the `jq .correct` part doing? 
+- What is the `sed` part doing?
+- What is the `awk` part doing? 
+- How well were our reads aligned? Why isn't this number 1? 
+- What might we put instead of `jq .correct` to get some idea of how well our reads aligned to a graph they didn't come from?
+
+The goal of this final section is for you to investigate one (or both) of the following questions on your own or in a group using the method above to summarise read alignment correctness or read identity if you're choose option 2. 
+
+**Option 1:**
+
+- How does the minimum Maximal Exact Match (MEM) length impact read alignment rates and accuracy?
+
+**Option 2:**
+
+- How do read alignment rates and accuracy compare when using a linear reference, a graph containing only common variants, and a graph containing all variants for that population?
+
+### Option 1 Instructions 
+
+The `-k` parameter used when mapping reads to a graph is described as "minimum MEM length" in the documentation. 
+MEM stands for "Maximal Exact Match".
+MEM's are exact matches between two sequences that cannot be extended either way without introducing even one mismatch. 
+They are used in read alignment as "seeds", possible locations that the read could align. 
+
+The figure below shows all of the Maximal Exact Matches between a read and a genome for a value of k=3, meaning that the length of matching sequences found in both the read and the genome will be 3 or more.
+Therefore, all k-mers of 3 or more basepairs common to both the read and the reference are underlined. 
+These matches are used as starting points, or "seeds", for read alignment. 
+
+!["Maximal Exact Matches between a read and a genome with length of 3 or more"](../../images/MEMs.png)
+
+You can vary this parameter within the mapping command by changing the question mark below to your k-value of choice. 
+
+```
+vg map -k ? -x z.xg -g z.gcsa -G z.sim --compare -j | jq .correct | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
+``` 
+
+#### Questions:
+
+- Does read alignment correctness get better or worse as k increases? 
+- For what (approximate) range of k values does read alignment correctness remain the same? Can you explain why?
+- If our reads had a higher error rate, would this range of k values change? How? 
+- Would it be sensible to choose a very small value of k (eg `-k 5`) as a default value? Why or why not?
+
+### Option 2 Instructions
+
+You are investigating how read alignment rates change with the amount of variation within a graph. 
+
+We have already built a graph with no variation - `ref.vg`, and a graph with all of the variants identified in the 1000 genomes project for this section of the genome - `z.vg`
+You will now build a graph containing only variants found within at least 20% of the population and compare read alignment rates between the three graphs. 
+
+You can make a VCF with a minimum allele fequency with the command below noting that AF stands for allele frequency:
+
+```
+bcftools filter -i 'AF > 0.2' z.vcf.gz > af20.vcf
+```
+
+Next, build a new graph using the reference and this filtered VCF. 
+
+```
+vg construct -r z.fa -v af20.vcf -m 32 > af20.vg
+vg index -x af20.xg af20.vg
+vg index -g af20.gcsa af20.vg
+```
+
+You should now have three graphs:
+
+`ref.vg` - just the reference sequence, no variation
+
+`20af.vg` - graph containing common alleles only
+
+`z.vg` - graph containing all alleles identified in the 1000 genomes project for this section of the genome 
+
+Now, align your simulated reads to all three graphs one at a time and compare mapping identity rates.
+We don't have a "truth set" for the alignment of these reads to either the ref.vg or filtered.vg graphs because they didn't originage from either of these graphs.
+Therefore, when we filter using `jq`, we will use `.identity` instead of `.correct`. 
+
+For example, the command to align to `z.vg` and summarise read mapping identity would be:
+
+```
+vg map -x z.xg -g z.gcsa -G z.sim --compare -j | jq .identity | sed s/null/0/ | awk '{i+=$1; n+=1} END {print i/n}'
+```
+
+Feel free to build another graph with a different allele frequency cutoff to explore further.
+
+#### Questions:
+
+- What was the read alignment identity for each of your graphs?
+- Take a look at the file sizes for each of your .vg graphs and their .gcsa index. How do these files scale with the amount of variation within the graph?
+- Given that the .gcsa index is a k-mer index that is used for read alignment, how might the addition of a single variant to the graph alter the number of k-mers in the graph? It might help to draw a picture.
+
