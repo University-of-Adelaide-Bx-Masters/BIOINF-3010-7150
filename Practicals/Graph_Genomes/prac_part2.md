@@ -76,18 +76,18 @@ In the last practical we constructed a graph using the multiple sequence alignme
 We will now use this same graph but will call variants from the graph programmatically.
 
 Let's build the graph again.
-
 Move into the `cannabis` directory, construct the graph, and index it (we only need the xg index).
-
-It's exactly the same graph as we used in the first part of the practical and we are interested in the regions circled below.
-
-!["Structural Variations in our cannabis dataset"](../../images/cannabis_msa_bandage_plot.png)
 
 ```
 cd ~/GraphGenomes/prac2/cannabis
 vg msga -f cannabis.fasta -t 2 -k 16 --base pink_pepper | vg mod -U 10 - | vg mod -c -X 256 - > cannabis.vg
 vg index -x cannabis.xg cannabis.vg
 ```
+
+It's exactly the same graph as we used in the first part of the practical and we are interested in the regions circled below.
+
+!["Structural Variations in our cannabis dataset"](../../images/cannabis_msa_bandage_plot.png)
+
 
 Now use `vg deconstruct` to generate a VCF using the pink_pepper sequence as the reference.
 Notice how `deconstruct` is the opposite to `construct`?
@@ -192,8 +192,14 @@ The reference sequence is contained in `z.fa`, and the variation is contained in
 
 The goal of this section is for you to investigate how read alignment rates change with one of two conditions but before you split off to investigate on your own, we will go through the setup and the questions. 
 
+We will initially build two graphs - one with just the reference sequence and one with variation obtained from the 1000 Genomes project. 
 
-As in the first practical, we will build two graphs - one with just the reference sequence and one with variation obtained from the 1000 Genomes project. 
+Take a look at the data first. 
+
+```
+gunzip -c z.vcf.gz | less
+```
+
 - Build a reference-only graph named `ref.vg`
 - Build the same graph but with variation included named `z.vg`
 
@@ -343,3 +349,10 @@ Feel free to build another graph with a different allele frequency cutoff to exp
 - Take a look at the file sizes for each of your .vg graphs and their .gcsa index. How do these files scale with the amount of variation within the graph?
 - Given that the .gcsa index is a k-mer index that is used for read alignment, how might the addition of a single variant to the graph alter the number of k-mers in the graph? It might help to draw a picture.
 
+## Summary
+
+- Using a pan-genome graph in the place of a linear reference genome reduces reference bias
+- By incorporating variation into a graph, we improve read alignment rates, and improve our ability to find new variants 
+- Using a graph in place of a linear reference is complex and methods are still under development
+
+#### Please delete any files or directories you no longer require. Your VM's have a limited amount of storage.
