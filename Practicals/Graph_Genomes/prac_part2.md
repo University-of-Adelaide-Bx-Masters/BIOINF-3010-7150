@@ -1,24 +1,15 @@
 
 ## Graph Genomes Practical: Part 2
 
-## Chelsea Matthews - modified from Yassine Souilmi
+##### _By Chelsea Matthews - modified from Yassine Souilmi_
 
 ### Learning Outcomes
 
-1. See how alignment parameters (in this case minimum read length match) can alter alignment rates.
+1. Have a basic understanding of genotyping and how we can extract variants from a graph constructed from a Multiple Sequence alignment. 
 
-2. See how read alignment rates to a linear reference compare with alignment rates to a graph incorporating variants found within that population.
+2. See how alignment parameters (in this case minimum read length match) can alter alignment rates.
 
-3. Have a basic understanding of genotyping.
-
-## Introduction
-
-One of the main goals for graph pan-genomes is to be able to use them as an alternative to a linear reference genome.
-In order to do this, we need to be able to align reads to them.
-We saw how this was done with a set of three reads in the first part of the practical.
-Today, we'll be aligning reads to a much larger graph and comparing the read alignment rate of these reads with the read alignment rate of the same reads to a linear reference genome.⋅
-This will hopefully show how read alignment rates are improved by aligning to a graph with some natural variation from the population built in.
-This improvement is due to the way that different paths through the graph represent different possible genomic sequences and so a graph is more likely to contain a genomic sequence that is more similar to the newly sequenced sample than a linear reference genome.⋅
+3. See how read alignment rates to a linear reference compare with alignment rates to a graph incorporating variants found within that population.
 
 
 ### Getting (re)started
@@ -77,9 +68,50 @@ You should get the following by running `tree` from the `GraphGenomes/prac2` dir
     └── yeti.vcf
 ```
 
-### Part 1: Genotyping and Variant Discovery - Yeti dataset
+## Part 1: Variant Calling and Inference
 
-Let's explore how we can use read alignment against a graph to genotype a newly sequenced sample.
+### Part 1.1: Infer variants from an MSA graph - Cannabis dataset
+
+In the last practical we constructed a graph using the multiple sequence alignment technique for 4 different cannabis sequences from the same region of the genome and looked at the differences in their structure using visualisation techniques.
+We will now use this same graph but will call variants from the graph programmatically.
+
+Let's build the graph again.
+
+Move into the `cannabis` directory, construct the graph, and index it (we only need the xg index).
+
+It's exactly the same graph as we used in the first part of the practical and we are interested in the regions circled below.
+
+!["Structural Variations in our cannabis dataset"](../../images/cannabis_msa_bandage_plot.png)
+
+```
+cd ~/GraphGenomes/prac2/cannabis
+vg msga -f cannabis.fasta -t 2 -k 16 --base pink_pepper | vg mod -U 10 - | vg mod -c -X 256 - > cannabis.vg
+vg index -x cannabis.xg cannabis.vg
+```
+
+Now use `vg deconstruct` to generate a VCF using the pink_pepper sequence as the reference.
+Notice how `deconstruct` is the opposite to `construct`?
+We use the `vg construct` command to build a graph with a reference and a set of variants, and we use the `vg deconstruct` command to extract variants from a graph.
+
+```
+vg deconstruct cannabis.xg -e -p "pink_pepper" > variants.vcf
+```
+
+Let's have a look at the resulting file.
+
+```
+less variants.vcf
+```
+
+Unfortunately the vcf's produced by vg don't give us the type of variant or its length but I think we can work it out.
+
+- What are the positions of the three structural variants we looked for last time (duplication, insertion, and deletion)?
+
+This method is obviously much easier than manually looking through a graph to work out how each sample varies from the reference and can be used at much larger scales than we have just seen.
+
+### Part 1.2: Genotyping and Variant Discovery - Yeti dataset
+
+Now let's explore how read alignment to a graph can be used to genotype a newly sequenced sample.
 
 Genotyping is where we identify the specific genomic makeup of a sample.
 In this case, we will use a graph constructed from known variants found within a particualr population and we will identify which of these variants a newly sequenced sample has. 
@@ -114,19 +146,16 @@ vg view yeti.vg > yeti.gfa
 Bandage image yeti.gfa img_yeti_bandage.png
 ```
 
-Align the reads in `nylamo.fq` to the graph and then filter these alignments to remove secondary alignments and ambiguous read mappings. 
+Align the reads in `nylamo.fq` to the graph. 
 
 ```
 vg map --fastq nylamo.fq -x yeti.xg -g yeti.gcsa > nylamo.gam
-vg filter nylamo.gam -r 0.90 -fu -m 1 -q 15 -D 999 -x yeti.xg > nylamo_filtered.gam
 ```
-
-- What parameters are we using to filter our reads?
 
 Now, we will now use `vg pack` to determine read support for the graph.
 
 ```
-vg pack -x yeti.xg -g nylamo_filtered.gam -o nylamo.pack
+vg pack -x yeti.xg -g nylamo.gam -o nylamo.pack
 ```
 
 And finally, we will genotype the sample. 
@@ -140,49 +169,15 @@ Open the output file so that you can have a look at it.
 The genotype of the sample is found at the start of the final column.
 For example, 0/0 means that the sample was homozygous for the reference allele.
 1/1 indicates that the sample is homozygous for the alternative allele.
-1/0 means that the sample was heterozygous with one copy of the reference allele and one copy of the alternate allele.
+1/0 means that the sample was heterozygous with one copy of the reference allele and one copy of the alternate allele
 
 #### Questions:
 
 - Which variants are present in the nylamo sample? Which variants are not?
 - Can you find the quality scores and read depth for each variant call?
+- Why might using a graph for variant calling be better than using a linear reference genome?
 
-## Part2: Infer variants from an MSA graph - Cannabis dataset
-
-In the last practical we constructed a graph using the multiple sequence alignment technique for 4 different cannabis sequences from the same region of the genome and looked at the differences in their structure using visualisation techniques. 
-We will now use this same graph but will call variants from the graph programmatically. 
-
-Let's build the graph again. 
-
-Move into the `cannabis` directory, construct the graph, and index it (we only need the xg index).  
-
-```
-cd ~/GraphGenomes/prac2/cannabis
-vg msga -f cannabis.fasta -t 2 -k 16 --base pink_pepper | vg mod -U 10 - | vg mod -c -X 256 - > cannabis.vg
-vg index -x cannabis.xg cannabis.vg
-```
-
-Now use `vg deconstruct` to generate a VCF using the pink_pepper sequence as the reference. 
-Notice how `deconstruct` is the opposite to `construct`?      
-We use the `vg construct` command to build a graph with a reference and a set of variants, and we use the `vg deconstruct` command to extract variants from a graph.
-
-```
-vg deconstruct cannabis.xg -e -p "pink_pepper" > variants.vcf
-```
-
-Let's have a look at the resulting file. 
-
-```
-less variants.vcf
-```
-
-Unfortunately the vcf's produced by vg don't give us the type of variant or its length but I think we can work it out. 
-
-- What are the positions of the three structural variants we looked for last time (duplication, insertion, and deletion)?
-
-This method is obviously much easier than manually looking through a graph to work out how each sample varies from the reference and can be used at much larger scales than we have just seen. 
-
-## Part 3: Investigating factors impacting read alignment to graphs
+## Part 2: Investigating factors impacting read alignment to graphs
 
 Let's move on to the 1000 Genomes data. 
 
@@ -193,7 +188,7 @@ cd ~/GraphGenomes/prac2/1000genomes
 The z files contain 1Mbp of 1000 Genomes data for chr20:1000000-2000000.
 The reference sequence is contained in `z.fa`, and the variation is contained in `z.vcf.gz`.
 
-## Background and Setup
+### Background and Setup
 
 The goal of this section is for you to investigate how read alignment rates change with one of two conditions but before you split off to investigate on your own, we will go through the setup and the questions. 
 
