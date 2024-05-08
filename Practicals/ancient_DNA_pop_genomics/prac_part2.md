@@ -81,11 +81,11 @@ echo "PATH=$PATH" >> ~/.Renviron
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Build a parameter file named `data/par.AllAmerica_Ancient.smartpca` that will be one of the inputs for [SMARTPCA](https://github.com/DReichLab/EIG/tree/master/POPGEN). Because ancient data contain a lot of missing data, we are going to force `SMARTPCA` to construct the eigenvectors based on the contemporary populations (listed in [`poplistname`](https://github.com/DReichLab/EIG/tree/master/POPGEN)) and then project the ancient samples onto the PCA ([`lsqproject`](https://github.com/DReichLab/EIG/blob/master/POPGEN/lsqproject.pdf)).  
 
+Let us edit the file in `nano`
 ```bash
 nano data/par.AllAmerica_Ancient.smartpca
 ```
-Press `Ctrl` + `x` to open the exit prompt. Then Press `y` and then `Enter` to save and exit. 
-
+Copy and Paste the following block of text into the file. 
 ```bash
 genotypename:    data/AllAmerica_Ancient.eigenstrat.geno
 snpname:         data/AllAmerica_Ancient.eigenstrat.snp
@@ -96,7 +96,8 @@ numoutevec:      5
 lsqproject:      YES
 poplistname:     data/poplistPCA
 ```
-
+To save changed and exit editing more. 
+Press `Ctrl` + `x` to open the exit prompt. Then press `y`, followed by `Enter` to save and exit. 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Run `SMARTPCA`
 
 ```bash
