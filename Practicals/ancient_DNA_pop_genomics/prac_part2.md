@@ -12,10 +12,10 @@ Icons are used to highlight sections of the practicals:
 
 ## Practical outcomes
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> At the end of today's practical, you will know how to explore contemporary and ancient genomic diversity to infer population history. The practical is loosely based on Monday's lecture about the population history of Indigenous peoples of the Americas, in particular the [Posth *et al.*](https://www.sciencedirect.com/science/article/pii/S0092867418313801) *Cell* paper we published in 2018.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> At the end of today's practical, you will know how to explore contemporary and ancient genomic diversity to infer population history. The practical is loosely based on Monday's lecture about the population history of Indigenous peoples of the Americas, in particular the [Posth *et al.*](https://www.sciencedirect.com/science/article/pii/S0092867418313801) *Cell* paper that was published in 2018.
 
 ## Reconstructing the Deep Population History of Central and South America [(Posth *et al.* 2018 Cell)](https://www.sciencedirect.com/science/article/pii/S0092867418313801)
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> For this study, we generated 49 new genome-wide datasets that consist of an enrichment and Illumina high-throughput sequencing of 1.2M SNPs from ancient DNA samples. All sampled individuals are from Central (Belize) and South (Brazil, Peru, Chile, Argentina) American individuals. The skeletal remains are dated between 10,900–700 BP (years before present), with the large majority of remains older than 1,000 BP.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> This study generated 49 new genome-wide datasets that consist of enriched Illumina high-throughput sequencing of 1.2M SNPs from ancient DNA samples. All sampled individuals are from Central (Belize) and South (Brazil, Peru, Chile, Argentina) American individuals. The skeletal remains are dated between 10,900–700 BP (years before present), with the large majority of remains older than 1,000 BP.
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> We know from previous genetic studies that Indigenous peoples of the Americas were isolated from the rest of the world since the peopling of the Americas until European colonisation during the 16<sup>th</sup> century. Thus we can safely assume that our ancient individual genomic datasets should not harbour signs of recent genetic admixture with non-Indigenous Americans.
 
@@ -30,7 +30,7 @@ Icons are used to highlight sections of the practicals:
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Activate the environment `variation`.
 ```bash
-conda activate variation
+source activate popgen
 ```
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> I provided 2 datasets in `EIGENSTRAT` format. As a reminder, the `EIGENSTRAT` format consists of 3 files:
@@ -52,10 +52,10 @@ conda activate variation
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Unarchive the practical data (stored in `~/data/genomics/ancient/`) in your working directory.
 ```bash
-mkdir -p ~/Project_12_2
-cd ~/Project_12_2
-tar xvzf ~/data/ancient/tutorial_popgen.tar.gz -C .
-ll
+mkdir -p ~/Project_12_2/{data,results,scripts}
+cd ~/Project_12_2/
+tar xvzf ~/data/ancient/tutorial_popgen.tar.gz -C data/
+ll data/
 ```
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> The files with the `AllAmerica_Ancient.eigenstrat` prefix contain the 49 ancient Central and South Americans and  data from modern South American individuals, as well as Anzick-1 and USR1. The files with the `AllAmerica_Ancient_YRI.eigenstrat` prefix contain the same data with the addition of one African individual (YRI: Yoruba). 
@@ -64,9 +64,9 @@ ll
 
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
->- 1) How many individuals are in the `AllAmerica_Ancient.eigenstrat.ind` dataset?
->- 2) Is there missing data in the ancient dataset `AllAmerica_Ancient.eigenstrat.geno`?
->- 3) How many SNPs in each dataset? Hint: look at the `.snp` files.  
+1) How many individuals are in the `AllAmerica_Ancient.eigenstrat.ind` dataset?
+2) Is there missing data in the ancient dataset `AllAmerica_Ancient.eigenstrat.geno`?
+3) How many SNPs in each dataset? Hint: look at the `.snp` files.  
 
 ---
 
@@ -74,43 +74,44 @@ ll
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We are going to use `SMARTPCA` (as part of the `EIGENSOFT` utilities, see the end of Tuesday's practical) and an implementation of `ADMIXTOOLS` in an `R` package called admixR (it needs `ADMIXTOOLS` to be already installed). These programs are installed in the conda environment `popgen`.
 ```bash
-# Activate the conda environment `popgen`
-conda activate popgen
 # Make sure to copy the `$PATH` variable to `.Renviron`
-echo "PATH=$PATH" > ~/.Renviron
+echo "PATH=$PATH" >> ~/.Renviron
 ```
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Go to Session > Restart R. 
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Build a parameter file named `par.AllAmerica_Ancient.smartpca` that will be one of the inputs for [SMARTPCA](https://github.com/DReichLab/EIG/tree/master/POPGEN). Because ancient data contain a lot of missing data, we are going to force `SMARTPCA` to construct the eigenvectors based on the contemporary populations (listed in [`poplistname`](https://github.com/DReichLab/EIG/tree/master/POPGEN)) and then project the ancient samples onto the PCA ([`lsqproject`](https://github.com/DReichLab/EIG/blob/master/POPGEN/lsqproject.pdf)).  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Build a parameter file named `data/par.AllAmerica_Ancient.smartpca` that will be one of the inputs for [SMARTPCA](https://github.com/DReichLab/EIG/tree/master/POPGEN). Because ancient data contain a lot of missing data, we are going to force `SMARTPCA` to construct the eigenvectors based on the contemporary populations (listed in [`poplistname`](https://github.com/DReichLab/EIG/tree/master/POPGEN)) and then project the ancient samples onto the PCA ([`lsqproject`](https://github.com/DReichLab/EIG/blob/master/POPGEN/lsqproject.pdf)).  
 
 ```bash
-genotypename:    AllAmerica_Ancient.eigenstrat.geno
-snpname:         AllAmerica_Ancient.eigenstrat.snp
-indivname:       AllAmerica_Ancient.eigenstrat.ind
-evecoutname:     AllAmerica_Ancient.smartpca_results.evec
-evaloutname:     AllAmerica_Ancient.smartpca_results.eval
+nano data/par.AllAmerica_Ancient.smartpca
+```
+Press `Ctrl` + `x` to open the exit prompt. Then Press `y` and then `Enter` to save and exit. 
+
+```bash
+genotypename:    data/AllAmerica_Ancient.eigenstrat.geno
+snpname:         data/AllAmerica_Ancient.eigenstrat.snp
+indivname:       data/AllAmerica_Ancient.eigenstrat.ind
+evecoutname:     results/AllAmerica_Ancient.smartpca_results.evec
+evaloutname:     results/AllAmerica_Ancient.smartpca_results.eval
 numoutevec:      5
 lsqproject:      YES
-poplistname:     poplistPCA
+poplistname:     data/poplistPCA
 ```
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Run `SMARTPCA`
 
 ```bash
-smartpca -p par.AllAmerica_Ancient.smartpca
+smartpca -p data/par.AllAmerica_Ancient.smartpca
 ```
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create plots.
 
 ```R
-#OPTIONAL: Install packages if they are not readily available
-#install.packages("tidyverse")
-#install.packages("cowplot")
+# load libraries
 library(tidyverse)
 library(cowplot)
 
 # Set your working directory
-setwd("~/Project_12_2")
+setwd("~/Project_12_2/results/")
 
 # data for scree plot
 adat.scree <- read.table("AllAmerica_Ancient.smartpca_results.eval", header = FALSE)
@@ -126,7 +127,8 @@ adat.screep <- ggplot(adat.scree,aes(x = Name, y = Scree)) +
                theme(axis.text.x = element_blank(), # no text for the x-axis
                      axis.ticks.x = element_blank()) + # no ticks for the x-axis
                xlab("component") + # x-axis label
-               ylab("eigenvalue") # y-axis label
+               ylab("eigenvalue") + # y-axis label
+               theme_bw() # Set theme
           
 # Create dataframe for the data
 adat <- read.table("AllAmerica_Ancient.smartpca_results.evec", header = FALSE)
@@ -143,7 +145,7 @@ adat$DATE <- ifelse(grepl('BP', adat$POP), "Ancient",
 # Create plot with populations in different colours and super-populations with different point shapes
 adat.pc12 <- ggplot(adat, aes(x = PC1, y = PC2)) + 
              geom_point(aes(fill = POP, colour = POP, shape = DATE), size = 4) +
-             scale_shape_manual(values=c(21, 22, 24, 25))
+             scale_shape_manual(values=c(21, 22, 24, 25)) + theme_bw()
 
 # Combine plots using plot_grid from cowplot
 prow <- plot_grid(adat.pc12 + theme(legend.position="none"), # remove the legend
@@ -158,14 +160,17 @@ legend <- get_legend(adat.pc12 +
                      theme(legend.position = "bottom")) # legend is displayed at the bottom of the plots (i.e., horizontal not vertical)
                      
 # Combine plots and legend using plot_grid from cowplot
-plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # height ratio between plots and legend is 1:0.3
+plt1 <- plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # height ratio between plots and legend is 1:0.3
+
+# Save plot as pdf 
+ggsave("AllAmerica_Ancient.smartpca_scree.pdf", plt1, dpi=300, height=10, width=14)
 ```
 
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
->- 4) The scree plot represents the value for each eigenvector, i.e., the variance in the data explained by the eigenvector. In your opinion, does the first eigenvector explain much variance compared to other vectors?  
->- 5) PC1 seems to capture the variation observed between eskimos and modern Peruvian (PEL), while PC2 seems to capture the variation just within PEL. Knowing that PEL is individuals from Lima, the capital city of Peru, why would the PEL population be so diverse?  
->- 6) Where do the ancient samples cluster in regards to the PCA coordinates? And where in regards to contemporary populations?  
+4) The scree plot represents the value for each eigenvector, i.e., the variance in the data explained by the eigenvector. In your opinion, does the first eigenvector explain much variance compared to other vectors?  
+5) PC1 seems to capture the variation observed between eskimos and modern Peruvian (PEL), while PC2 seems to capture the variation just within PEL. Knowing that PEL is individuals from Lima, the capital city of Peru, why would the PEL population be so diverse?  
+6) Where do the ancient samples cluster in regards to the PCA coordinates? And where in regards to contemporary populations?  
 
 ---
 
@@ -186,8 +191,11 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # height ratio between
 library(admixr)
 library(tidyverse)
 
+# Set working dir
+setwd("~/Project_12_2/")
+
 # Load the dataset that includes the African individual
-snpsAmerica <- eigenstrat(prefix = "AllAmerica_Ancient_YRI.eigenstrat")
+snpsAmerica <- eigenstrat(prefix = "data/AllAmerica_Ancient_YRI.eigenstrat")
 
 # Create a list of population we want to test (just a subset of the 
 pops <- c("Eskimo", "Aymara", "Anzick", "USR1", "Peru_Lauricocha_8600BP", "Peru_Lauricocha_5800BP", "Brazil_LapaDoSanto_9600BP", "Chile_LosRieles_10900BP")
@@ -212,13 +220,13 @@ result %>%
   filter(A != B) %>%
   mutate(A = factor(A, levels = ordered),
          B = factor(B, levels = ordered)) %>%
-  ggplot(aes(A, B)) + geom_tile(aes(fill = f3))
+  ggplot(aes(A, B)) + geom_tile(aes(fill = f3)) + theme_bw()
 ```
 
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
 
->- 7) What two populations/individuals seem to diverge earlier than the others?  
+7) What two populations/individuals seem to diverge earlier than the others?  
 
 ---
 
@@ -232,7 +240,7 @@ result %>%
 ```R
 # Create a list of populations we want to test (just a subset of the populations in the dataset)
 pops2 <- c("Eskimo", "Aymara", "Peru_Lauricocha_5800BP", "Brazil_LapaDoSanto_9600BP", "Chile_LosRieles_10900BP")
-result2 <- d(W = pops, X = "USR1", Y = "Anzick", Z = "YRI", data = snpsAmerica)
+result2 <- d(W = pops2, X = "USR1", Y = "Anzick", Z = "YRI", data = snpsAmerica)
 
 head(result2)
 ```
@@ -251,14 +259,15 @@ head(result2)
 ggplot(result2, aes(fct_reorder(W, D), D, color = abs(Zscore) > 2)) +
   geom_point() +
   geom_hline(yintercept = 0, linetype = 2) +
-  geom_errorbar(aes(ymin = D - 2 * stderr, ymax = D + 2 * stderr))
+  geom_errorbar(aes(ymin = D - 2 * stderr, ymax = D + 2 * stderr)) + 
+  theme_bw()
 ```
 
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
 
->- 8) Is there any test population/individual for which *D* is not different from 0? What does it mean in terms of admixture?  
->- 9) Is there any test population/individual for which *D* is different from 0? Any particular pattern to report?  
+8) Is there any test population/individual for which *D* is not different from 0? What does it mean in terms of admixture?  
+9) Is there any test population/individual for which *D* is different from 0? Any particular pattern to report?  
 
 ---
 
