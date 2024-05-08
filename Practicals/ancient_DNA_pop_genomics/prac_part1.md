@@ -30,28 +30,32 @@ Icons are used to highlight sections of the practicals:
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> You have previously learnt about several raw or processed high throughput sequencing data formats (e.g., FASTQ, SAM/BAM, VCF). In particular, you should now know that [VCF](https://samtools.github.io/hts-specs/VCFv4.2.pdf) files contain information about variant calls found at specific positions in a reference genome.
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We will use a VCF file of human chromosome 22 from the 1000 Genomes Project (1kGP) that we will save into a working directory in your home directory:
+
 ```bash
 # Create working directory
-mkdir ~/Project_12_1
-cd ~/Project_12_1
+mkdir -p ~/Project_12_1/{data,scripts,results}
+cd ~/Project_12_1/
 ```
 ```bash
 # Download compressed VCF file and its index from the 1kGP public FTP site (VCF file size: 214453750 bytes)
-curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz	> 1kGP_chr22.vcf.gz
-curl ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi	> 1kGP_chr22.vcf.gz.tbi
+wget -O data/1kGP_chr22.vcf.gz 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz'
+wget -O data/1kGP_chr22.vcf.gz.tbi 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi'
 ```
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Although you could use your own scripts to parse VCF files and analyse variant calls, several tools have already been developed for your convenience. In particular, [`BCFtools`](http://samtools.github.io/bcftools/bcftools.html) is a set of useful utilities to manipulate variant calls in VCF files. Install it easily with the conda package management system, along with other programs we will need during the two population genomics practicals.  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Although you could use your own scripts to parse VCF files and analyse variant calls, several tools have already been developed for your convenience. We will be using the following tools for the next two practicals
+- [`bcftools`](http://samtools.github.io/bcftools/bcftools.html) is a set of utilities to manipulate variant calls in VCF files. 
+- [`plink`](https://www.cog-genomics.org/plink/) is a tool kit for population genetic and genome wise association analysis.
+- [EIGENSOFT](https://github.com/DReichLab/EIG) is set of tools for population genetic analysis such as principal component analysis (PCA).
+- [AdmixTools](https://github.com/DReichLab/AdmixTools) is used to investigate admixture and population history through ancestry estimation and admixture graph modeling.
+
+We will also be using some custom scripts to visualise the data. 
 
 ```bash
-# add conda channels
-conda config --add channels defaults
-conda config --add channels bioconda
-conda config --add channels conda-forge
-# create a conda environment called `popgen` and install the software `bcftools`, `plink`, `eigensoft`, and `admixtools` 
-conda create -n popgen eigensoft admixtools bcftools plink
 # Activate the `popgen` environment
-conda activate popgen
+source activate popgen
+
+# Copy Scripts
+cp ~/data/ancient/prac_1/* ~/Project_12_1/scripts/
 ```
 
 #### VCF meta-information and header lines
@@ -75,7 +79,7 @@ conda activate popgen
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Have a closer look at how the information in the [INFO](https://en.wikipedia.org/wiki/Variant_Call_Format#Common_INFO_fields) and [FORMAT](https://en.wikipedia.org/wiki/Variant_Call_Format#Common_FORMAT_fields) fields is commonly coded. The 1kGP VCF datasets also contain some project-specific keys explained in a file that can be downloaded.
 
 ```bash
-wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/README_vcf_info_annotation.20141104
+wget --directory-prefix data 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/README_vcf_info_annotation.20141104'
 ```
 
 #### VCF body
@@ -84,28 +88,58 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/README_vcf_info
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Before we move forward, let's see if you can retrieve basic information from a 1kGP VCF file that will be useful for population genomic analyses.
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
->- 1) Using `bcftools view` or bash commands, determine how many variant sites are recorded in the VCF file.
->- 2) Using `bcftools query` or bash commands, determine how many samples are recorded in the VCF file.
->- 3) The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in East Asians.
->- 4) Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).
->- 5) How many alternative alleles are observed at position 16050654?    
->- 6) Looking at the information contained in the `FORMAT` field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
+1) Using `bcftools stats` or bash commands, determine how many variant sites are recorded in the VCF file.
+2) Using `bcftools query` or bash commands, determine how many samples are recorded in the VCF file.
+3) The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in South Asians.
+4) Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).
+5) How many alternative alleles are observed at position 16050654?    
+6) Looking at the information contained in the `FORMAT` field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?  
 
+<details>
+  <summary>Answers</summary>
+
+  ```bash
+  # Q1: 1103547 variants
+  bcftools view -H data/1kGP_chr22.vcf.gz | wc -l
+
+  # Q2: 2504 samples
+  bcftools query -l data/1kGP_chr22.vcf.gz | wc -l
+
+  # Q3: AC=1, AF=0.000199681, SAS_AF=0.001
+  bcftools view -H data/1kGP_chr22.vcf.gz | head -n1 | awk '{print $1,$2,$8;}'
+
+  # Q4: AC=563, AF=0.11242, SAS_AF=0.2791
+  bcftools view -H data/1kGP_chr22.vcf.gz 22:16051249 | awk '{print $1,$2,$8;}'
+
+  # Q5: AC=9,87,599,20 so 4 
+  ```
+</details>
 ---
 
 #### Other useful 1kGP metadata
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Download sample details from the 1kGP FTP site to learn about population of origin and sex of each individual.
 ```bash
-wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call_samples_v3.20130502.ALL.panel
+wget --directory-prefix data 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call_samples_v3.20130502.ALL.panel'
 ```
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
+7) Using bash commands on the panel file you just downloaded, determine how many different populations and super-populations are represented in the 1kGP dataset.  
+8) How many individuals are in each super-population?  
 
->- 7) Using bash commands on the panel file you just downloaded, determine how many different populations and super-populations are represented in the 1kGP dataset.  
->- 8) How many individuals are in each super-population?  
+<details>
+  <summary>Answers</summary>
 
+  ```bash
+  # Q7: 26 populations and 5 super-populations
+  tail -n+2 data/integrated_call_samples_v3.20130502.ALL.panel | awk '{print $2;}' | sort | uniq | wc -l
+  tail -n+2 data/integrated_call_samples_v3.20130502.ALL.panel | awk '{print $3;}' | sort | uniq | wc -l
+
+  # Q8:
+  tail -n+2 data/integrated_call_samples_v3.20130502.ALL.panel | awk '{print $3;}' | sort | uniq -c
+  ```
+</details>
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> You can learn more about the populations in the 1kGP [here](https://www.internationalgenome.org/faq/which-populations-are-part-your-study/).  
@@ -123,16 +157,26 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
 |**Diploid, phased, 2 alleles**|4 genotypes: 0\|0, 0\|1, 1\|0, 1\|1|  
 |**Haploid, n alleles**|n genotypes: e.g., 0, 1, 2, 7|  
 |**Diploid, not phased, n alleles**|n! genotypes: e.g., 0/0, 1/4, 0/2, 3/3|  
-|**Diploid, phased, n alleles**|n<sup>2</sup> genotypes: e.g., 0/0, 1/4, 0/2, 3/3|  
+|**Diploid, phased, n alleles**|n<sup>2</sup> genotypes: e.g., 0\|0, 1\|4, 0\|2, 3\|3|  
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Have a look at the first variant in the VCF file.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Have a look at the variant in position 16061250 in the VCF file.
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
 
->- 9) What are the `REF` and `ALT` alleles?  
->- 10) Given `REF` and `ALT` alleles found when answering question 9, and knowing that the genotypes are phased, what are the possible genotypes with nucleotides and 1kGP coding?  
+9) What are the `REF` and `ALT` alleles?  
+10) Given `REF` and `ALT` alleles found when answering question 9, and knowing that the genotypes are phased, what are all the possible genotypes?  
 
+<details>
+  <summary>Answers</summary>
+
+  ```bash
+  # Q9: REF T , ALT A,C
+  bcftools view -H data/1kGP_chr22.vcf.gz 22:16061250 | awk '{print $1,$2,$4,$5}' 
+
+  # Q10: 0|0, 0|1, 1|0, 1|1, 0|2, 2|0, 1|2, 2|1, 2|2
+  ```
+</details>
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> You saw that the VCF genotype information can be very detailed. However, all we need usually for population genomics is a table of samples and variant calls, where the genotype information is coded so it can be parsed easily and file size remains as small as possible (imagine storing and parsing whole genome variation data for >100k individuals). 
@@ -159,29 +203,23 @@ wget ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/integrated_call
   * Sex code ('1' = male, '2' = female, '0' = unknown)
   * Phenotype value ('1' = control, '2' = case, '-9'/'0'/non-numeric = missing data if case/control)
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> OPTIONAL: Install `PLINK` if not already installed.  
-
-```bash
-conda install -c bioconda plink
-```
-
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Convert the VCF file to PLINK files.  
 
 ```bash
 plink \
-  --vcf 1kGP_chr22.vcf.gz \
-  --out plink_temp
+  --vcf data/1kGP_chr22.vcf.gz \
+  --out results/plink_temp
 ```
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Have a look at the newly created files.
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
->- 11) How many files have been generated, and what are their extensions?
->- 12) How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?  
->- 13) If you look at the content of the `PLINK` variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).  
->- 14) Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the `PLINK` sample file?  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
 
+11) How many files have been generated, and what are their extensions?
+12) How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?  
+13) If you look at the content of the `PLINK` variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).  
+14) Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the `PLINK` sample file? *Hint: look at the `.fam` file* 
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> The VCF file does not contain information about each sample's population of origin or sex. That information is stored in the panel file. Thus we need to build a file that will be used to update the `.fam` output when we convert the VCF file into `PLINK` files. For this, we have to follow instructions from the [`PLINK` online manual](http://www.cog-genomics.org/plink/1.9/data#update_indiv) to build the input file. 
@@ -196,8 +234,8 @@ plink \
 * sex information (1 or M = male, 2 or F = female, 0 = missing) 
 
 ```bash
-#Check that the panel file only contains "male" or "female" in the sex field, and does not have missing sex information (total should be 2504)  
-tail -n+2 integrated_call_samples_v3.20130502.ALL.panel | cut -f4 | sort | uniq -c
+# Check that the panel file only contains "male" or "female" in the sex field, and does not have missing sex information (total should be 2504)  
+tail -n+2 data/integrated_call_samples_v3.20130502.ALL.panel | cut -f4 | sort | uniq -c
 ```
 
 #### Generate updateFields file containing the 5 fields described above
@@ -205,11 +243,11 @@ tail -n+2 integrated_call_samples_v3.20130502.ALL.panel | cut -f4 | sort | uniq 
 awk -v \
  'OFS=\t' \
  'NR>1 {print $1, $1, $3"_"$2, $1, toupper(substr($4, 1, 1))}' \
- integrated_call_samples_v3.20130502.ALL.panel \
- > updateFields
+ data/integrated_call_samples_v3.20130502.ALL.panel \
+ > data/updateFields
 ```
 #### Check that the updateFields file contains 2504 lines
-`wc -l updateFields`
+`wc -l data/updateFields`
 
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Now we have everything to create the PLINK files. We also want to weed out variants that will not be useful for population genomics analyses, so we will keep bi-allelic SNPs only (`--snps-only just-acgt --biallelic-only strict`), keep high quality variant calls only (`--vcf-filter`), and discard rare alleles (`--maf 0.10`). Note that `PLINK` automatically re-orders alleles in minor/major. If you want to preserve the order of REF and ALT alleles as in the VCF file, then use `--keep-allele-order`.
@@ -219,30 +257,30 @@ awk -v \
 ```bash
 # Update sex first (sex and sample IDs cannot be updated at the same time)
 plink \
-  --vcf 1kGP_chr22.vcf.gz \
+  --vcf data/1kGP_chr22.vcf.gz \
   --snps-only just-acgt \
   --biallelic-only strict \
   --vcf-filter \
   --maf 0.10 \
-  --update-sex updateFields 3 \
+  --update-sex data/updateFields 3 \
   --make-bed \
-  --out 1kGP_chr22
+  --out results/1kGP_chr22
 ```
 
 #### Remove the .nosex file  
 
 ```bash
-rm 1kGP_chr22.nosex
+rm results/1kGP_chr22.nosex
 ```
 
 #### Then update sample IDs in the .fam file  
 
 ```bash
 plink \
-  --bfile 1kGP_chr22 \
-  --update-ids updateFields \
+  --bfile results/1kGP_chr22 \
+  --update-ids data/updateFields \
   --make-just-fam \
-  --out 1kGP_chr22
+  --out results/1kGP_chr22
 ```
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Have a look at the newly created files.
@@ -250,8 +288,8 @@ plink \
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
 
->- 15) Does the `.fam` file contain updated information? What fields have been updated when compared to `plink_temp.fam`?  
->- 16) How many variants are stored in the `.bim` file? How does it compare with the number of variants in `plink_temp.bim`?  
+15) Does the `.fam` file contain updated information? What fields have been updated when compared to `plink_temp.fam`?  
+16) How many variants are stored in the `.bim` file? How does it compare with the number of variants in `plink_temp.bim`?  
 
 ---
 
@@ -261,18 +299,18 @@ plink \
 
 ```bash
 plink \
-  --bfile 1kGP_chr22 \
+  --bfile results/1kGP_chr22 \
   --indep-pairwise 200kb 1 0.5 \
-  --out ld_snps
+  --out results/ld_snps
 ```
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Have a look at the newly created files.
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
 
->- 17) How many variants in the `.prune.in` and `.prune.out` output files?  
->- 18) How does it compare to the number of variants in `1kGP_chr22.bim`?  
+17) How many variants in the `.prune.in` and `.prune.out` output files?  
+18) How does it compare to the number of variants in `1kGP_chr22.bim`?  
 
 ---
 
@@ -280,19 +318,19 @@ plink \
 
 ```bash  
 plink \
- --bfile 1kGP_chr22 \
- --extract ld_snps.prune.in \
+ --bfile results/1kGP_chr22 \
+ --extract results/ld_snps.prune.in \
  --make-bed \
- --out 1kGP_chr22.ldpruned
+ --out results/1kGP_chr22.ldpruned
 ```
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Have a look at the newly created files.
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
 
->- 19) In terms of file size, what do you notice when you look at the `.bed`, `.bim` and `.fam` files before and after LD pruning?  
->- 20) How do you explain the changes, or lack thereof?  
+19) In terms of file size, what do you notice when you look at the `.bed`, `.bim` and `.fam` files before and after LD pruning?  
+20) How do you explain the changes, or lack thereof?  
 
 ---
 
@@ -301,99 +339,29 @@ plink \
 ```bash
 # PCA on non-LD-pruned data
 plink \
- --bfile 1kGP_chr22 \
+ --bfile results/1kGP_chr22 \
  --pca 5 \
- --out 1kGP_chr22.pca_results
+ --out results/1kGP_chr22.pca_results
 
 # PCA on LD-pruned data
 plink \
- --bfile 1kGP_chr22.ldpruned \
+ --bfile results/1kGP_chr22.ldpruned \
  --pca 5 \
- --out 1kGP_chr22.ldpruned.pca_results
+ --out results/1kGP_chr22.ldpruned.pca_results
 ```
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `PLINK` PCA has generated two outputs with suffixes `.eigenvec` (the PC coordinates for each sample) and `.eigenval` (all the eigenvalues). Go to the `R` console and create screeplots and PCA plots.  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `PLINK` PCA has generated two outputs with suffixes `.eigenvec` (the PC coordinates for each sample) and `.eigenval` (all the eigenvalues). Run the custom Rscript to generate screeplots and PCA plots. The plots should be in `results/`
 
-```R
-# OPTIONAL: Install R packages
-#install.packages("tidyverse")
-#install.packages("cowplot")
-library(tidyverse)
-library(cowplot)
-
-# Set the working directory
-setwd("~/Project_12_1")
-# Non-LD-pruned data for scree plot
-adat.scree <- read.table("1kGP_chr22.pca_results.eigenval", header = FALSE)
-# Add a column with row number (only needed to be able to do a bar plot)
-adat.scree$Name = 1:nrow(adat.scree)
-# Rename columns
-colnames(adat.scree) <- c("Scree","Name")
-# Do the same steps for the LD-pruned data
-bdat.scree <- read.table("1kGP_chr22.ldpruned.pca_results.eigenval", header = FALSE)
-bdat.scree$Name = 1:nrow(bdat.scree)
-colnames(bdat.scree) <- c("Scree","Name")
-# Plot non-LD-pruned data
-adat.screep <- ggplot(adat.scree,aes(Name,Scree)) +
-               geom_bar(stat="identity") + # heights of the bars represent values in the data
-               theme(text = element_text(size = 20)) +
-               theme(axis.text.x=element_blank(), # no text for the x-axis
-                     axis.ticks.x=element_blank()) + # no ticks for the x-axis
-               xlab("component") +
-               ylab("eigenvalue") +
-               ggtitle("non-LD-pruned scree plot")
-# Do the same steps for the LD-pruned data
-bdat.screep <-ggplot(bdat.scree,aes(Name,Scree)) +
-              geom_bar(stat="identity") +
-              theme(text = element_text(size = 20)) +
-              theme(axis.text.x=element_blank(),
-                    axis.ticks.x=element_blank()) +
-              xlab("component") +
-              ylab("eigenvalue") +
-              ggtitle("LD-pruned scree plot")
-# Combine scree plots using plot_grid from cowplot
-plot_grid(adat.screep,
-          bdat.screep,
-          align = 'vh',
-          hjust = -1,
-          nrow = 1)
-
-# Create dataframe for PCA for the non-LD-pruned data
-adat <- read.table("1kGP_chr22.pca_results.eigenvec", header = FALSE)
-# Rename columns
-colnames(adat) <- c("POP", "SAMPLE", "PC1", "PC2", "PC3", "PC4", "PC5")
-# Split POP column into super-population SUPERPOP and population POP
-adat <- separate(data = adat, col = POP, into = c("SUPERPOP", "POP"), sep = "_")
-# Create plot with populations in different colours and super-populations with different point shapes
-adat.pc12 <- ggplot(adat, aes(x = PC1, y = PC2, colour = POP, shape = SUPERPOP)) + 
-             geom_point() +
-             ggtitle("Non-LD-pruned")
-# Do the same steps for the LD-pruned data
-bdat <- read.table("1kGP_chr22.ldpruned.pca_results.eigenvec", header = FALSE)
-colnames(bdat) <- c("POP", "SAMPLE", "PC1", "PC2", "PC3", "PC4", "PC5")
-bdat <- separate(data = bdat, col = POP, into = c("SUPERPOP", "POP"), sep = "_")
-bdat.pc12 <- ggplot(bdat, aes(x = PC1, y = PC2, colour = POP, shape = SUPERPOP)) + 
-             geom_point() +
-             ggtitle("LD-pruned")
-# Combine plots using plot_grid from cowplot
-prow <- plot_grid(adat.pc12 + theme(legend.position="none"), # remove the legend
-                  bdat.pc12 + theme(legend.position="none"), # remove the legend
-                  align = 'vh', # plots are aligned vertically and horizontally
-                  nrow = 1) # 2 plots on one row
-# Prepare common legend for the two plots
-legend <- get_legend(adat.pc12 + 
-                     guides(color = guide_legend(nrow = 4)) + # legend spans 4 lines
-                     theme(legend.position = "bottom")) # legend is displayed at the bottom of the plots (i.e., horizontal not vertical)
-# Combine plots and legend using plot_grid from cowplot
-plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots and legend is 1:0.3
+```bash
+Rscript scripts/plot_plink_pca.R
 ```
 
 ---
 
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
 
->- 21) Do you observe any obvious differences between the two plots?  
->- 22) What patterns do you observe?  
+21) Do you observe any obvious differences between the two plots?  
+22) What patterns do you observe?  
 
 ---
 
@@ -419,149 +387,80 @@ plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # ratio between plots 
   * gender (M or F). U for Unknown
   * Case or Control status, or population group label. If this entry is set to "Ignore", then that individual and all genotype data from that individual will be removed from the data set in all `CONVERTF` output.
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Build parameter files that will be the inputs for `CONVERTF`. The content of the parameter files is as follows:  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Usually we need to build parameter files that will be the inputs for `CONVERTF`. The content of the parameter files looks like this:  
 
-* `par.PACKEDPED.EIGENSTRAT.1kGP_chr22`:
+* `results/par.PACKEDPED.EIGENSTRAT.1kGP_chr22`:
 ```bash
-genotypename:    1kGP_chr22.bed
-snpname:         1kGP_chr22.bim
-indivname:       1kGP_chr22.fam
+genotypename:    results/1kGP_chr22.bed
+snpname:         results/1kGP_chr22.bim
+indivname:       results/1kGP_chr22.fam
 outputformat:    EIGENSTRAT
-genotypeoutname: 1kGP_chr22.eigenstratgeno
-snpoutname:      1kGP_chr22.snp
-indivoutname:    1kGP_chr22.ind
+genotypeoutname: results/1kGP_chr22.eigenstratgeno
+snpoutname:      results/1kGP_chr22.snp
+indivoutname:    results/1kGP_chr22.ind
 ```
-* `par.PACKEDPED.EIGENSTRAT.1kGP_chr22.ldpruned`:
+* `results/par.PACKEDPED.EIGENSTRAT.1kGP_chr22.ldpruned`:
 ```bash
-genotypename:    1kGP_chr22.ldpruned.bed
-snpname:         1kGP_chr22.ldpruned.bim
-indivname:       1kGP_chr22.ldpruned.fam
+genotypename:    results/1kGP_chr22.ldpruned.bed
+snpname:         results/1kGP_chr22.ldpruned.bim
+indivname:       results/1kGP_chr22.ldpruned.fam
 outputformat:    EIGENSTRAT
-genotypeoutname: 1kGP_chr22.ldpruned.eigenstratgeno
-snpoutname:      1kGP_chr22.ldpruned.snp
-indivoutname:    1kGP_chr22.ldpruned.ind
+genotypeoutname: results/1kGP_chr22.ldpruned.eigenstratgeno
+snpoutname:      results/1kGP_chr22.ldpruned.snp
+indivoutname:    results/1kGP_chr22.ldpruned.ind
 ```
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Run `CONVERTF`. 
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> However, for the sake of simplicity we will run the commands like this. *Make sure to copy the whole block of code*
 
 ```bash
-convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22
-convertf -p par.PACKEDPED.EIGENSTRAT.1kGP_chr22.ldpruned
+convertf -p <(echo "genotypename:    results/1kGP_chr22.bed
+snpname:         results/1kGP_chr22.bim
+indivname:       results/1kGP_chr22.fam
+outputformat:    EIGENSTRAT
+genotypeoutname: results/1kGP_chr22.eigenstratgeno
+snpoutname:      results/1kGP_chr22.snp
+indivoutname:    results/1kGP_chr22.ind")
 ```
-
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Build parameter files that will be the inputs for [`SMARTPCA`](https://github.com/DReichLab/EIG/tree/master/POPGEN). You need to build new parameter files as follows:
-
-* `par.1kGP_chr22`:
-```bash
-genotypename:    1kGP_chr22.eigenstratgeno
-snpname:         1kGP_chr22.snp
-indivname:       1kGP_chr22.ind
-evecoutname:     1kGP_chr22.smartpca_results.evec
-evaloutname:     1kGP_chr22.smartpca_results.eval
-numoutevec:      5
-```
-* `par.1kGP_chr22.ldpruned`:
 
 ```bash
-genotypename:    1kGP_chr22.ldpruned.eigenstratgeno
-snpname:         1kGP_chr22.ldpruned.snp
-indivname:       1kGP_chr22.ldpruned.ind
-evecoutname:     1kGP_chr22.ldpruned.smartpca_results.evec
-evaloutname:     1kGP_chr22.ldpruned.smartpca_results.eval
-numoutevec:      5
+convertf -p <(echo "genotypename:    results/1kGP_chr22.ldpruned.bed
+snpname:         results/1kGP_chr22.ldpruned.bim
+indivname:       results/1kGP_chr22.ldpruned.fam
+outputformat:    EIGENSTRAT
+genotypeoutname: results/1kGP_chr22.ldpruned.eigenstratgeno
+snpoutname:      results/1kGP_chr22.ldpruned.snp
+indivoutname:    results/1kGP_chr22.ldpruned.ind")
 ```
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Run `SMARTPCA`.
+
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Run [`SMARTPCA`](https://github.com/DReichLab/EIG/tree/master/POPGEN) on the `EIGENSTRAT` files. 
 
 ```bash
-smartpca -p par.1kGP_chr22
-smartpca -p par.1kGP_chr22.ldpruned
+smartpca -p <(echo "genotypename:    results/1kGP_chr22.eigenstratgeno
+snpname:         results/1kGP_chr22.snp
+indivname:       results/1kGP_chr22.ind
+evecoutname:     results/1kGP_chr22.smartpca_results.evec
+evaloutname:     results/1kGP_chr22.smartpca_results.eval
+numoutevec:      5")
 ```
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create PCA plots.
 
-```R
-# OPTIONAL: Install R packages
-#install.packages("tidyverse")
-#install.packages("cowplot")
-library(tidyverse)
-library(cowplot)
+```bash
+smartpca -p <(echo "genotypename:    results/1kGP_chr22.ldpruned.eigenstratgeno
+snpname:         results/1kGP_chr22.ldpruned.snp
+indivname:       results/1kGP_chr22.ldpruned.ind
+evecoutname:     results/1kGP_chr22.ldpruned.smartpca_results.evec
+evaloutname:     results/1kGP_chr22.ldpruned.smartpca_results.eval
+numoutevec:      5")
+```
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Run the custom Rscript to generate screeplots and PCA plots. The plots should be in `results/`
 
-# Set the working directory
-setwd("~/Project_12_1")
-#Non-LD-pruned data for scree plot  
-adat.scree <- read.table("1kGP_chr22.smartpca_results.eval", header = FALSE)  
-#Add a column with row number (only needed to be able to do a bar plot)  
-adat.scree$Name = 1:nrow(adat.scree)  
-#Rename columns  
-colnames(adat.scree) <- c("Scree","Name")
-#Restrict to the first 10 lines (first 10 eigenvalues)  
-adat.scree <- head(adat.scree, 10)  
-#Do the same steps for the LD-pruned data  
-bdat.scree <- read.table("1kGP_chr22.ldpruned.smartpca_results.eval", header = FALSE)  
-bdat.scree$Name = 1:nrow(bdat.scree)  
-colnames(bdat.scree) <- c("Scree", "Name")  
-bdat.scree <- head(bdat.scree, 10)  
-#Plot non-LD-pruned data  
-adat.screep <- ggplot(adat.scree,aes(x = Name, y = Scree)) +  
-               geom_bar(stat = "identity") + # heights of the bars represent values in the data  
-               theme(text = element_text(size = 20)) +  
-               theme(axis.text.x = element_blank(), # no text for the x-axis  
-                     axis.ticks.x = element_blank()) + # no ticks for the x-axis  
-               xlab("component") + # x-axis label  
-               ylab("eigenvalue") + # y-axis label  
-               ggtitle("non-LD-pruned scree plot")  
-#Do the same steps for the LD-pruned data  
-bdat.screep <-ggplot(bdat.scree,aes(x = Name, y = Scree)) +  
-              geom_bar(stat = "identity") +  
-              theme(text = element_text(size = 20)) +  
-              theme(axis.text.x = element_blank(),  
-                    axis.ticks.x = element_blank()) +  
-              xlab("component") +  
-              ylab("eigenvalue") +  
-              ggtitle("LD-pruned scree plot")  
-#Combine scree plots using plot_grid from cowplot  
-plot_grid(adat.screep,  
-          bdat.screep,  
-          align = 'vh', # plots are aligned vertically and horizontally  
-          nrow = 1) # 2 plots on one row  
-          
-#Create dataframe for the non-LD-pruned data  
-adat <- read.table("1kGP_chr22.smartpca_results.evec", header = FALSE)  
-#Reduce table to just the sample name and the first 3 PCs  
-adat <- adat[,c(1:4)]
-#Rename columns  
-colnames(adat) <- c("POPSAMPLE", "PC1", "PC2", "PC3")  
-#Split POPSAMPLE column into super-population SUPERPOP, population POP, and SAMPLE  
-adat <- separate(data = adat, col = POPSAMPLE, into = c("SUPERPOP", "POP", "SAMPLE"), sep = "_|:")  
-#Create plot with populations in different colours and super-populations with different point shapes  
-adat.pc12 <- ggplot(adat, aes(x = PC1, y = PC2, colour = POP, shape = SUPERPOP)) +   
-             geom_point() +  
-             ggtitle("Non-LD-pruned")  
-#Do the same steps for the LD-pruned data  
-bdat <- read.table("1kGP_chr22.ldpruned.smartpca_results.evec", header = FALSE)  
-bdat <- bdat[,c(1:4)]  
-colnames(bdat) <- c("POPSAMPLE", "PC1", "PC2", "PC3")  
-bdat <- separate(data = bdat, col = POPSAMPLE, into = c("SUPERPOP", "POP", "SAMPLE"), sep = "_|:")  
-bdat.pc12 <- ggplot(bdat, aes(x = PC1, y = PC2, colour = POP, shape = SUPERPOP)) +   
-             geom_point() +  
-             ggtitle("LD-pruned")  
-#Combine plots using plot_grid from cowplot  
-prow <- plot_grid(adat.pc12 + theme(legend.position="none"), # remove the legend  
-                  bdat.pc12 + theme(legend.position="none"), # remove the legend  
-                  align = 'vh', # plots are aligned vertically and horizontally  
-                  nrow = 1) # 2 plots on one row  
-#Prepare common legend for the two plots  
-legend <- get_legend(adat.pc12 +   
-                     guides(color = guide_legend(nrow = 4)) + # legend spans 4 lines  
-                     theme(legend.position = "bottom")) # legend is displayed at the bottom of the plots (i.e., horizontal not vertical)
-#Combine plots and legend using plot_grid from cowplot  
-plot_grid(prow, legend, ncol = 1, rel_heights = c(1, 0.3)) # ratio between plots and legend is 1:0.3  
-
+```bash
+Rscript scripts/plot_smartpca.R
 ```
 
 ---  
 
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
 
->- 23) Are the `SMARTPCA` results fundamentally different from `PLINK` PCA results?  
+23) Are the `SMARTPCA` results fundamentally different from `PLINK` PCA results?  
 
 ---
