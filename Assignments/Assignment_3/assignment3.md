@@ -6,242 +6,48 @@
 
 Data for this assignment is located in the `/data/assignment3/` directory
 
-## Question 1: Aneuploidy and Copy Number Variations (15 marks)
+## Question 1: Copy number variations  (15 marks)
 
-In this question we will look at detecting aneuploidy and copy number variations (CNVs). The data used here are artificially generated data that mimic low-coverage whole genome sequencing (WGS) data.
+### Part 1a (3 marks)
 
-The samples all have these features:
-* based on human genome
-* mapped to hg19 reference genome
-* all samples are diploid baseline with XX (i.e. no Y chromosome)
-* sample coverages are approximately 40-60 read-pairs per MB
+![Copy Number](../images/Q1_fig1.tumour_CN.png)
 
+The above figure shows the copy number estimates for various genomic regions inside a hypothetical human tumour sample.
 
-### Question 1 Part 1: Counting reads (3 marks)
+List all the copy number variations that you can see from the figure.
 
----
+### Part 1b (3 marks)
 
-In the directory `data/assignment3/Q1` you should see several BAM files named as `AneuploidySamples0[0-4].bam`  and `NormalSample0[0-9].bam`
+![VAF](../images/Q1_fig2.tumour_VAF.png)
 
-The "Normal" samples have 2 copies of each chromosome, while the "Aneuploidy" samples have at least one chromesome where the copy number is not 2.
+Similarly, the above figure shows the variant allele frequency of variants inside another hypothetical tumour sample. 
 
-You can use `samtools idxstat` to get the read counts for each contig. e.g.:
+List all the CNVs that you can see from this figure.
 
-```
-$ samtools idxstat AneuploidySamples00.bam
-1	249250621	52614	0
-2	243199373	52200	0
-3	198022430	50520	0
-4	191154276	46452	0
-5	180915260	41634	0
-6	171115067	40316	0
-...
-```
 
-From `idxstat` documentation (http://www.htslib.org/doc/samtools-idxstats.html) the columns are:
+### Part 1c (3 marks)
 
-* reference sequence name (chrom name)
-* sequence length
-* mapped read-segments 
-* unmapped read-segments 
+Now interpret the two figure together as data from the same sample.
 
-Write a BASH script to generate a TSV table that contains the per-chromosome read counts for each sample. The table only needs to include chromosomes 1-22 and X. The output should look like:
+List the CNVs that you can see by integrating both data sets.
 
-```
-chrom	AneuploidySamples00	AneuploidySamples01	AneuploidySamples02	AneuploidySamples03...
-1	52614	42998	45616	50140
-2	52200	53112	45522	54420
-3	50520	43226	39474	70242
-4	46452	42828	39457	40592
-5	41634	38148	31942	39324
-6	40316	32746	34466	39010
-7	38370	31518	31037	36026
-8	30757	28773	27471	32534
-9	14949	26613	25372	28202
-10	30090	26698	26507	29632
-11	31526	26810	25020	30562
-.
-.
-.
-```
 
-**Submit:**
+### Part 1d (3 marks)
 
-* *The script you created to generate the results table. Save as `Q1p1.read_counts_script.sh`. This script, when placed in the same directory as the BAM files and executed, should generate the output table.*
+The above figures are from an hypothetical "pure" tumour sample. But in practice, we often get tumour samples which are mixed with some normal/non-tumourous cells.
 
-* *The output data as `Q1p1.read_counts.tsv`*
+For example, for the same tumour sample, now there is a percentage of normal cells included in the data, and the CN estimates and VAF graphs now look like this:
 
+![impure CN](../images/Q1_fig3.impure_CN.png)
+![impure VAF](../images/Q1_fig4.impure_VAF.png)
 
-### Question 1 Part 2: Aneuploidy (5 marks)
+Estimate tumour purity of the sample from these figures.
 
----
+### Part 1e (3 marks)
 
-(You can do the following using whatever software you like, e.g. Python, R or MS Excel).
+1. (1 mark) What do the grey bars in the figures represent? Why do they not contain any data points?
 
-If you plot the raw read counts for each sample, it should look something like this:
-
-![Unnormalised read counts ](./../../images/Q1p2_unnormalised.png)
-
-**[Figure 1a: unnormalised sample chromosome read counts]**
-
-While there is probably enough information already to make educated guesses about the aneuploidies present in the samples, if we want to be certain, we need to normalise the samples first.
-
-The simplest normalisation is to normalise each sample to have the same total read counts. 
-
-a) ***Calculate the average total read counts per sample from the table.***
-
-[1 mark]
-
-b) ***Normalise the sample read counts such that the total read counts for each sample now adds up to the value from a).***
-
-[1 mark]
-
-If you plot the normalised data, you should see something like:
-
-![Normalised read counts ](./../../images/Q1p2_normalised.png)
-
-**[Figure 1b: Normalised sample chromosome read counts]**
-
-Finally, we need to convert the normalised read counts to ploidy estimates.
-
-c) ***Calculate the mean and median of the normalised read counts for each chromosome.***
-
-[1 mark]
-
-This should be the expected diploid normalised coverage depth for each chromosome. Discuss which of the mean or median you think is more appropriate to use.
-
-***For each sample, divide the normalised read-count by the mean or average read-count, then multiple by 2. The resultant value is the estimated ploidy for the chromosome.***
-
-Now if you plot the output, you should see something like:
-
-![Estimated ploidy](./../../images/Q1p2_ploidy_estimates.png)
-
-**[Figure 1c: Estimated sample chromosome ploidy]**
-
-
-***List the aneuploidy events.***
-
-
-d) In the figure above (Fig. 1c), you can see that there are several points (e.g. `AneuploidySample04` chr8, `AneuploidySample02` chr14) that appear to be outliers but the ploidy estimates do not reach a full allele gain.
-
-While it is possible to have mosaicism with aneuploidies (i.e. mixture of normal and aneuplodic cells) which can account for fractional gains and losses, in this case, these are actually just normalisation artefacts.
-
-For example, if we look back to Fig. 1a, the loss of chr5 in `AneuploidySample04` would have significant impact if the normalisation was done over all chromosomes. Specifically, as it has fairly large contribution, it will push all other chromosome values higher. 
-
-A quick way to adjust for this is to perform the normalisation by excluding chromosomes where aneuploidies are observed. 
-
-***Apply the normalisation adjustment and submit a table (as TSV file) showing the adjusted ploidy estimates for each sample and chromosome. e.g.:***
-
-```
- chrom  NormalSample00  NormalSample01  NormalSample02
-     1        2.035612        2.049455        2.078700
-     2        1.940069        1.991432        2.074721
-     3        1.914444        2.026240        1.963962
-     4        1.953722        2.138810        1.939936
-     5        1.983816        2.083293        2.155639
-```
-
-[2 marks]
-
-Plotting the adjusted ploidy estimates now should give you something like:
-
-![Estimated ploidy](./../../images/Q1p2_ploidy_estimates_adj.png)
-
-**[Figure 1d: Adjusted sample chromosome ploidy estimates]**
-
-**Submit:**
-
-* submit files with prefix Q1p2
-
-* *Calculations for normalisation steps. If using Python or R, submit the appropriate script with comments annotating each step. If using a spreadsheet program, submit worksheet in Excel format.* (`Q1p2.working.*`)
-
-* *Final adjusted sample chromosome ploidy estimates in table form (CSV, TSV or Excel.)* (`Q1p2.ploidy_estimates.*`)
-
-* *List of aneuploidy events in samples* (`Q1p2.aneuploidy_events.txt`)
-
-
-### Question 1 Part 3: Copy Number Variations (7 marks)
-
----
-
-a) Rather than using the script in Part 1, you can generate the same coverage data (read counts per chromosome per sample) with a single command using `bedtools multicov`. 
-
-Enter the command `bedtools multicov` to see how to use it to generate the coverage data:
-
-```
-$ bedtools multicov
-
-Tool:    bedtools multicov (aka multiBamCov)
-Version: v2.30.0
-Summary: Counts sequence coverage for multiple bams at specific loci.
-
-Usage:   bedtools multicov [OPTIONS] -bams aln.1.bam aln.2.bam ... aln.n.bam -bed <bed/gff/vcf>
-```
-
-You will need the chromosome sizes to create the BED file:
-
-```
-1	249250621
-2	243199373
-3	198022430
-4	191154276
-5	180915260
-6	171115067
-7	159138663
-8	146364022
-9	141213431
-10	135534747
-11	135006516
-12	133851895
-13	115169878
-14	107349540
-15	102531392
-16	90354753
-17	81195210
-18	78077248
-19	59128983
-20	63025520
-21	48129895
-22	51304566
-X	155270560
-Y	59373566
-MT	16569
-```
-
-**Submit**
-
-* *The BED file you created for `bedtools multicov` command* (`Q1p3.genome.bed`)
-* *A script showing the exact command used to generate the read count data* (`Q1p3.bedtools_cmd.sh`)
-* *The output read-count data, as `Q1p3.bedtools_cov.tsv`*
-
-
-b) In the directory `/data/assignment3/Q1/` you will see also a number of BAM files named `CNV_sample[1-10].bam`. This set of files includes both normal samples (with no CNVs) and samples with 1 or 2 CNVs. Some have large CNVs (~chromosome arm gain or loss), while others have smaller CNVs. The smallest CNV is 2MB.
-
-(There are no fractional CNVs, i.e. all ploidy changes are integer values.)
-
-***Generate appropriate read counts data and perform the normalisation steps as in Part 2, report CNV events.***
-
-1. Generate a BED file with 1 MB intervals covering the entire genome.
-2. Use `bedtools multicov` to generate read counts data
-3. [OPTIONAL] perform read counts normalisation as per Part 2.
-4. Report CNV calls in samples.
-
-**Submit:**
-
-* *BED file created:* (`Q1p3.1mb_intervals.bed`)
-* *Read counts data generated by `bedtools multicov` command:* (`Q1p3.readcounts.tsv`)
-* *Script or worksheet showing normalisation steps* (`Q1p3.working`)
-* *List of CNV events in samples.* (`Q1p3.CNVs.txt`)
-
-  *Each event should include:*
-  * sample name
-  * CNV start: chromosome:position
-  * CNV end:   chromosome:position
-  * estimated copy number
-
-  *CNV start and end positions should be within 1 MB of the 'truth'.*
-
-
+2. (2 marks) If we suspect that p-arm of chromosome 8 has fused with the q-arm of chromosome 17. How will you be able to determine whether a fusion event has occured? Will short-read NGS data (WGS, WES or RNA-seq) be able to detect such a fusion event?
 
 ## Question 2 (13 marks)
 
