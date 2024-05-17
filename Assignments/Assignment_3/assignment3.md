@@ -49,17 +49,16 @@ Estimate tumour purity of the sample from these figures.
 
 2. (2 marks) If we suspect that p-arm of chromosome 8 has fused with the q-arm of chromosome 17. How will you be able to determine whether a fusion event has occured? Will short-read NGS data (WGS, WES or RNA-seq) be able to detect such a fusion event?
 
-## Question 2 (13 marks)
+## Question 2 - (5 marks)
 
 ---
 
-This question uses the same data for both parts. In `/data/assignment3/Q2` you should find these files:
+In `/data/assignment3/Q2` you should find these files:
 
 ```
 mappable_region.fasta
 compound_mono_allele.bam
 compound_mono_allele.bam.bai
-structuralvariants.vg
 ```
 
 Download these files. Launch IGV. 
@@ -67,102 +66,117 @@ Download these files. Launch IGV.
 1. Load `mappable_region.fasta` as the genome file ("Genomes" -> "Load Genome from File...")
 2. Load `compound_mono_allele.bam` as the alignment data ("File" -> "Load from File...")
 
-### Question 2 Part 1: Structural variations (5 marks)
 
----
+### Question 2.1
 
-**1.1** Locate and list any breakpoints you can see in the data.
+Locate and list any breakpoints you can see in the data.
 
 [2 marks]
 
-**1.2** Identify all SV events and their associated breakpoints. 
+### Question 2.2
+
+Identify all SV events and their associated breakpoints. 
 Show the steps and reasonings for your answers. Include diagrams if you think it helps. If you want to use hand-drawn diagram, just take and submit a photo of your drawing, but make it's clearly legible.
 
 [3 marks]
 
-
-### Question 2 Part 2: Graph genome (8 marks)
+## Question 3 - MSA Pan-genome Graphs
 
 ---
 
-**Q2.1** You have been provided with a file called `structuralvariants.vg` in the assignment data folder that contains a graph constructed from the reference sequence you used for the first part of this question.
-In addition to the path representing the reference sequence, there are an additional three paths through the graph representing three different haplotypes.
+You have been provided with a file called `svs.vg` in the `~/data/assignment3/graphs` folder that contains a graph constructed using the multiple sequence alignment technique from a reference sequence and 4 other well assembled haplotypes.
+Therefore, there are 5 paths embedded within the graph.
 
-When you visualise this graph, keep in mind that this graph models structural variants which are much larger than the small variants we have been looking at in the practicals.
-The principle is the same except that the nodes are larger.
-Also note that, for ease of visualisation, the nodes in this graph are very large.
+### Question 3.1 
 
-Visualise the graph using `vg view -dunp graph.vg | dot -Tpdf -o pdf_filename` and provide a screenshot of your visualisation.
-
-[2 marks]
-
-**Q2.2**	What do each of the four parameters provided to vg view do?
+Visualise the graph in any way you like and provide a screenshot/image of the most interesting looking region.
+Also provide the command you used to generate the visualisation. 
 
 [2 marks]
 
-**Q2.3**	Describe how each of the three paths (path_one, path_two, and path_three) through the graph vary from the reference sequence.
-You may reference the node numbers from the graph you visualised to do this and should consider using terms such as "deletion", "insertion" and "inversion" in your explanation.
-If a variant doesn't seem to fit into one of these categories, call it a complex variant and describe what is happening. 
+### Question 3.2
 
-Remember that the variants should be described in terms of what the reference sequence looks like 
-For example, a deletion is where a haplotype does not have a sequence at a particular location that is present in the reference sequence at that location.
+Identify and describe the structural variants you see in each of the four haplotypes embedded in the graph.  
 
+[3 marks]
 
-[3 marks] 
+### Question 3.3 - Conceptual
 
-**Q2.4**	One of these paths represents the haplotype of the sample you saw in Question 2 Part 1.
-This haplotype contains the structural variation that you identified.
-Which path is it? 
+If we were to align reads generated from sample 1 and sample 2 to the linear reference genome (as represented by the reference path through the graph above), which do you think would have a higher mapping rate? Why?
 
-[1 mark]
+[2 marks]
 
-## Question 3 (12 marks)
+## Question 4 - Pan-genome Variant Graphs
 
+You have been provided with a reference sequence `hippogryph.fasta` as well as a .vcf containing known variants found in the hippogryph population in `hippogryph.vcf` in the `~/data/assignment3/graphs/` diretory.
 
-You have been provided with a reference sequence `hippogryph.fasta` and the most common variants found in the hippogryph population in `hippogryph.vcf`.
+A hippogryph is a mythical creature with the body of a horse and the head and wings of an eagle. 
 
-If you don't know what a hippogryph is, it's a mythical creature with the body of a horse and the head and wings of an eagle. 
+Your task is to genotype a newly sequenced sample (Frayfeather) which will help us to understand more about the phenotypic characteristics of frayfeather. 
 
-Your task is to genotype a newly sequenced sample (frayfeather) which will help to understand more about the phenotypic characteristics of frayfeather. 
-Details of the observed links between genotype and phenotype can be found in the genotype_phenotype.txt file.
-Note that the phenotype associated with both the reference (REF) allele and the alternate (ALT) allele are described. 
+### Question 4.1
 
-**Q3.1** Construct a pan-genome graph from this data using the reference sequence and the .vcf.
+Construct a hippogryph pan-genome graph using the `hippogryph.fa` reference sequence and the .vcf.
+
 When constructing this graph, keep in mind that we will be using it for genotyping.
+
 Visualise this graph in a format of your choice and screenshot the first part of the graph up to and including the first variant.
 Any visual form is acceptable but you should also include the code that you used to create this visualisation.
 
 [3 marks]
 
-**Q3.2** Align the provided reads in `frayfeather.reads` to the graph. 
+### Question 4.2
+
+ Align the provided reads in `frayfeather.fastq` to the graph. 
 Report your alignment command and the average read mapping identity using `jq .identity`.
+
 Would you expect this value to be higher or lower if the graph contained only the **least** common variants found in the hippogryph population. 
 
 [2 marks]
 
-**Q3.3** Genotype the frayfeather sample.
+### Question 4.3
 
-For which variants does frayfeather have the alternate allele?
-Provide the variant ID for these variants from column 3 of the vcf.
+Genotype the frayfeather sample using your read alignments to produce a vcf.
 
-Using the provided table (genotype_phenotype.txt) describing the phenotypes associated with each variant (for both the REF and ALT allele), list frayfeather's phenotypic characteristics associated with variants v1, v2, v3, and v4 (found in the ID column).
-Note that the hippogryph has a haploid genome.
+**IMPORTANT HIPPOGRYPH INORMATION**
 
-Comment on whether or not you think frayfeather would be a good choice for a long flight.
+- Hippogryphs with the alternate allele for variant hip748 have particularly strong wings and can fly very long distances. 
+- Hippogryphs with the reference allele for variant hip932 love to eat fish and seafood while the alternate allele gives them a seafood intolerance. 
 
-[4 marks]
+Inspect the .vcf you produced for Frayfeather. 
+Did he have the reference allele or alternative allele for variants hip748 and hip932? 
 
-**Q3.5** Conceptual - How can using a pan-genome graph reduce reference bias?
+Choose the option from below that best describes Frayfeather:
 
-[2 mark]
+- **A.** Frayfeather is an excellent choice for long flights over the sea!
+- **B.** Frayfeather is great for long flights over the sea as long as you make sure to pack his lunch.
+- **C.** Frayfeather would prefer to stay at home in the mountains and eat goats.
 
-**Q3.6** Conceptual - In transcriptomics experiments, we align reads generated from RNA to a reference genome and determine the read depth for each gene in the reference.
+[2 marks]
+
+### Question 4.4 - Conceptual 
+
+What are the potential impacts (positive and negative) of including all of the known genomic variants for a population in a single pan-genome graph?
+
+Do you think that this is advisable? Why or why not?
+ 
+[3 marks]
+
+### Question 4.5 - Conceptual
+
+What is reference bias and how can using a pan-genome graph reduce reference bias?
+
+[2 marks]
+
+### Question 4.6 - Conceptual
+
+In transcriptomics experiments, we align reads generated from RNA to a reference genome and determine the read depth for each gene in the reference.
 Greater read depth for a gene is equated with higher levels of expression than a gene with lower read depth. 
 In this way, we can make an estimate of relative gene expression. 
 This system relies on the assumption that reads are aligning equally well to all genes. 
 How could using a pan-genome graph potentially increase the accuracy of this type of analysis?
 
-[1 marks]
+[1 mark]
 
 Total: 40 Marks
 
