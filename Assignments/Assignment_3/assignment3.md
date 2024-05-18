@@ -6,9 +6,9 @@
 
 Data for this assignment is located in the `/data/assignment3/` directory
 
-## Question 1: Copy number variations  (15 marks)
+## Question 1: Copy number variations  (10 marks)
 
-### Part 1a (3 marks)
+### Part 1a (2 marks)
 
 ![Copy Number](../images/Q1_fig1.tumour_CN.png)
 
@@ -16,7 +16,7 @@ The above figure shows the copy number estimates for various genomic regions ins
 
 List all the copy number variations that you can see from the figure.
 
-### Part 1b (3 marks)
+### Part 1b (2 marks)
 
 ![VAF](../images/Q1_fig2.tumour_VAF.png)
 
@@ -25,14 +25,14 @@ Similarly, the above figure shows the variant allele frequency of variants insid
 List all the CNVs that you can see from this figure.
 
 
-### Part 1c (3 marks)
+### Part 1c (2 marks)
 
 Now interpret the two figure together as data from the same sample.
 
 List the CNVs that you can see by integrating both data sets.
 
 
-### Part 1d (3 marks)
+### Part 1d (2 marks)
 
 The above figures are from an hypothetical "pure" tumour sample. But in practice, we often get tumour samples which are mixed with some normal/non-tumourous cells.
 
@@ -43,42 +43,49 @@ For example, for the same tumour sample, now there is a percentage of normal cel
 
 Estimate tumour purity of the sample from these figures.
 
-### Part 1e (3 marks)
+### Part 1e (2 marks)
 
 1. (1 mark) What do the grey bars in the figures represent? Why do they not contain any data points?
 
 2. (2 marks) If we suspect that p-arm of chromosome 8 has fused with the q-arm of chromosome 17. How will you be able to determine whether a fusion event has occured? Will short-read NGS data (WGS, WES or RNA-seq) be able to detect such a fusion event?
 
-## Question 2 - (5 marks)
+## Question 2 - (10 marks)
 
 ---
 
-In `/data/assignment3/Q2` you should find these files:
+In `~/data/assignment3/Q2` you should find these files:
 
 ```
+sample_R1.fastq.gz
+sample_R2.fastq.gz
 mappable_region.fasta
-compound_mono_allele.bam
-compound_mono_allele.bam.bai
+mappable_region.fasta.fai
 ```
 
-Download these files. Launch IGV. 
+Download these files.
 
-1. Load `mappable_region.fasta` as the genome file ("Genomes" -> "Load Genome from File...")
-2. Load `compound_mono_allele.bam` as the alignment data ("File" -> "Load from File...")
+### Part 2a - data processing (6 points)
+
+Write a BASH script to do the following:
+
+(Short-read alignment, refer to Wk 5 Prac)
+
+1. Use `bwa` to index the `mappabale_region.fasta` file. This is your reference sequence.
+
+2. Map the paired-end FASTQ set (`sample_R1.fastq.gz` and `sample_R2.fastq.gz`) to the indexed reference above. Remember the output should be in BAM format, and needs to be sorted and indexed.
+
+(Structural variation detection, refer to Wk 9 Prac)
+
+3. Use `manta` to call structural variation on this set of data.
 
 
-### Question 2.1
+### Part 2b - interpreting the results (4 points)
 
-Locate and list any breakpoints you can see in the data.
+Either examine the read data on IGV or interpret manta output:
 
-[2 marks]
+1) Locate and list any breakpoints you can see in the data,
+2) Identify all SV events and their associated breakpoints. Show the steps and reasonings for your answers. Include diagrams if you think it helps. If you want to use hand-drawn diagram, just take and submit a photo of your drawing, but make it's clearly legible.
 
-### Question 2.2
-
-Identify all SV events and their associated breakpoints. 
-Show the steps and reasonings for your answers. Include diagrams if you think it helps. If you want to use hand-drawn diagram, just take and submit a photo of your drawing, but make it's clearly legible.
-
-[3 marks]
 
 ## Question 3 - MSA Pan-genome Graphs
 
