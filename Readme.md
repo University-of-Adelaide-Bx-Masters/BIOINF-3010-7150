@@ -4,55 +4,55 @@
 ## BIOINF3010/7150: Genomics Applications
 {:.no_toc}
 
-Semester 1 2024 - *Provisional Timetable*
+Semester 1 2025 - *Provisional Timetable*
 
 ### Coordinator:
 
-- Dave Adelson
+- Anna Sheppard
 
 #### Instructors:
 
-- Dave Adelson
 - Anna Sheppard
+- Jessica Webb
 - Zhipeng Qu
 - Chelsea Matthews
-- Paul Wang
+- Jacqueline Rehn
 - Julien Soubrier
-- Yassine Souilmi
+- Bastien Llamas
 
-#### Course contact Dave Adelson
-- email: david.adelson@adelaide.edu.au
-- Phone: 08 8313 7555
-- Office: Molecular Life Sciences Rm 2.10
+#### Course contact Anna Sheppard
+- email: anna.sheppard@adelaide.edu.au
+- Phone: 08 8313 0232
+- Office: Molecular Life Sciences Rm 4.44
 
 #### Contact hours
-Lectures: Monday 9am, Napier LG28
-- 26 Feb --- 27 May
+Lectures: Monday 9am, Benham G10
+- 3 Mar --- 2 Jun
 
 Practical 01: Wednesday 9am-11am, Ingkarni Wardlii 218  
-- 28 Feb --- 29 May
+- 5 Mar --- 11 Jun
 
 Practical 02: Thursday 9am-11am, Ingkarni Wardlii 218
-- 29 Feb --- 30 May
+- 6 Mar --- 12 Jun
 
 ### Lecture and Practical Timetable
 
 | **Week** | **Monday** | **Lecture**                                       | **Practical**                                     |
 |----------|------------|---------------------------------------------------|---------------------------------------------------|
-| **1**    | 26/2       | Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (Dave) | [Introduction to Bash 1] (Dave)   [Introduction to Bash 2] (Dave)                  |
-| **2**    | 4/3        | Resequencing (Exome/WGS)     (Dave)                    |[Read Quality Control] (Dave)[Read Quality Control contd] |
-| **3**    | 11/3       | **No lecture - Public Holiday**  | [SAMTools and alignments] (Dave)   [SARS-CoV-2 Resequencing] (Dave)      |
-| **4**    | 18/3       | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (Dave)  |[Intro to BLAST] (Dave)     [BLAST practical] (Dave)          |
-| **5**    | 25/3       | Short read assembly; approaches and issues (Dave)  | [Short and long read alignment]  (Anna)   [SARS-CoV-2 Short Read Assembly] (Dave)     |
-| **6**    | 1/4        | **No lecture - Public Holiday** Lecture during first hour of Wednesday prac session  | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles lecture (Anna) - Major Project information (Wed) [E. coli K-12 Hybrid Genome Assembly] (Anna, Thurs)     |
+| **1**    | 3/3        | Course introduction (Anna) / Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (recording) | [Introduction to Bash 1] (Anna)   [Introduction to Bash 2] (Anna)                  |
+| **2**    | 10/3       | **No lecture - Public Holiday**                   |[Read Quality Control] (TBD)[Read Quality Control contd] |
+| **3**    | 17/3       | Resequencing (Exome/WGS)     (recording)  		| [SAMTools and alignments] (TBD)   [SARS-CoV-2 Resequencing] (TBD)      |
+| **4**    | 24/3       | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (recording)  |[Intro to BLAST] (TBD)     [BLAST practical] (TBD)          |
+| **5**    | 31/3       | Short read assembly; approaches and issues (recording) | [Short and long read alignment]  (Anna)   [SARS-CoV-2 Short Read Assembly] (TBD)     |
+| **6**    | 7/4        | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (recording)  |  PG Major Project information (TBD) [E. coli K-12 Hybrid Genome Assembly] (TBD)     |
 | **-**    |            |  |    **MID-SEMESTER BREAK**                                             |
-| **7**    | 22/4       | _De novo_ assembly genome size estimate (k-mers), coverage. (Zhipeng)  |    [Genome Assembly I] (Zhipeng) **Thursday no practical - public holiday**        |
-| **8**    | 29/4        | Genome Graphs (Chelsea)  | [Genome Assembly II] (Zhipeng) [Genome graphs1] (Chelsea)           |
-| **9**    | 6/5        | Structural variation and cancer genomics (Paul)  |  [Genome graphs2] (Chelsea) [Structural variation] (Paul)      |
-| **10**   | 13/5       | Variant calling and high-throughput genotyping (Julien) |  [Clinical genomics1] (Julien)  [Clinical genomics2] (Julien)         |
-| **11**   | 20/5       | Population genomics (Yassine) | [Population genomics1] (Yassine)  [Population genomics2] (Yassine)              |
-| **12**   | 27/5       | Wrap up lecture (Dave) |  Open Prac session for PG major projects only  Wednesday (Dave)  Open Prac session for PG major projects only  - Thursday (Dave)           |
-| **13**   | 3/6        |   TBD        |   TBD        |
+| **7**    | 28/4       | _De novo_ assembly genome size estimate (k-mers), coverage (Zhipeng)  |    [Genome Assembly I] (Zhipeng) [Genome Assembly II] (Zhipeng)        |
+| **8**    | 5/5        | Genome Graphs (Chelsea)  |  [Genome graphs1] (Chelsea)  [Genome graphs2] (Chelsea)         |
+| **9**    | 12/5       | Structural variation and cancer genomics (Jacqueline)  |   [Structural variation] (Jacqueline)      |
+| **10**   | 19/5       | Variant calling and high-throughput genotyping (Julien) |  [Clinical genomics1] (Julien)  [Clinical genomics2] (Julien)         |
+| **11**   | 26/5       | Population genomics (Bastien) | [Population genomics1] (Bastien)  [Population genomics2] (Bastien)              |
+| **12**   | 2/6        | Wrap up lecture (TBD) |  Open Prac session for PG major projects only  Wednesday (TBD)  Open Prac session for PG major projects only  - Thursday (TBD)           |
+| **13**   | 9/6        | **No lecture - Public Holiday**         			|   TBD        |
 
 [Introduction to Bash 1]: Practicals/Bash_Practicals/1_IntroBash.md
 [Introduction to Bash 2]: Practicals/Bash_Practicals/2_BashScripting.md
