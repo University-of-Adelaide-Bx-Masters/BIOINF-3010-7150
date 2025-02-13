@@ -15,6 +15,7 @@ Semester 1 2025 - *Provisional Timetable*
 - Anna Sheppard
 - Jessica Webb
 - Kat Pillman
+- Melanie Smith
 - Zhipeng Qu
 - Chelsea Matthews
 - Jacqueline Rehn
@@ -42,17 +43,17 @@ Practical 02: Thursday 9am-11am, Ingkarni Wardlii 218
 |----------|------------|---------------------------------------------------|---------------------------------------------------|
 | **1**    | 3/3        | Course introduction (Anna) / Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (recording) | [Introduction to Bash 1] (Anna)   [Introduction to Bash 2] (Anna)                  |
 | **2**    | 10/3       | **No lecture - Public Holiday**                   |[Read Quality Control] (Kat)[Read Quality Control contd] |
-| **3**    | 17/3       | Resequencing (Exome/WGS)     (recording)  		| [SAMTools and alignments] (TBD)   [SARS-CoV-2 Resequencing] (TBD)      |
+| **3**    | 17/3       | Resequencing (Exome/WGS)     (recording)  		| [SAMTools and alignments] (Melanie)   [SARS-CoV-2 Resequencing] (Melanie)      |
 | **4**    | 24/3       | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (recording)  |[Intro to BLAST] (Jess)     [BLAST practical] (Jess)          |
 | **5**    | 31/3       | Short read assembly; approaches and issues (recording) | [Short and long read alignment]  (Anna)   [SARS-CoV-2 Short Read Assembly] (TBD)     |
-| **6**    | 7/4        | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (recording)  |  PG Major Project information (TBD) [E. coli K-12 Hybrid Genome Assembly] (TBD)     |
+| **6**    | 7/4        | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (recording)  |  PG Major Project information (Chelsea) [E. coli K-12 Hybrid Genome Assembly] (TBD)     |
 | **-**    |            |  |    **MID-SEMESTER BREAK**                                             |
 | **7**    | 28/4       | _De novo_ assembly genome size estimate (k-mers), coverage (Zhipeng)  |    [Genome Assembly I] (Zhipeng) [Genome Assembly II] (Zhipeng)        |
 | **8**    | 5/5        | Genome Graphs (Chelsea)  |  [Genome graphs1] (Chelsea)  [Genome graphs2] (Chelsea)         |
 | **9**    | 12/5       | Structural variation and cancer genomics (Jacqueline)  |   [Structural variation] (Jacqueline)      |
 | **10**   | 19/5       | Variant calling and high-throughput genotyping (Julien) |  [Clinical genomics1] (Julien)  [Clinical genomics2] (Julien)         |
 | **11**   | 26/5       | Population genomics (Bastien) | [Population genomics1] (Bastien)  [Population genomics2] (Bastien)              |
-| **12**   | 2/6        | Wrap up lecture (TBD) |  Open Prac session for PG major projects only  Wednesday (TBD)  Open Prac session for PG major projects only  - Thursday (TBD)           |
+| **12**   | 2/6        | Wrap up lecture (TBD) |  Open Prac session for PG major projects only  Wednesday (Chelsea)  Open Prac session for PG major projects only  - Thursday (Chelsea)           |
 | **13**   | 9/6        | **No lecture - Public Holiday**         			|   TBD        |
 
 [Introduction to Bash 1]: Practicals/Bash_Practicals/1_IntroBash.md
