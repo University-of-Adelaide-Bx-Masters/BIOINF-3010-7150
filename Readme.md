@@ -43,7 +43,7 @@ Practical 02: Thursday 9am-11am, Ingkarni Wardlii 218
 | **1**    | 3/3        | Course introduction (Anna) / Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (recording) | [Introduction to Bash 1] (Anna)   [Introduction to Bash 2] (Anna)                  |
 | **2**    | 10/3       | **No lecture - Public Holiday**                   |[Read Quality Control] (Kat)[Read Quality Control contd] |
 | **3**    | 17/3       | Resequencing (Exome/WGS)     (recording)  		| [SAMTools and alignments] (TBD)   [SARS-CoV-2 Resequencing] (TBD)      |
-| **4**    | 24/3       | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (recording)  |[Intro to BLAST] (TBD)     [BLAST practical] (TBD)          |
+| **4**    | 24/3       | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (recording)  |[Intro to BLAST] (Jess)     [BLAST practical] (Jess)          |
 | **5**    | 31/3       | Short read assembly; approaches and issues (recording) | [Short and long read alignment]  (Anna)   [SARS-CoV-2 Short Read Assembly] (TBD)     |
 | **6**    | 7/4        | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (recording)  |  PG Major Project information (TBD) [E. coli K-12 Hybrid Genome Assembly] (TBD)     |
 | **-**    |            |  |    **MID-SEMESTER BREAK**                                             |
