@@ -42,12 +42,12 @@ Practical 02: Thursday 9am-11am, Ingkarni Wardlii 218
 
 | **Week** | **Monday** | **Lecture**                                       | **Practical**                                     |
 |----------|------------|---------------------------------------------------|---------------------------------------------------|
-| **1**    | 3/3        | Course introduction (Anna) / Introduction to sequencing Molecular basis of polymer extension sequencing (Sanger)High throughput sequencing: Illumina Sequence quality (recording) | [Introduction to Bash 1] (Anna)   [Introduction to Bash 2] (Anna)                  |
+| **1**    | 3/3        | **No live lecture!**<br>Introduction to sequencing - Molecular basis of polymer extension sequencing (Sanger) High throughput sequencing: Illumina Sequence quality ***(recording)*** | [Introduction to Bash 1] (Anna)   [Introduction to Bash 2] (Anna)                  |
 | **2**    | 10/3       | **No lecture - Public Holiday**                   |[Read Quality Control] (Kat) [Read Quality Control] (Kat) |
-| **3**    | 17/3       | Resequencing (Exome/WGS)     (recording)  		| [SAMTools and alignments] (Melanie)   [SARS-CoV-2 Resequencing] (Melanie)      |
-| **4**    | 24/3       | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics (recording)  |[Intro to BLAST] (Jess)     [BLAST practical] (Jess)          |
-| **5**    | 31/3       | Short read assembly; approaches and issues (recording) | [Short and long read alignment]  (Anna)   [SARS-CoV-2 Short Read Assembly] (TBD)     |
-| **6**    | 7/4        | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles (recording)  |  PG Major Project information (Chelsea) [E. coli K-12 Hybrid Genome Assembly] (Lloyd)     |
+| **3**    | 17/3       | Resequencing (Exome/WGS)     ***(recording)***  		| [SAMTools and alignments] (Melanie)   [SARS-CoV-2 Resequencing] (Melanie)      |
+| **4**    | 24/3       | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics ***(recording)***  |[Intro to BLAST] (Jess)     [BLAST practical] (Jess)          |
+| **5**    | 31/3       | Short read assembly; approaches and issues ***(recording)*** | [Short and long read alignment]  (Anna)   [SARS-CoV-2 Short Read Assembly] (TBD)     |
+| **6**    | 7/4        | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles ***(recording)***  |  PG Major Project information (Chelsea) [E. coli K-12 Hybrid Genome Assembly] (Lloyd)     |
 | **-**    |            |  |    **MID-SEMESTER BREAK**                                             |
 | **7**    | 28/4       | _De novo_ assembly genome size estimate (k-mers), coverage (Zhipeng)  |    [Genome Assembly I] (Zhipeng) [Genome Assembly II] (Zhipeng)        |
 | **8**    | 5/5        | Variant calling and high-throughput genotyping (Julien)  |  [Clinical genomics1] (Julien)  [Clinical genomics2] (Julien)         |
