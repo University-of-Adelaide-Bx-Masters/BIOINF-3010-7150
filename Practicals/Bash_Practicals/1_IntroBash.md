@@ -26,7 +26,7 @@ When you have connected to the VM, you should see something that looks like this
 
 ![RStudio initial login screen](images/RStudio.png)
 
-You will only be using the Terminal part (pane) of the RStudio window; this is the part that you used to reset your password.
+You will only be using the Terminal part (pane) of the RStudio window.
 You can maximise the Terminal pane with the icon on the top right of that section of the window.
 
 An important step in many analyses is moving data around on a high-performance computer (HPC), and setting jobs running that can take hours, days or even weeks to perform.
