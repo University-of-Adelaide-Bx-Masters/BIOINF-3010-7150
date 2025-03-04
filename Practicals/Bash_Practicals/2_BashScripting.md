@@ -59,7 +59,7 @@ echo ~
 The next part of the practical will make use of a file that you will need to download. First, make sure you are in your `Project_0` sub-directory.
 
 ```
-cd ./Project_0
+cd ~/Project_0/
 ```
 
 Get the file by running the following command.
@@ -116,7 +116,7 @@ less SeqIDs.txt
 Now we can add the sequence identifiers, but first you need to `gunzip` the compressed file.
 
 ```
-gunzip drosophila_melanogaster/ncrna/Drosophila_melanogaster.BDGP6.ncrna.fa.gz
+gunzip Drosophila_melanogaster.BDGP6.ncrna.fa.gz
 ```
 
 ```
@@ -460,8 +460,7 @@ Now open this using the using the text editor *nano*:
 nano wellDone.sh
 ```
 
-Enter the above code into this file **setting your actual name as the ME variable**,  and save it by using `Ctrl+o` (indicated as `^O`) in the nano screen.
-Once you're finished, you can exit the `nano` editor by hitting `Ctrl+x` (written as `^X`).
+Once you're finished, you can exit the `nano` editor by hitting `Ctrl+x` (written as `^X`), then confirm saving changes with `y`, and finally press `Enter` to return to the terminal.
 Assuming that you've entered everything correctly, we can now execute this script by simply entering
 
 ```
