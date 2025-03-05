@@ -460,7 +460,7 @@ Now open this using the using the text editor *nano*:
 nano wellDone.sh
 ```
 
-Once you're finished, you can exit the `nano` editor by hitting `Ctrl+x` (written as `^X`), then confirm saving changes with `y`, and finally press `Enter` to return to the terminal.
+Enter the above code into this file **setting your actual name as the ME variable**. Once you're finished, you can exit the `nano` editor by hitting `Ctrl+x` (written as `^X`), then confirm saving changes with `y`, and finally press `Enter` to return to the terminal.
 Assuming that you've entered everything correctly, we can now execute this script by simply entering
 
 ```
