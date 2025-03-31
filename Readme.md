@@ -46,7 +46,7 @@ Practical 02: Thursday 9am-11am, Ingkarni Wardlii 218
 | **2**    | 10/3       | **No lecture - Public Holiday**                   |[Read Quality Control] (Kat) [Read Quality Control] (Kat) |
 | **3**    | 17/3       | Resequencing (Exome/WGS)     ***(recording)***  		| [SAMTools and alignments] (Melanie)   [SARS-CoV-2 Resequencing] (Melanie)      |
 | **4**    | 24/3       | Annotation - Gene finding, Repeat identification/classification/masking, comparative genomics ***(recording)***  |[Intro to BLAST] (Jess)     [BLAST practical] (Jess)          |
-| **5**    | 31/3       | Short read assembly; approaches and issues ***(recording)*** | [Short and long read alignment]  (Anna)   [SARS-CoV-2 Short Read Assembly] (TBD)     |
+| **5**    | 31/3       | Short read assembly; approaches and issues ***(recording)*** | [Short and long read alignment]  (Anna)   [SARS-CoV-2 Short Read Assembly] (Melanie)     |
 | **6**    | 7/4        | Single molecule sequencing PacBio/Nanopore Uses/Characteristics/Error profiles ***(recording)***  |  PG Major Project information (Chelsea) [E. coli K-12 Hybrid Genome Assembly] (Lloyd)     |
 | **-**    |            |  |    **MID-SEMESTER BREAK**                                             |
 | **7**    | 28/4       | _De novo_ assembly genome size estimate (k-mers), coverage (Zhipeng)  |    [Genome Assembly I] (Zhipeng) [Genome Assembly II] (Zhipeng)        |
