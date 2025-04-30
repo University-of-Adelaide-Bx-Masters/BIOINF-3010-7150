@@ -90,7 +90,7 @@ Scroll down and inspect the Cumulative Length plot. Look at the Nx plot and GC C
 * *What would an assembly with only one contig look like on this plot?*
 
 The image below is a slightly different version of a cumulative contig length plot. 
-The assemblies represented are publicly available cannabis assemblies. 
+The assemblies represented are publicly available cannabis assemblies (You can get more information about these genome assemblies from this [link](https://www.ncbi.nlm.nih.gov/datasets/genome/?taxon=3483) from NCBI genome). 
 The dashed horizontal lines are the approximate sizes of the male and female genomes with the male being the longer.
 Inspect the plot and answer the questions below. 
 
