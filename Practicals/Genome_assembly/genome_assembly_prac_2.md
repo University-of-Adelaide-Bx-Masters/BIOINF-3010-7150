@@ -97,7 +97,7 @@ Inspect the plot and answer the questions below.
 ![Cumulative contig length plot](images/cum_contig_length_dist.png)
 
 * *What benefit is there to having contig length on the x axis instead of the contig number in size order as in the QUAST plot?*
-* *One of these assemblies was generated from short illumina reads. Which do you think it is?*
+* *Two of these assemblies were generated from short reads. Which do you think they are?*
 * *Can you tell which are contig level assemblies and which are scaffolded?*
 
 Now let's have a look at the Icarus contig size viewer. 
