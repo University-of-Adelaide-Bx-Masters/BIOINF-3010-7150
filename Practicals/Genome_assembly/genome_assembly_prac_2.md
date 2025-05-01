@@ -318,16 +318,16 @@ We will be using BWA to map these DNA sequencing reads to our assembled genome.
 cd ~/prac_genome_assembly/04_results/05_variant_calling
 
 # genome mapping using BWA
-bwa index ~/prac_genome_assembly/04_results/03_genome_assembly/pacbio_LR_10x/assembly.fasta
+bwa index ~/prac_genome_assembly/04_results/03_genome_assembly/genomes/pacbio_LR_10x.assembly.fasta
 
-bwa mem ~/prac_genome_assembly/04_results/03_genome_assembly/pacbio_LR_10x/assembly.fasta \
+bwa mem ~/prac_genome_assembly/04_results/03_genome_assembly/genomes/pacbio_LR_10x.assembly.fasta \
   SRR26143067_R1.100x.clean.fastq.gz SRR26143067_R2.100x.clean.fastq.gz \
   | samtools view -F 4 -u \
   | samtools sort \
   -o SRR26143067.bam \
   /dev/stdin
 
-bwa mem ~/prac_genome_assembly/04_results/03_genome_assembly/pacbio_LR_10x/assembly.fasta \
+bwa mem ~/prac_genome_assembly/04_results/03_genome_assembly/genomes/pacbio_LR_10x.assembly.fasta \
   SRR26143068_R1.100x.clean.fastq.gz SRR26143068_R2.100x.clean.fastq.gz \
   | samtools view -F 4 -u \
   | samtools sort \
@@ -340,7 +340,7 @@ Then we can use [`bcftools`](https://samtools.github.io/bcftools/howtos/index.ht
 ```
 cd ~/prac_genome_assembly/04_results/05_variant_calling
 
-bcftools mpileup -f ~/prac_genome_assembly/04_results/03_genome_assembly/pacbio_LR_10x/assembly.fasta \
+bcftools mpileup -f ~/prac_genome_assembly/04_results/03_genome_assembly/genomes/pacbio_LR_10x.assembly.fasta \
     SRR26143067.bam \
     SRR26143068.bam |
     bcftools call -mv |
