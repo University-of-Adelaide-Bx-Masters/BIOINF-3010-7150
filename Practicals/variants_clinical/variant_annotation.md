@@ -5,7 +5,7 @@
 * TOC
 {:toc}
 
-## Some backgound on Clinical Genomics
+## Some background on Clinical Genomics
 
 Clinical genomics and mendelian genetics can be separated into two groups based on their stated analysis goals; Diagnostics and Research.
 Many labs in major hospitals, independent research institutes and universities do a mixture of both work.
@@ -148,7 +148,7 @@ It is also helpful in finding potential loss-of-function (pLoF) variants.
   - Search gnomAD for the gene SATB1
   - Count the number of missense variants and list the pLoF variants in SATB1
 - Look up the variant `14-82565377-G-C` (rs75115269) and identify its allele frequency in Ashkenazi Jews
-- Can you find its equivalent genomics coordinates and allele frequency for the newer hg38 reference genome?
+- Can you find its equivalent genomics coordinates and allele frequency for the older hg19 reference genome?
 
 ---
 
