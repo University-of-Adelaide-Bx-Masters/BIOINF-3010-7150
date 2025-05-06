@@ -90,14 +90,14 @@ Scroll down and inspect the Cumulative Length plot. Look at the Nx plot and GC C
 * *What would an assembly with only one contig look like on this plot?*
 
 The image below is a slightly different version of a cumulative contig length plot. 
-The assemblies represented are publicly available cannabis assemblies. 
+The assemblies represented are publicly available cannabis assemblies (You can get more information about these genome assemblies from this [link](https://www.ncbi.nlm.nih.gov/datasets/genome/?taxon=3483) from NCBI genome). 
 The dashed horizontal lines are the approximate sizes of the male and female genomes with the male being the longer.
 Inspect the plot and answer the questions below. 
 
 ![Cumulative contig length plot](images/cum_contig_length_dist.png)
 
 * *What benefit is there to having contig length on the x axis instead of the contig number in size order as in the QUAST plot?*
-* *One of these assemblies was generated from short illumina reads. Which do you think it is?*
+* *Two of these assemblies were generated from short reads. Which do you think they are?*
 * *Can you tell which are contig level assemblies and which are scaffolded?*
 
 Now let's have a look at the Icarus contig size viewer. 
@@ -318,16 +318,16 @@ We will be using BWA to map these DNA sequencing reads to our assembled genome.
 cd ~/prac_genome_assembly/04_results/05_variant_calling
 
 # genome mapping using BWA
-bwa index ~/prac_genome_assembly/04_results/03_genome_assembly/pacbio_LR_10x/assembly.fasta
+bwa index ~/prac_genome_assembly/04_results/03_genome_assembly/genomes/pacbio_LR_10x.assembly.fasta
 
-bwa mem ~/prac_genome_assembly/04_results/03_genome_assembly/pacbio_LR_10x/assembly.fasta \
+bwa mem ~/prac_genome_assembly/04_results/03_genome_assembly/genomes/pacbio_LR_10x.assembly.fasta \
   SRR26143067_R1.100x.clean.fastq.gz SRR26143067_R2.100x.clean.fastq.gz \
   | samtools view -F 4 -u \
   | samtools sort \
   -o SRR26143067.bam \
   /dev/stdin
 
-bwa mem ~/prac_genome_assembly/04_results/03_genome_assembly/pacbio_LR_10x/assembly.fasta \
+bwa mem ~/prac_genome_assembly/04_results/03_genome_assembly/genomes/pacbio_LR_10x.assembly.fasta \
   SRR26143068_R1.100x.clean.fastq.gz SRR26143068_R2.100x.clean.fastq.gz \
   | samtools view -F 4 -u \
   | samtools sort \
@@ -340,7 +340,7 @@ Then we can use [`bcftools`](https://samtools.github.io/bcftools/howtos/index.ht
 ```
 cd ~/prac_genome_assembly/04_results/05_variant_calling
 
-bcftools mpileup -f ~/prac_genome_assembly/04_results/03_genome_assembly/pacbio_LR_10x/assembly.fasta \
+bcftools mpileup -f ~/prac_genome_assembly/04_results/03_genome_assembly/genomes/pacbio_LR_10x.assembly.fasta \
     SRR26143067.bam \
     SRR26143068.bam |
     bcftools call -mv |

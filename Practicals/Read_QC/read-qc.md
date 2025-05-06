@@ -44,7 +44,7 @@ Managing your data and code intelligently is a considerable challenge in bioinfo
 
 For the practicals, we have used an anaconda (`conda`) software environment to provide access to some software.
 
-For today's practical, you need to activate the `base` conda environment:
+For today's practical, you need to activate the `bioinf` conda environment:
 
 ```bash
 a1234567@ip-10-255-0-115:/shared/a1234567$ source activate bioinf
@@ -68,7 +68,7 @@ When you do this, your prompt will change and you will see something like this:
 (bioinf) a1234567@ip-10-255-0-115:/shared/a1234567$
 ```
 
-the `(base)` prefix lets you know you are in the `base` conda environment, with access to the packages installed for that environment. Don't worry if this seems confusing, just be aware that if we instruct you to use `conda` packages in future practicals that you must use `source activate bioinf` to be able to access those applications/programs.
+the `(bioinf)` prefix lets you know you are in the `bioinf` conda environment, with access to the packages installed for that environment. Don't worry if this seems confusing, just be aware that if we instruct you to use `conda` packages in future practicals that you must use `source activate bioinf` to be able to access those applications/programs.
 
 # Read Quality Control
 
