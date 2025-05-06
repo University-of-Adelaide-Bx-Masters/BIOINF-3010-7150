@@ -5,7 +5,7 @@
 * TOC
 {:toc}
 
-## Some backgound on Clinical Genomics
+## Some background on Clinical Genomics
 
 Clinical genomics and mendelian genetics can be separated into two groups based on their stated analysis goals; Diagnostics and Research.
 Many labs in major hospitals, independent research institutes and universities do a mixture of both work.
@@ -147,7 +147,7 @@ ___>>> TASK <<<___
 It is also helpful in finding potential loss-of-function (pLoF) variants.
   - Search gnomAD for the gene SATB1
   - Count the number of missense variants and list the pLoF variants in SATB1
-- Look up the variant `14-82565377-G-C` (rs75115269) and identify its allele frequency in Ashkenazi Jews
+- Look up the variant `(GRCh37) 14-82565377-G-C` (rs75115269) and identify its allele frequency in Ashkenazi Jews
 - Can you find its equivalent genomics coordinates and allele frequency for the newer hg38 reference genome?
 
 ---
@@ -184,9 +184,9 @@ VEP and [snpEff](http://snpeff.sourceforge.net/) are probably the two most popul
 
 As the name suggests, VEP uses large variant annotation databases to assign an effect and/or consequence to the particular change, which take the form of Sequence Ontology (SO) terms.
 
-![VEP Variant Types](https://m.ensembl.org/info/genome/variation/prediction/consequences.jpg)
+![VEP Variant Types](https://m.ensembl.org/info/genome/variation/prediction/consequences.svg)
 
-As you can see from the table contained in the above link, each variant type is assigned a [level of variant _impact_ that is associated to the change](https://m.ensembl.org/info/genome/variation/prediction/predicted_data.html).
+As you can see from the table contained in the following link, each variant type is assigned a [level of variant _impact_ that is associated to the change](https://m.ensembl.org/info/genome/variation/prediction/predicted_data.html).
 Some variants have a **HIGH** impact, including splice site changes, stop codon introductions and frameshift variants.
 These we can interpret as potentially having a loss of function and therefore could influence phenotypes in a negative way.
 **MODERATE** impact variants include missense variants and inframe deletions or insertions, that can have a significant change but can also lead to harmless changes.
