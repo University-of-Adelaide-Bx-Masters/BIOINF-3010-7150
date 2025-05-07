@@ -14,7 +14,7 @@ Using WGS or WES on thousands of samples, we can now establish fine-grained asso
 
 The current clinical workflow works a lot like this:
 
-![Priest. (2017). _Curr Opin Pediatr_. 29(5): 513–519.](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5590671/bin/nihms899674f1.jpg)
+![Priest. (2017). _Curr Opin Pediatr_. 29(5): 513–519.](https://cdn.ncbi.nlm.nih.gov/pmc/blobs/f2d9/5590671/fc8e644ca852/nihms899674f1.jpg)
 
 In the previous tutorial, we discussed annotation of identified variants in three samples, and today we will be looking at family inheritance patterns.
 As you may have noticed, the three samples sequenced in our data are related, and form a "trio" (mother-father-son). 
