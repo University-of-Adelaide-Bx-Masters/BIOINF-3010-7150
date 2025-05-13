@@ -177,7 +177,7 @@ We have a number of options when it comes to visualisation.
 !["Simple graph"](../../images/tiny_ref_dot.png)
 
 ```
-vg view -dp tiny.vg | dot -tpdf -o visualise/tiny_dot.pdf 
+vg view -dp tiny.vg | dot -Tpdf -o visualise/tiny_dot.pdf 
 ```
 
 - What do the `-d`, `-p`, `-S`, and `-n` options do in the `vg view` command? 
