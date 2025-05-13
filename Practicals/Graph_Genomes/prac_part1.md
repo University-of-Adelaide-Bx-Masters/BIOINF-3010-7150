@@ -2,7 +2,7 @@
 
 ##### _By Chelsea Matthews - Adapted from Yassine Souilmi_
 
-# 1. Background
+# Background
 
 Many bioinformatics analyses begin by aligning reads to a linear reference genome and you've done this in earlier practicals. 
 Reads are aligned to the reference based on the similarity of their sequence to the reference sequence.
@@ -22,9 +22,19 @@ Bioinformatics methods where we align reads to a linear reference genome (like t
 The methods and software for building and using genome graphs are still under development.
 For these reasons, linear reference genomes are currently far more commonly used than graph-based approaches but this may change in the near future.
 
-## Part 1: Variant Graphs
+# Get started!
 
-First you will need to load the required tools.
+Todays practical is broken into 5 sections. 
+
+- Part 1: Build a small variant graph pangenome
+- Part 2: Learn to visualise it
+- Part 3: Align reads to the pangenome and visualise them
+- Part 4: Build a pangenome using the Multiple Sequence Alignment method
+- Part 5: Build an MSA pangenome graph for Cannabis
+
+
+Let's activate the `bioinf` environment and check if our software is working.  
+
 
 ```
 source activate bioinf
@@ -46,16 +56,22 @@ Bandage --help
 dot --help #dot is part of the graphviz package
 ```
 
-### Get the data
-
-Make directories and copy the data over:
+Now create directories and copy the data over to your working directory:
 
 ```
 cd ~
 mkdir -p GraphGenomes/{variant,msa,mygraph}
+mkdir -p GraphGenomes/variant/visualise
 cp /shared/data/Graph_Genomes/prac1/tiny* ~/GraphGenomes/variant/.
 cp /shared/data/Graph_Genomes/prac1/HLA_haplotypes.fa ~/GraphGenomes/msa/.
 cp /shared/data/Graph_Genomes/prac1/{mystery.fq,cannabis.fasta} ~/GraphGenomes/mygraph/.
+```
+
+# Part 1: Build a Variant Graph Pangenome
+
+Here we will build two very small graphs. The first will be made up of just the reference sequence and the second will include variants from a population which will be our first pangenome graph. 
+
+```
 cd ~/GraphGenomes/variant
 ```
 
@@ -66,7 +82,7 @@ You should have the following two files in `~/GraphGenomes/variant`.
 
 ### Have a look at the data
 
-We have two files. The first, `tiny.fa`, is the reference sequence. 
+We have two files. The first, `tiny.fa`, is the reference sequence for our pangenome. 
 Take a look at it. 
 
 ```
@@ -75,6 +91,7 @@ cat tiny.fa
 
 - What is the name of the sequence? 
 - How long is it? 
+- When might it be a bad idea to use the `cat` command on a fasta file?
 
 The second file is a VCF. 
 
@@ -94,26 +111,25 @@ gunzip tiny.vcf.gz
 cat tiny.vcf
 ```
 
-- How many variants are in this VCF? What do you think this means for our graph?
+- How many variants are in this VCF?
+- What information do the first 5 columns of the VCF contain?
+- What kind of variants does the VCF contain?
 
-- What do the first 5 columns of the VCF contain?
-
-That's all we need to build our pan-genome! 
+That's all we need to build our pangenome! 
 
 ### Build a graph with just the reference sequence
 
-To build the graph, use the following command:
+First we will be building a graph with just the reference sequence. 
 
 ```
 vg construct -r tiny.fa -m 32 > ref.vg
 ```
 
-- What does the `-m` option do in `vg construct`? 
+The `.vg` format isn't readable for humans so we'll convert it into GFA format so that we can have a look. 
 
-We can have a look at the text representation of the graph by inspecting the GFA output produced by vg view. 
-GFA stands for Graphical Fragment Assembly. 
+GFA stands for Graphical Fragment Assembly.
 
-It has a header line that begins with `H`.
+GFA format has a header line that begins with `H`.
 Lines beginning with `S` are segments (or **nodes**) of the graph.
 Lines beginning with `L` are links (or **edges**) and lines beginning with `P` are **paths** through the graph.
 A path through a graph represents an observed biological sequence or haplotype and a single graph can have many paths. 
@@ -127,17 +143,19 @@ vg view ref.vg
 - How many nodes does this graph have?
 - How many edges does this graph have?
 - How many paths does this graph have?
+- What does the `-m` option do in `vg construct`? 
+
 
 While GFA format is human readable, it's more intuitive to look at graphs with nodes and edges displayed visually.
 
 ```
-vg view -dp ref.vg | dot -Tpdf -o ref_dot.pdf
+vg view -dp ref.vg | dot -Tpdf -o visualise/ref_dot.pdf
 ```
 
 It's a graph, but not a very exciting or useful one. 
 Before we continue looking at visualisation options, let's build a graph with some variation in it. 
 
-### Build a graph that's actually useful
+### Build a graph with variation
 
 Build a variation graph using the command below and then have a look at it in GFA format.
 
@@ -150,16 +168,16 @@ Have a look at the `tiny.gfa` file.
 
 - How many nodes, edges, and paths does this graph have?
 
-## Part 2: Visualisation
+# Part 2: Graph Visualisation
 
 We have a number of options when it comes to visualisation. 
 
-#### Option 1 - dot from the Graphviz package
+### Option 1 - dot from the Graphviz package
 
 !["Simple graph"](../../images/tiny_ref_dot.png)
 
 ```
-vg view -dp tiny.vg | dot -Tpdf -o tiny_dot.pdf 
+vg view -dp tiny.vg | dot -tpdf -o visualise/tiny_dot.pdf 
 ```
 
 - What do the `-d`, `-p`, `-S`, and `-n` options do in the `vg view` command? 
@@ -171,12 +189,13 @@ vg view -dp tiny.vg | dot -Tpdf -o tiny_dot.pdf
 For larger graphs, `Bandage` is sometimes a better solution.
 It was designed for visualising assembly graphs (these are the graph structures that are made by assembly tools during *de novo* genome assembly).
 Bandage can't display path information but it does allow us to visualise the structure of graphs that are many Megabases in size.
+The Bandage GUI is quite interactive allowing us to zoom in on regions of graphs and extract sequences of interest for further analysis. 
+We only have access to the command line version so it's not quite as interactive. 
 
-Bandage requires the graph to be in .gfa format.
+Bandage requires the graph to be in .gfa format which we already created in Part 1.
 
 ```
-vg view tiny.vg > tiny.gfa
-Bandage image tiny.gfa tiny_bandage.png
+Bandage image tiny.gfa visualise/tiny_bandage.png
 ```
 
 **Note:** Your Bandage graph will come out slightly differently each time you run it and sometimes will have loops that don't actually represent variation.
@@ -197,14 +216,14 @@ To get around this, you will need to download the .svg fle to your local machine
 ```
 vg index -x tiny.xg tiny.vg
 
-vg viz -x tiny.xg -o tiny_viz.svg
+vg viz -x tiny.xg -o visualise/tiny_viz.svg
 ```
 
-## Part 3: Align reads to the graph
+# Part 3: Align reads to the graph
 
 Now we've built a graph and looked at it but we haven't done anything with it yet. 
 
-It would be useful if we could align reads to the graphs as this is often a first step in a bioinformatics analysis.
+It would be useful if we could align reads to the graphs as this is often a first step in many bioinformatics analyses. 
 
 Mapping reads to a graph is done in two stages: first, seed hits are identified and then a sequence-to-graph alignment is performed for each individual read.
 Seed finding allows vg to spot candidate regions in the graph to which a given read can potentially map to.
@@ -235,7 +254,7 @@ When it comes to mapping in `vg`, we have three options.
 
 `vg map` is a general-purpose read mapper.
 
-`vg mpmap` does "multi-path" mapping, to allow describing local alignment uncertainty. This is very useful for transcriptomics.
+`vg mpmap` does "multi-path" mapping, to allow describing local alignment uncertainty. This is very useful for transcriptomics. Why might that be?
 
 We will be using `vg map`.
 
@@ -248,14 +267,14 @@ Let's re-visualise to see the alignments.
 Notice that the `vg view` command below uses the `-S` option to simplify the dot output.
 
 ```
-vg view -dS tiny.vg -A tiny.gam | dot -Tpdf -o alignment.pdf
+vg view -dS tiny.vg -A tiny.gam | dot -Tpdf -o visualise/alignment.pdf
 ```
 
 - Why does your graph look different to mine and/or your neighbours?
-
+- Did all three of your sequences align?
 - What do you think the different colours of the nodes indicate?
 
-Feel free to try it without the ￼￼`-S` option as well as any other parameter combos you like to see the difference. 
+Feel free to try it without the `-S` option as well as any other parameter combos you like to see the difference. 
 
 Looking at the reads of a graph can be quite overwhelming when you've got a lot of alignments and so it can sometimes help your visualisation to add these alignments back into the graph as paths, in the same way as we have the reference path.
 
@@ -266,10 +285,10 @@ vg augment --label-paths tiny.vg tiny.gam > augmented.vg
 Let's take a look at the graph with the dot output format as well as with `vg viz`
 
 ```
-vg view -dp augmented.vg | dot -Tpdf -o augmented_dot.pdf 
+vg view -dp augmented.vg | dot -Tpdf -o visualise/augmented_dot.pdf 
 
 vg index -x augmented.xg augmented.vg
-vg viz -x augmented.xg -o augmented_viz.svg
+vg viz -x augmented.xg -o visualise/augmented_viz.svg
 ```
 
 Note that this path information doesn't include the quality of the mapping, it just tells you where the best alignment was. 
@@ -277,32 +296,36 @@ Note that this path information doesn't include the quality of the mapping, it j
 Next practical we'll look at doing more with our read alignments (calling variants, embedding variants back into the graph). 
 
 
-## Part 4:  Multiple Sequence Alignment graph
+# Part 4:  Multiple Sequence Alignment graph
 
-As well as the method we used above (a reference genome and a vcf), we can also build graphs using Multiple Sequence Alignment. 
+We can also build pangenome graphs using Multiple Sequence Alignment. 
 This method is often used when we have a number of high quality haplotype-resolved assemblies available.
-We align them with each other to see where each of the sequences is similar and where they differ. 
+We align the haplotype sequences with each other to see where each of the sequences is similar and where they differ. 
 
 ```
 cd ~/GraphGenomes/msa
 ```
 
+The HLA (Human Leukocyte Antigen) is a set of genes located on Chromosome 6 that encode for proteins used by the immune system to tell whether a cell belongs to the body or not (eg, infection, cancer, transplants). 
+HLA typing is where we identify the specific alleles of a persons HLA genes. 
+This information is commonly used for determining the best match for organ transplants. 
+When the HLA alleles of a patient are more similar to the HLA alleles of their organ donor, the patient is much less likely to reject the organ. 
+We'll be building a pangenome graph from a small number of haplotypes from the Human Leukocyte Antigen complex located on chromosome 6.
+
 Take a look at the `HLA_haplotypes.fa` file. 
 
 - What does it contain? 
-
 - How many sequences are there? 
 
-Now build the graph with `vg msga` and index it. 
-It's going to print out a heap of warnings because the `vg msga` module is not strictly the recommended way to produce multiple sequence alignments. 
-We don't have the software for other methods and this works for our purposes. 
+We will build the graph with `vg msga` and `vg mod` and then we will index it. 
+Don't panic when it prints warnings. This is because the `vg msga` module is not strictly the recommended way to produce multiple sequence alignments but we don't have the software on our machines for other methods and `vg msga` works for our purposes. 
 
 ```
 vg msga -f HLA_haplotypes.fa -t 2 -k 16 | vg mod -U 10 - | vg mod -c -X 256 - > hla.vg
 vg index hla.vg -x hla.xg -g hla.gcsa
 ```
 
-- What do the parameters `-U` and `-c` from `vg mod` do?
+- What do each of the three steps in the first command above do? 
 
 And visualise again! 
 
@@ -319,19 +342,22 @@ Rather, the loop inside of the dashed square is just a result of the random way 
 
 !["Bandage plot of hla multiple sequence alignment graph"](../../images/bandage_loop.png)
 
-Are all of these visualisation methods a good/convenient way to look at this graph? 
+- What do these plots tell you about the variability of this small section of the HLA complex?
+- Do you find some of these visualisation methods more useful than others? 
 
-## Your Turn! 
+# Part 5: Your turn!
+
+The `mygraph` directory contains a fasta file containing four assembled haplotypes from a single region of the Cannabis genome.  
 
 Build a multiple sequence alignment graph from the cannabis.fasta dataset in the `~/GraphGenomes/mygraph` directory. 
-Consider the first sequence in the fasta file the reference sequence.
+Consider the first sequence in the fasta file the reference sequence (see if you can find a way to specify this in the `vg msga` help menu).
 
 Try to do/answer the following: 
  
-- Visualise your graph however you want.
-- What is the major difference between each of the three samples compared with the `pink_pepper` reference. There should be one sequence with a duplication, one with a deletion, and one with an insertion. There are also other small differences between the sequences but these are not the focus. 
-- Change the colour of your Bandage plot (this is entirely for fun, it's not essential)
-- Align the supplied reads to your graph and try to work out which sample they most likely came from.
+- Visualise your graph in a few different ways. 
+- What is the major difference between each of the three samples compared with the `pink_pepper` reference. One sequence has a duplication, one has a deletion, and one has an insertion. Which cannabis haplotype has which structural variant? There are also other small differences between the haplotypes but these are not the focus. 
+- Just for fun, change the colour of your Bandage plot. Check out `Bandage image --helpall` to work out how.   
+- Align the supplied reads in `mystery.fq` to your graph and work out which type of cannabis they are most similar to. 
 
 ##### Hints/Handy tips
 
@@ -339,6 +365,7 @@ To visualise just a small part of the graph, we can subset the graph using `vg f
 The `-n 349` refers to the node number you're interested in and the `-c 10` is node context, the number of nodes either side of your node of interest that will be included. 
 
 ```
+# NOTE: This is example code! You'll need to modify it to make it work.
 vg find -n 349 -x in.xg -c 10 | vg view -dp - | dot -Tpdf -o out.pdf
 ```
 
@@ -347,118 +374,7 @@ The `--nodes` parameter is the number of the node you're interested in and the `
 
 
 ```
+# NOTE: Example code only.
 Bandage image in.gfa out.png --scope aroundnodes --nodes 349 --distance 10
 ```
-
-### Code/explanation
-
-The provided `cannabis.fasta` file contains 4 sequences all taken from the same region of the cannabis genome.
-
-```
->pink_pepper
->finola
->pineapple_bubba_kush
->cannatonic
-```
-
-Build a genome graph from a multiple sequence alignment of these four sequences, index the graph, and then visualise the graph.
- 
-```
-# Construct a genome graph using the multiple sequence alignment method
-# The --base option sets pink_pepper as the "reference" sequence.
-# Setting pink_pepper as the reference will not change the actual sequence content of the graph but it will change the way your graph looks a little bit and in our case, it helps with interpretation
- 
-vg msga -f cannabis.fasta -t 2 -k 16 --base pink_pepper | vg mod -U 10 - | vg mod -c -X 256 - > cannabis.vg
-
-# index it (required for vg viz as well as the upcoming mapping step)
-vg index -x cannabis.xg cannabis.vg
-vg index -g cannabis.gcsa -k 16 cannabis.vg
-
-# Visualise it all the ways
-vg view -dpS cannabis.vg | dot -Tpdf -o cannabis.pdf
-
-vg view cannabis.vg > cannabis.gfa
-Bandage image cannabis.gfa cannabis_bandage.png
-
-vg viz -x cannabis.xg -o cannabis.svg
-
-```
-
-**NOTE:** Sometimes it's hard to see your bandage plot because the nodes are too skinny and the graph is too long. 
-You can make the nodes wider using the `--nodewidth` parameter. 
-It takes values between 0.5 and 1000 and the default is 5. 
-
-For more ways to modify the way your bandage plot looks, run `Bandage image --helpall`. 
-
-!["Cannabis MSA Bandage plot"](../../images/cannabis_msa_bandage_plot.png)
-
-I've circled three locations on the plot that show our three structural variants and you'll notice that they're all just alternative paths along the graph that look like loops. 
-We can't tell from the bandage plot what is going on in each sample or what paths each sample takes. 
-It really only gives us some idea about the amount of variation contained within the graph. For example, if there were many SNPs contained within this region of cannabis that differed between our 4 sequences, we'd see it here.  
-
-Now, let's look at the graphviz `dot` format plot.
-
-We can see each of our four sequences represented as a different coloured path along the graph.
-If we look carefully at the graph, we can see that each of the the sequences finola, pineapple bubba kush, and cannatonic have one structural variant (usually defined as a variant > 50bp in length) when compared with the pink pepper reference.
-
-!["Start of cannabis dot graph"](../../images/cannabis_start_of_plot.png)
-
- I've zoomed in on the regions that correspond with the three structural variants in the figures below.
-
-By setting pink pepper as the reference sequence, it is much easier to see that this section of sequence is duplicated in finola and is located between nodes 62 and 258. 
-It looks as though the duplicated sequence is approximately 320 bp in length if you add up the length of these nodes (inclusive).
-
-!["duplication"](../../images/duplication.png)
-
-The insertion is found at node 247 in cannatonic and is 80bp in length. 
-
-!["insertion"](../../images/insertion.png)
-
-The deletion is found at node 240 in pineapple bubba kush and is also 80 bp in length. 
-
-!["deletion"](../../images/deletion.png)
-
-If this was difficult for you to find, it's okay. We will learn next practical how to call variants programmatically. 
-
-Next, let's align reads to our graph and visualise our alignments with `dot`.
-
-```
-vg map --fastq mystery.fq -x cannabis.xg -g cannabis.gcsa > mystery.gam
-vg view -dpS cannabis.vg -A mystery.gam | dot -Tpdf -o alignments.pdf
-```
-
-!["Alignment visualisation"](../../images/canabis_alignments_dot.png)
-
-If we go to the locations of the structural variants, we can see which structural variant they support. 
-We will start with the deletion and insertion because the long length of the duplication compared with the short length of the reads means that it will be difficult, if not impossible to interpret (if we had long reads this would be much easier). 
-
-
-At node 247, cannatonic was found to have an 80bp insertion. 
-Do your reads align to node 247? Mine don't so I don't think these reads are from this sample. 
-
-Looking at the location of the deletion at node 240, we again don't have any reads aligning. However, because this is a deletion in the pineapple bubba kush sequence, we wouldn't expect reads to align to node 240 if these reads were from this sample. 
-Therefore, our reads are probably from the pineapple bubba kush sample.
-
-We could try to confirm this by looking for any other locations where the pineapple bubba kush path differs from the other three paths and seeing whether our reads are aligning to the same path. 
-
-For example, node 25 is a 1 bp deletion that is only found in pineapple bubba kush and none of the reads spanning this deletion have node 25 in their path.
-
-This is not the only way, and perhaps not even the best way, to explore these read alignments.
-You could also add read alignments to the graph as paths with `vg augment` and/or subset the graph with `vg find` to zoom in on a small part of the graph. 
-You could try `vg viz` to look at these augmented paths or use graphviz `dot` with the same or  different parameters. 
-
-The code below augments the graph with read alignments as paths and visualises in case you're interested in trying.
-
-```
-# first add the alignments to the graph as paths.
-vg augment --label-paths cannabis.vg mystery.gam > augmented.vg
-
-# visualise with dot without subsetting the graph
-vg view -dSp augmented.vg | dot -Tpdf -o augmented_dot.pdf
-
-# visualise with subsetting requires an xg index
-vg index -x augmented.xg augmented.vg
-vg find -n 65 -x augmented.xg -c 10 | vg view -dpS - | dot -Tpdf -o duplication.pdf
-```
-
 
