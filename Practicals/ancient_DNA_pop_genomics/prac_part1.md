@@ -92,9 +92,10 @@ Q1. Determine how many variant sites are recorded in the VCF file. You can use `
 <details>
   <summary>Answer</summary>
   1,103,547 variants<br>
-  `bcftools stats data/1kGP_chr22.vcf.gz | less`<br>
-  `bcftools view -H data/1kGP_chr22.vcf.gz | wc -l`<br>
+  <code>bcftools stats data/1kGP_chr22.vcf.gz | less</code><br>
+  <code>bcftools view -H data/1kGP_chr22.vcf.gz | wc -l</code><br>
 </details>
+
 
 Q2. Determine how many samples are recorded in the VCF file. You can use `bcftools stats`, or `bcftools query` and bash commands.<br>
 <details>
@@ -104,12 +105,14 @@ Q2. Determine how many samples are recorded in the VCF file. You can use `bcftoo
   `bcftools query -l data/1kGP_chr22.vcf.gz | wc -l`<br>
 </details>
 
+
 Q3. The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in South Asians.<br>
 <details>
   <summary>Answer</summary>
   AC=1, AF=0.000199681, SAS_AF=0.001<br>
   `bcftools view -H data/1kGP_chr22.vcf.gz | head -n1 | awk '{print $1,$2,$8;}'`<br>
 </details>
+
 
 Q4. Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).<br>
 <details>
@@ -118,12 +121,14 @@ Q4. Same as question 3 for variant position 16051249 (see the [BCFtools manual](
   `bcftools view -H data/1kGP_chr22.vcf.gz 22:16051249 | awk '{print $1,$2,$8;}'`<br>
 </details>
 
+
 Q5. How many alternative alleles are observed at position 16050654?<br>
 <details>
   <summary>Answer</summary>
   AC=9,87,599,20 so 4 alleles<br>
   `bcftools view -H data/1kGP_chr22.vcf.gz 22:16050654 | awk '{print $1,$2,$8;}'`<br>
 </details>
+
 
 Q6. Looking at the information contained in the `FORMAT` field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?<br>
 <details>
@@ -145,6 +150,22 @@ It is a tabulated file, with 4 columns corresponding to individual IDs, populati
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*<br>
 
 Q7. Using bash commands on the panel file you just downloaded, determine how many different populations and super-populations are represented in the 1kGP dataset.<br>
+<details>
+  <summary>Answers</summary>
+
+  Q7: 26 populations and 5 super-populations
+  <code>tail -n+2 data/integrated_call_samples_v3.20130502.ALL.panel | awk '{print $2;}' | sort | uniq | wc -l</code><br>
+  ```bash
+  tail -n+2 data/integrated_call_samples_v3.20130502.ALL.panel | awk '{print $3;}' | sort | uniq | wc -l
+  ```
+
+  Q8: 661 AFR, 347 AMR, 504 EAS, 503 EUR, 489 SAS
+  ```bash
+  tail -n+2 data/integrated_call_samples_v3.20130502.ALL.panel | awk '{print $3;}' | sort | uniq -c
+  ```
+</details>
+
+
 Q8. How many individuals are in each super-population?<br>
 
 <details>
