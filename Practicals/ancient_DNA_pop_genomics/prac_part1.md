@@ -107,24 +107,16 @@ wget --directory-prefix data 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release
   `bcftools query -l data/1kGP_chr22.vcf.gz | wc -l`<br>
 
   Q3: AC=1, AF=0.000199681, SAS_AF=0.001<br>
-  ```bash
-  bcftools view -H data/1kGP_chr22.vcf.gz | head -n1 | awk '{print $1,$2,$8;}'
-  ```
+  `bcftools view -H data/1kGP_chr22.vcf.gz | head -n1 | awk '{print $1,$2,$8;}'`<br>
 
   Q4: AC=563, AF=0.11242, SAS_AF=0.2791<br>
-  ```bash
-  bcftools view -H data/1kGP_chr22.vcf.gz 22:16051249 | awk '{print $1,$2,$8;}'
-  ```
+  `bcftools view -H data/1kGP_chr22.vcf.gz 22:16051249 | awk '{print $1,$2,$8;}'`<br>
 
   Q5: AC=9,87,599,20 so 4 alleles<br>
-  ```bash
-  bcftools view -H data/1kGP_chr22.vcf.gz 22:16050654 | awk '{print $1,$2,$8;}'
-  ```
+  `bcftools view -H data/1kGP_chr22.vcf.gz 22:16050654 | awk '{print $1,$2,$8;}'`<br>
 
   Q6: GT, i.e. genotype<br>
-  ```bash
-  bcftools view -h data/1kGP_chr22.vcf.gz
-  ```
+  `bcftools view -h data/1kGP_chr22.vcf.gz`<br>
 </details>
 
 ---
@@ -198,6 +190,7 @@ It is a tabulated file, with 4 columns corresponding to individual IDs, populati
   Q10: 0|0, 0|1, 1|0, 1|1, 0|2, 2|0, 1|2, 2|1, 2|2
   
 </details>
+
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> You saw that the VCF genotype information can be very detailed. However, all we need usually for population genomics is a table of samples and variant calls, where the genotype information is coded so it can be parsed easily and file size remains as small as possible (imagine storing and parsing whole genome variation data for >100k individuals). 
@@ -245,19 +238,18 @@ plink \
 <details>
   <summary>Answers</summary>
 
-  Q11: 4 files with extensions `.bed`, `.bim`, `.fam`, `.log`
+  Q11: 4 files with extensions `.bed`, `.bim`, `.fam`, `.log`<br>
  
-  Q12: 1,103,547 variants (same number of variants as in VCF file)
-  ```bash
-  wc -l results/plink_temp.bim
-  ```
+  Q12: 1,103,547 variants (same number of variants as in VCF file)<br>
+  `wc -l results/plink_temp.bim`<br>
 
-  Q13: Multi allelic variation (CNV): `22      esv3647175;esv3647176;esv3647177;esv3647178     0       16050654        <CN3>   A`\
-  Indel: `22      rs587747231     0       16050739        T       TA`
+  Q13: Multi allelic variation (CNV): `22      esv3647175;esv3647176;esv3647177;esv3647178     0       16050654        <CN3>   A`<br>
+  Indel: `22      rs587747231     0       16050739        T       TA`<br>
 
-  Q14: No
+  Q14: No<br>
   
 </details>
+
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> The VCF file does not contain information about each sample's population of origin or sex. That information is stored in the panel file. Thus we need to build a file that will be used to update the `.fam` output when we convert the VCF file into `PLINK` files. For this, we have to follow instructions from the [`PLINK` online manual](http://www.cog-genomics.org/plink/1.9/data#update_indiv) to build the input file. 
@@ -333,17 +325,14 @@ plink \
 <details>
   <summary>Answers</summary>
 
-  Q15: Yes, fields 1 and 5
+  Q15: Yes, fields 1 and 5<br>
  
-  Q16: 73,246 variants
-  ```bash
-  wc -l results/1kGP_chr22.bim
-  ```
-  ```bash
-  wc -l results/plink_temp.bim
-  ```
+  Q16: 73,246 variants<br>
+  `wc -l results/1kGP_chr22.bim`<br>
+  `wc -l results/plink_temp.bim`<br>
 
 </details>
+
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Some population genomics analyses that focus on population demographic history and structure perform better if variants are in relative genome-wide linkage equilibrium, meaning that alleles at different SNP loci must not be linked, or in other words must be randomly associated. Indeed, non-random association between alleles (a.k.a. linkage disequilibrium, or LD) would mean redundancy in the data, which would increase computing unnecessarily. For other applications that focus on genomic regions (e.g. natural selection), loci in LD are highly informative. `plink --indep-pairwise` calculates the square of the correlation (*r*<sup>2</sup>) between allele counts in adjacent SNP loci and stores loci that are below (`.prune.in` output file) and above (`.prune.out` output file) a user-defined threshold. *r*<sup>2</sup>=0 when two loci are in perfect equilibrium, *r*<sup>2</sup>=1 when two loci provide redundant information. Here we will use a threshold of 0.5.
@@ -368,17 +357,14 @@ plink \
 <details>
   <summary>Answers</summary>
 
-  Q17: 12,142 variants in `.prune.in` and 61,104 variants in `.prune.out`
-  ```bash
-  wc -l results/ld_snps.prune.in
-  ```
-  ```bash
-  wc -l results/ld_snps.prune.out
-  ```
+  Q17: 12,142 variants in `.prune.in` and 61,104 variants in `.prune.out`<br>
+  `wc -l results/ld_snps.prune.in`<br>
+  `wc -l results/ld_snps.prune.out`<br>
  
-  Q18: The sum of the number of variants in `.prune.in` and `.prune.out` is the total number of variants in `1kGP_chr22.bim`
+  Q18: The sum of the number of variants in `.prune.in` and `.prune.out` is the total number of variants in `1kGP_chr22.bim`<br>
 
 </details>
+
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> You can now build `PLINK` files with just the LD-pruned data.  
@@ -402,11 +388,12 @@ plink \
 <details>
   <summary>Answers</summary>
 
-  Q19: smaller `.bed` and `.bim` after LD pruning, no change for `.fam`
+  Q19: smaller `.bed` and `.bim` after LD pruning, no change for `.fam`<br>
  
-  Q20: some variants have been pruned but all samples are kept
+  Q20: some variants have been pruned but all samples are kept<br>
 
 </details>
+
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Let's see how the non-LD-pruned and LD-pruned data behave in a PCA plot. We will consider only 5 eigenvectors in this analysis.
@@ -443,10 +430,11 @@ Rscript scripts/plot_plink_pca.R
 <details>
   <summary>Answers</summary>
 
-  Q21: clusters seem more diffused with the non-LD-pruned data
+  Q21: clusters seem more diffused with the non-LD-pruned data<br>
  
-  Q22: relatively obvious clustering by super-populations, AMR seem admixed between EUR, AFR and EAS
+  Q22: relatively obvious clustering by super-populations, AMR seem admixed between EUR, AFR and EAS<br>
 </details>
+
 ---
 
 
@@ -550,7 +538,7 @@ Rscript scripts/plot_smartpca.R
 <details>
   <summary>Answers</summary>
 
-  Q23: No
+  Q23: No<br>
 </details>
 
 ---
