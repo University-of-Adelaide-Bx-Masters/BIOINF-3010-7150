@@ -148,7 +148,6 @@ Rscript scripts/plot_smartpca.R
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> In the `R` console (not the terminal!), set the working directory and run *F*3 statistics on a subset of populations using the script `scripts/run_F3.R`. Stop where it says to stop...
 
-# Set working dir
 ```R
 setwd("~/Project_12_2/")
 file.edit("scripts/run_F3.R")
