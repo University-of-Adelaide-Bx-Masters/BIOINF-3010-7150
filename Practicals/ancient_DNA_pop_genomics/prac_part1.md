@@ -252,8 +252,10 @@ Q12. How many variants are stored in the variant file? How does it compare with 
 Q13. If you look at the content of the `PLINK` variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).<br>
 <details>
   <summary>Answers</summary>
-  Multi allelic variation (CNV): <code>22      esv3647175;esv3647176;esv3647177;esv3647178     0       16050654        CN3   A</code><br>
-  Indel: <code>22      rs587747231     0       16050739        T       TA</code><br>
+  Multi allelic variation (CNV):<br>
+  <code>22      esv3647175;esv3647176;esv3647177;esv3647178     0       16050654        CN3   A</code><br>
+  Indel:<br>
+  <code>22      rs587747231     0       16050739        T       TA</code><br>
 </details>
 
 Q14. Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the `PLINK` sample file? *Hint: look at the `.fam` file*<br>
