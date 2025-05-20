@@ -99,24 +99,22 @@ wget --directory-prefix data 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release
 <details>
   <summary>Answers</summary>
 
-  # Q1: 1103547 variants
-  `bcftools stats data/1kGP_chr22.vcf.gz | less`
-  `bcftools view -H data/1kGP_chr22.vcf.gz | wc -l`
+  Q1: 1103547 variants
+  `bcftools stats data/1kGP_chr22.vcf.gz | less` or `bcftools view -H data/1kGP_chr22.vcf.gz | wc -l`
 
-  # Q2: 2504 samples
-  `bcftools stats data/1kGP_chr22.vcf.gz | less`
-  `bcftools query -l data/1kGP_chr22.vcf.gz | wc -l`
+  Q2: 2504 samples
+  `bcftools stats data/1kGP_chr22.vcf.gz | less` or `bcftools query -l data/1kGP_chr22.vcf.gz | wc -l`
 
-  # Q3: AC=1, AF=0.000199681, SAS_AF=0.001
+  Q3: AC=1, AF=0.000199681, SAS_AF=0.001
   `bcftools view -H data/1kGP_chr22.vcf.gz | head -n1 | awk '{print $1,$2,$8;}'`
 
-  # Q4: AC=563, AF=0.11242, SAS_AF=0.2791
+  Q4: AC=563, AF=0.11242, SAS_AF=0.2791
   `bcftools view -H data/1kGP_chr22.vcf.gz 22:16051249 | awk '{print $1,$2,$8;}'`
 
-  # Q5: AC=9,87,599,20 so 4 alleles
+  Q5: AC=9,87,599,20 so 4 alleles
   `bcftools view -H data/1kGP_chr22.vcf.gz 22:16050654 | awk '{print $1,$2,$8;}'`
 
-  # Q6: GT, i.e. genotype
+  Q6: GT, i.e. genotype
   `bcftools view -h data/1kGP_chr22.vcf.gz`
  
 </details>
