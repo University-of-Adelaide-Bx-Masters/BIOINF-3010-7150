@@ -45,7 +45,7 @@ You should now see these files in your working directory (`~/wk9_sv`):
 ├── sorted.bam
 └── sorted.bam.bai
 
-0 directories, 17 files
+0 directories, 20 files
 ```
 
 
@@ -190,7 +190,7 @@ This should then create a sub-directory, `10kb_del`, with the structure:
 Then execute the `runWorkflow.py` script within:
 
 ```
-10kb_del/runWorkflow.py
+./10kb_del/runWorkflow.py
 ```
 
 If everything goes well you should see something like this at the end of the standard output:
