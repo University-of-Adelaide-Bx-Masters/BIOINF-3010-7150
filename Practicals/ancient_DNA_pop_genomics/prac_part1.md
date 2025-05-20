@@ -1,4 +1,4 @@
-# Ancient DNA and population genomics practical: Part 1 - Yassine Souilmi
+# Ancient DNA and population genomics practical: Part 1 - Bastien Llamas
 
 ---
 The two practicals will be separated into:
@@ -19,7 +19,7 @@ Icons are used to highlight sections of the practicals:
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> At the end of today's practical, you will know how to convert the information contained in a VCF file into other formats compatible with widely-used population genomics programs.
 
 ## Population genomics
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> In a nutshell, population genomics is the study of the genomic composition of populations and how evolution shaped it. Questions in population genomics classically target demographic history (population size through time), gene flow between populations, populations ancestry, or identification of conservation biology units.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> In a nutshell, population genomics is the study of the genomic composition of populations and how evolution shaped it. Questions in population genomics classically target demographic history (population size through time), gene flow between populations, populations ancestry, or identification of conserved biology units.
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> While population genetics is usually restricted to a small set of genetic loci, population genomics leverages the large genomic datasets that have become available in recent years and uses up to millions of genetic loci at once.
 
@@ -44,24 +44,24 @@ wget -O data/1kGP_chr22.vcf.gz.tbi 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/r
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Although you could use your own scripts to parse VCF files and analyse variant calls, several tools have already been developed for your convenience. We will be using the following tools for the next two practicals
 - [`bcftools`](http://samtools.github.io/bcftools/bcftools.html) is a set of utilities to manipulate variant calls in VCF files. 
-- [`plink`](https://www.cog-genomics.org/plink/) is a tool kit for population genetic and genome wise association analysis.
-- [EIGENSOFT](https://github.com/DReichLab/EIG) is set of tools for population genetic analysis such as principal component analysis (PCA).
-- [AdmixTools](https://github.com/DReichLab/AdmixTools) is used to investigate admixture and population history through ancestry estimation and admixture graph modeling.
+- [`plink`](https://www.cog-genomics.org/plink/) is a tool kit for population genomics and genome-wide association analysis.
+- [EIGENSOFT](https://github.com/DReichLab/EIG) is a set of tools for population genomic analysis such as principal component analysis (PCA).
+- [AdmixTools](https://github.com/DReichLab/AdmixTools) is used to investigate admixture and population history through ancestry estimation and admixture graph modelling.
 
-We will also be using some custom scripts to visualise the data. 
+We will also be using some custom R scripts to visualise the data. 
 
 ```bash
 # Activate the `popgen` environment
 source activate popgen
 
-# Copy Scripts
+# Copy R scripts
 cp ~/data/ancient/prac_1/* ~/Project_12_1/scripts/
 ```
 
 #### VCF meta-information and header lines
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Have a look at the compressed VCF file using `zless`. 
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Meta-information lines start with `##` and contain various metadata. The header line starts with `#` and is tab separated. It contains 9 columns of information about the variant calls, and then one column per sample name:
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Meta-information lines start with `##` and contain various metadata. The header line starts with `#` and is tab separated. It contains 9 columns of information about the variant calls, and then one column per sample:
 
 ||Name|Brief description (from [Wikipedia](https://en.wikipedia.org/wiki/Variant_Call_Format#The_columns_of_a_VCF))|
 |:-|:-|:-|
@@ -85,35 +85,40 @@ wget --directory-prefix data 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release
 #### VCF body
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> The body of the VCF file is tab separated. Each line represents a unique variant site.
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Before we move forward, let's see if you can retrieve basic information from a 1kGP VCF file that will be useful for population genomic analyses.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Before we move forward, let's see if you can retrieve basic information from a 1kGP VCF file that will be useful for population genomic analysis.
 
 ---
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
-1) Using `bcftools stats` or bash commands, determine how many variant sites are recorded in the VCF file.
-2) Using `bcftools query` or bash commands, determine how many samples are recorded in the VCF file.
-3) The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in South Asians.
-4) Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).
-5) How many alternative alleles are observed at position 16050654?    
-6) Looking at the information contained in the `FORMAT` field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?  
+1. Determine how many variant sites are recorded in the VCF file. You can use `bcftools stats`, or `bcftools view` and bash commands.
+2. Determine how many samples are recorded in the VCF file. You can use `bcftools stats`, or `bcftools query` and bash commands.
+3. The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in South Asians.
+4. Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).
+5. How many alternative alleles are observed at position 16050654?
+6. Looking at the information contained in the `FORMAT` field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?
 
 <details>
   <summary>Answers</summary>
 
-  ```bash
   # Q1: 1103547 variants
-  bcftools view -H data/1kGP_chr22.vcf.gz | wc -l
+  `bcftools stats data/1kGP_chr22.vcf.gz | less`
+  `bcftools view -H data/1kGP_chr22.vcf.gz | wc -l`
 
   # Q2: 2504 samples
-  bcftools query -l data/1kGP_chr22.vcf.gz | wc -l
+  `bcftools stats data/1kGP_chr22.vcf.gz | less`
+  `bcftools query -l data/1kGP_chr22.vcf.gz | wc -l`
 
   # Q3: AC=1, AF=0.000199681, SAS_AF=0.001
-  bcftools view -H data/1kGP_chr22.vcf.gz | head -n1 | awk '{print $1,$2,$8;}'
+  `bcftools view -H data/1kGP_chr22.vcf.gz | head -n1 | awk '{print $1,$2,$8;}'`
 
   # Q4: AC=563, AF=0.11242, SAS_AF=0.2791
-  bcftools view -H data/1kGP_chr22.vcf.gz 22:16051249 | awk '{print $1,$2,$8;}'
+  `bcftools view -H data/1kGP_chr22.vcf.gz 22:16051249 | awk '{print $1,$2,$8;}'`
 
-  # Q5: AC=9,87,599,20 so 4 
-  ```
+  # Q5: AC=9,87,599,20 so 4 alleles
+  `bcftools view -H data/1kGP_chr22.vcf.gz 22:16050654 | awk '{print $1,$2,$8;}'`
+
+  # Q6: GT, i.e. genotype
+  `bcftools view -h data/1kGP_chr22.vcf.gz`
+ 
 </details>
 ---
 
