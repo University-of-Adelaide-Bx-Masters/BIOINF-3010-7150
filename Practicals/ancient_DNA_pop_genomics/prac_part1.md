@@ -90,6 +90,12 @@ wget --directory-prefix data 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release
 ---
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
 1. Determine how many variant sites are recorded in the VCF file. You can use `bcftools stats`, or `bcftools view` and bash commands.
+<details>
+  <summary>Answer</summary>
+  Q1: 1,103,547 variants<br>
+  `bcftools stats data/1kGP_chr22.vcf.gz | less` or<br>
+  `bcftools view -H data/1kGP_chr22.vcf.gz | wc -l`
+</details>
 2. Determine how many samples are recorded in the VCF file. You can use `bcftools stats`, or `bcftools query` and bash commands.
 3. The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in South Asians.
 4. Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).
