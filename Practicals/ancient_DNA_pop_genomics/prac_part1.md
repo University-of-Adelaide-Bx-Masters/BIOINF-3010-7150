@@ -88,12 +88,12 @@ wget --directory-prefix data 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release
 
 ---
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
-1. Determine how many variant sites are recorded in the VCF file. You can use `bcftools stats`, or `bcftools view` and bash commands.
-2. Determine how many samples are recorded in the VCF file. You can use `bcftools stats`, or `bcftools query` and bash commands.
-3. The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in South Asians.
-4. Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).
-5. How many alternative alleles are observed at position 16050654?
-6. Looking at the information contained in the `FORMAT` field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?
+Q1. Determine how many variant sites are recorded in the VCF file. You can use `bcftools stats`, or `bcftools view` and bash commands.
+Q2. Determine how many samples are recorded in the VCF file. You can use `bcftools stats`, or `bcftools query` and bash commands.
+Q3. The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in South Asians.
+Q4. Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).
+Q5. How many alternative alleles are observed at position 16050654?
+Q6. Looking at the information contained in the `FORMAT` field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?
 
 <details>
   <summary>Answers</summary>
@@ -131,8 +131,8 @@ It is a tabulated file, with 4 columns corresponding to individual IDs, populati
 ---
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
 
-7. Using bash commands on the panel file you just downloaded, determine how many different populations and super-populations are represented in the 1kGP dataset.
-8. How many individuals are in each super-population?  
+Q7. Using bash commands on the panel file you just downloaded, determine how many different populations and super-populations are represented in the 1kGP dataset.
+Q8. How many individuals are in each super-population?  
 
 <details>
   <summary>Answers</summary>
@@ -176,8 +176,8 @@ It is a tabulated file, with 4 columns corresponding to individual IDs, populati
 ---
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
 
-9. What are the `REF` and `ALT` alleles?
-10. Given `REF` and `ALT` alleles found when answering question 9, and knowing that the genotypes are phased, what are all the possible genotypes?  
+Q9. What are the `REF` and `ALT` alleles?
+Q10. Given `REF` and `ALT` alleles found when answering question 9, and knowing that the genotypes are phased, what are all the possible genotypes?  
 
 <details>
   <summary>Answers</summary>
@@ -230,10 +230,10 @@ plink \
 ---
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*
 
-11. How many files have been generated, and what are their extensions?
-12. How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?
-13. If you look at the content of the `PLINK` variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).
-14. Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the `PLINK` sample file? *Hint: look at the `.fam` file*
+Q11. How many files have been generated, and what are their extensions?
+Q12. How many variants are stored in the variant file? How does it compare with the number of variants in the VCF file?
+Q13. If you look at the content of the `PLINK` variant file, you will notice that some variants are not bi-allelic SNPs. Provide an example of at most 2 other types of variations (tell what variations you observe and report the whole line for each example).
+Q14. Is the information stored in the panel file (`integrated_call_samples_v3.20130502.ALL.panel`) downloaded from the 1kGP FTP site reported in the `PLINK` sample file? *Hint: look at the `.fam` file*
 
 <details>
   <summary>Answers</summary>
@@ -319,8 +319,8 @@ plink \
 ---
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
 
-15. Does the `.fam` file contain updated information? What fields have been updated when compared to `plink_temp.fam`?
-16. How many variants are stored in the `.bim` file? How does it compare with the number of variants in `plink_temp.bim`?  
+Q15. Does the `.fam` file contain updated information? What fields have been updated when compared to `plink_temp.fam`?
+Q16. How many variants are stored in the `.bim` file? How does it compare with the number of variants in `plink_temp.bim`?  
 
 <details>
   <summary>Answers</summary>
@@ -351,8 +351,8 @@ plink \
 ---
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
 
-17. How many variants in the `.prune.in` and `.prune.out` output files?
-18. How does it compare to the number of variants in `1kGP_chr22.bim`?  
+Q17. How many variants in the `.prune.in` and `.prune.out` output files?
+Q18. How does it compare to the number of variants in `1kGP_chr22.bim`?  
 
 <details>
   <summary>Answers</summary>
@@ -382,8 +382,8 @@ plink \
 ---
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
 
-19. In terms of file size, what do you notice when you look at the `.bed`, `.bim` and `.fam` files before and after LD pruning?
-20. How do you explain the changes, or lack thereof?  
+Q19. In terms of file size, what do you notice when you look at the `.bed`, `.bim` and `.fam` files before and after LD pruning?
+Q20. How do you explain the changes, or lack thereof?  
 
 <details>
   <summary>Answers</summary>
@@ -424,8 +424,8 @@ Rscript scripts/plot_plink_pca.R
 ---
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*  
 
-21. Do you observe any obvious differences between the two PCA plots?
-22. What patterns do you observe?  
+Q21. Do you observe any obvious differences between the two PCA plots?
+Q22. What patterns do you observe?  
 
 <details>
   <summary>Answers</summary>
@@ -433,6 +433,7 @@ Rscript scripts/plot_plink_pca.R
   Q21: clusters seem more diffused with the non-LD-pruned data<br>
  
   Q22: relatively obvious clustering by super-populations, AMR seem admixed between EUR, AFR and EAS<br>
+  
 </details>
 
 ---
@@ -533,12 +534,13 @@ Rscript scripts/plot_smartpca.R
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/>*Questions*   
 
-23. Are the `SMARTPCA` results fundamentally different from `PLINK` PCA results?  
+Q23. Are the `SMARTPCA` results fundamentally different from `PLINK` PCA results?  
 
 <details>
   <summary>Answers</summary>
 
   Q23: No<br>
+  
 </details>
 
 ---
