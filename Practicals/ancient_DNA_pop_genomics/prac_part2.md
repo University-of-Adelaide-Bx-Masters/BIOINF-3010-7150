@@ -1,4 +1,4 @@
-# Ancient DNA and population genomics practical: Part 2 - Yassine Souilmi
+# Ancient DNA and population genomics practical: Part 2 - Bastien Llamas
 
 
 Icons are used to highlight sections of the practicals:
@@ -15,7 +15,7 @@ Icons are used to highlight sections of the practicals:
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> At the end of today's practical, you will know how to explore contemporary and ancient genomic diversity to infer population history. The practical is loosely based on Monday's lecture about the population history of Indigenous peoples of the Americas, in particular the [Posth *et al.*](https://www.sciencedirect.com/science/article/pii/S0092867418313801) *Cell* paper that was published in 2018.
 
 ## Reconstructing the Deep Population History of Central and South America [(Posth *et al.* 2018 Cell)](https://www.sciencedirect.com/science/article/pii/S0092867418313801)
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> This study generated 49 new genome-wide datasets that consist of enriched Illumina high-throughput sequencing of 1.2M SNPs from ancient DNA samples. All sampled individuals are from Central (Belize) and South (Brazil, Peru, Chile, Argentina) American individuals. The skeletal remains are dated between 10,900–700 BP (years before present), with the large majority of remains older than 1,000 BP.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> This study generated 49 new genome-wide datasets that consist of enriched Illumina high-throughput sequencing of 1.2M SNPs from ancient DNA samples. All sampled individuals are from archaeological sites in Central (Belize) and South (Brazil, Peru, Chile, Argentina) America. The skeletal remains are dated between 10,900–700 BP (years before present), with the large majority of remains older than 1,000 BP.
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> We know from previous genetic studies that Indigenous peoples of the Americas were isolated from the rest of the world since the peopling of the Americas until European colonisation during the 16<sup>th</sup> century. Thus we can safely assume that our ancient individual genomic datasets should not harbour signs of recent genetic admixture with non-Indigenous Americans.
 
@@ -28,7 +28,7 @@ Icons are used to highlight sections of the practicals:
 
 ## Let's explore the datasets
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Activate the environment `variation`.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/>  Activate the `popgen` environment:
 ```bash
 source activate popgen
 ```
@@ -50,10 +50,11 @@ source activate popgen
   * gender (M or F). U for Unknown
   * Case or Control status, or population group label. If this entry is set to "Ignore", then that individual and all genotype data from that individual will be removed from the data set in all `CONVERTF` output.
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Unarchive the practical data (stored in `~/data/genomics/ancient/`) in your working directory.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Copy `R` scripts and unarchive the practical data (stored in `~/data/genomics/ancient/`) in your working directory.
 ```bash
 mkdir -p ~/Project_12_2/{data,results,scripts}
 cd ~/Project_12_2/
+cp ~/data/ancient/prac_2/*.R ~/Project_12_2/scripts/
 tar xvzf ~/data/ancient/tutorial_popgen.tar.gz -C data/
 ll data/
 ```
@@ -64,211 +65,149 @@ ll data/
 
 ---
 #### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
-1) How many individuals are in the `AllAmerica_Ancient.eigenstrat.ind` dataset?
-2) Is there missing data in the ancient dataset `AllAmerica_Ancient.eigenstrat.geno`?
-3) How many SNPs in each dataset? Hint: look at the `.snp` files.  
+1. How many individuals are in the `AllAmerica_Ancient.eigenstrat.ind` dataset?
+2. Is there missing data in the ancient dataset `AllAmerica_Ancient.eigenstrat.geno`?
+3. How many SNPs in each dataset? Hint: look at the `.snp` files.  
+
+<details>
+  <summary>Answers</summary>
+  
+  Q1: 213
+  ```bash
+  wc -l data/AllAmerica_Ancient.eigenstrat.ind
+  ```
+  
+  Q2: yes, there is a lot of `9`
+  ```bash
+  grep -c "9" data/AllAmerica_Ancient.eigenstrat.geno
+  ```
+
+  Q3: 1,196,673 SNPs in each dataset
+  ```bash
+  for i in data/*.snp; do wc -l $i; done
+  ```
+
+</details>
 
 ---
 
 ## PCA
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We are going to use `SMARTPCA` (as part of the `EIGENSOFT` utilities, see the end of Tuesday's practical) and an implementation of `ADMIXTOOLS` in an `R` package called admixR (it needs `ADMIXTOOLS` to be already installed). These programs are installed in the conda environment `popgen`.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Make sure to copy the `$PATH` variable to `.Renviron`.
 ```bash
-# Make sure to copy the `$PATH` variable to `.Renviron`
 echo "PATH=$PATH" >> ~/.Renviron
 ```
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Go to Session > Restart R. 
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Build a parameter file named `data/par.AllAmerica_Ancient.smartpca` that will be one of the inputs for [SMARTPCA](https://github.com/DReichLab/EIG/tree/master/POPGEN). Because ancient data contain a lot of missing data, we are going to force `SMARTPCA` to construct the eigenvectors based on the contemporary populations (listed in [`poplistname`](https://github.com/DReichLab/EIG/tree/master/POPGEN)) and then project the ancient samples onto the PCA ([`lsqproject`](https://github.com/DReichLab/EIG/blob/master/POPGEN/lsqproject.pdf)).  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We will use [SMARTPCA](https://github.com/DReichLab/EIG/tree/master/POPGEN) to build a PCA of the data. Because ancient data contain a lot of missing data, we are going to force `SMARTPCA` to construct the eigenvectors based on the contemporary populations (listed in [`poplistname`](https://github.com/DReichLab/EIG/tree/master/POPGEN)) and then project the ancient samples onto the PCA ([`lsqproject`](https://github.com/DReichLab/EIG/blob/master/POPGEN/lsqproject.pdf)).  
 
-Let us edit the file in `nano`
 ```bash
-nano data/par.AllAmerica_Ancient.smartpca
-```
-Copy and Paste the following block of text into the file. 
-```bash
-genotypename:    data/AllAmerica_Ancient.eigenstrat.geno
+smartpca -p <(echo "genotypename:    data/AllAmerica_Ancient.eigenstrat.geno
 snpname:         data/AllAmerica_Ancient.eigenstrat.snp
 indivname:       data/AllAmerica_Ancient.eigenstrat.ind
 evecoutname:     results/AllAmerica_Ancient.smartpca_results.evec
 evaloutname:     results/AllAmerica_Ancient.smartpca_results.eval
-numoutevec:      5
+numoutevec:      10
 lsqproject:      YES
-poplistname:     data/poplistPCA
+poplistname:     data/poplistPCA")
 ```
-To save changed and exit editing more. 
-Press `Ctrl` + `x` to open the exit prompt. Then press `y`, followed by `Enter` to save and exit. 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Run `SMARTPCA`
+
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 10 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Run the custom Rscript to generate the scree and PCA plots. The combined plot should be in a `.pdf` file in `results/`.
 
 ```bash
-smartpca -p data/par.AllAmerica_Ancient.smartpca
-```
-
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> `SMARTPCA` has generated two output files with the suffixes `.evec` (first row is the eigenvalues for the first 5 PCs, and all further rows contain the PC coordinates for each sample) and `.evac` (all the eigenvalues). Go to the `R` console and create plots.
-
-```R
-# load libraries
-library(tidyverse)
-library(cowplot)
-
-# Set your working directory
-setwd("~/Project_12_2/results/")
-
-# data for scree plot
-adat.scree <- read.table("AllAmerica_Ancient.smartpca_results.eval", header = FALSE)
-# Add a column with row number (only needed to be able to do a bar plot)
-adat.scree$Name = 1:nrow(adat.scree)
-# Rename columns
-colnames(adat.scree) <- c("Scree","Name")
-# Restrict to the first 10 lines (first 10 eigenvalues)
-adat.scree <- head(adat.scree, 10)
-# Plot scree plot data
-adat.screep <- ggplot(adat.scree,aes(x = Name, y = Scree)) +
-               geom_bar(stat = "identity") + # heights of the bars represent values in the data
-               theme(axis.text.x = element_blank(), # no text for the x-axis
-                     axis.ticks.x = element_blank()) + # no ticks for the x-axis
-               xlab("component") + # x-axis label
-               ylab("eigenvalue") + # y-axis label
-               theme_bw() # Set theme
-          
-# Create dataframe for the data
-adat <- read.table("AllAmerica_Ancient.smartpca_results.evec", header = FALSE)
-# Reduce table to just the sample name, the first 3 PCs, and the population name
-adat <- adat[,c(1:4,7)]
-# Rename columns
-colnames(adat) <- c("SAMPLE", "PC1", "PC2", "PC3", "POP")
-# Create column for ancient vs contemporary, conditioning on the string "BP" (included in the dates) or the name of the ancient sample (Anzick and USR1)
-adat$DATE <- ifelse(grepl('BP', adat$POP), "Ancient",
-                    ifelse(grepl('Anzick', adat$POP), "Anzick",
-                           ifelse(grepl('USR', adat$SAMPLE), "USR", "Contemporary")))
-# Create column with simplified names
-#adat$GROUP <- word(adat$POP, 1, sep = "_|\\.")
-# Create plot with populations in different colours and super-populations with different point shapes
-adat.pc12 <- ggplot(adat, aes(x = PC1, y = PC2)) + 
-             geom_point(aes(fill = POP, colour = POP, shape = DATE), size = 4) +
-             scale_shape_manual(values=c(21, 22, 24, 25)) + theme_bw()
-
-# Combine plots using plot_grid from cowplot
-prow <- plot_grid(adat.pc12 + theme(legend.position="none"), # remove the legend
-                  adat.screep + theme(legend.position="none"), # remove the legend
-                  align = 'vh', # plots are aligned vertically and horizontally
-                  nrow = 1, # 2 plots on one row
-                  rel_widths = c(1, .5)) # width ratio between plots is 1:0.5
-
-# Prepare legend for the PCA plot
-legend <- get_legend(adat.pc12 + 
-                     guides(color = guide_legend(nrow = 5)) + # legend spans 5 lines
-                     theme(legend.position = "bottom")) # legend is displayed at the bottom of the plots (i.e., horizontal not vertical)
-                     
-# Combine plots and legend using plot_grid from cowplot
-plt1 <- plot_grid(prow, legend, ncol = 1, rel_heights = c(1, .3)) # height ratio between plots and legend is 1:0.3
-
-# Save plot as pdf 
-ggsave("AllAmerica_Ancient.smartpca_scree.pdf", plt1, dpi=300, height=10, width=14)
+Rscript scripts/plot_smartpca.R
 ```
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
-4) The scree plot represents the value for each eigenvector, i.e., the variance in the data explained by the eigenvector. In your opinion, does the first eigenvector explain much variance compared to other vectors?  
-5) PC1 seems to capture the variation observed between eskimos and modern Peruvian (PEL), while PC2 seems to capture the variation just within PEL. Knowing that PEL is individuals from Lima, the capital city of Peru, why would the PEL population be so diverse?  
-6) Where do the ancient samples cluster in regards to the PCA coordinates? And where in regards to contemporary populations?  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
+
+4. The scree plot represents the value for each eigenvector, i.e. the variance in the data explained by the eigenvector. In your opinion, does the first eigenvector explain much variance compared to other vectors?
+5. PC1 seems to capture the variation observed between eskimos and modern Peruvian (PEL), while PC2 seems to capture the variation just within PEL. Knowing that PEL is individuals from Lima, the capital city of Peru, why would the PEL population be so diverse?
+6. Where do the ancient samples cluster in regards to the PCA coordinates? And where in regards to contemporary populations?  
+
+<details>
+  <summary>Answers</summary>
+  
+  Q4: No
+  
+  Q5: Mixed ancestry between Indigenous South Americans and Europeans (colonial history), Africans (slave trade), and East Asians (20th century migrations)
+
+  Q6: around 0-0, on top of contemporary populations
+
+</details>
 
 ---
 
 
 ## *F*3 statistics
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> We want to infer the relative divergence times between pairs of populations, and in which order they split from each other. We can use an outgroup *F*3 statistic by fixing the outgroup as YRI, and calculating pairwise *F*3 statistics between populations. The higher the *F*3 value, the more shared drift between the two test populations, i.e. the more related they are.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> We want to infer the relative divergence times between pairs of populations, and in which order they split from each other. We can use an outgroup *F*3 statistic by fixing the outgroup as YRI (Yoruba, in Africa), and calculating pairwise *F*3 statistics between populations. The higher the *F*3 value, the more shared drift between the two test populations, i.e. the more related they are.
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Using `ADMIXTOOLS` to compute *F* and *D* statistics can be very time consuming because the programs are not user friendly, and building the parameter files can be time consuming. Instead, we can use the `R` implementation [`admixr`](https://github.com/bodkan/admixr) of `ADMIXTOOLS` by Martin Petr. You may want to read the very short [*Bioinformatics* Applications Note](https://academic.oup.com/bioinformatics/article/35/17/3194/5298728), or better, explore the comprehensive [tutorial](https://bodkan.net/admixr/articles/tutorial.html) on your own time. 
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Using `ADMIXTOOLS` to compute *F* and *D* statistics can be very time consuming because the programs are not user friendly, and building the parameter files is usually an opportunity for human error. Instead, we can use the `R` implementation [`admixr`](https://github.com/bodkan/admixr) of `ADMIXTOOLS` by Martin Petr. You may want to read the very short [*Bioinformatics* Applications Note](https://academic.oup.com/bioinformatics/article/35/17/3194/5298728), or better, explore the comprehensive [tutorial](https://bodkan.net/admixr/articles/tutorial.html) on your own time. 
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Load the libraries needed to run `admixr` (use the `R` console) and run *F*3 statistics on a subset of populations.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> In the `R` console (not the terminal!), set the working directory and run *F*3 statistics on a subset of populations using the script `scripts/run_F3.R`. Stop where it says to stop...
 
 ```R
-#OPTIONAL: Install packages if they are not readily available
-#library(devtools)
-#devtools::install_github("bodkan/admixr")
-#install.packages("tidyverse")
-library(admixr)
-library(tidyverse)
-
-# Set working dir
 setwd("~/Project_12_2/")
-
-# Load the dataset that includes the African individual
-snpsAmerica <- eigenstrat(prefix = "data/AllAmerica_Ancient_YRI.eigenstrat")
-
-# Create a list of population we want to test (just a subset of the 
-pops <- c("Eskimo", "Aymara", "Anzick", "USR1", "Peru_Lauricocha_8600BP", "Peru_Lauricocha_5800BP", "Brazil_LapaDoSanto_9600BP", "Chile_LosRieles_10900BP")
-result <- f3(A = pops, B = pops, C = "YRI", data = snpsAmerica)
-
-head(result)
+file.edit("scripts/run_F3.R")
+#run the script line by line in the console
 ```
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> The output table contains a lot of information that we can unpack:
-* `F3`: *F*3 statistic value
+* `A`, `B`, `C`: populations used in the test. Note that we keep YRI as the outgroup `C`
+* `f3`: *F*3 statistic value
 * `stderr`: standard error of the *F*3 statistic calculated using the block jackknife
 * `Zscore`: *Z*-score value, which is the number of standard errors the *F*3 is from 0 (i.e. how strongly do we reject the null hypothesis of no admixture)
 * `nsnps`: number of SNPs used
  
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We can also plot a heatmap to better visualise the pairwise comparisons:
-```R
-# Sort the population labels according to an increasing F3 value relative to Aymara
-ordered <- filter(result, A == "Aymara", B != "Aymara") %>% arrange(f3) %>% .[["B"]] %>% c("Aymara")
-
-# Plot heatmap of pairwise F3 values
-result %>%
-  filter(A != B) %>%
-  mutate(A = factor(A, levels = ordered),
-         B = factor(B, levels = ordered)) %>%
-  ggplot(aes(A, B)) + geom_tile(aes(fill = f3)) + theme_bw()
-```
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Resume the `R` script in the `R` console and plot the results in a heatmap to better visualise the pairwise comparisons. Stop where it says to stop...
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
 
-7) What two populations/individuals seem to diverge earlier than the others?  
+7. What two populations/individuals seem to diverge earlier than the others?
+
+<details>
+  <summary>Answers</summary>
+  
+  Q7: Peru_Lauricocha_5800BP and Chile_LosRieles_10900BP
+
+</details>
 
 ---
 
 
 ## *D* statistics
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Now we want to know how populations compare in terms of ancestry from Anzick-1. For this, we can consider of comparing either Anzick-1 or USR1 with the different populations, using YRI as an outgroup. Since we know already that USR1 did not contribute any ancestry to South Americans, we are basically testing the proportion of Anzick-1 ancestry only.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Now we want to know how populations compare in terms of ancestry from Anzick-1. For this, we can compare either Anzick-1 or USR1 with the different populations, using YRI as an outgroup. Since we know already from the paper that USR1 did not contribute any ancestry to South Americans, we are basically testing the proportion of Anzick-1 ancestry only.
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Run *D* statistics on a subset of populations.
-
-```R
-# Create a list of populations we want to test (just a subset of the populations in the dataset)
-pops2 <- c("Eskimo", "Aymara", "Peru_Lauricocha_5800BP", "Brazil_LapaDoSanto_9600BP", "Chile_LosRieles_10900BP")
-result2 <- d(W = pops2, X = "USR1", Y = "Anzick", Z = "YRI", data = snpsAmerica)
-
-head(result2)
-```
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Resume the `R` script in the `R` console and run *D* statistics on a subset of populations. Stop where it says to stop...
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> Again, the output table contains a lot of information that we can unpack:
+* `W`, `X`, `Y`, `Z`: populations used in the test. Note that we keep YRI as the outgroup `Z`, USR1 and Anzick-1 as the sources of admixture `X` and `Y`, and we rotate all other populations as `W`
 * `D`: *D* statistic value
 * `stderr`: standard error of the *D* statistic calculated using the block jackknife
 * `Zscore`: *Z*-score value, which is the number of standard errors the *D* is from 0 (i.e. how strongly we reject the null hypothesis of no admixture)
-* `BABA`, `ABBA`: counts of observed site patterns
+* `BABA`, `ABBA`: counts of observed BABA and ABBA site patterns
 * `nsnps`: number of SNPs used
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> However, a graphic representation is always easier to interpret:  
-
-```R
-# Sort the population labels according to an increasing D value and plot average and Z-score
-ggplot(result2, aes(fct_reorder(W, D), D, color = abs(Zscore) > 2)) +
-  geom_point() +
-  geom_hline(yintercept = 0, linetype = 2) +
-  geom_errorbar(aes(ymin = D - 2 * stderr, ymax = D + 2 * stderr)) + 
-  theme_bw()
-```
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> However, a graphic representation is always easier to interpret. Resume the `R` script in the `R` console and plot the results.  
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
 
-8) Is there any test population/individual for which *D* is not different from 0? What does it mean in terms of admixture?  
-9) Is there any test population/individual for which *D* is different from 0? Any particular pattern to report?  
+8. Is there any test population/individual for which *D* is not different from 0? What does it mean in terms of admixture?
+9. Is there any test population/individual for which *D* is different from 0? Any particular pattern to report?  
+
+<details>
+  <summary>Answers</summary>
+  
+  Q8: Yes, the Eskimo population. Anzick-1 did not contribute ancestry to the Eskimos
+
+  Q9: Yes, all ancient and contemporary South Americans. There seems to be variable amount of Anzick-1 ancestry
+
+</details>
 
 ---
 

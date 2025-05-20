@@ -378,3 +378,5 @@ The `--nodes` parameter is the number of the node you're interested in and the `
 Bandage image in.gfa out.png --scope aroundnodes --nodes 349 --distance 10
 ```
 
+Go [here](./prac_part1_answers.md) for answers. 
+
