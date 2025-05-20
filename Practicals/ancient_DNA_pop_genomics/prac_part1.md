@@ -99,8 +99,10 @@ wget --directory-prefix data 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release
 <details>
   <summary>Answers</summary>
 
-  Q1: 1103547 variants
-  `bcftools stats data/1kGP_chr22.vcf.gz | less` or `bcftools view -H data/1kGP_chr22.vcf.gz | wc -l`
+  <p>Q1: 1103547 variants<br>
+    `bcftools stats data/1kGP_chr22.vcf.gz | less` or<br>
+    `bcftools view -H data/1kGP_chr22.vcf.gz | wc -l`
+  </p>
 
   Q2: 2504 samples
   `bcftools stats data/1kGP_chr22.vcf.gz | less` or `bcftools query -l data/1kGP_chr22.vcf.gz | wc -l`
