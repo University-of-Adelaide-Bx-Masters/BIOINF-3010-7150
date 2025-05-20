@@ -72,20 +72,14 @@ ll data/
 <details>
   <summary>Answers</summary>
   
-  Q1: 213
-  ```bash
-  wc -l data/AllAmerica_Ancient.eigenstrat.ind
-  ```
+  Q1: 213<br>
+  `wc -l data/AllAmerica_Ancient.eigenstrat.ind`<br>
   
-  Q2: yes, there is a lot of `9`
-  ```bash
-  grep -c "9" data/AllAmerica_Ancient.eigenstrat.geno
-  ```
+  Q2: yes, there is a lot of `9`<br>
+  `grep -c "9" data/AllAmerica_Ancient.eigenstrat.geno`<br>
 
-  Q3: 1,196,673 SNPs in each dataset
-  ```bash
-  for i in data/*.snp; do wc -l $i; done
-  ```
+  Q3: 1,196,673 SNPs in each dataset<br>
+  `for i in data/*.snp; do wc -l $i; done`<br>
 
 </details>
 
@@ -129,11 +123,11 @@ Rscript scripts/plot_smartpca.R
 <details>
   <summary>Answers</summary>
   
-  Q4: No
+  Q4: No<br>
   
-  Q5: Mixed ancestry between Indigenous South Americans and Europeans (colonial history), Africans (slave trade), and East Asians (20th century migrations)
+  Q5: Mixed ancestry between Indigenous South Americans and Europeans (colonial history), Africans (slave trade), and East Asians (20th century migrations)<br>
 
-  Q6: around 0-0, on top of contemporary populations
+  Q6: around 0-0, on top of contemporary populations<br>
 
 </details>
 
@@ -171,7 +165,7 @@ file.edit("scripts/run_F3.R")
 <details>
   <summary>Answers</summary>
   
-  Q7: Peru_Lauricocha_5800BP and Chile_LosRieles_10900BP
+  Q7: Peru_Lauricocha_5800BP and Chile_LosRieles_10900BP<br>
 
 </details>
 
@@ -203,9 +197,9 @@ file.edit("scripts/run_F3.R")
 <details>
   <summary>Answers</summary>
   
-  Q8: Yes, the Eskimo population. Anzick-1 did not contribute ancestry to the Eskimos
+  Q8: Yes, the Eskimo population. Anzick-1 did not contribute ancestry to the Eskimos<br>
 
-  Q9: Yes, all ancient and contemporary South Americans. There seems to be variable amount of Anzick-1 ancestry
+  Q9: Yes, all ancient and contemporary South Americans. There seems to be variable amount of Anzick-1 ancestry<br>
 
 </details>
 
