@@ -64,7 +64,7 @@ ll data/
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Using bash commands, answer the following questions.
 
 ---
-#### <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*<br>
 Q1. How many individuals are in the `AllAmerica_Ancient.eigenstrat.ind` dataset?<br>
 Q2. Is there missing data in the ancient dataset `AllAmerica_Ancient.eigenstrat.geno`?<br>
 Q3. How many SNPs in each dataset? *Hint: look at the `.snp` files*<br>
@@ -114,7 +114,7 @@ Rscript scripts/plot_smartpca.R
 ```
 
 ---
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*<br>
 
 Q4. The scree plot represents the value for each eigenvector, i.e. the variance in the data explained by the eigenvector. In your opinion, does the first eigenvector explain much variance compared to other vectors?<br>
 Q5. PC1 seems to capture the variation observed between eskimos and modern Peruvian (PEL), while PC2 seems to capture the variation just within PEL. Knowing that PEL is individuals from Lima, the capital city of Peru, why would the PEL population be so diverse?<br>
@@ -158,7 +158,7 @@ file.edit("scripts/run_F3.R")
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Resume the `R` script in the `R` console and plot the results in a heatmap to better visualise the pairwise comparisons. Stop where it says to stop...
 
 ---
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*<br>
 
 Q7. What two populations/individuals seem to diverge earlier than the others?<br>
 
@@ -189,7 +189,7 @@ Q7. What two populations/individuals seem to diverge earlier than the others?<br
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> However, a graphic representation is always easier to interpret. Resume the `R` script in the `R` console and plot the results.  
 
 ---
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*  
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*<br>
 
 Q8. Is there any test population/individual for which *D* is not different from 0? What does it mean in terms of admixture?<br>
 Q9. Is there any test population/individual for which *D* is different from 0? Any particular pattern to report?<br>
