@@ -31,13 +31,14 @@ Icons are used to highlight sections of the practicals:
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We will use a VCF file of human chromosome 22 from the 1000 Genomes Project (1kGP) that we will save into a working directory in your home directory:
 
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Create working directories:
 ```bash
-# Create working directory
 mkdir -p ~/Project_12_1/{data,scripts,results}
 cd ~/Project_12_1/
 ```
+
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Download compressed VCF file and its index from the 1kGP public FTP site (VCF file size: 214453750 bytes):
 ```bash
-# Download compressed VCF file and its index from the 1kGP public FTP site (VCF file size: 214453750 bytes)
 wget -O data/1kGP_chr22.vcf.gz 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz'
 wget -O data/1kGP_chr22.vcf.gz.tbi 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release/20130502/ALL.chr22.phase3_shapeit2_mvncall_integrated_v5a.20130502.genotypes.vcf.gz.tbi'
 ```
@@ -48,13 +49,11 @@ wget -O data/1kGP_chr22.vcf.gz.tbi 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/r
 - [EIGENSOFT](https://github.com/DReichLab/EIG) is a set of tools for population genomic analysis such as principal component analysis (PCA).
 - [AdmixTools](https://github.com/DReichLab/AdmixTools) is used to investigate admixture and population history through ancestry estimation and admixture graph modelling.
 
-We will also be using some custom R scripts to visualise the data. 
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> We will also be using some custom R scripts to visualise the data. 
 
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/>  Activate the `popgen` environment and copy R scripts:
 ```bash
-# Activate the `popgen` environment
 source activate popgen
-
-# Copy R scripts
 cp ~/data/ancient/prac_1/* ~/Project_12_1/scripts/
 ```
 
