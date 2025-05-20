@@ -66,21 +66,24 @@ ll data/
 ---
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*<br>
 Q1. How many individuals are in the `AllAmerica_Ancient.eigenstrat.ind` dataset?<br>
-Q2. Is there missing data in the ancient dataset `AllAmerica_Ancient.eigenstrat.geno`?<br>
-Q3. How many SNPs in each dataset? *Hint: look at the `.snp` files*<br>
-
 <details>
-  <summary>Answers</summary>
-  
-  Q1: 213<br>
-  `wc -l data/AllAmerica_Ancient.eigenstrat.ind`<br>
-  
-  Q2: yes, there is a lot of `9`<br>
-  `grep -c "9" data/AllAmerica_Ancient.eigenstrat.geno`<br>
+  <summary>Answer</summary>
+  213<br>
+  <code>wc -l data/AllAmerica_Ancient.eigenstrat.ind</code><br>
+</details>
 
-  Q3: 1,196,673 SNPs in each dataset<br>
-  `for i in data/*.snp; do wc -l $i; done`<br>
+Q2. Is there missing data in the ancient dataset `AllAmerica_Ancient.eigenstrat.geno`?<br>
+<details>
+  <summary>Answer</summary>
+  yes, there is a lot of 9<br>
+  <code>grep -c "9" data/AllAmerica_Ancient.eigenstrat.geno</code><br>
+</details>
 
+Q3. How many SNPs in each dataset? *Hint: look at the `.snp` files*<br>
+<details>
+  <summary>Answer</summary>
+  1,196,673 SNPs in each dataset<br>
+  <code>for i in data/*.snp; do wc -l $i; done</code><br>
 </details>
 
 ---
@@ -117,18 +120,21 @@ Rscript scripts/plot_smartpca.R
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*<br>
 
 Q4. The scree plot represents the value for each eigenvector, i.e. the variance in the data explained by the eigenvector. In your opinion, does the first eigenvector explain much variance compared to other vectors?<br>
-Q5. PC1 seems to capture the variation observed between eskimos and modern Peruvian (PEL), while PC2 seems to capture the variation just within PEL. Knowing that PEL is individuals from Lima, the capital city of Peru, why would the PEL population be so diverse?<br>
-Q6. Where do the ancient samples cluster in regards to the PCA coordinates? And where in regards to contemporary populations?<br>
-
 <details>
-  <summary>Answers</summary>
-  
-  Q4: No<br>
-  
-  Q5: Mixed ancestry between Indigenous South Americans and Europeans (colonial history), Africans (slave trade), and East Asians (20th century migrations)<br>
+  <summary>Answer</summary>
+  No<br>
+</details>
 
-  Q6: around 0-0, on top of contemporary populations<br>
+Q5. PC1 seems to capture the variation observed between eskimos and modern Peruvian (PEL), while PC2 seems to capture the variation just within PEL. Knowing that PEL is individuals from Lima, the capital city of Peru, why would the PEL population be so diverse?<br>
+<details>
+  <summary>Answer</summary>
+ Mixed ancestry between Indigenous South Americans and Europeans (colonial history), Africans (slave trade), and East Asians (20th century migrations)<br>
+</details>
 
+Q6. Where do the ancient samples cluster in regards to the PCA coordinates? And where in regards to contemporary populations?<br>
+<details>
+  <summary>Answer</summary>
+  Around 0-0, on top of contemporary populations<br>
 </details>
 
 ---
@@ -161,12 +167,9 @@ file.edit("scripts/run_F3.R")
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*<br>
 
 Q7. What two populations/individuals seem to diverge earlier than the others?<br>
-
 <details>
-  <summary>Answers</summary>
-  
-  Q7: Peru_Lauricocha_5800BP and Chile_LosRieles_10900BP<br>
-
+  <summary>Answer</summary>
+  Peru_Lauricocha_5800BP and Chile_LosRieles_10900BP<br>
 </details>
 
 ---
@@ -192,15 +195,15 @@ Q7. What two populations/individuals seem to diverge earlier than the others?<br
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*<br>
 
 Q8. Is there any test population/individual for which *D* is not different from 0? What does it mean in terms of admixture?<br>
-Q9. Is there any test population/individual for which *D* is different from 0? Any particular pattern to report?<br>
-
 <details>
-  <summary>Answers</summary>
+  <summary>Answer</summary>
+  Yes, the Eskimo population. Anzick-1 did not contribute ancestry to the Eskimos<br>
+</details>
   
-  Q8: Yes, the Eskimo population. Anzick-1 did not contribute ancestry to the Eskimos<br>
-
-  Q9: Yes, all ancient and contemporary South Americans. There seems to be variable amount of Anzick-1 ancestry<br>
-
+Q9. Is there any test population/individual for which *D* is different from 0? Any particular pattern to report?<br>
+<details>
+  <summary>Answer</summary>
+  Yes, all ancient and contemporary South Americans. There seems to be variable amount of Anzick-1 ancestry<br>
 </details>
 
 ---
