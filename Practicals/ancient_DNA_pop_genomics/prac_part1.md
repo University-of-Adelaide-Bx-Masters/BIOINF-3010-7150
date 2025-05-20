@@ -89,33 +89,46 @@ wget --directory-prefix data 'ftp://ftp.ncbi.nlm.nih.gov/1000genomes/ftp/release
 ---
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/quiz_black_24dp.png" alt="Questions"/> *Questions*<br>
 Q1. Determine how many variant sites are recorded in the VCF file. You can use `bcftools stats`, or `bcftools view` and bash commands.<br>
-Q2. Determine how many samples are recorded in the VCF file. You can use `bcftools stats`, or `bcftools query` and bash commands.<br>
-Q3. The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in South Asians.<br>
-Q4. Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).<br>
-Q5. How many alternative alleles are observed at position 16050654?<br>
-Q6. Looking at the information contained in the `FORMAT` field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?<br>
-
 <details>
-  <summary>Answers</summary>
-  
-  Q1: 1,103,547 variants<br>
+  <summary>Answer</summary>
+  1,103,547 variants<br>
   `bcftools stats data/1kGP_chr22.vcf.gz | less`<br>
   `bcftools view -H data/1kGP_chr22.vcf.gz | wc -l`<br>
+</details>
 
-  Q2: 2,504 samples<br>
+Q2. Determine how many samples are recorded in the VCF file. You can use `bcftools stats`, or `bcftools query` and bash commands.<br>
+<details>
+  <summary>Answer</summary>
+  2,504 samples<br>
   `bcftools stats data/1kGP_chr22.vcf.gz | less`<br>
   `bcftools query -l data/1kGP_chr22.vcf.gz | wc -l`<br>
+</details>
 
-  Q3: AC=1, AF=0.000199681, SAS_AF=0.001<br>
+Q3. The `INFO` fields contain a lot of information. In particular for the first variant position in the file: determine how many samples have data, how many ALT alleles are reported,  what the frequency of the ALT allele is globally, and what the frequency of the ALT allele is in South Asians.<br>
+<details>
+  <summary>Answer</summary>
+  AC=1, AF=0.000199681, SAS_AF=0.001<br>
   `bcftools view -H data/1kGP_chr22.vcf.gz | head -n1 | awk '{print $1,$2,$8;}'`<br>
+</details>
 
-  Q4: AC=563, AF=0.11242, SAS_AF=0.2791<br>
+Q4. Same as question 3 for variant position 16051249 (see the [BCFtools manual](http://samtools.github.io/bcftools/bcftools.html) for region or target formatting).<br>
+<details>
+  <summary>Answer</summary>
+   AC=563, AF=0.11242, SAS_AF=0.2791<br>
   `bcftools view -H data/1kGP_chr22.vcf.gz 22:16051249 | awk '{print $1,$2,$8;}'`<br>
+</details>
 
-  Q5: AC=9,87,599,20 so 4 alleles<br>
+Q5. How many alternative alleles are observed at position 16050654?<br>
+<details>
+  <summary>Answer</summary>
+  AC=9,87,599,20 so 4 alleles<br>
   `bcftools view -H data/1kGP_chr22.vcf.gz 22:16050654 | awk '{print $1,$2,$8;}'`<br>
+</details>
 
-  Q6: GT, i.e. genotype<br>
+Q6. Looking at the information contained in the `FORMAT` field in the body of the VCF file, what kind of data is stored in the VCF file for each sample?<br>
+<details>
+  <summary>Answers</summary>
+  GT, i.e. genotype<br>
   `bcftools view -h data/1kGP_chr22.vcf.gz`<br>
 </details>
 
