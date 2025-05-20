@@ -88,6 +88,7 @@ ll data/
   ```
 
 </details>
+
 ---
 
 ## PCA
@@ -135,6 +136,7 @@ Rscript scripts/plot_smartpca.R
   Q6: around 0-0, on top of contemporary populations
 
 </details>
+
 ---
 
 
@@ -173,6 +175,7 @@ file.edit("scripts/run_F3.R")
   Q7: Peru_Lauricocha_5800BP and Chile_LosRieles_10900BP
 
 </details>
+
 ---
 
 
@@ -206,6 +209,7 @@ file.edit("scripts/run_F3.R")
   Q9: Yes, all ancient and contemporary South Americans. There seems to be variable amount of Anzick-1 ancestry
 
 </details>
+
 ---
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> To estimate the minimum number of streams of ancestry contributing to Central and South American populations, we have used in our study the software `qpWave` (also implemented in `admixr`). `qpWave` assesses whether *F*4-statistics of the form *F*4(A = South American 1, B = South American 2; X = outgroup 1, Y = outgroup 2) form a matrix that is consistent with different ranks: rank 0 is consistent with a single stream of ancestry relative to the outgroups, rank 1 means 2 streams of ancestry, etc. This is how we could identify at least 3 streams of ancestry: one related to Anzick-1, 2 others related to other North American populations and never reported before.
