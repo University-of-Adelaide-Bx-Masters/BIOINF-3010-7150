@@ -28,10 +28,9 @@ Icons are used to highlight sections of the practicals:
 
 ## Let's explore the datasets
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/>  Activate the `popgen` environment and copy R scripts:
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/>  Activate the `popgen` environment:
 ```bash
 source activate popgen
-cp ~/data/ancient/prac_2/*.R ~/Project_12_2/scripts/
 ```
 
 <img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/book_black_24dp.png" alt="Book"/> I provided 2 datasets in `EIGENSTRAT` format. As a reminder, the `EIGENSTRAT` format consists of 3 files:
@@ -51,10 +50,11 @@ cp ~/data/ancient/prac_2/*.R ~/Project_12_2/scripts/
   * gender (M or F). U for Unknown
   * Case or Control status, or population group label. If this entry is set to "Ignore", then that individual and all genotype data from that individual will be removed from the data set in all `CONVERTF` output.
 
-<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Unarchive the practical data (stored in `~/data/genomics/ancient/`) in your working directory.
+<img src="https://raw.githubusercontent.com/University-of-Adelaide-Bx-Masters/BIOINF-3010-7150/master/images/computer_black_24dp.png" alt="Computer"/> Copy `R` scripts and unarchive the practical data (stored in `~/data/genomics/ancient/`) in your working directory.
 ```bash
 mkdir -p ~/Project_12_2/{data,results,scripts}
 cd ~/Project_12_2/
+cp ~/data/ancient/prac_2/*.R ~/Project_12_2/scripts/
 tar xvzf ~/data/ancient/tutorial_popgen.tar.gz -C data/
 ll data/
 ```
